@@ -1,0 +1,86 @@
+<!-- <div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-6 card m-5 p-5">
+            <div class="row">
+               <div class="col d-flex justify-content-center">
+                <button class="btn btn-primary mx-2"  (click)="submitAdmin()">Admin Login</button>
+                <button class="btn btn-primary mx-2" (click)="submitDoctor()">Doctor Login</button>
+                <button class="btn btn-primary mx-2" (click)="submitSuperAdmin()">Super Admin Login</button>
+                <button class="btn btn-primary mx-2" (click)="submitReceptionist()">Receptionist Login</button>
+               </div>
+            </div>
+        </div> 
+    </div>
+    <div class="row">
+        <div class="col-md-6"></div>
+    </div>
+</div> -->
+<div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+    <c-container>
+        <c-row class="justify-content-center">
+            <c-col md="12" lg="8">
+                <c-card-group>
+                    <c-card class="p-4">
+                        <c-card-body>
+                            <form cForm  [formGroup]="form">
+                                <h1>Login</h1>
+                                <p class="text-medium-emphasis">Sign In to your account</p>
+                                <c-input-group class="mb-3">
+                                    <span cInputGroupText>
+                                        <svg cIcon name="cil3d"></svg>
+                                    </span>
+                                    <select aria-label="Default select example" formControlName="role" (change)="onRoleSelect()" cSelect>
+                                        <option value=null disabled>Select Role </option>
+                                        <option value=1>Super Admin</option>
+                                        <option value=2>Admin</option>
+                                        <option value=3>Receptionist</option>
+                                        <option value=4>Doctor</option>
+                                    </select>
+                                </c-input-group>
+                                <c-input-group class="mb-3">
+                                    <span cInputGroupText>
+                                        <svg cIcon name="cilUser"></svg>
+                                    </span>
+                                    <input autoComplete="username" cFormControl placeholder="Username" />
+                                </c-input-group>
+                                <c-input-group class="mb-4">
+                                    <span cInputGroupText>
+                                        <svg cIcon name="cilLockLocked"></svg>
+                                    </span>
+                                    <input autoComplete="current-password" cFormControl placeholder="Password"
+                                        type="password" />
+                                </c-input-group>
+                                <c-row>
+                                    <c-col xs="6">
+                                        <button cButton class="px-4" color="primary" (click)="submit()">
+                                            Login
+                                        </button>
+                                    </c-col>
+                                    <c-col class="text-right" xs="6">
+                                        <button cButton class="px-0" color="link">
+                                            Forgot password?
+                                        </button>
+                                    </c-col>
+                                </c-row>
+                            </form>
+                        </c-card-body>
+                    </c-card>
+                    <c-card [ngStyle]="{'width.%': 44}" class="text-white bg-primary py-5">
+                        <c-card-body class="text-center">
+                            <div>
+                                <!-- <h2>Sign up</h2> -->
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                    tempor incididunt ut labore et dolore magna aliqua.
+                                </p>
+                                <!-- <button [active]="true" cButton class="mt-3" color="primary" routerLink="/register">
+                  Register Now!
+                </button> -->
+                            </div>
+                        </c-card-body>
+                    </c-card>
+                </c-card-group>
+            </c-col>
+        </c-row>
+    </c-container>
+</div>

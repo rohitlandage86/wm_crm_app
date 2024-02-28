@@ -1,0 +1,33 @@
+<c-row class="m-0">
+    <c-col xs="12 "  class="p-0 " >
+        <c-card class="">
+            <c-card-header >
+                <strong>{{isEdit?'Edit':'Add'}} Module</strong>
+            </c-card-header>
+            <c-card-body>
+                <form cForm class="row g-3" [formGroup]="form">
+                    <c-col md="8">
+                        <label cLabel for="validationDefault01">Module Name</label>
+                        <input cFormControl id="validationDefault01"  type="text" formControlName="module_name" [ngClass]="{ 'is-invalid': control['module_name'].invalid &&(control['module_name'].dirty ||control['module_name'].touched)}" />
+                        <div class="text-danger" *ngIf="control['module_name'].invalid &&(control['module_name'].dirty ||control['module_name'].touched)">
+                            <small >Please provide a valid module.</small>
+                        </div>
+                    </c-col>
+                    <c-col xs="12">
+                        <label cLabel for="exampleFormControlTextarea1">Description</label>
+                        <textarea cFormControl id="exampleFormControlTextarea1" formControlName="description" rows="3"></textarea>
+                      </c-col>
+                    <c-col xs="12">
+                        <button cButton class="me-1" color="primary" (click)="submit()" >
+                            Submit
+                        </button>
+                        <button cButton color="secondary" (click)="closeDialog()">
+                            Cancel
+                        </button>
+                    </c-col>
+                </form>
+            </c-card-body>
+        </c-card>
+    </c-col>
+
+</c-row>

@@ -1,0 +1,75 @@
+<!-- Super Admin Sidebar -->
+<div class="" *ngIf="isSuperAdminDashboard&&!isDoctorDashboard&&!isAdminDashboard&&!isReceptionistDashboard">
+  <c-sidebar #sidebar="cSidebar" class="d-print-none sidebar sidebar-fixed" id="sidebar" visible>
+    <c-sidebar-brand>Super Admin</c-sidebar-brand>
+    <ng-scrollbar pointerEventsMethod="scrollbar">
+      <c-sidebar-nav [navItems]="navSuperAdminItems" dropdownMode="close" />
+    </ng-scrollbar>
+    <c-sidebar-toggler *ngIf="!sidebar.narrow" toggle="unfoldable" cSidebarToggle="sidebar" />
+  </c-sidebar>
+  <div class="wrapper d-flex flex-column min-vh-100 bg-light dark:bg-transparent">
+    <app-default-header class="mb-4 d-print-none header header-sticky" position="sticky" sidebarId="sidebar" />
+    <div class="body flex-grow-1 px-3">
+      <c-container breakpoint="lg" class="h-auto">
+        <router-outlet name="super_Menu"></router-outlet>
+      </c-container>
+    </div>
+  </div>
+</div>
+<!-- Admin Customer Sidebar-->
+<div class="" *ngIf="isAdminDashboard&&!isDoctorDashboard&&!isReceptionistDashboard&&!isSuperAdminDashboard">
+  <c-sidebar #sidebar="cSidebar" class="d-print-none sidebar sidebar-fixed" id="sidebar" visible>
+    <c-sidebar-brand>Admin</c-sidebar-brand>
+    <ng-scrollbar pointerEventsMethod="scrollbar">
+      <c-sidebar-nav [navItems]="navAdminItems" dropdownMode="close" />
+    </ng-scrollbar>
+    <c-sidebar-toggler *ngIf="!sidebar.narrow" toggle="unfoldable" cSidebarToggle="sidebar" />
+  </c-sidebar>
+  <div class="wrapper d-flex flex-column min-vh-100 bg-light dark:bg-transparent">
+    <app-default-header class="mb-4 d-print-none header header-sticky" position="sticky" sidebarId="sidebar" />
+    <div class="body flex-grow-1 px-3">
+      <c-container breakpoint="lg" class="h-auto">
+        <router-outlet name="sub_Menu"></router-outlet>
+      </c-container>
+    </div>
+  </div>
+</div>
+<!-- Doctor Sidebar -->
+<div class="" *ngIf="isDoctorDashboard&&!isAdminDashboard&&!isReceptionistDashboard&&!isSuperAdminDashboard">
+  <c-sidebar #sidebar="cSidebar" class="d-print-none sidebar sidebar-fixed" id="sidebar" visible>
+    <c-sidebar-brand>Doctor</c-sidebar-brand>
+    <ng-scrollbar pointerEventsMethod="scrollbar">
+      <c-sidebar-nav [navItems]="navDoctorItems" dropdownMode="close" />
+    </ng-scrollbar>
+    <c-sidebar-toggler *ngIf="!sidebar.narrow" toggle="unfoldable" cSidebarToggle="sidebar" />
+  </c-sidebar>
+  <div class="wrapper d-flex flex-column min-vh-100 bg-light dark:bg-transparent">
+    <app-default-header class="mb-4 d-print-none header header-sticky" position="sticky" sidebarId="sidebar" />
+    <div class="body flex-grow-1 px-3">
+      <c-container breakpoint="lg" class="h-auto">
+        <router-outlet name="doc_Menu"></router-outlet>
+      </c-container>
+    </div>
+  </div>
+</div>
+<!-- Receptionist  Sidebar  -->
+<div class="" *ngIf="isReceptionistDashboard&&!isAdminDashboard&&!isSuperAdminDashboard&&!isDoctorDashboard">
+  <c-sidebar #sidebar="cSidebar" class="d-print-none sidebar sidebar-fixed" id="sidebar" visible>
+    <c-sidebar-brand>Receptionist</c-sidebar-brand>
+    <ng-scrollbar pointerEventsMethod="scrollbar">
+      <c-sidebar-nav [navItems]="navReceptionistItems" dropdownMode="close" />
+    </ng-scrollbar>
+    <c-sidebar-toggler *ngIf="!sidebar.narrow" toggle="unfoldable" cSidebarToggle="sidebar" />
+  </c-sidebar>
+  <div class="wrapper d-flex flex-column min-vh-100 bg-light dark:bg-transparent">
+    <app-default-header class="mb-4 d-print-none header header-sticky" position="sticky" sidebarId="sidebar" />
+    <div class="body flex-grow-1 px-3">
+      <c-container breakpoint="lg" class="h-auto">
+        <router-outlet name="receptionist_Menu"></router-outlet>
+      </c-container>
+    </div>
+  </div>
+</div>
+<!-- Default Router  -->
+<router-outlet
+  *ngIf="!isAdminDashboard&&!isDoctorDashboard&&!isReceptionistDashboard&&!isSuperAdminDashboard"></router-outlet>

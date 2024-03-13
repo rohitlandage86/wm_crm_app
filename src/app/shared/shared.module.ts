@@ -8,6 +8,8 @@ import { WidgetModule } from '@coreui/angular';
 import { ChartjsModule } from '@coreui/angular-chartjs';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -36,7 +38,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     ProgressModule,
     BadgeModule,
     ListGroupModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSlideToggleModule
   ],
   exports:[
     CommonModule,
@@ -64,7 +67,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     ProgressModule,
     BadgeModule,
     ListGroupModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSlideToggleModule
     
   ]
 })

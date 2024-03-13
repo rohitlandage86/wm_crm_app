@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { freeSet } from '@coreui/icons';
-import { AddUpdateCustomerTypeComponent } from './add-update-customer-type/add-update-customer-type.component';
 import { SuperAdminService } from './../super-admin.service';
 import { PageEvent } from '@angular/material/paginator';
+import { AddUpdateCustomerTypeComponent } from './add-update-customer-type/add-update-customer-type.component';
 @Component({
   selector: 'app-customer-type',
   templateUrl: './customer-type.component.html',

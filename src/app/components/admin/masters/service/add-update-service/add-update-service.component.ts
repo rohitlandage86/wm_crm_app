@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ServiceComponent } from '../service.component';
 import { AdminService } from '../../../admin.service';
 import { ToastrService } from 'ngx-toastr';
+import { ServiceComponent } from '../service.component';
 
 @Component({
   selector: 'app-add-update-service',
@@ -42,7 +42,7 @@ export class AddUpdateServiceComponent implements OnInit {
       service_name :[null,Validators.required],
       entity_id:[null, Validators.required],
       service_type_id:[null, Validators.required],
-      description:[null]
+      description:[null, Validators.maxLength(250)]
     });
   }
   get control(){

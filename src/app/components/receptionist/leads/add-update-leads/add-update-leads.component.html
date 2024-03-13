@@ -1,0 +1,394 @@
+<c-row class="m-0">
+  <c-col xs="12 " class="p-0">
+    <c-card class="">
+      <c-card-header>
+        <strong>{{ isEdit ? "Edit" : "Add" }} Lead Details</strong>
+      </c-card-header>
+      <c-card-body>
+        <form cForm class="row g-3" [formGroup]="form">
+          <c-col md="4" class="p-2">
+            <label cLabel for="name">Name</label>
+            <input
+              cFormControl
+              id="name"
+              formControlName="name"
+              type="text"
+              [ngClass]="{
+                'is-invalid':
+                  control['name'].invalid &&
+                  (control['name'].dirty || control['name'].touched)
+              }"
+            />
+            <div
+              class="text-danger"
+              *ngIf="
+                control['name'].invalid &&
+                (control['name'].dirty || control['name'].touched)
+              "
+            >
+              <small>Please provide a valid Name.</small>
+            </div>
+          </c-col>
+          <c-col md="4" class="p-2">
+            <label cLabel for="lead_date">Lead Date</label>
+            <input
+              cFormControl
+              id="lead_date"
+              formControlName="lead_date"
+              type="date"
+              [ngClass]="{
+                'is-invalid':
+                  control['lead_date'].invalid &&
+                  (control['lead_date'].dirty || control['lead_date'].touched)
+              }"
+            />
+            <div
+              class="text-danger"
+              *ngIf="
+                control['lead_date'].invalid &&
+                (control['lead_date'].dirty || control['lead_date'].touched)
+              "
+            >
+              <small>Please provide a valid Lead Date.</small>
+            </div>
+          </c-col>
+
+          <c-col md="4" class="p-2">
+            <label cLabel for="validationDefault01">City</label>
+            <input
+              cFormControl
+              id="validationDefault01"
+              formControlName="city"
+              type="text"
+              [ngClass]="{
+                'is-invalid':
+                  control['city'].invalid &&
+                  (control['city'].dirty || control['city'].touched)
+              }"
+            />
+            <div
+              class="text-danger"
+              *ngIf="
+                control['city'].invalid &&
+                (control['city'].dirty || control['city'].touched)
+              "
+            >
+              <small>Please provide a valid City.</small>
+            </div>
+          </c-col>
+          <c-col md="4" class="p-2">
+            <label cLabel for="validationDefault01">Mobile Number</label>
+            <input
+              cFormControl
+              id="validationDefault01"
+              formControlName="mobile_number"
+              type="number"
+              [ngClass]="{
+                'is-invalid':
+                  control['mobile_number'].invalid &&
+                  (control['mobile_number'].dirty ||
+                    control['mobile_number'].touched)
+              }"
+            />
+            <span
+              class="text-danger"
+              *ngIf="
+                control['mobile_number'].invalid &&
+                (control['mobile_number'].dirty ||
+                  control['mobile_number'].touched)
+              "
+            >
+              <div *ngIf="control['mobile_number'].errors?.['required']">
+                <small>Mobile Number is required</small>
+              </div>
+              <div *ngIf="control['mobile_number'].errors?.['pattern']">
+                Mobile Number only 10 digit
+              </div>
+            </span>
+          </c-col>
+          <c-col md="3" class="p-2">
+            <label for="category" cLabel> Category </label>
+            <select
+              aria-label="select category"
+              cSelect
+              sizing="sm"
+              formControlName="category_id"
+              type="text"
+              [ngClass]="{
+                'is-invalid':
+                  control['category_id'].invalid &&
+                  (control['category_id'].dirty ||
+                    control['category_id'].touched)
+              }"
+            >
+              <option hidden value="null" disabled selected>Select Category</option>
+              <option
+                [value]="item.category_id"
+                *ngFor="let item of allCategoryList"
+              >
+                {{ item.category_name }}
+              </option>
+            </select>
+            <div
+              class="text-danger"
+              *ngIf="
+                control['category_id'].invalid &&
+                (control['category_id'].dirty || control['category_id'].touched)
+              "
+            >
+              <small>Please provide a valid Category Name.</small>
+            </div>
+          </c-col>
+          <c-col md="12" class="p-2">
+            <label cLabel for="validationDefault01">Note</label>
+            <textarea
+              cFormControl
+              id="note"
+              formControlName="note"
+              rows="3"
+              [ngClass]="{'is-invalid':control['note'].errors?.['maxlength']}"
+            ></textarea>
+            <div
+              class="text-danger"
+              *ngIf="
+                control['note'].invalid &&
+                (control['note'].dirty || control['note'].touched)
+              "
+            >
+              <small>Please provide a valid Note.</small>
+            </div>
+          </c-col>
+         
+          <c-card-header >
+            <strong> Lead Info</strong>
+          </c-card-header>
+          <div formArrayName="leadFooterDetails">
+            <c-col
+              *ngFor="
+                let item of leadstatusDetailsArray.controls;
+                let i = index
+              "
+              [formGroupName]="i"
+            >
+              <c-col md-12 class="d-flex">
+                <c-col md="3" class="p-2">
+                  <label cLabel for="validationDefault01">Comments</label>
+                  <input
+                    cFormControl
+                    id="validationDefault01"
+                    formControlName="comments"
+                    type="text"
+                    [ngClass]="{
+                      'is-invalid':
+                        leadstatusDetailsArray.at(i).get('comments')?.invalid &&
+                        (leadstatusDetailsArray.at(i).get('comments')?.dirty ||
+                          leadstatusDetailsArray.at(i).get('comments')?.touched)
+                    }"
+                  />
+                  <div
+                    class="text-danger"
+                    *ngIf="
+                      leadstatusDetailsArray.at(i).get('comments')?.invalid &&
+                      (leadstatusDetailsArray.at(i).get('comments')?.dirty ||
+                        leadstatusDetailsArray.at(i).get('comments')?.touched)
+                    "
+                  >
+                    <small>Please provide a valid Comments.</small>
+                  </div>
+                </c-col>
+                <c-col md="2" class="p-2">
+                  <label cLabel for="validationDefault01">Calling Time</label>
+                  <input
+                    cFormControl
+                    id="validationDefault01"
+                    formControlName="calling_time"
+                    type="text"
+                    [ngClass]="{
+                      'is-invalid':
+                        leadstatusDetailsArray.at(i).get('calling_time')
+                          ?.invalid &&
+                        (leadstatusDetailsArray.at(i).get('calling_time')
+                          ?.dirty ||
+                          leadstatusDetailsArray.at(i).get('calling_time')
+                            ?.touched)
+                    }"
+                  />
+                  <div
+                    class="text-danger"
+                    *ngIf="
+                      leadstatusDetailsArray.at(i).get('calling_time')
+                        ?.invalid &&
+                      (leadstatusDetailsArray.at(i).get('calling_time')
+                        ?.dirty ||
+                        leadstatusDetailsArray.at(i).get('calling_time')
+                          ?.touched)
+                    "
+                  >
+                    <small>Please provide a valid Calling Time.</small>
+                  </div>
+                </c-col>
+                <c-col md="2" class="p-2">
+                  <label cLabel for="validationDefault01">No Of Calls</label>
+                  <select
+                    aria-label="select lead status id"
+                    cSelect
+                    sizing="sm"
+                    formControlName="no_of_calls"
+                    type="number"
+                    [ngClass]="{
+                      'is-invalid':
+                        leadstatusDetailsArray.at(i).get('no_of_calls')
+                          ?.invalid &&
+                        (leadstatusDetailsArray.at(i).get('no_of_calls')
+                          ?.dirty ||
+                          leadstatusDetailsArray.at(i).get('no_of_calls')
+                            ?.touched)
+                    }"
+                  >
+                    <option hidden value="null" disabled selected>Select No Of Calls</option>
+                    <option
+                    >1
+                    </option>
+                    <option
+                    >2
+                    </option>
+                    <option
+                    >3
+                    </option>
+                    <option
+                    >4
+                    </option>
+                    <option
+                    >5
+                    </option>
+                    <option
+                    >6
+                    </option>
+                    <option
+                    >7
+                    </option>
+                    <option
+                    >8
+                    </option>
+                    <option
+                    >9
+                    </option>
+                    <option
+                    >10
+                    </option>
+                  </select>
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      leadstatusDetailsArray.at(i).get('no_of_calls')
+                        ?.invalid &&
+                      (leadstatusDetailsArray.at(i).get('no_of_calls')
+                        ?.dirty ||
+                        leadstatusDetailsArray.at(i).get('no_of_calls')
+                          ?.touched)
+                    "
+                    ><small> Please provide a valid No Of Calls.</small></span
+                  >
+                </c-col>
+                <c-col md="2" class="p-2">
+                  <label cLabel for="validationDefault01">Lead Status</label>
+                  <select
+                    aria-label="select lead status id"
+                    cSelect
+                    sizing="sm"
+                    formControlName="lead_status_id"
+                    type="text"
+                    [ngClass]="{
+                      'is-invalid':
+                        leadstatusDetailsArray.at(i).get('lead_status_id')
+                          ?.invalid &&
+                        (leadstatusDetailsArray.at(i).get('lead_status_id')
+                          ?.dirty ||
+                          leadstatusDetailsArray.at(i).get('lead_status_id')
+                            ?.touched)
+                    }"
+                  >
+                    <option hidden value="null" disabled selected>Select Lead Status</option>
+                    <option
+                      [value]="item.lead_status_id"
+                      *ngFor="let item of allLeadStatusList"
+                    >
+                      {{ item.lead_status }}
+                    </option>
+                  </select>
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      leadstatusDetailsArray.at(i).get('lead_status_id')
+                        ?.invalid &&
+                      (leadstatusDetailsArray.at(i).get('lead_status_id')
+                        ?.dirty ||
+                        leadstatusDetailsArray.at(i).get('lead_status_id')
+                          ?.touched)
+                    "
+                    ><small> Lead Status is invalid</small></span
+                  >
+                </c-col>
+                <c-col md="2" class="p-2">
+                  <label cLabel for="follow_up_date">Follow Up Date</label>
+                  <input
+                    cFormControl
+                    id="follow_up_date"
+                    formControlName="follow_up_date"
+                    type="date"
+                    [ngClass]="{
+                      'is-invalid':
+                        leadstatusDetailsArray.at(i).get('follow_up_date')
+                          ?.invalid &&
+                        (leadstatusDetailsArray.at(i).get('follow_up_date')
+                          ?.dirty ||
+                          leadstatusDetailsArray.at(i).get('follow_up_date')
+                            ?.touched)
+                    }"
+                    [min]="getCurrentDate()"
+                  />
+                  <div
+                    class="text-danger"
+                    *ngIf="
+                      leadstatusDetailsArray.at(i).get('follow_up_date')
+                        ?.invalid &&
+                      (leadstatusDetailsArray.at(i).get('follow_up_date')
+                        ?.dirty ||
+                        leadstatusDetailsArray.at(i).get('follow_up_date')
+                          ?.touched)
+                    "
+                  >
+                    <small>Please provide a valid Lead Date.</small>
+                  </div>
+                </c-col>
+                <c-col md="1"  >
+                  <label cLabel for="Action">Action</label>
+                  <c-col class="d-flex p-2">
+                    <c-col>
+                      <button  class="btn btn-primary btn-sm"
+                      type="button"
+                      (click)="addLeadFooter()"[disabled]="leadstatusDetailsArray.length>=1">+</button>
+                    </c-col>
+                    <c-col>
+                      <button class="btn btn-primary btn-sm " [disabled]="leadstatusDetailsArray.length===1"
+                      (click)="deleteLeadFooter(i)">-</button>
+                    </c-col>
+                  </c-col>
+              
+                </c-col>
+              </c-col>
+            </c-col>
+          </div>
+          <hr>
+          
+          <c-col xs="12">
+            <button cButton class="me-1" color="primary" (click)="submit()">
+              Submit
+            </button>
+            <button cButton color="secondary"   [routerLink]="['/receptionist', { outlets: { receptionist_Menu: 'leads' } }]">Cancel</button>
+          </c-col>
+        </form>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>

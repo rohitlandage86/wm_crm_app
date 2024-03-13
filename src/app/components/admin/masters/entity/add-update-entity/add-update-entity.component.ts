@@ -35,7 +35,7 @@ export class AddUpdateEntityComponent implements OnInit {
     this.form = this.fb.group({
       entity_name:[null,Validators.required],
       abbrivation:[null, Validators.required],
-      description:[null]
+      description:[null, Validators.maxLength(250)]
     });
   }
   get control(){

@@ -1,4 +1,4 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable,  } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Injectable({
@@ -9,10 +9,18 @@ export class SharedService {
   userData$ = this._userData.asObservable();
   
   private __isLoading = new Subject<boolean>();
-
+  //login and sign in 
+  private _isLogin = new Subject<boolean>();
+  isLogin$ = this._isLogin.asObservable();
+  constructor() { }
 //send user data
   sendUserData(message: boolean) {
     this._userData.next(message);
   }
 
+  setIsLogin(isLogin: boolean) {
+    this._isLogin.next(isLogin)
+  }
+ 
+ 
 }

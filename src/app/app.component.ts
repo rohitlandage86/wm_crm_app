@@ -125,12 +125,16 @@ export class AppComponent implements OnInit, AfterContentChecked {
         },
         {
           name: 'Treatment Advice',
-          url: '/base/carousel'
+          url: ['/admin', { outlets: { sub_Menu: 'treatment' } }]
         },
         {
           name: 'Diagnosis',
-          url: '/base/carousel'
-        },      
+          url: ['/admin', { outlets: { sub_Menu: 'diagnosis' } }]
+        }, 
+        {
+          name: 'Category',
+          url: ['/admin', { outlets: { sub_Menu: 'category' } }]
+        },     
       ]
     },
     
@@ -141,19 +145,19 @@ export class AppComponent implements OnInit, AfterContentChecked {
       children: [
         {
           name: 'Medicines',
-          url: ['/admin', { outlets: { sub_Menu: 'entity' } }]
+          url: ['/admin', { outlets: { sub_Menu: 'medicines' } }]
         },
         {
           name: 'Dosages',
-          url: '/base/breadcrumbs'
+          url: ['/admin', { outlets: { sub_Menu: 'dosages' } }]
         },
         {
           name: 'Instructions',
-          url: '/base/cards'
+          url: ['/admin', { outlets: { sub_Menu: 'instructions' } }]
         },
         {
           name: 'Chief Complaint',
-          url: '/base/carousel'
+          url: ['/admin', { outlets: { sub_Menu: 'chief_complaints' } }]
         },
              
       ]
@@ -165,15 +169,15 @@ export class AppComponent implements OnInit, AfterContentChecked {
       children: [
         {
           name: 'Payment Type',
-          url: ['/admin', { outlets: { sub_Menu: 'entity' } }]
+          url: ['/admin', { outlets: { sub_Menu: 'payment_type' } }]
         },
         {
           name: 'Title',
-          url: '/base/breadcrumbs'
+          url: ['/admin', { outlets: { sub_Menu: 'title' } }]
         },
         {
           name: 'Source Of Patient',
-          url: '/base/cards'
+          url: ['/admin', { outlets: { sub_Menu: 'source_of_patient' } }]
         },
         {
           name: 'Lead Status',
@@ -181,7 +185,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
         },
         {
           name: 'Refered By',
-          url: '/base/carousel'
+          url: ['/admin', { outlets: { sub_Menu: 'refered_by' } }]
         },
            
       ]
@@ -193,11 +197,11 @@ export class AppComponent implements OnInit, AfterContentChecked {
       children: [
         {
           name: 'Designation',
-          url: ['/admin', { outlets: { sub_Menu: 'entity' } }]
+          url: ['/admin', { outlets: { sub_Menu: 'designation' } }]
         },
         {
           name: 'Employee',
-          url: '/base/breadcrumbs'
+          url:['/admin', { outlets: { sub_Menu: 'employee' } }]
         },        
       ]
     },

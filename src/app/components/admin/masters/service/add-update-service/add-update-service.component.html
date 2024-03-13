@@ -20,13 +20,13 @@
                             <option [value]=item.entity_id *ngFor="let item of allEntitiesList">{{item.entity_name}}</option>
                           </select>
                         <div class="text-danger" *ngIf="control['entity_id'].invalid && (control['entity_id'].dirty || control['entity_id'].touched)">
-                            <small>Please provide a valid Abbrivation.</small>
+                            <small>Please provide a valid Entity Name.</small>
                         </div>
                     </c-col>
                     <c-col md="6">
                         <label for="entity_id" cLabel>Service Type </label>
                         <select aria-label="select service type" cSelect sizing="sm" formControlName="service_type_id" type="text"[ngClass]="{ 'is-invalid': control['service_type_id'].invalid &&(control['service_type_id'].dirty ||control['service_type_id'].touched)}">
-                            <option >Select Service Type>
+                            <option >Select Service Type</option>
                             <option [value]=item.service_type_id *ngFor="let item of allServiceTypeList">{{item.service_type_name}}</option>
                           </select>
                         <div class="text-danger" *ngIf="control['service_type_id'].invalid && (control['service_type_id'].dirty || control['service_type_id'].touched)">
@@ -35,7 +35,22 @@
                     </c-col>
                     <c-col xs="12">
                         <label cLabel for="Description" >Description</label>
-                        <textarea cFormControl id="Description" formControlName="description" rows="3"></textarea>
+                        <textarea cFormControl id="Description" formControlName="description" rows="3" [ngClass]="{'is-invalid':control['description'].errors?.['maxlength']}"></textarea>
+                        <span
+                        *ngIf="
+                          control['description'].invalid &&
+                          (control['description'].dirty ||
+                            control['description'].touched)
+                        "
+                        class="text-danger p-1"
+                      >
+                        <small *ngIf="control['description'].errors?.['maxlength']">
+                            Description should have at most
+                          {{
+                              control['description'].errors?.['maxlength'].requiredLength }}
+                          characters.
+                        </small>
+                      </span>
                       </c-col>
                     <c-col xs="12">
                         <button cButton class="me-1" color="primary"  (click)="submit()">

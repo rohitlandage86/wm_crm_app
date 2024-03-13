@@ -4,6 +4,7 @@ import { freeSet } from '@coreui/icons';
 import { AdminService } from '../../admin.service';
 import { PageEvent } from '@angular/material/paginator';
 import { AddUpdateServiceComponent } from './add-update-service/add-update-service.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-service',
@@ -16,8 +17,9 @@ export class ServiceComponent  implements OnInit {
   page = 1;
   perPage = 10;
   total=0
+color: string|undefined;
 
-  constructor(private dialog: MatDialog, private _adminService: AdminService) { }
+  constructor(private dialog: MatDialog, private _adminService: AdminService, private _toastrService: ToastrService) { }
   ngOnInit(){
     this.getAllEntitiesList();
   }
@@ -56,5 +58,30 @@ export class ServiceComponent  implements OnInit {
       console.log(message );
       
     });
+  }
+   //slide-toggle change 
+   changeEvent(event: any, id: any) {
+    console.log(event.checked, id);
+    let status = 0;
+    if (event.checked) {
+      status = 1;
+    }
+    this._adminService.onServiceStatusChange(status, id).subscribe({
+      next: (res: any) => {
+        this._toastrService.success(res.message);
+        console.log(res);
+        this.getAllEntitiesList();
+      },
+      error: (error: any) => {
+        console.log(error.error.message)
+        if (error.status == 422) {
+          this._toastrService.warning(error.message);
+          console.log(error.status);
+          this.getAllEntitiesList();
+        }
+      },
+    })
+
+
   }
 }

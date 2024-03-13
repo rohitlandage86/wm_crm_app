@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { CustomerTypeComponent } from '../customer-type.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA,MatDialogRef } from '@angular/material/dialog';
 import { SuperAdminService } from '../../super-admin.service';
 import { ToastrService } from 'ngx-toastr';
+import { CustomerTypeComponent } from '../customer-type.component';
 
 @Component({
   selector: 'app-add-update-customer-type',

@@ -22,7 +22,22 @@
                     </c-col>
                     <c-col xs="12">
                         <label cLabel for="Description" >Description</label>
-                        <textarea cFormControl id="Description" formControlName="description" rows="3"></textarea>
+                        <textarea cFormControl id="Description" formControlName="description" rows="3" [ngClass]="{'is-invalid':control['description'].errors?.['maxlength']}"></textarea>
+                        <span
+                        *ngIf="
+                          control['description'].invalid &&
+                          (control['description'].dirty ||
+                            control['description'].touched)
+                        "
+                        class="text-danger p-1"
+                      >
+                        <small *ngIf="control['description'].errors?.['maxlength']">
+                            Description should have at most
+                          {{
+                              control['description'].errors?.['maxlength'].requiredLength }}
+                          characters.
+                        </small>
+                      </span>
                       </c-col>
                     <c-col xs="12">
                         <button cButton class="me-1" color="primary"  (click)="submit()">

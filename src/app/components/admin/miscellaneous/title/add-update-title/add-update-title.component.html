@@ -1,0 +1,50 @@
+<c-row class="m-0">
+    <c-col xs="12 "  class="p-0 " >
+        <c-card class="">
+            <c-card-header >
+                <strong>{{isEdit?'Edit':'Add'}} Title</strong>
+            </c-card-header>
+            <c-card-body>
+                <form cForm class="row g-3"  [formGroup]="form"> 
+                    <c-col md="8">
+                        <label cLabel for="title_name">Title Name</label>
+                        <input cFormControl id="title_name" formControlName="title_name" type="text"[ngClass]="{ 'is-invalid': control['title_name'].invalid &&(control['title_name'].dirty ||control['title_name'].touched)}"/>
+                        <div class="text-danger" *ngIf="control['title_name'].invalid &&(control['title_name'].dirty ||control['title_name'].touched)">
+                            <small >Please provide a valid title name.</small>
+                        </div>
+                    </c-col>
+                    <c-col xs="12">
+                        <label cLabel for="Description" >Description</label>
+                        <textarea cFormControl id="Description" formControlName="description" rows="3" [ngClass]="{'is-invalid':control['description'].errors?.['maxlength']}"></textarea>
+                        <span
+                        *ngIf="
+                          control['description'].invalid &&
+                          (control['description'].dirty ||
+                            control['description'].touched)
+                        "
+                        class="text-danger p-1"
+                      >
+                        <small *ngIf="control['description'].errors?.['maxlength']">
+                            Description should have at most
+                          {{
+                              control['description'].errors?.['maxlength'].requiredLength }}
+                          characters.
+                        </small>
+                      </span>
+                      </c-col>
+                    <c-col xs="12">
+                        <button cButton class="me-1" color="primary"  (click)="submit()">
+                            Submit
+                        </button>
+                        <button cButton color="secondary" (click)="closeDialog()">
+                            Cancel
+                        </button>
+                    </c-col>
+                </form>
+            </c-card-body>
+        </c-card>
+    </c-col>
+
+</c-row>
+
+

@@ -11,10 +11,11 @@ import { AppComponent } from './app.component';
 import { DefaultFooterComponent, DefaultHeaderComponent, DefaultLayoutComponent } from './containers';
 import {  IconSetService } from '@coreui/icons-angular';
 import { SharedModule } from './shared/shared.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ToastrModule, provideToastr } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
-
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { AuthInterceptor } from './shared/auth-interceptor.service';
 const APP_CONTAINERS = [
   DefaultFooterComponent,
   DefaultHeaderComponent,
@@ -36,13 +37,18 @@ const APP_CONTAINERS = [
       preventDuplicates: true,
       closeButton:true
     }), // ToastrModule added
+  
   ],
   providers: [
     IconSetService,
     Title
     ,provideAnimations(), // required animations providers
-  provideToastr(), // Toastr providers
-  ],
+  provideToastr(), provideAnimationsAsync(), // Toastr providers
+  {  
+    provide: HTTP_INTERCEPTORS,  
+    useClass: AuthInterceptor,  
+    multi: true  
+  }  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

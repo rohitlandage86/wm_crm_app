@@ -25,34 +25,70 @@
                             <form cForm  [formGroup]="form">
                                 <h1>Login</h1>
                                 <p class="text-medium-emphasis">Sign In to your account</p>
-                                <c-input-group class="mb-3">
-                                    <span cInputGroupText>
-                                        <svg cIcon name="cil3d"></svg>
-                                    </span>
-                                    <select aria-label="Default select example" formControlName="role" (change)="onRoleSelect()" cSelect>
-                                        <option value=null disabled>Select Role </option>
-                                        <option value=1>Super Admin</option>
-                                        <option value=2>Admin</option>
-                                        <option value=3>Receptionist</option>
-                                        <option value=4>Doctor</option>
-                                    </select>
-                                </c-input-group>
-                                <c-input-group class="mb-3">
-                                    <span cInputGroupText>
-                                        <svg cIcon name="cilUser"></svg>
-                                    </span>
-                                    <input autoComplete="username" cFormControl placeholder="Username" />
-                                </c-input-group>
-                                <c-input-group class="mb-4">
-                                    <span cInputGroupText>
-                                        <svg cIcon name="cilLockLocked"></svg>
-                                    </span>
-                                    <input autoComplete="current-password" cFormControl placeholder="Password"
-                                        type="password" />
-                                </c-input-group>
+                                <!-- <div class="mb-3">
+                                    <c-input-group >
+                                        <span cInputGroupText>
+                                            <svg cIcon name="cil3d"></svg>
+                                        </span>
+                                        <select aria-label="Default select example" formControlName="category" (change)="onCategorySelect()" cSelect>
+                                            <option value=null disabled>Select Category </option>
+                                            <option value=1>Super Admin</option>
+                                            <option value=2>Admin</option>
+                                            <option value=3>Receptionist</option>
+                                            <option value=4>Doctor</option>
+                                        </select>
+                                    </c-input-group>
+                                </div> -->
+                            
+                                <div class="mb-3">
+                                    <c-input-group>
+                                        <span cInputGroupText>
+                                            <svg cIcon name="cilUser"></svg>
+                                        </span>
+                                        <input autoComplete="username" cFormControl placeholder="Username"  formControlName="email_id" [ngClass]="{'is-invalid':control['email_id'].invalid &&(control['email_id'].dirty || control['email_id'].touched)}"/>
+                                    </c-input-group>
+                                    <span
+                                    class="text-danger"
+                                    *ngIf="
+                                      control['email_id'].invalid &&
+                                      (control['email_id'].dirty ||
+                                        control['email_id'].touched)
+                                    "
+                                  >
+                                    <div *ngIf="control['email_id'].errors?.['required']">
+                                      <small>Email Address is required</small>
+                                    </div>
+                                    <div *ngIf="control['email_id'].errors?.['email']">
+                                     <small> Email must be a valid email address</small>
+                                    </div>
+                                  </span>
+                                </div>
+                          
+                                <div class="mb-3">
+                                    <c-input-group>
+                                        <span cInputGroupText>
+                                            <svg cIcon name="cilLockLocked"></svg>
+                                        </span>
+                                        <input autoComplete="current-password" cFormControl placeholder="Password" formControlName="password" 
+                                        type="{{ passwordVisible ? 'text' : 'password' }}" [ngClass]="{'is-invalid':control['password'].invalid &&(control['password'].dirty || control['password'].touched)}"/>
+                                            <button class="passbtn" cButton cAppend type="button" cButtonType="outline-secondary" (click)="togglePasswordVisibility()">
+                                                <span>{{ passwordVisible ? 'Hide' : 'Show' }}</span>
+                                            </button>
+                                    </c-input-group>
+            
+                                        <span class="text-danger">
+                                            <div *ngIf="
+                                            control['password'].invalid &&
+                                            (control['password'].dirty ||
+                                              control['password'].touched)
+                                          ">
+                                                <small>Password is required</small>
+                                            </div>
+                                        </span>
+                                </div>
                                 <c-row>
                                     <c-col xs="6">
-                                        <button cButton class="px-4" color="primary" (click)="submit()">
+                                        <button cButton class="px-4" color="primary" (click)="login()">
                                             Login
                                         </button>
                                     </c-col>
@@ -83,4 +119,5 @@
             </c-col>
         </c-row>
     </c-container>
+
 </div>

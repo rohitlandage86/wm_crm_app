@@ -12,6 +12,7 @@
                             <th>Created at</th>
                             <th>Service Type</th>
                             <th>Status</th>
+                            <th>Status</th>
                             <th>Edit</th>
                         </tr>
                     </thead>
@@ -21,8 +22,15 @@
                             <td>{{ item.cts|date:'dd' }}/{{ item.cts|date:'MM' }}/{{ item.cts|date:'YYYY' }}</td>
                             <td>{{ item.service_type_name }}</td>
                             <td>{{ item.status == 1 ? "Activated" : "Deactivated" }}</td>
+                            <td><mat-slide-toggle 
+                                (change)="changeEvent($event,item.service_type_id)"
+                                class="example-margin"
+                                [color]="color"
+                                [checked]="item.status == 1 ? true : false">
+                                
+                              </mat-slide-toggle></td>
                             <td> <a (click)="openDialog(item)" class="pointer"><svg [cIcon]="icons.cilPencil" size="xl"
-                                title="List Icon" ></svg></a></td>
+                                title="List Icon" (click)="openDialog(item)"></svg></a></td>
                         </tr>
                         <tr class=" fw-bold text-center" *ngIf="allServiceTypeList.length===0">
                             <td colspan="10" class="text-danger">No Data Available</td>

@@ -1,0 +1,425 @@
+<c-row class="m-0">
+  <c-col xs="12 " class="p-0">
+    <c-card class="">
+      <c-card-header>
+        <strong>{{ isEdit ? "Edit" : "Add" }} Customers</strong>
+      </c-card-header>
+      <c-card-body>
+        <form cForm class="row g-3" [formGroup]="form">
+          <c-col md="12" class="d-flex">
+            <c-col md="6" class="p-2">
+              <label cLabel for="validationDefault01">Organization Name</label>
+              <input
+                cFormControl
+                id="validationDefault01"
+                formControlName="organization_name"
+                type="text"
+                [ngClass]="{
+                  'is-invalid':
+                    control['organization_name'].invalid &&
+                    (control['organization_name'].dirty ||
+                      control['organization_name'].touched)
+                }"
+              />
+              <div
+                class="text-danger"
+                *ngIf="
+                  control['organization_name'].invalid &&
+                  (control['organization_name'].dirty ||
+                    control['organization_name'].touched)
+                "
+              >
+                <small>Please provide a valid Organization Name.</small>
+              </div>
+            </c-col>
+            <c-col md="6" class="p-2">
+              <label cLabel for="validationDefault01">Customer Name</label>
+              <input
+                cFormControl
+                id="validationDefault01"
+                formControlName="customer_name"
+                type="text"
+                [ngClass]="{
+                  'is-invalid':
+                    control['customer_name'].invalid &&
+                    (control['customer_name'].dirty ||
+                      control['customer_name'].touched)
+                }"
+              />
+              <div
+                class="text-danger"
+                *ngIf="
+                  control['customer_name'].invalid &&
+                  (control['customer_name'].dirty ||
+                    control['customer_name'].touched)
+                "
+              >
+                <small>Please provide a valid customer Name.</small>
+              </div>
+            </c-col>
+          </c-col>
+          <c-col md="12" class="d-flex">
+            <c-col md="6" class="p-2">
+              <label cLabel for="validationDefault01">Customer Email</label>
+              <input
+                cFormControl
+                id="validationDefault01"
+                formControlName="customer_email"
+                type="text"
+                [ngClass]="{
+                  'is-invalid':
+                    control['customer_email'].invalid &&
+                    (control['customer_email'].dirty ||
+                      control['customer_email'].touched)
+                }"
+              />
+              <span
+                class="text-danger"
+                *ngIf="
+                  control['customer_email'].invalid &&
+                  (control['customer_email'].dirty ||
+                    control['customer_email'].touched)
+                "
+              >
+                <div *ngIf="control['customer_email'].errors?.['required']">
+                  <small> Email Address is required</small>
+                </div>
+                <div *ngIf="control['customer_email'].errors?.['email']">
+                  <small> Email must be a valid email address</small>
+                </div>
+              </span>
+            </c-col>
+            <c-col md="6" class="p-2">
+              <label cLabel for="validationDefault01">Customer Phone No.</label>
+              <input
+                cFormControl
+                id="validationDefault01"
+                formControlName="customer_phone"
+                type="text"
+                [ngClass]="{
+                  'is-invalid':
+                    control['customer_phone'].invalid &&
+                    (control['customer_phone'].dirty ||
+                      control['customer_phone'].touched)
+                }"
+              />
+              <div
+                class="text-danger"
+                *ngIf="
+                  control['customer_phone'].invalid &&
+                  (control['customer_phone'].dirty ||
+                    control['customer_phone'].touched)
+                "
+              >
+                <small>Please provide a valid customer Phone no.</small>
+              </div>
+            </c-col>
+          </c-col>
+          <c-col md="12" class="d-flex">
+            <c-col md="6" class="p-2">
+              <label cLabel>Customer Type </label>
+              <select
+                aria-label="select customer_type_id"
+                cSelect
+                sizing="sm"
+                formControlName="customer_type_id"
+                type="text"
+                [ngClass]="{
+                  'is-invalid':
+                    control['customer_type_id'].invalid &&
+                    (control['customer_type_id'].dirty ||
+                      control['customer_type_id'].touched)
+                }"
+              >
+                <option hidden value="null" disabled selected>Select Customer Type</option>
+                <option
+                  [value]="item.customer_type_id"
+                  *ngFor="let item of allCustomerTypeList"
+                >
+                  {{ item.customer_type }}
+                </option>
+              </select>
+              <div
+                class="text-danger"
+                *ngIf="
+                  control['customer_type_id'].invalid &&
+                  (control['customer_type_id'].dirty ||
+                    control['customer_type_id'].touched)
+                "
+              >
+                <small>Please provide a valid Customer Type.</small>
+              </div>
+            </c-col>
+            <c-col md="6" class="p-2">
+              <label cLabel for="validationDefault01">Branch Name</label>
+              <input
+                cFormControl
+                id="validationDefault01"
+                formControlName="branch"
+                type="text"
+                [ngClass]="{
+                  'is-invalid':
+                    control['branch'].invalid &&
+                    (control['branch'].dirty || control['branch'].touched)
+                }"
+              />
+              <div
+                class="text-danger"
+                *ngIf="
+                  control['branch'].invalid &&
+                  (control['branch'].dirty || control['branch'].touched)
+                "
+              >
+                <small>Please provide a valid Branch Name.</small>
+              </div>
+            </c-col>
+          </c-col>
+
+          <c-col md="12" class="d-flex">
+            <c-col md="6" class="p-2">
+              <label cLabel for="validationDefault01">City</label>
+              <input
+                cFormControl
+                id="validationDefault01"
+                formControlName="city"
+                type="text"
+                [ngClass]="{
+                  'is-invalid':
+                    control['city'].invalid &&
+                    (control['city'].dirty || control['city'].touched)
+                }"
+              />
+              <div
+                class="text-danger"
+                *ngIf="
+                  control['city'].invalid &&
+                  (control['city'].dirty || control['city'].touched)
+                "
+              >
+                <small>Please provide a valid City.</small>
+              </div>
+            </c-col>
+            <c-col md="6" class="p-2">
+              <label cLabel>State </label>
+              <select
+                aria-label="select state"
+                cSelect
+                sizing="sm"
+                formControlName="state"
+                type="text"
+                [ngClass]="{
+                  'is-invalid':
+                    control['state'].invalid &&
+                    (control['state'].dirty || control['state'].touched)
+                }"
+              >
+                <option hidden value="null" disabled selected>Select State</option>
+                <option [value]="item.state" *ngFor="let item of allStateList">
+                  {{ item.state_name }}
+                </option>
+              </select>
+              <div
+                class="text-danger"
+                *ngIf="
+                  control['state'].invalid &&
+                  (control['state'].dirty || control['state'].touched)
+                "
+              >
+                <small>Please provide a valid State.</small>
+              </div>
+            </c-col>
+          </c-col>
+
+          <c-col md="12" class="d-flex">
+            <c-col md="6" class="p-2">
+              <div class="form-group">
+                <label for="longLogoName">Long Image</label>
+                <input
+                  type="file"
+                  class="form-control"
+                  id="longLogoName"
+                  (change)="onImageChange($event)"
+                  accept=".jpeg, .jfif, .pjpeg, .pjp, .png, .jpg"
+                  [ngClass]="{
+                    'is-invalid':
+                      control['longLogoName'].invalid &&
+                      (control['longLogoName'].dirty ||
+                        control['longLogoName'].touched)
+                  }"
+                />
+                <span
+                  *ngIf="
+                    control['longLogoName'].invalid &&
+                    (control['longLogoName'].dirty ||
+                      control['longLogoName'].touched)
+                  "
+                  class="text-danger p-1"
+                >
+                  <span *ngIf="control['longLogoName'].errors?.['required']"
+                    >Long Image is required.
+                  </span>
+                </span>
+              </div>
+              <img
+                #imagePreview
+                class="mt-3 image"
+                src="{{
+                  image || '../../../../../assets/images/image_placeholder.jpg'
+                }}"
+                alt=""
+              />
+            </c-col>
+            <c-col md="6" class="p-2">
+              <div class="form-group">
+                <label for="shortlogoName">Short Image</label>
+                <input
+                  type="file"
+                  class="form-control"
+                  id="shortLogoName"
+                  (change)="onshortImageChange($event)"
+                  accept=".jpeg, .jfif, .pjpeg, .pjp, .png, .jpg"
+                  [ngClass]="{
+                    'is-invalid':
+                      control['shortLogoName'].invalid &&
+                      (control['shortLogoName'].dirty ||
+                        control['shortLogoName'].touched)
+                  }"
+                />
+                <span
+                  *ngIf="
+                    control['shortLogoName'].invalid &&
+                    (control['shortLogoName'].dirty ||
+                      control['shortLogoName'].touched)
+                  "
+                  class="text-danger p-1"
+                >
+                  <span *ngIf="control['shortLogoName'].errors?.['required']"
+                    >Short Image is required.
+                  </span>
+                </span>
+              </div>
+              <img
+                #shortimagePreview
+                class="mt-3 image"
+                src="{{
+                  shortlogoName ||
+                    '../../../../../assets/images/image_placeholder.jpg'
+                }}"
+                alt=""
+              />
+            </c-col>
+          </c-col>
+
+          <c-col md="12">
+            <c-col md="6" class="p-2" *ngIf="!isEdit">
+              <label cLabel for="validationDefault01">Password</label>
+              <c-input-group>
+                <span cInputGroupText>
+                  <svg cIcon name="cilLockLocked"></svg>
+                </span>
+                <input
+                  autoComplete="current-password"
+                  cFormControl
+                  placeholder="Password"
+                  formControlName="password"
+                  type="{{ passwordVisible ? 'text' : 'password' }}"
+                  [ngClass]="{
+                    'is-invalid':
+                      control['password'].invalid &&
+                      (control['password'].dirty || control['password'].touched)
+                  }"
+                  [attr.required]="isEdit ? null : true"
+                />
+                <button
+                  class="passbtn"
+                  cButton
+                  cAppend
+                  type="button"
+                  cButtonType="outline-secondary"
+                  (click)="togglePasswordVisibility()"
+                >
+                  <span>{{ passwordVisible ? "Hide" : "Show" }}</span>
+                </button>
+              </c-input-group>
+
+              <span class="text-danger">
+                <div
+                  *ngIf="
+                    control['password'].invalid &&
+                    (control['password'].dirty || control['password'].touched)
+                  "
+                >
+                  <small>Password is required</small>
+                </div>
+              </span>
+            </c-col>
+            <div formArrayName="customerModelDetails">
+              <c-col
+                *ngFor="
+                  let item of customerModelDetailsArray.controls;
+                  let i = index
+                "
+                [formGroupName]="i"
+              >
+                <c-col md="6" class="p-2">
+                  <label cLabel for="validationDefault01">Module Name</label>
+                  <select
+                    aria-label="select module id"
+                    cSelect
+                    sizing="sm"
+                    formControlName="module_id"
+                    type="text"
+                    [ngClass]="{
+                      'is-invalid':
+                        customerModelDetailsArray.at(i).get('module_id')
+                          ?.invalid &&
+                        (customerModelDetailsArray.at(i).get('module_id')
+                          ?.dirty ||
+                          customerModelDetailsArray.at(i).get('module_id')
+                            ?.touched)
+                    }"
+                  >
+                    <option hidden value="null" disabled selected>Select Module Name</option>
+                    <option
+                      [value]="item.module_id"
+                      *ngFor="let item of allModuleList"
+                    >
+                      {{ item.module_name }}
+                    </option>
+                  </select>
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      customerModelDetailsArray.at(i).get('module_id')
+                        ?.invalid &&
+                      (customerModelDetailsArray.at(i).get('module_id')
+                        ?.dirty ||
+                        customerModelDetailsArray.at(i).get('module_id')
+                          ?.touched)
+                    "
+                    ><small> Module ID is invalid</small></span
+                  >
+                </c-col>
+              </c-col>
+            </div>
+          </c-col>
+        </form>
+        <c-col xs="12">
+          <button cButton class="me-1" color="primary" (click)="submit()">
+            Submit
+          </button>
+          <button
+            cButton
+            color="secondary"
+            [routerLink]="[
+              '/super-admin',
+              { outlets: { super_Menu: 'customers' } }
+            ]"
+          >
+            Cancel
+          </button>
+        </c-col>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>

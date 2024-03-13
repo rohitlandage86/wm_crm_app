@@ -1,0 +1,48 @@
+<c-container breakpoint="lg">
+    <c-card class="mb-4">
+        <c-card-header class="d-flex justify-content-between">
+            <strong>Dosages</strong> <button cButton color="primary" class="fw-bold" (click)="openDialog()" >Add</button>
+        </c-card-header>
+        <c-card-body>
+            <div class="col-md-12">
+                <table class="table table-striped" cTable>
+                    <thead cTableColor="light">
+                        <tr>
+                            <th>Sr. No</th>
+                            <th>Created at</th>
+                            <th>Dosages Name</th>
+                            <th>Status</th>
+                            <th>Status</th>
+                            <th>Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of allDosagesList; let i = index">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{ item.cts|date:'dd' }}/{{ item.cts|date:'MM' }}/{{ item.cts|date:'YYYY' }}</td>
+                            <td>{{ item.dosage_name }}</td>
+                            <td>{{ item.status == 1 ? "Activated" : "Deactivated" }}</td>
+                            <td><mat-slide-toggle 
+                                (change)="changeEvent($event,item.dosage_id)"
+                                class="example-margin"
+                                [color]="color"
+                                [checked]="item.status == 1 ? true : false">
+                                
+                              </mat-slide-toggle></td>
+                            <td> <a (click)="openDialog(item)" class="pointer"><svg [cIcon]="icons.cilPencil"  size="xl"
+                                title="List Icon" (click)="openDialog(item)"></svg></a></td>
+                        </tr>
+                        <tr class=" fw-bold text-center" *ngIf="allDosagesList.length===0">
+                            <td colspan="10" class="text-danger">No Data Available</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-12">
+                <mat-paginator [length]="total" [pageSize]="perPage" [pageSizeOptions]="[5, 10, 25, 100]"
+                aria-label="Select page" [showFirstLastButtons]="true" (page)="onPageChange($event)">
+            </mat-paginator>
+            </div>
+        </c-card-body>
+    </c-card>
+</c-container>

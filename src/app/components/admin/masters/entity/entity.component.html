@@ -13,6 +13,7 @@
                             <th>Entity Name</th>
                             <th>Abbrivation</th>
                             <th>Status</th>
+                            <th>Status</th>
                             <th>Edit</th>
                         </tr>
                     </thead>
@@ -23,6 +24,13 @@
                             <td>{{ item.entity_name }}</td>
                             <td>{{ item.abbrivation }}</td>
                             <td>{{ item.status == 1 ? "Activated" : "Deactivated" }}</td>
+                            <td><mat-slide-toggle 
+                                (change)="changeEvent($event,item.entity_id)"
+                                class="example-margin"
+                                [color]="color"
+                                [checked]="item.status == 1 ? true : false">
+                                
+                              </mat-slide-toggle></td>
                             <td> <a (click)="openDialog(item)" class="pointer"><svg [cIcon]="icons.cilPencil" size="xl"
                                 title="List Icon" (click)="openDialog(item)"></svg></a></td>
                         </tr>

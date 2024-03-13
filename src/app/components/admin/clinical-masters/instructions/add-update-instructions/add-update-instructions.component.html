@@ -1,0 +1,30 @@
+<c-row class="m-0">
+    <c-col xs="12 "  class="p-0 " >
+        <c-card class="">
+            <c-card-header >
+                <strong>{{isEdit?'Edit':'Add'}} Instructions</strong>
+            </c-card-header>
+            <c-card-body>
+                <form cForm class="row g-3"  [formGroup]="form"> 
+                    <c-col md="12">
+                        <label cLabel for="instruction">Instruction</label>
+                        <input cFormControl id="instruction" formControlName="instruction" type="text"[ngClass]="{ 'is-invalid': control['instruction'].invalid &&(control['instruction'].dirty ||control['instruction'].touched)}"/>
+                        <div class="text-danger" *ngIf="control['instruction'].invalid &&(control['instruction'].dirty ||control['instruction'].touched)">
+                            <small >Please provide a valid instruction.</small>
+                        </div>
+                    </c-col>
+                    <c-col xs="12">
+                        <button cButton class="me-1" color="primary"  (click)="submit()">
+                            Submit
+                        </button>
+                        <button cButton color="secondary" (click)="closeDialog()">
+                            Cancel
+                        </button>
+                    </c-col>
+                </form>
+            </c-card-body>
+        </c-card>
+    </c-col>
+
+</c-row>
+

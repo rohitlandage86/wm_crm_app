@@ -65,6 +65,10 @@ export class SuperAdminService {
     editModule(data: any, id: any): Observable<any> {
         return this.http.put(this.baseUrl + 'api/wm_modules/' + id, data);
     }
+    // module get by id ...
+    getModuleById(id:any){
+        return this.http.get(this.baseUrl+'api/wm_modules/'+id)
+      }
     // Module status change...
     onModuleStatusChange(status: any, id: any): Observable<any> {
         const body = { status: status };
@@ -98,6 +102,10 @@ export class SuperAdminService {
     editCustomers(data: any, id: any): Observable<any> {
         return this.http.put(this.baseUrl + 'api/wm_customer_header/' + id, data);
     }
+     // Customers get by id ...
+     getCustomersById(id:any){
+        return this.http.get(this.baseUrl+'api/wm_customer_header/'+id)
+      }
     // customers status change...
     onCustomersStatusChange(status: any, id: any): Observable<any> {
         const body = { status: status };
@@ -115,6 +123,6 @@ export class SuperAdminService {
     return this.http.get(this.baseUrl + 'api/super_admin/lead-status');
   }
     
-    
+
 
 }

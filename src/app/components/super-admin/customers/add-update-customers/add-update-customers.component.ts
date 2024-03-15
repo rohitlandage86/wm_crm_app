@@ -12,10 +12,13 @@ import { environment } from 'src/environments/environment';
   styleUrl: './add-update-customers.component.scss'
 })
 export class AddUpdateCustomersComponent implements OnInit {
+  baseUrl= environment.baseUrl;
+[x: string]: any;
   form!: FormGroup;
   isEdit: boolean=false;
   image: any;
   shortlogoName: any;
+  longLogoName:any;
   apiUrl = environment.baseUrl;
   customer_id: any;
   password: string = '';
@@ -36,7 +39,8 @@ export class AddUpdateCustomersComponent implements OnInit {
     this.customer_id = this.url.snapshot.params['id']
   
     if (this.customer_id) {
-      this.prepopulateData(this.customer_id)
+      // this.prepopulateData(this.customer_id)
+      this.getCustomersById(this.customer_id)
       this.isEdit =true;
       this.disablePasswordValidation();
     }
@@ -52,7 +56,7 @@ export class AddUpdateCustomersComponent implements OnInit {
       customer_phone: [null, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       branch: [null, Validators.required],
       city: [null, Validators.required],
-      state: [null, Validators.required],
+      state_id: [null, Validators.required],
       shortLogoBase64: [null],
       longLogoBase64: [null],
       shortLogoName: [null],
@@ -73,7 +77,7 @@ export class AddUpdateCustomersComponent implements OnInit {
     return this.fb.group({
       customer_module_id: [null],
       module_id: [null, Validators.required],
-      // module_name: [null],
+      module_name: [null],
 
     })
   }
@@ -172,33 +176,133 @@ export class AddUpdateCustomersComponent implements OnInit {
       this._toastrService.warning("Fill required fields");
     }
   }
-  prepopulateData(data: any) {
-    this.control['organization_name'].patchValue(data.organization_name);
-    this.control['customer_name'].patchValue(data.customer_name);
-    this.control['customer_email'].patchValue(data.customer_email);
-    this.control['customer_phone'].patchValue(data.customer_phone);
-    this.control['customer_type_id'].patchValue(data.customer_type_id);
-    this.control['branch'].patchValue(data.branch);
-    this.control['city'].patchValue(data.city);
-    this.control['state'].patchValue(data.state);
-    this.control['shortLogoName'].patchValue(data.base64image);
-    this.control['longLogoName'].patchValue(data.base64image);
-    this.control['description'].patchValue(data.description);
-    this.control['image_name'].patchValue(data.category_image);
-    this.image = this.apiUrl + data.imagePath;
-    if (data.deviceDetails.length > 0) {
-      this.customerModelDetailsArray.clear();
-      let customerModelDetailsArray = data.customerModelDetails
-      for (let index = 0; index < customerModelDetailsArray.length; index++) {
-        const element = customerModelDetailsArray[index];
-        this.customerModelDetailsArray.push(this.newCustomerModel());
-        this.customerModelDetailsArray.at(index).get('customer_module_id')?.patchValue(element.customer_module_id);
-        this.customerModelDetailsArray.at(index).get('module_id')?.patchValue(element.module_id);
-        this.customerModelDetailsArray.at(index).get('module_name')?.patchValue(element.module_name);
+  // prepopulateData(data: any) {
+  //   this.control['organization_name'].patchValue(data.organization_name);
+  //   this.control['customer_name'].patchValue(data.customer_name);
+  //   this.control['customer_email'].patchValue(data.customer_email);
+  //   this.control['customer_phone'].patchValue(data.customer_phone);
+  //   this.control['customer_type_id'].patchValue(data.customer_type_id);
+  //   this.control['branch'].patchValue(data.branch);
+  //   this.control['city'].patchValue(data.city);
+  //   this.control['state'].patchValue(data.state);
+  //   this.control['shortLogoName'].patchValue(data.base64image);
+  //   this.control['longLogoName'].patchValue(data.base64image);
+  //   this.control['description'].patchValue(data.description);
+  //   this.control['image_name'].patchValue(data.category_image);
+  //   this.image = this.apiUrl + data.imagePath;
+  //   if (data.deviceDetails.length > 0) {
+  //     this.customerModelDetailsArray.clear();
+  //     let customerModelDetailsArray = data.customerModelDetails
+  //     for (let index = 0; index < customerModelDetailsArray.length; index++) {
+  //       const element = customerModelDetailsArray[index];
+  //       this.customerModelDetailsArray.push(this.newCustomerModel());
+  //       this.customerModelDetailsArray.at(index).get('customer_module_id')?.patchValue(element.customer_module_id);
+  //       this.customerModelDetailsArray.at(index).get('module_id')?.patchValue(element.module_id);
+  //       this.customerModelDetailsArray.at(index).get('module_name')?.patchValue(element.module_name);
 
+  //     }
+  //   }
+  // }
+  getCustomersById(id: any) {
+    this._superAdminService.getCustomersById(id).subscribe({
+      next: (result: any) => {
+        console.log(result);
+        if (result && result.data && Array.isArray(result.data.customerModulesDetails)) {
+          this.form.patchValue(result.data);
+          this.shortlogoName =result.data.short_logo
+          this.longLogoName =result.data.logo
+          
+          // Patch long logo
+          if (result.data.longLogoBase64) {
+            const reader1 = new FileReader();
+            reader1.onload = (e: any) => {
+              console.log('Long logo file loaded:', e.target.result);
+              this.control['longLogoName'].patchValue(result.data.longLogoName);
+              this.control['longLogoBase64'].patchValue(result.data.longLogoBase64);
+              this.imagePreview.nativeElement.src = 'data:image/png;base64,' + result.data.longLogoBase64;
+            };
+            reader1.readAsDataURL(result.data.longLogoBase64);
+          }
+        
+          // Patch short logo
+          if (result.data.shortLogoBase64) {
+            const reader2 = new FileReader();
+            reader2.onload = (e: any) => {
+              console.log('Short logo file loaded:', e.target.result);
+              this.control['shortLogoName'].patchValue(result.data.shortLogoName);
+              this.control['shortLogoBase64'].patchValue(result.data.shortLogoBase64);
+              this.shortimagePreview.nativeElement.src = 'data:image/png;base64,' + result.data.shortLogoBase64;
+            };
+            reader2.readAsDataURL(result.data.shortLogoBase64);
+          }
+        
+          let customerModulesDetails = result.data.customerModulesDetails;
+          console.log('Customer Model Details:', customerModulesDetails);
+        
+          if (customerModulesDetails.length > 0) {
+            this.customerModelDetailsArray.clear();
+            for (let index = 0; index < customerModulesDetails.length; index++) {
+              const element = customerModulesDetails[index];
+              this.customerModelDetailsArray.push(this.newCustomerModel());
+              this.customerModelDetailsArray.at(index).get('module_id')?.patchValue(element.module_id);
+            }
+          }
+        } else {
+          console.error('Customer Model Details not found or not in the correct format in the response');
+          // Handle error condition here, e.g., show an error message to the user
+        }
+      },
+      error: (error: any) => {
+        console.error('Error fetching customer details:', error);
+        // Handle error condition here, e.g., show an error message to the user
       }
-    }
+    });
   }
+  
+  
+  
+  // getCustomersById(id:any){
+  //   this._superAdminService.getCustomersById(id).subscribe((result: any) => {
+  //     console.log(result);
+  //     this.form.patchValue(result.data)
+      
+  //     // Patch long logo
+  //     // if (result.data.longLogoBase64) {
+  //     //   const reader1 = new FileReader();
+  //     //   reader1.onload = (e: any) => {
+  //     //     console.log('Long logo file loaded:', e.target.result);
+  //     //     this.control['longLogoName'].patchValue(result.data.longLogoName);
+  //     //     this.control['longLogoBase64'].patchValue(result.data.longLogoBase64);
+  //     //     this.imagePreview.nativeElement.src = 'data:image/png;base64,' + result.data.longLogoBase64;
+  //     //   };
+  //     //   reader1.readAsDataURL(result.data.longLogoBase64);
+  //     // }
+  
+  //     // Patch short logo
+  //     // if (result.data.shortLogoBase64) {
+  //     //   const reader2 = new FileReader();
+  //     //   reader2.onload = (e: any) => {
+  //     //     console.log('Short logo file loaded:', e.target.result);
+  //     //     this.control['shortLogoName'].patchValue(result.data.shortLogoName);
+  //     //     this.control['shortLogoBase64'].patchValue(result.data.shortLogoBase64);
+  //     //     this.shortimagePreview.nativeElement.src = 'data:image/png;base64,' + result.data.shortLogoBase64;
+  //     //   };
+  //     //   reader2.readAsDataURL(result.data.shortLogoBase64);
+  //     // }
+  //   let customerModelDetails = result.data.customerModelDetails;
+  //   console.log('Customer Model Details:', customerModelDetails);
+
+  //   if (customerModelDetails.length > 0) {
+  //     this.customerModelDetailsArray.clear();
+  //     for (let index = 0; index < customerModelDetails.length; index++) {
+  //       const element = customerModelDetails[index];
+  //       this.customerModelDetailsArray.push(this.newCustomerModel());
+  //       this.customerModelDetailsArray.at(index).get('module_id')?.patchValue(element.module_id);
+  //     }
+  //   }
+    
+  // });
+  // }
   //get Customer type list...
   getAllCustomerTypeList() {
     this._superAdminService.getAllCustomerTypeListWma().subscribe({
@@ -230,5 +334,6 @@ export class AddUpdateCustomersComponent implements OnInit {
     this.form.get('password')?.clearValidators();
     this.form.get('password')?.updateValueAndValidity();
   }
+
 
 }

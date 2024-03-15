@@ -167,10 +167,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
       url: '/masters',
       iconComponent: { name: 'cil-puzzle' },
       children: [
-        {
-          name: 'Payment Type',
-          url: ['/admin', { outlets: { sub_Menu: 'payment_type' } }]
-        },
+       
         {
           name: 'Title',
           url: ['/admin', { outlets: { sub_Menu: 'title' } }]
@@ -179,10 +176,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
           name: 'Source Of Patient',
           url: ['/admin', { outlets: { sub_Menu: 'source_of_patient' } }]
         },
-        {
-          name: 'Lead Status',
-          url: '/base/carousel'
-        },
+      
         {
           name: 'Refered By',
           url: ['/admin', { outlets: { sub_Menu: 'refered_by' } }]

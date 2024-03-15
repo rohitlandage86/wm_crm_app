@@ -4,8 +4,8 @@ import { ToastrService } from 'ngx-toastr';
 import { LeadsComponent } from '../leads.component';
 import { ReceptionistService } from '../../receptionist.service';
 import { AdminService } from 'src/app/components/admin/admin.service';
-import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
 
 @Component({
   selector: 'app-add-update-leads',
@@ -180,8 +180,7 @@ export class AddUpdateLeadsComponent implements OnInit{
         this.leadstatusDetailsArray.clear();
         for (let index = 0; index < leadFooterDetails.length; index++) {
           const element = leadFooterDetails[index];
-         
-          
+
           this.leadstatusDetailsArray.push(this.newLeadFooter())
           this.leadstatusDetailsArray.at(index).get('lead_fid')?.patchValue(element.lead_fid)
         this.leadstatusDetailsArray.at(index).get('comments')?.patchValue(element.comments);

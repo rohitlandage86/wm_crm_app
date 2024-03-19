@@ -8,7 +8,7 @@
         <form cForm class="row g-3" [formGroup]="form">
           <c-col md="12" class="d-flex">
             <c-col md="4" class="p-2">
-              <label for="entity_id" cLabel> Entity Name </label>
+              <label for="entity_id" cLabel> Entity Name <span style="color: red" *ngIf="!form.get('entity_id')?.value">*</span></label>
               <select
                 aria-label="select entity_id"
                 cSelect
@@ -41,7 +41,7 @@
               </div>
             </c-col>
             <c-col md="4" class="p-2">
-              <label cLabel for="mrno_entity_series">MR No Entity Series</label>
+              <label cLabel for="mrno_entity_series">MR No Entity Series <span style="color: red" *ngIf="!form.get('mrno_entity_series')?.value">*</span></label>
               <input
                 cFormControl
                 id="mrno_entity_series"
@@ -66,7 +66,7 @@
           </c-col>
         
           <c-col md="4" class="p-2">
-            <label cLabel for="registration_date">Registration Date</label>
+            <label cLabel for="registration_date">Registration Date <span style="color: red" *ngIf="!form.get('registration_date')?.value">*</span></label>
             <input
               cFormControl
               id="registration_date"
@@ -92,7 +92,7 @@
             </div>
           </c-col>
           <c-col md="4" class="p-2">
-            <label cLabel for="patient_name">Patient Name</label>
+            <label cLabel for="patient_name">Patient Name <span style="color: red" *ngIf="!form.get('patient_name')?.value">*</span></label>
             <input
               cFormControl
               id="patient_name"
@@ -117,7 +117,7 @@
             </div>
           </c-col>
           <c-col md="4" class="p-2">
-            <label cLabel for="mobile_no">Mobile Number</label>
+            <label cLabel for="mobile_no">Mobile Number <span style="color: red" *ngIf="!form.get('mobile_no')?.value">*</span></label>
             <input
               cFormControl
               id="mobile_no"
@@ -145,7 +145,7 @@
             </span>
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="validationDefault01">Gender</label>
+            <label cLabel for="validationDefault01">Gender <span style="color: red" *ngIf="!form.get('gender')?.value">*</span></label>
             <select
               aria-label="select lead gender"
               cSelect
@@ -180,7 +180,7 @@
             >
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="age">Age</label>
+            <label cLabel for="age">Age <span style="color: red" *ngIf="!form.get('age')?.value">*</span></label>
             <input
               cFormControl
               id="age"
@@ -203,7 +203,7 @@
             </div>
           </c-col>
           <c-col md="3" class="p-2">
-            <label cLabel for="address">Address</label>
+            <label cLabel for="address">Address <span style="color: red" *ngIf="!form.get('address')?.value">*</span></label>
             <input
               cFormControl
               id="address"
@@ -226,7 +226,7 @@
             </div>
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="validationDefault01">City</label>
+            <label cLabel for="validationDefault01">City <span style="color: red" *ngIf="!form.get('city')?.value">*</span></label>
             <input
               cFormControl
               id="validationDefault01"
@@ -249,7 +249,7 @@
             </div>
           </c-col>
           <c-col md="3" class="p-2">
-            <label for="state_id" cLabel> State </label>
+            <label for="state_id" cLabel> State <span style="color: red" *ngIf="!form.get('state_id')?.value">*</span></label>
             <select
               aria-label="select state_id"
               cSelect
@@ -283,7 +283,7 @@
             </div>
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="validationDefault01">Height (cm)</label>
+            <label cLabel for="validationDefault01">Height (cm) <span style="color: red" *ngIf="!form.get('height')?.value">*</span></label>
             <input
               cFormControl
               id="height"
@@ -307,7 +307,7 @@
             </div>
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="validationDefault01">Weight (kg)</label>
+            <label cLabel for="validationDefault01">Weight (kg) <span style="color: red" *ngIf="!form.get('weight')?.value">*</span></label>
             <input
               cFormControl
               id="weight"
@@ -331,7 +331,7 @@
             </div>
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="bmi">BMI (kg/m²)</label>
+            <label cLabel for="bmi">BMI (kg/m²) <span style="color: red" *ngIf="!form.get('bmi')?.value">*</span></label>
             <input
               cFormControl
               id="bmi"
@@ -355,7 +355,7 @@
           </c-col>
         
           <c-col md="3" class="p-2">
-            <label for="source_of_patient_id" cLabel> Source Of Patient </label>
+            <label for="source_of_patient_id" cLabel> Source Of Patient <span style="color: red" *ngIf="!form.get('source_of_patient_id')?.value">*</span></label>
             <select
               aria-label="select source_of_patient_id"
               cSelect
@@ -390,7 +390,7 @@
           
             <c-col md="3" class="p-2 m-9 ">
               <div >
-                <label for="refered_by_id" cLabel> Refered By </label>
+                <label for="refered_by_id" cLabel> Refered By <span style="color: red" *ngIf="!form.get('refered_by_id')?.value">*</span></label>
                
               </div>
               <div class=" refered-by">
@@ -430,7 +430,7 @@
                 </div>
             </c-col>
             <c-col md="4" class="p-2">
-              <label for="employee_id" cLabel> Employee Name</label>
+              <label for="employee_id" cLabel> Employee Name <span style="color: red" *ngIf="!form.get('employee_id')?.value">*</span></label>
               <select
                 aria-label="select employee_id"
                 cSelect
@@ -463,7 +463,7 @@
               </div>
             </c-col>
             <c-col md="4" class="p-2">
-                <label cLabel for="validationDefault01">Payment Type</label>
+                <label cLabel for="validationDefault01">Payment Type <span style="color: red" *ngIf="!form.get('payment_type')?.value">*</span></label>
                 <select
                   aria-label="select lead payment_type"
                   cSelect
@@ -477,7 +477,7 @@
                         control['payment_type'].touched)
                 }"
                 >
-                  <option hidden value="null" disabled selected> Payment Type </option>
+                  <option hidden value="null" disabled selected> Payment Type</option>
                   <option
                   >Cash
                   </option>
@@ -497,7 +497,7 @@
               </c-col>
           
           <c-col md="3" class="p-2">
-            <label cLabel for="amount">Amount</label>
+            <label cLabel for="amount">Amount <span style="color: red" *ngIf="!form.get('amount')?.value">*</span></label>
             <input
               cFormControl
               id="amount"

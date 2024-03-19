@@ -59,6 +59,7 @@ export class AddUpdatePatientComponent implements OnInit {
       });
   }
   
+  
   getCurrentDate(): string {
     const today = new Date();
     const year = today.getFullYear();

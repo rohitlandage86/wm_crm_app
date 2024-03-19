@@ -230,15 +230,43 @@ export class AppComponent implements OnInit, AfterContentChecked {
       url: ['/receptionist', { outlets: { receptionist_Menu: 'receptionist' } }],
       iconComponent: { name: 'cil-speedometer' },
     },
+   
     {
       name: 'Patient',
       url: ['/receptionist', { outlets: { receptionist_Menu: 'patient' } }],
-      iconComponent: { name: 'cil-drop' }
+      iconComponent: { name: 'cilList' },
+      children: [
+        {
+          name: 'Created',
+          url: ['/receptionist', { outlets: { receptionist_Menu: 'patient' } }],
+          
+        },
+        {
+          name: 'Search',
+          url: ['/receptionist', { outlets: { receptionist_Menu: 'leads' } }],
+
+        }
+           
+      ]
     },
+ 
     {
       name: 'Leads',
       url: ['/receptionist', { outlets: { receptionist_Menu: 'leads' } }],
-      iconComponent: { name: 'cilList' }
+      iconComponent: { name: 'cilList' },
+      children: [
+        {
+          name: 'Created',
+          url: ['/receptionist', { outlets: { receptionist_Menu: 'leads' } }],
+          
+        },
+        {
+          name: 'Search',
+          url: ['/receptionist', { outlets: { receptionist_Menu: 'leads' } }],
+
+        }
+           
+      ]
     },
     {
       name: 'Logout',

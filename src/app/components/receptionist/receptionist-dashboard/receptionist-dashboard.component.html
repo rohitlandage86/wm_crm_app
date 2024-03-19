@@ -1,7 +1,7 @@
 <c-container breakpoint="lg">
     <c-card class="mb-4">
         <c-card-header class="d-flex justify-content-between">
-            <strong> Lead Follow Up List</strong> <button cButton color="primary" class="fw-bold" [routerLink]="['/receptionist', { outlets: { receptionist_Menu: 'add-patient' } }]" >Add</button>
+            <strong> Lead Follow Up List</strong>
         </c-card-header>
         <c-card-body>
             <div class="col-md-12">
@@ -9,25 +9,25 @@
                     <thead cTableColor="light">
                         <tr>
                             <th>Sr. No</th>
-                            <th>Visit Date</th>
+                            <th>Registration Date</th>
+                            <th>Follow Up Date</th>
                             <th>Patient Name</th>
-                            <th>Calling Time</th>
                             <th>No Of Calls</th>
                             <th>Comments</th>
                             <th>Mobile Number</th>
-                            <th>Edit</th>
+                            <th>Add</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of allLeadFollowUpList; let i = index">
                             <td>{{ i + 1 }}</td>
-                            <td>{{ item.follow_up_date| date:'yyyy-MM-dd'}}</td>
+                            <td>{{ item.lead_date| date:'dd-MM-yyyy'}}</td>
+                            <td>{{ item.follow_up_date | date:'dd-MM-yyyy'}}</td> <!-- Adjusted date format -->
                             <td>{{ item.name  }}</td>
-                            <td>{{ item.calling_time }}</td>
                             <td>{{ item.no_of_calls }}</td>
                             <td>{{ item.comments }}</td>
                             <td>{{ item.mobile_number }}</td>
-                            <td> <a [routerLink]="['/receptionist', { outlets: { receptionist_Menu: ['edit-patient',item.mrno]}}]" class="pointer"><svg [cIcon]="icons.cilPencil"  size="xl"
+                            <td> <a [routerLink]="['/receptionist', { outlets: { receptionist_Menu: ['edit-receptionist',item.lead_fid]}}]" class="pointer"><svg [cIcon]="icons.cilPlus"  size="xl"
                                 title="List Icon" ></svg></a></td>
                         </tr>
                         <tr class=" fw-bold text-center" *ngIf="allLeadFollowUpList.length===0">

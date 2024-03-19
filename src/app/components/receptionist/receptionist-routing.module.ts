@@ -5,6 +5,7 @@ import {PatientComponent} from './patient/patient.component';
 import { AddUpdatePatientComponent } from './patient/add-update-patient/add-update-patient.component';
 import { LeadsComponent } from './leads/leads.component';
 import { AddUpdateLeadsComponent } from './leads/add-update-leads/add-update-leads.component';
+import { AddUpdateReceptionistDashboardComponent } from './receptionist-dashboard/add-update-receptionist-dashboard/add-update-receptionist-dashboard.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "receptionist", pathMatch: "full" },
@@ -15,6 +16,12 @@ const routes: Routes = [
     pathMatch: "full",
     outlet: "receptionist_Menu",
   },
+ {
+   path: "edit-receptionist/:id",  
+   component: AddUpdateReceptionistDashboardComponent,
+   pathMatch: "full",
+   outlet: "receptionist_Menu",
+ },
   {
     path: "patient",  
     component: PatientComponent,

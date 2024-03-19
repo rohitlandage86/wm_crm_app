@@ -45,6 +45,7 @@ export class AddUpdateEmployeeComponent implements OnInit{
     const passwordValidators = this.isEdit ? [] : [Validators.required];
     this.form = this.fb.group({
       name :[null,Validators.required],
+      charges :[null,Validators.required],
       designation_id:[null, Validators.required],
       email_id:[null, Validators.required],
       customer_id:[this.customer_id, Validators.required],

@@ -167,10 +167,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
       url: '/masters',
       iconComponent: { name: 'cil-puzzle' },
       children: [
-        {
-          name: 'Payment Type',
-          url: ['/admin', { outlets: { sub_Menu: 'payment_type' } }]
-        },
+       
         {
           name: 'Title',
           url: ['/admin', { outlets: { sub_Menu: 'title' } }]
@@ -179,10 +176,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
           name: 'Source Of Patient',
           url: ['/admin', { outlets: { sub_Menu: 'source_of_patient' } }]
         },
-        {
-          name: 'Lead Status',
-          url: '/base/carousel'
-        },
+      
         {
           name: 'Refered By',
           url: ['/admin', { outlets: { sub_Menu: 'refered_by' } }]
@@ -236,15 +230,43 @@ export class AppComponent implements OnInit, AfterContentChecked {
       url: ['/receptionist', { outlets: { receptionist_Menu: 'receptionist' } }],
       iconComponent: { name: 'cil-speedometer' },
     },
+   
     {
       name: 'Patient',
       url: ['/receptionist', { outlets: { receptionist_Menu: 'patient' } }],
-      iconComponent: { name: 'cil-drop' }
+      iconComponent: { name: 'cilList' },
+      children: [
+        {
+          name: 'Created',
+          url: ['/receptionist', { outlets: { receptionist_Menu: 'patient' } }],
+          
+        },
+        {
+          name: 'Search',
+          url: ['/receptionist', { outlets: { receptionist_Menu: 'leads' } }],
+
+        }
+           
+      ]
     },
+ 
     {
       name: 'Leads',
       url: ['/receptionist', { outlets: { receptionist_Menu: 'leads' } }],
-      iconComponent: { name: 'cilList' }
+      iconComponent: { name: 'cilList' },
+      children: [
+        {
+          name: 'Created',
+          url: ['/receptionist', { outlets: { receptionist_Menu: 'leads' } }],
+          
+        },
+        {
+          name: 'Search',
+          url: ['/receptionist', { outlets: { receptionist_Menu: 'leads' } }],
+
+        }
+           
+      ]
     },
     {
       name: 'Logout',

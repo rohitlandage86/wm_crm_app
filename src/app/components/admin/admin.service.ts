@@ -375,6 +375,10 @@ export class AdminService {
             params: params
         });
     }
+      //get All Source Of Patient wma...
+      getAllSourceOfPatientListWma(): Observable<any> {
+        return this.http.get(this.baseUrl + 'api/source_of_patient/wma');
+    }
     //add new source_of_patient...
     addSourceOfPatient(data: any): Observable<any> {
         return this.http.post(this.baseUrl + 'api/source_of_patient', data);
@@ -403,6 +407,11 @@ export class AdminService {
             params: params
         });
     }
+     //get All refered_by wma...
+    getAllReferedByListWma(): Observable<any> {
+        return this.http.get(this.baseUrl + 'api/refered_by/wma');
+    }
+
     //add new refered_by...
     addReferedBy(data: any): Observable<any> {
         return this.http.post(this.baseUrl + 'api/refered_by', data);
@@ -479,6 +488,25 @@ export class AdminService {
         const body = { status: status };
         let params = new HttpParams().set('status', status);
         return this.http.patch(this.baseUrl + 'api/employee/' + id, body, { params: params });
+    }
+       //get All employee wma...
+       getAllEmployeeListWma(): Observable<any> {
+        return this.http.get(this.baseUrl + 'api/employee/wma');
+    }
+
+     //get all PatientVisit list...............................................................
+     getAllPatientVisitList(page: any, perPage: any): Observable<any> {
+        let params = {
+            page: page,
+            perPage: perPage
+        };
+        if (page == '' || perPage == '') {
+            delete params['page'];
+            delete params['perPage'];
+        }
+        return this.http.get(this.baseUrl + 'api/patient_registration/patient-visit-list/', {
+            params: params
+        });
     }
 
 }

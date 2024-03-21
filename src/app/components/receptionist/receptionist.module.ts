@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 import { ReceptionistRoutingModule } from './receptionist-routing.module';
@@ -22,7 +21,6 @@ import { AddUpdateLeadsComponent } from './leads/add-update-leads/add-update-lea
     AddUpdateLeadsComponent
   ],
   imports: [
-    CommonModule,
     ReceptionistRoutingModule,
     SharedModule
   ]

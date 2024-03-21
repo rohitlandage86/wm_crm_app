@@ -9,7 +9,7 @@ import { ChartjsModule } from '@coreui/angular-chartjs';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 @NgModule({
   declarations: [],
   imports: [
@@ -39,7 +39,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     BadgeModule,
     ListGroupModule,
     MatPaginatorModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatAutocompleteModule
   ],
   exports:[
     CommonModule,
@@ -68,7 +69,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     BadgeModule,
     ListGroupModule,
     MatPaginatorModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatAutocompleteModule
     
   ]
 })

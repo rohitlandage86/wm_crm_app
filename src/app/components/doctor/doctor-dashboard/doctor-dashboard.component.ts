@@ -1,4 +1,6 @@
+
 import { Component } from '@angular/core';
+
 
 @Component({
   selector: 'app-doctor-dashboard',
@@ -6,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './doctor-dashboard.component.scss'
 })
 export class DoctorDashboardComponent {
-
+ 
 }

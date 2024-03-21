@@ -96,32 +96,40 @@ export class AddUpdateReceptionistDashboardComponent implements OnInit{
   }
   submit(){  console.log('Form status:', this.form.status);
   console.log('Lead date value:', this.form.get('lead_date')?.value);
-  this.addLead();}
+  this.addLeadFollowUp();}
 
-  addLead(){
-    if (this.form.valid){
-      this._receptionistService.addLead(this.form.value).subscribe({
+ 
+  
+  addLeadFollowUp(){
+    if (this.form.valid) {
+      console.log(this.form.value);
+      this._receptionistService.editLeadFollowUp(this.form.value,this.lead_hid).subscribe({
         next:(res:any)=>{
-          if(res.status==201||res.status==200){
+          if (res.status==200) {
             this._toastrService.success(res.message);
-            this.router.navigate(['/receptionist', { outlets: { receptionist_Menu: 'leads' } }])
+            this.router.navigate(['/receptionist', { outlets: { receptionist_Menu: 'receptionist' } }])
           }else{
             this._toastrService.warning(res.message);
           }
         },
         error:(err:any)=>{
-          if(err.error.status== 422){
+          if (err.error.status==401 || err.error.status==422) {
             this._toastrService.warning(err.error.message);
-          }else{
+          } else {
             this._toastrService.error("Internal Server Error");
           }
         }
       });
-    }else{
+    } else {
       this.form.markAllAsTouched();
       this._toastrService.warning("Fill required fields");
     }
   }
+  
+  
+  
+  
+  
   getLeadById(id:any){
     this._receptionistService.getLeadById(id).subscribe((result: any) => {
       console.log(result);

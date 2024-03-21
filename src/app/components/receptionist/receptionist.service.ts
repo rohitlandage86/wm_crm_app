@@ -33,11 +33,11 @@ export class ReceptionistService {
     //update lead...
     editLead(data: any, id: number): Observable<any> {
         return this.http.put(this.baseUrl + 'api/lead_header/' + id, data);
-    } 
+    }
     // lead get by id ...
-     getLeadById(id:any){
-        return this.http.get(this.baseUrl+'api/lead_header/'+id)
-      }
+    getLeadById(id: any) {
+        return this.http.get(this.baseUrl + 'api/lead_header/' + id)
+    }
     //on lead status change...
     onLeadStatusChange(status: any, id: number): Observable<any> {
         const body = { status: status };
@@ -68,10 +68,10 @@ export class ReceptionistService {
     editPatient(data: any, id: any) {
         return this.http.put(this.baseUrl + 'api/patient_registration/' + id, data);
     }
-     // Patient get by id ...
-     getPatientById(id:any){
-        return this.http.get(this.baseUrl+'api/patient_registration/'+id)
-      }
+    // Patient get by id ...
+    getPatientById(id: any) {
+        return this.http.get(this.baseUrl + 'api/patient_registration/' + id)
+    }
     // Patient status change...
     onPatientStatusChange(status: any, id: any): Observable<any> {
         const body = { status: status };
@@ -82,27 +82,36 @@ export class ReceptionistService {
     getAllPatientListWma(): Observable<any> {
         return this.http.get(this.baseUrl + 'api/patient_registration/wma');
     }
-        //get all lead-follow-up list...............................................................
-        getAllLeadFollowUpList(page: any, perPage: any, lead_date: any): Observable<any> {
-            let params: any = {
-              page: page,
-              perPage: perPage,
-            };
-        
-            if (lead_date) {
-              params.lead_date = lead_date;
-            }
-        
-            if (page == '' || perPage == '') {
-              delete params.page;
-              delete params.perPage;
-            }
-        
-            return this.http.get(this.baseUrl + 'api/lead_header/lead-follow-up', {
-              params: params
-            });
-          }
-        
-    
+    //get all lead-follow-up list...............................................................
+    getAllLeadFollowUpList(page: any, perPage: any, lead_date: any): Observable<any> {
+        let params: any = {
+            page: page,
+            perPage: perPage,
+        };
+
+        if (lead_date) {
+            params.lead_date = lead_date;
+        }
+
+        if (page == '' || perPage == '') {
+            delete params.page;
+            delete params.perPage;
+        }
+
+        return this.http.get(this.baseUrl + 'api/lead_header/lead-follow-up', {
+            params: params
+        });
+    }
+      //Edit lead-follow-up...
+      editLeadFollowUp(data: any, id: any) {
+        return this.http.put(this.baseUrl + 'api/lead_header/lead-follow-up/' + id, data);
+    }
+
+     //get All receptionist-dashboard ..
+     getAllReceptionistDashboard(): Observable<any> {
+        return this.http.get(this.baseUrl + 'api/receptionist-dashboard');
+    }
+
+
 
 }

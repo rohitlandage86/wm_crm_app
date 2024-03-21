@@ -1,0 +1,788 @@
+<c-row class="m-0">
+  <c-col xs="12 " class="p-0">
+    <c-card class="">
+      <c-card-header>
+        <strong>{{ isEdit ? "Add" : "Edit" }} consultation</strong>
+      </c-card-header>
+      <c-card-body>
+        <form cForm class="row g-3" [formGroup]="form_patient">
+          <c-col md="2" class="p-2">
+            <label for="entity_id" cLabel> Entity Name </label>
+            <select
+              aria-label="select entity_id"
+              cSelect
+              sizing="sm"
+              formControlName="entity_id"
+              type="text"
+            >
+              <option hidden value="null" disabled selected>Entity Name</option>
+              <option
+                [value]="item.entity_id"
+                *ngFor="let item of allEntityList"
+              >
+                {{ item.entity_name }}
+              </option>
+            </select>
+          </c-col>
+          <c-col md="2" class="p-2">
+            <label cLabel for="mrno_entity_series"
+              >MR No Entity Series
+              <span
+                style="color: red"
+                *ngIf="!form.get('mrno_entity_series')?.value"
+                >*</span
+              ></label
+            >
+            <input
+              cFormControl
+              id="mrno_entity_series"
+              formControlName="mrno_entity_series"
+              type="text"
+            />
+          </c-col>
+          <c-col md="2" class="p-2">
+            <label cLabel for="registration_date"
+              >Registration Date
+              <span
+                style="color: red"
+                *ngIf="!form.get('registration_date')?.value"
+                >*</span
+              ></label
+            >
+            <input
+              cFormControl
+              id="registration_date"
+              formControlName="registration_date"
+              type="date"
+            />
+          </c-col>
+          <c-col md="2" class="p-2">
+            <label cLabel for="patient_name"
+              >Patient Name
+              <span style="color: red" *ngIf="!form.get('patient_name')?.value"
+                >*</span
+              ></label
+            >
+            <input
+              cFormControl
+              id="patient_name"
+              formControlName="patient_name"
+              type="text"
+            />
+          </c-col>
+          <c-col md="2" class="p-2">
+            <label cLabel for="mobile_no"
+              >Mobile Number
+              <span style="color: red" *ngIf="!form.get('mobile_no')?.value"
+                >*</span
+              ></label
+            >
+            <input
+              cFormControl
+              id="mobile_no"
+              formControlName="mobile_no"
+              type="number"
+            />
+          </c-col>
+          <c-col md="2" class="p-2">
+            <label cLabel for="validationDefault01"
+              >Gender
+              <span style="color: red" *ngIf="!form.get('gender')?.value"
+                >*</span
+              ></label
+            >
+            <select
+              aria-label="select lead gender"
+              cSelect
+              sizing="sm"
+              formControlName="gender"
+              type="text"
+            >
+              <option hidden value="null" disabled selected>Gender</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other</option>
+            </select>
+          </c-col>
+          <c-col md="2" class="p-2">
+            <label cLabel for="age"
+              >Age
+              <span style="color: red" *ngIf="!form.get('age')?.value"
+                >*</span
+              ></label
+            >
+            <input cFormControl id="age" formControlName="age" type="number" />
+          </c-col>
+          <c-col md="2" class="p-2">
+            <label cLabel for="address"
+              >Address
+              <span style="color: red" *ngIf="!form.get('address')?.value"
+                >*</span
+              ></label
+            >
+            <input
+              cFormControl
+              id="address"
+              formControlName="address"
+              type="text"
+            />
+          </c-col>
+          <c-col md="2" class="p-2">
+            <label cLabel for="validationDefault01"
+              >City
+              <span style="color: red" *ngIf="!form.get('city')?.value"
+                >*</span
+              ></label
+            >
+            <input
+              cFormControl
+              id="validationDefault01"
+              formControlName="city"
+              type="text"
+            />
+          </c-col>
+          <c-col md="2" class="p-2">
+            <label for="state_id" cLabel> State </label>
+            <select
+              aria-label="select state_id"
+              cSelect
+              sizing="sm"
+              formControlName="state_id"
+              type="text"
+              [(ngModel)]="defaultStateId"
+            >
+              <option hidden value="null" disabled selected>State</option>
+              <option [value]="item.state_id" *ngFor="let item of allStateList">
+                {{ item.state_name }}
+              </option>
+            </select>
+          </c-col>
+          <c-col md="2" class="p-2">
+            <label cLabel for="validationDefault01"
+              >Height (cm)
+              <span style="color: red" *ngIf="!form.get('height')?.value"
+                >*</span
+              ></label
+            >
+            <input
+              cFormControl
+              id="height"
+              formControlName="height"
+              type="number"
+            />
+          </c-col>
+          <c-col md="2" class="p-2">
+            <label cLabel for="validationDefault01"
+              >Weight (kg)
+              <span style="color: red" *ngIf="!form.get('weight')?.value"
+                >*</span
+              ></label
+            >
+            <input
+              cFormControl
+              id="weight"
+              formControlName="weight"
+              type="number"
+            />
+          </c-col>
+          <c-col md="2" class="p-2">
+            <label cLabel for="bmi"
+              >BMI (kg/m²)
+              <span style="color: red" *ngIf="!form.get('bmi')?.value"
+                >*</span
+              ></label
+            >
+            <input cFormControl id="bmi" formControlName="bmi" type="text" />
+          </c-col>
+          <c-col md="2" class="p-2">
+            <label for="source_of_patient_id" cLabel>
+              Source Of Patient
+              <span
+                style="color: red"
+                *ngIf="!form.get('source_of_patient_id')?.value"
+                >*</span
+              ></label
+            >
+            <select
+              aria-label="select source_of_patient_id"
+              cSelect
+              sizing="sm"
+              formControlName="source_of_patient_id"
+              type="text"
+            >
+              <option hidden value="null" disabled selected>
+                Source Of Patient
+              </option>
+              <option
+                [value]="item.source_of_patient_id"
+                *ngFor="let item of allSourceOfPatientList"
+              >
+                {{ item.source_of_patient_name }}
+              </option>
+            </select>
+          </c-col>
+          <c-col md="2" class="p-2 m-9">
+            <div>
+              <label for="refered_by_id" cLabel>
+                Refered By
+                <span
+                  style="color: red"
+                  *ngIf="!form.get('refered_by_id')?.value"
+                  >*</span
+                ></label
+              >
+            </div>
+            <div class="refered-by">
+              <select
+                aria-label="select refered_by_id"
+                cSelect
+                sizing="sm"
+                formControlName="refered_by_id"
+                type="text"
+              >
+                <option hidden value="null" disabled selected>
+                  Refered By
+                </option>
+                <option
+                  [value]="item.refered_by_id"
+                  *ngFor="let item of allReferedByList"
+                >
+                  {{ item.refered_by_name }}
+                </option>
+              </select>
+            </div>
+          </c-col>
+          <c-col md="2" class="p-2">
+            <label for="employee_id" cLabel>
+              Assign to
+              <span style="color: red" *ngIf="!form.get('employee_id')?.value"
+                >*</span
+              ></label
+            >
+            <select
+              aria-label="select employee_id"
+              cSelect
+              sizing="sm"
+              formControlName="employee_id"
+              type="text"
+            >
+              <option hidden value="null" disabled selected>Select Name</option>
+              <ng-container *ngFor="let item of allEmployeeList">
+                <option
+                  [value]="item.employee_id"
+                  *ngIf="item.designation_name.toLowerCase() === 'doctor'"
+                >
+                  {{ item.name }}
+                </option>
+              </ng-container>
+            </select>
+          </c-col>
+          <c-col md="2" class="p-2">
+            <label cLabel for="validationDefault01"
+              >Payment Type
+              <span style="color: red" *ngIf="!form.get('payment_type')?.value"
+                >*</span
+              ></label
+            >
+            <select
+              aria-label="select lead payment_type"
+              cSelect
+              sizing="sm"
+              formControlName="payment_type"
+              type="text"
+            >
+              <option hidden value="null" disabled selected>
+                Payment Type
+              </option>
+              <option>Cash</option>
+              <option>Online Payment</option>
+            </select>
+          </c-col>
+          <c-col md="2" class="p-2">
+            <label cLabel for="amount"
+              >Amount
+              <span style="color: red" *ngIf="!form.get('amount')?.value"
+                >*</span
+              ></label
+            >
+            <input
+              cFormControl
+              id="amount"
+              formControlName="amount"
+              type="number"
+            />
+          </c-col>
+        </form>
+        <hr />
+
+        <form cForm class="row g-3" [formGroup]="form">
+          <c-col md="3" class="p-2">
+            <label cLabel for="validationDefault01"
+              >Pluse
+              <span style="color: red" *ngIf="!form.get('pluse')?.value"
+                >*</span
+              ></label
+            >
+            <input
+              cFormControl
+              id="pluse"
+              type="number"
+              formControlName="pluse"
+              [ngClass]="{
+                'is-invalid':
+                  control['pluse'].invalid &&
+                  (control['pluse'].dirty || control['pluse'].touched)
+              }"
+            />
+            <div
+              class="text-danger"
+              *ngIf="
+                control['pluse'].invalid &&
+                (control['pluse'].dirty || control['pluse'].touched)
+              "
+            >
+              <small>Please provide a valid Pluse.</small>
+            </div>
+          </c-col>
+          <c-col md="3" class="p-2">
+            <label cLabel for="validationDefault01"
+              >BP<span style="color: red" *ngIf="!form.get('bp')?.value"
+                >*</span
+              ></label
+            >
+            <input
+              cFormControl
+              id="bp"
+              type="number"
+              formControlName="bp"
+              [ngClass]="{
+                'is-invalid':
+                  control['bp'].invalid &&
+                  (control['bp'].dirty || control['bp'].touched)
+              }"
+            />
+            <div
+              class="text-danger"
+              *ngIf="
+                control['bp'].invalid &&
+                (control['bp'].dirty || control['bp'].touched)
+              "
+            >
+              <small>Please provide a valid BP.</small>
+            </div>
+          </c-col>
+          <c-col md="3" class="p-2">
+            <label cLabel for="validationDefault01"
+              >Past History<span
+                style="color: red"
+                *ngIf="!form.get('chief_complaints_id')?.value"
+                >*</span
+              ></label
+            >
+            <input
+              cFormControl
+              id="chief_complaints_id"
+              type="text"
+              formControlName="chief_complaints_id"
+              [ngClass]="{
+                'is-invalid':
+                  control['chief_complaints_id'].invalid &&
+                  (control['chief_complaints_id'].dirty ||
+                    control['chief_complaints_id'].touched)
+              }"
+            />
+            <div
+              class="text-danger"
+              *ngIf="
+                control['chief_complaints_id'].invalid &&
+                (control['chief_complaints_id'].dirty ||
+                  control['chief_complaints_id'].touched)
+              "
+            >
+              <small>Please provide a valid Past History.</small>
+            </div>
+          </c-col>
+          <c-col md="3" class="p-2">
+            <label for="state_id" cLabel>
+              Chief Complaints<span
+                style="color: red"
+                *ngIf="!form.get('state_id')?.value"
+                >*</span
+              ></label
+            >
+            <input
+              cFormControl
+              id="chief_complaints_id"
+              type="text"
+              placeholder="Search street"
+              [formControl]="streetControl"
+              [matAutocomplete]="auto"
+            />
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option
+                *ngFor="let street of filteredStreets | async"
+                [value]="street"
+              >
+                {{ street }}
+              </mat-option>
+            </mat-autocomplete>
+
+            <div
+              class="text-danger"
+              *ngIf="
+                control['past_history'].invalid &&
+                (control['past_history'].dirty ||
+                  control['past_history'].touched)
+              "
+            >
+              <small>Please provide a valid Chief Complaints.</small>
+            </div>
+          </c-col>
+
+          <div>
+            <strong>Diagnosis Details</strong>
+          </div>
+          <div>
+            <table class="table">
+              <thead class="table-light">
+                <tr>
+                  <th scope="col">Sr No</th>
+                  <th scope="col">Diagnosis</th>
+                  <th scope="col">notes</th>
+                  <th scope="col" class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody formArrayName="consultationDiagnosisDetails">
+                <tr
+                  *ngFor="
+                    let item of consultationDiagnosisDetailsArray.controls;
+                    let i = index
+                  "
+                  [formGroupName]="i"
+                >
+                  <th>{{ 1 }}</th>
+
+                  <td>
+                    <input
+                      cFormControl
+                      id="chief_complaints_id"
+                      type="text"
+                      placeholder="Search street"
+                      formControlName="diagnosis_id"
+                      [matAutocomplete]="auto"
+                      [ngClass]="{
+                        'is-invalid':
+                        consultationDiagnosisDetailsArray.at(i).get('diagnosis_id')
+                            ?.invalid &&
+                          (consultationDiagnosisDetailsArray.at(i).get('diagnosis_id')
+                            ?.dirty ||
+                            consultationDiagnosisDetailsArray.at(i).get('diagnosis_id')
+                              ?.touched)
+                      }"
+                    />
+                    <mat-autocomplete #auto="matAutocomplete">
+                      <mat-option
+                        *ngFor="let street of filteredStreets | async"
+                        [value]="street"
+                      >
+                        {{ street }}
+                      </mat-option>
+                    </mat-autocomplete>
+                    <div
+                    class="text-danger"
+                    *ngIf="
+                    consultationDiagnosisDetailsArray.at(i).get('diagnosis_id')
+                        ?.invalid &&
+                      (consultationDiagnosisDetailsArray.at(i).get('diagnosis_id')
+                        ?.dirty ||
+                        consultationDiagnosisDetailsArray.at(i).get('diagnosis_id')
+                          ?.touched)
+                    "
+                  >
+                    <small>Please provide a valid Diagnosis.</small>
+                  </div>
+                  </td>
+                  <td>
+                    <input type="text" class="form-control"notes />
+                  </td>
+
+                  <td class="d-flex pb-3 justify-content-center">
+                    <i
+                      class="material-icons"
+                      (click)="addConsultationDiagnosis()"
+                      type="button"
+                      >add</i
+                    ><i
+                      class="material-icons ms-2"
+                      (click)="deleteConsultationDiagnosis(i)"
+                      type="button"
+                      [class.disabled]="
+                        consultationDiagnosisDetailsArray.length === 1
+                      "
+                      [attr.aria-disabled]="
+                        consultationDiagnosisDetailsArray.length === 1
+                          ? 'true'
+                          : 'false'
+                      "
+                      >remove</i
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div>
+            <strong>Treatment Details</strong>
+          </div>
+          <div>
+            <table class="table">
+              <thead class="table-light">
+                <tr>
+                  <th scope="col">Sr No</th>
+                  <th scope="col">Treatment</th>
+                  <th scope="col">notes</th>
+                  <th scope="col" class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody formArrayName="consultationTreatmentDetails">
+                <tr
+                  *ngFor="
+                    let item of consultationTreatmentDetailsArray.controls;
+                    let i = index
+                  "
+                  [formGroupName]="i"
+                >
+                  <th>{{ 1 }}</th>
+
+                  <td>
+                    <input
+                      cFormControl
+                      id="chief_complaints_id"
+                      type="text"
+                      placeholder="Search Treatment"
+                      [formControl]="streetControl"
+                      [matAutocomplete]="auto"
+                    />
+                    <mat-autocomplete #auto="matAutocomplete">
+                      <mat-option
+                        *ngFor="let street of filteredStreets | async"
+                        [value]="street"
+                      >
+                        {{ street }}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" />
+                  </td>
+
+                  <td class="d-flex pb-3 justify-content-center">
+                    <i
+                      class="material-icons"
+                      (click)="addConsultationTreatment()"
+                      type="button"
+                      >add</i
+                    ><i
+                      class="material-icons ms-2"
+                      (click)="deleteConsultationTreatment(i)"
+                      type="button"
+                      [class.disabled]="
+                        consultationTreatmentDetailsArray.length === 1
+                      "
+                      [attr.aria-disabled]="
+                        consultationTreatmentDetailsArray.length === 1
+                          ? 'true'
+                          : 'false'
+                      "
+                      >remove</i
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div>
+            <strong>Medicine Details</strong>
+          </div>
+          <div>
+            <table class="table">
+              <thead class="table-light">
+                <tr>
+                  <th scope="col">Sr No</th>
+                  <th scope="col">Medicines</th>
+                  <th scope="col">Dosages</th>
+                  <th scope="col">Days</th>
+                  <th scope="col">Instructions</th>
+                  <th scope="col" class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody formArrayName="consultationMedicineDetails">
+                <tr
+                  *ngFor="
+                    let item of consultationMedicineDetailsArray.controls;
+                    let i = index
+                  "
+                  [formGroupName]="i"
+                >
+                  <th>{{ 1 }}</th>
+
+                  <td>
+                    <input
+                      cFormControl
+                      id="chief_complaints_id"
+                      type="text"
+                      placeholder="Search street"
+                      [formControl]="streetControl"
+                      [matAutocomplete]="auto"
+                    />
+                    <mat-autocomplete #auto="matAutocomplete">
+                      <mat-option
+                        *ngFor="let street of filteredStreets | async"
+                        [value]="street"
+                      >
+                        {{ street }}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </td>
+                  <td>
+                    <input
+                      cFormControl
+                      id="chief_complaints_id"
+                      type="text"
+                      placeholder="Search street"
+                      [formControl]="streetControl"
+                      [matAutocomplete]="auto"
+                    />
+                    <mat-autocomplete #auto="matAutocomplete">
+                      <mat-option
+                        *ngFor="let street of filteredStreets | async"
+                        [value]="street"
+                      >
+                        {{ street }}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" />
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" />
+                  </td>
+                  <td class="d-flex pb-3 justify-content-center">
+                    <i
+                      class="material-icons"
+                      (click)="addConsultationMedicine()"
+                      type="button"
+                      >add</i
+                    ><i
+                      class="material-icons ms-2"
+                      (click)="deleteConsultationMedicine(i)"
+                      type="button"
+                      [class.disabled]="
+                        consultationMedicineDetailsArray.length === 1
+                      "
+                      [attr.aria-disabled]="
+                        consultationMedicineDetailsArray.length === 1
+                          ? 'true'
+                          : 'false'
+                      "
+                      >remove</i
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div>
+            <strong>File Upload Details</strong>
+          </div>
+          <div>
+            <table class="table">
+              <thead class="table-light">
+                <tr>
+                  <th scope="col">Sr No</th>
+                  <th scope="col">Image</th>
+                  <th scope="col">Notes</th>
+                  <th scope="col" class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody formArrayName="consultationFileUploadDetails">
+                <tr
+                  *ngFor="
+                    let item of consultationFileUploadDetailsArray.controls;
+                    let i = index
+                  "
+                  [formGroupName]="i"
+                >
+                  <th>{{ 1 }}</th>
+                  <td>
+                    <input
+                      type="file"
+                      class="form-control"
+                      id="longLogoName"
+                      accept=".jpeg, .jfif, .pjpeg, .pjp, .png, .jpg"
+                    />
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" />
+                  </td>
+                  <td class="d-flex pb-3 justify-content-center">
+                    <i
+                      class="material-icons"
+                      (click)="addConsultationFileUpload()"
+                      type="button"
+                      >add</i
+                    ><i
+                      class="material-icons ms-2"
+                      (click)="deleteConsultationFileUpload(i)"
+                      type="button"
+                      [class.disabled]="
+                        consultationFileUploadDetailsArray.length === 1
+                      "
+                      [attr.aria-disabled]="
+                        consultationFileUploadDetailsArray.length === 1
+                          ? 'true'
+                          : 'false'
+                      "
+                      >remove</i
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <strong>Book Appointment</strong>
+          </div>
+          <c-col md="4" class="p-2">
+            <label cLabel for="registration_date"
+              >Appointment Date <span style="color: red">*</span></label
+            >
+            <input cFormControl id="registration_date" type="date" />
+          </c-col>
+          <c-col md="4" class="p-2">
+            <label cLabel for="registration_date"
+              >Appointment Time <span style="color: red">*</span></label
+            >
+            <input cFormControl id="registration_date" type="time" />
+          </c-col>
+          <c-col xs="12">
+            <button cButton class="me-1" color="primary" (click)="submit()">
+              Submit
+            </button>
+            <button
+              cButton
+              color="secondary"
+              [routerLink]="['/doctor', { outlets: { doc_Menu: 'patient' } }]"
+            >
+              Cancel
+            </button>
+          </c-col>
+        </form>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>

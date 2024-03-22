@@ -1,0 +1,22 @@
+.material-icons {
+    font-size: 35px; /* Adjust the font-size to increase the height */
+  }
+  .disabled {
+    color: gray; /* Change color to gray or any other color to indicate it's disabled */
+    pointer-events: none;
+    cursor: not-allowed; /* Change cursor to indicate it's not clickable */
+  }
+//   tr td:last-child{
+//     border: 1px solid red!important;
+//     background-color: red;
+//     width:150px;
+//     float: right;
+//   }
+//   tr th:last-child{
+//     width:150px;
+//     float: right;
+//   }
+//   tr td:nth-last-child(2){
+//     border: 1px solid red!important;
+//     width: 10%;
+//   }

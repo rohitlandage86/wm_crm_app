@@ -2,12 +2,17 @@
   <c-col xs="12 " class="p-0">
     <c-card class="">
       <c-card-header>
-        <strong>{{ isEdit ? "Edit" : "Add" }} Lead Details</strong>
+        <strong>{{ isEdit ? "Add" : " Edit" }} Lead Details</strong>
       </c-card-header>
       <c-card-body>
         <form cForm class="row g-3" [formGroup]="form">
           <c-col md="4" class="p-2">
-            <label cLabel for="name">Name <span style="color: red" *ngIf="!control['name'].value" >*</span></label>
+            <label cLabel for="name"
+              >Name
+              <span style="color: red" *ngIf="!control['name'].value"
+                >*</span
+              ></label
+            >
             <input
               cFormControl
               id="name"
@@ -30,7 +35,12 @@
             </div>
           </c-col>
           <c-col md="4" class="p-2">
-            <label cLabel for="lead_date">Lead Date <span style="color: red"*ngIf="!control['lead_date'].value" >*</span></label>
+            <label cLabel for="lead_date"
+              >Lead Date
+              <span style="color: red" *ngIf="!control['lead_date'].value"
+                >*</span
+              ></label
+            >
             <input
               cFormControl
               id="lead_date"
@@ -54,7 +64,12 @@
           </c-col>
 
           <c-col md="4" class="p-2">
-            <label cLabel for="validationDefault01">City <span style="color: red" *ngIf="!control['city'].value">*</span></label>
+            <label cLabel for="validationDefault01"
+              >City
+              <span style="color: red" *ngIf="!control['city'].value"
+                >*</span
+              ></label
+            >
             <input
               cFormControl
               id="validationDefault01"
@@ -77,7 +92,12 @@
             </div>
           </c-col>
           <c-col md="4" class="p-2">
-            <label cLabel for="validationDefault01">Mobile Number <span style="color: red" *ngIf="!control['mobile_number'].value">*</span></label>
+            <label cLabel for="validationDefault01"
+              >Mobile Number
+              <span style="color: red" *ngIf="!control['mobile_number'].value"
+                >*</span
+              ></label
+            >
             <input
               cFormControl
               id="validationDefault01"
@@ -107,7 +127,12 @@
             </span>
           </c-col>
           <c-col md="3" class="p-2">
-            <label for="category" cLabel> Category <span style="color: red" *ngIf="!control['category_id'].value">*</span></label>
+            <label for="category" cLabel>
+              Category
+              <span style="color: red" *ngIf="!control['category_id'].value"
+                >*</span
+              ></label
+            >
             <select
               aria-label="select category"
               cSelect
@@ -121,7 +146,9 @@
                     control['category_id'].touched)
               }"
             >
-              <option hidden value="null" disabled selected>Select Category</option>
+              <option hidden value="null" disabled selected>
+                Select Category
+              </option>
               <option
                 [value]="item.category_id"
                 *ngFor="let item of allCategoryList"
@@ -140,7 +167,12 @@
             </div>
           </c-col>
           <c-col md="12" class="p-2">
-            <label cLabel for="validationDefault01">Note <span style="color: red" *ngIf="!control['note'].value">*</span></label>
+            <label cLabel for="validationDefault01"
+              >Note
+              <span style="color: red" *ngIf="!control['note'].value"
+                >*</span
+              ></label
+            >
             <textarea
               cFormControl
               id="note"
@@ -158,8 +190,8 @@
               <small>Please provide a valid Note.</small>
             </div>
           </c-col>
-         
-          <c-card-header >
+
+          <c-card-header>
             <strong> Lead Info</strong>
           </c-card-header>
           <div formArrayName="leadFooterDetails">
@@ -172,7 +204,16 @@
             >
               <c-col md-12 class="d-flex">
                 <c-col md="3" class="p-2">
-                  <label cLabel for="validationDefault01">Comments <span style="color: red" *ngIf="!leadstatusDetailsArray.at(i).get('comments')?.value">*</span></label>
+                  <label cLabel for="validationDefault01"
+                    >Comments
+                    <span
+                      style="color: red"
+                      *ngIf="
+                        !leadstatusDetailsArray.at(i).get('comments')?.value
+                      "
+                      >*</span
+                    ></label
+                  >
                   <input
                     cFormControl
                     id="validationDefault01"
@@ -197,7 +238,16 @@
                   </div>
                 </c-col>
                 <c-col md="2" class="p-2">
-                  <label cLabel for="validationDefault01">Calling Time <span style="color: red" *ngIf="!leadstatusDetailsArray.at(i).get('calling_time')?.value">*</span></label>
+                  <label cLabel for="validationDefault01"
+                    >Calling Time
+                    <span
+                      style="color: red"
+                      *ngIf="
+                        !leadstatusDetailsArray.at(i).get('calling_time')?.value
+                      "
+                      >*</span
+                    ></label
+                  >
                   <input
                     cFormControl
                     id="validationDefault01"
@@ -228,7 +278,16 @@
                   </div>
                 </c-col>
                 <c-col md="2" class="p-2">
-                  <label cLabel for="validationDefault01">No Of Calls <span style="color: red" *ngIf="!leadstatusDetailsArray.at(i).get('no_of_calls')?.value">*</span></label>
+                  <label cLabel for="validationDefault01"
+                    >No Of Calls
+                    <span
+                      style="color: red"
+                      *ngIf="
+                        !leadstatusDetailsArray.at(i).get('no_of_calls')?.value
+                      "
+                      >*</span
+                    ></label
+                  >
                   <select
                     aria-label="select lead status id"
                     cSelect
@@ -245,45 +304,26 @@
                             ?.touched)
                     }"
                   >
-                    <option hidden value="null" disabled selected>Select No Of Calls </option>
-                    <option
-                    >1
+                    <option hidden value="null" disabled selected>
+                      Select No Of Calls
                     </option>
-                    <option
-                    >2
-                    </option>
-                    <option
-                    >3
-                    </option>
-                    <option
-                    >4
-                    </option>
-                    <option
-                    >5
-                    </option>
-                    <option
-                    >6
-                    </option>
-                    <option
-                    >7
-                    </option>
-                    <option
-                    >8
-                    </option>
-                    <option
-                    >9
-                    </option>
-                    <option
-                    >10
-                    </option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
                   </select>
                   <span
                     class="text-danger"
                     *ngIf="
                       leadstatusDetailsArray.at(i).get('no_of_calls')
                         ?.invalid &&
-                      (leadstatusDetailsArray.at(i).get('no_of_calls')
-                        ?.dirty ||
+                      (leadstatusDetailsArray.at(i).get('no_of_calls')?.dirty ||
                         leadstatusDetailsArray.at(i).get('no_of_calls')
                           ?.touched)
                     "
@@ -291,7 +331,17 @@
                   >
                 </c-col>
                 <c-col md="2" class="p-2">
-                  <label cLabel for="validationDefault01">Lead Status <span style="color: red" *ngIf="!leadstatusDetailsArray.at(i).get('lead_status_id')?.value">*</span></label>
+                  <label cLabel for="validationDefault01"
+                    >Lead Status
+                    <span
+                      style="color: red"
+                      *ngIf="
+                        !leadstatusDetailsArray.at(i).get('lead_status_id')
+                          ?.value
+                      "
+                      >*</span
+                    ></label
+                  >
                   <select
                     aria-label="select lead status id"
                     cSelect
@@ -308,7 +358,9 @@
                             ?.touched)
                     }"
                   >
-                    <option hidden value="null" disabled selected>Select Lead Status</option>
+                    <option hidden value="null" disabled selected>
+                      Select Lead Status
+                    </option>
                     <option
                       [value]="item.lead_status_id"
                       *ngFor="let item of allLeadStatusList"
@@ -330,7 +382,17 @@
                   >
                 </c-col>
                 <c-col md="3" class="p-2">
-                  <label cLabel for="follow_up_date">Follow Up Date <span style="color: red" *ngIf="!leadstatusDetailsArray.at(i).get('follow_up_date')?.value">*</span></label>
+                  <label cLabel for="follow_up_date"
+                    >Follow Up Date
+                    <span
+                      style="color: red"
+                      *ngIf="
+                        !leadstatusDetailsArray.at(i).get('follow_up_date')
+                          ?.value
+                      "
+                      >*</span
+                    ></label
+                  >
                   <input
                     cFormControl
                     id="follow_up_date"
@@ -379,13 +441,22 @@
               </c-col>
             </c-col>
           </div>
-          <hr>
-          
+          <hr />
+
           <c-col xs="12">
             <button cButton class="me-1" color="primary" (click)="submit()">
               Submit
             </button>
-            <button cButton color="secondary"   [routerLink]="['/receptionist', { outlets: { receptionist_Menu: 'leads' } }]">Cancel</button>
+            <button
+              cButton
+              color="secondary"
+              [routerLink]="[
+                '/receptionist',
+                { outlets: { receptionist_Menu: 'leads' } }
+              ]"
+            >
+              Cancel
+            </button>
           </c-col>
         </form>
       </c-card-body>

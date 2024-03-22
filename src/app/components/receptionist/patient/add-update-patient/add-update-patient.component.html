@@ -430,7 +430,7 @@
                 </div>
             </c-col>
             <c-col md="4" class="p-2">
-              <label for="employee_id" cLabel> Employee Name <span style="color: red" *ngIf="!form.get('employee_id')?.value">*</span></label>
+              <label for="employee_id" cLabel> Assign to <span style="color: red" *ngIf="!form.get('employee_id')?.value">*</span></label>
               <select
                 aria-label="select employee_id"
                 cSelect
@@ -443,14 +443,18 @@
                     (control['employee_id'].dirty ||
                       control['employee_id'].touched)
                 }"
+                (change)="onEmployeeSelectionChange($event)"
+
               >
                 <option hidden value="null" disabled selected>Select Name</option>
-                <option
-                  [value]="item.employee_id"
-                  *ngFor="let item of allEmployeeList"
-                >
-                  {{ item.name }}
-                </option>
+                <ng-container *ngFor="let item of allEmployeeList">
+                  <option
+                    [value]="item.employee_id"
+                    *ngIf="item.designation_name.toLowerCase() === 'doctor'"
+                  >
+                    {{ item.name }}
+                  </option>
+                </ng-container>
               </select>
               <div
                 class="text-danger"
@@ -458,10 +462,12 @@
                   control['employee_id'].invalid &&
                   (control['employee_id'].dirty || control['employee_id'].touched)
                 "
+                
               >
                 <small>Please provide a valid Employee Name.</small>
               </div>
             </c-col>
+            
             <c-col md="4" class="p-2">
                 <label cLabel for="validationDefault01">Payment Type <span style="color: red" *ngIf="!form.get('payment_type')?.value">*</span></label>
                 <select
@@ -476,6 +482,7 @@
                     (control['payment_type'].dirty ||
                         control['payment_type'].touched)
                 }"
+                
                 >
                   <option hidden value="null" disabled selected> Payment Type</option>
                   <option
@@ -502,12 +509,13 @@
               cFormControl
               id="amount"
               formControlName="amount"
-              type="text"
+              type="number"
               [ngClass]="{
                 'is-invalid':
                   control['amount'].invalid &&
                   (control['amount'].dirty || control['amount'].touched)
               }"
+              
             />
             <div
               class="text-danger"

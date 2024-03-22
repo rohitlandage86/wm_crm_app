@@ -75,7 +75,6 @@ import { AddUpdateEmployeeComponent } from './employee/employee/add-update-emplo
   imports: [
     AdminRoutingModule,
     SharedModule
-    
   ]
 })
 export class AdminModule { }

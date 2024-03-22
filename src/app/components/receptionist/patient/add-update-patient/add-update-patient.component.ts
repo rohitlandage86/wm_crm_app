@@ -57,8 +57,26 @@ export class AddUpdatePatientComponent implements OnInit {
           });
         }
       });
+
+
+
   }
+
+  onEmployeeSelectionChange(event: any) {
+    const selectedEmployeeId = event.target.value;
+    const chargesControl = this.form.get('amount');
   
+    if (chargesControl) {
+      if (selectedEmployeeId === '2') { // Assuming '2' is the ID of Suhas doctor
+        chargesControl.setValue(500); // Set charges to 300 for Suhas doctor
+      } else if (selectedEmployeeId === '3') { // Assuming '3' is the ID of other type of doctor
+        chargesControl.setValue(300); // Set charges to 500 for other type of doctor
+      } else {
+        chargesControl.setValue(null); // Reset charges for other employees
+      }
+    }
+  }
+
   
   getCurrentDate(): string {
     const today = new Date();
@@ -87,7 +105,7 @@ export class AddUpdatePatientComponent implements OnInit {
       source_of_patient_id: [null, Validators.required],
       employee_id: [null, Validators.required],
       refered_by_id: [null, Validators.required],
-      payment_type: [null, Validators.required],
+      payment_type: ['Cash', Validators.required],
     });
   }
  
@@ -173,27 +191,7 @@ export class AddUpdatePatientComponent implements OnInit {
       this._toastrService.warning("Fill required fields");
     }
   }
-  // prepopulateData(data: any) {
-  //   this.control['registration_date'].patchValue(data.registration_date);
-  //   this.control['patient_name'].patchValue(data.patient_name);
-  //   this.control['mobile_no'].patchValue(data.mobile_no);
-  //   this.control['gender'].patchValue(data.gender);
-  //   this.control['age'].patchValue(data.age);
-  //   this.control['address'].patchValue(data.address);
-  //   this.control['city'].patchValue(data.city);
-  //   this.control['state_id'].patchValue(data.state_id);
-  //   this.control['height'].patchValue(data.height);
-  //   this.control['weight'].patchValue(data.weight);
-  //   this.control['bmi'].patchValue(data.bmi);
-  //   this.control['amount'].patchValue(data.amount);
-  //   this.control['entity_id'].patchValue(data.entity_id);
-  //   this.control['mrno_entity_series'].patchValue(data.mrno_entity_series);
-  //   this.control['source_of_patient_id'].patchValue(data.source_of_patient_id);
-  //   this.control['employee_id'].patchValue(data.employee_id);
-  //   this.control['refered_by_id'].patchValue(data.refered_by_id);
-  //   this.control['payment_type'].patchValue(data.payment_type);
 
-  // }
   getPatientById(id:any){
     this._receptionistService.getPatientById(id).subscribe((result: any) => {
       console.log(result);
@@ -278,10 +276,15 @@ export class AddUpdatePatientComponent implements OnInit {
         console.log(res);
         if (res.data.length > 0) {
           this.allEmployeeList = res.data;
+          console.log( res.data);
+         
         }
       }
     });
   }
+  
+
+  
     //get ReferedBy list...
     getAllReferedByList() {
       this._adminService.getAllReferedByListWma().subscribe({

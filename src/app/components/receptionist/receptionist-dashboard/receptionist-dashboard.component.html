@@ -1,4 +1,43 @@
 <c-container breakpoint="lg">
+    <c-row>
+        <c-col md="4">
+
+            <c-card class="mb-4 count">
+                <c-card-body>
+                    <div *ngIf="firstCardContent">
+                        first_visit_count
+                      </div>
+                </c-card-body>
+              </c-card>
+        </c-col>
+        <c-col md="4">
+
+            <c-card class="mb-4 count">
+                <c-card-body>
+                    <div *ngIf="firstCardContent">
+                        is_checked_count
+                      </div>
+                </c-card-body>
+              </c-card>
+        </c-col>
+        <c-col md="4">
+
+            <c-card class="mb-4 count">
+                <c-card-body>
+                    <div *ngIf="firstCardContent">
+                        is_not_checked_count
+                      </div>
+                </c-card-body>
+              </c-card>
+        </c-col>
+    </c-row>
+    <c-card class="mb-4 count">
+        <c-card-body>
+            <div *ngIf="firstCardContent">
+                today_total_patient_count
+              </div>
+        </c-card-body>
+      </c-card>
     <c-card class="mb-4">
         <c-card-header class="d-flex justify-content-between">
             <strong> Lead Follow Up List</strong>
@@ -27,7 +66,7 @@
                             <td>{{ item.no_of_calls }}</td>
                             <td>{{ item.comments }}</td>
                             <td>{{ item.mobile_number }}</td>
-                            <td> <a [routerLink]="['/receptionist', { outlets: { receptionist_Menu: ['edit-receptionist',item.lead_fid]}}]" class="pointer"><svg [cIcon]="icons.cilPlus"  size="xl"
+                            <td> <a [routerLink]="['/receptionist', { outlets: { receptionist_Menu: ['edit-receptionist',item.lead_hid]}}]" class="pointer"><svg [cIcon]="icons.cilPlus"  size="xl"
                                 title="List Icon" ></svg></a></td>
                         </tr>
                         <tr class=" fw-bold text-center" *ngIf="allLeadFollowUpList.length===0">

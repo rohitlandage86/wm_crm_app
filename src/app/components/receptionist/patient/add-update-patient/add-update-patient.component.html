@@ -1,8 +1,27 @@
 <c-row class="m-0">
   <c-col xs="12 " class="p-0">
     <c-card class="">
-      <c-card-header>
+      <c-card-header class=" d-flex justify-content-between align-items-center ">
         <strong>{{ isEdit ? "Edit" : "Add" }} Patient</strong>
+        <div class=" d-flex align-items-center">
+          <ng-container *ngIf="isInputVisible">
+            <div class="d-flex flex-column pe-2">
+              <input cFormControl class="ms-2" type="number" placeholder="Search Mobile No" id="mobile_no" #mobileNoInput (input)="validateMobileNo(mobileNoInput.value)">
+              <small class="text-danger" *ngIf="mobileNoInput.value && !isValidMobileNo">
+                Please enter a valid 10-digit number.
+              </small>
+            </div>
+            <button cButton color="primary" class="fw-bold btn-sm ms-2" [disabled]="!isValidMobileNo" (click)="getSearchLead(mobileNoInput.value)">Submit</button>
+
+          </ng-container>
+          
+          
+          <strong class="ps-2">Is Lead</strong>
+       
+            <div class="input-group-text ms-2">
+              <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input" (change)="toggleInputVisibility($event)" >
+            </div>
+        </div>
       </c-card-header>
       <c-card-body>
         <form cForm class="row g-3" [formGroup]="form">
@@ -21,6 +40,7 @@
                     (control['entity_id'].dirty ||
                       control['entity_id'].touched)
                 }"
+                (change)="onEntitySelectionChange($event)"
               >
                 <option hidden value="null" disabled selected> Entity Name</option>
                 <option
@@ -47,11 +67,13 @@
                 id="mrno_entity_series"
                 formControlName="mrno_entity_series"
                 type="text"
+                [ngModel]="mrnoEntitySeries" 
                 [ngClass]="{
                   'is-invalid':
                     control['mrno_entity_series'].invalid &&
                     (control['mrno_entity_series'].dirty || control['mrno_entity_series'].touched)
                 }"
+                [disabled]="form.get('mrno_entity_series')?.disabled ?? false" 
               />
               <div
                 class="text-danger"
@@ -290,21 +312,7 @@
               formControlName="height"
               type="number"
               (change)="calculateBMI()"
-              [ngClass]="{
-                'is-invalid':
-                  control['height'].invalid &&
-                  (control['height'].dirty || control['height'].touched)
-              }"
             />
-            <div
-              class="text-danger"
-              *ngIf="
-                control['height'].invalid &&
-                (control['height'].dirty || control['height'].touched)
-              "
-            >
-              <small>Please provide a valid Height.</small>
-            </div>
           </c-col>
           <c-col md="2" class="p-2">
             <label cLabel for="validationDefault01">Weight (kg) <span style="color: red" *ngIf="!form.get('weight')?.value">*</span></label>
@@ -314,21 +322,7 @@
               formControlName="weight"
               type="number"
               (change)="calculateBMI()"
-              [ngClass]="{
-                'is-invalid':
-                  control['weight'].invalid &&
-                  (control['weight'].dirty || control['weight'].touched)
-              }"
-            />
-            <div
-              class="text-danger"
-              *ngIf="
-                control['weight'].invalid &&
-                (control['weight'].dirty || control['weight'].touched)
-              "
-            >
-              <small>Please provide a valid Weight.</small>
-            </div>
+            /> 
           </c-col>
           <c-col md="2" class="p-2">
             <label cLabel for="bmi">BMI (kg/m²) <span style="color: red" *ngIf="!form.get('bmi')?.value">*</span></label>
@@ -337,21 +331,9 @@
               id="bmi"
               formControlName="bmi"
               type="text"
-              [ngClass]="{
-                'is-invalid':
-                  control['bmi'].invalid &&
-                  (control['bmi'].dirty || control['bmi'].touched)
-              }"
+           
             />
-            <div
-              class="text-danger"
-              *ngIf="
-                control['bmi'].invalid &&
-                (control['bmi'].dirty || control['bmi'].touched)
-              "
-            >
-              <small>Please provide a valid BMI.</small>
-            </div>
+     
           </c-col>
         
           <c-col md="3" class="p-2">
@@ -402,12 +384,7 @@
                 sizing="sm"
                 formControlName="refered_by_id"
                 type="text"
-                [ngClass]="{
-                    'is-invalid':
-                    control['refered_by_id'].invalid &&
-                    (control['refered_by_id'].dirty ||
-                        control['refered_by_id'].touched)
-                }"
+              
                 >
                 <option hidden value="null" disabled selected> Refered By </option>
                 <option
@@ -419,15 +396,7 @@
                 </select>
                 <button cButton class="ms-1 mb-1 " color="primary" sizing="sm" (click)="openDialog()">+</button>
               </div>
-                <div
-                class="text-danger"
-                *ngIf="
-                    control['refered_by_id'].invalid &&
-                    (control['refered_by_id'].dirty || control['refered_by_id'].touched)
-                "
-                >
-                <small>Please provide a valid Refered By Name.</small>
-                </div>
+             
             </c-col>
             <c-col md="4" class="p-2">
               <label for="employee_id" cLabel> Assign to <span style="color: red" *ngIf="!form.get('employee_id')?.value">*</span></label>

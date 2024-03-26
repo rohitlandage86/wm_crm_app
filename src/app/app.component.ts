@@ -47,22 +47,23 @@ export class AppComponent implements OnInit, AfterContentChecked {
       this.isDoctorDashboard = false;
       this.isReceptionistDashboard = false;
       this.isSuperAdminDashboard = false;
-    } else if (currentRoute.split('/')[1] == 'admin') {
+    } else if (currentRoute?.split('/')[1] == 'admin') {
       this.isAdminDashboard = true;
       this.isDoctorDashboard = false;
       this.isReceptionistDashboard = false;
       this.isSuperAdminDashboard = false;
-    } else if (currentRoute.split('/')[1] == 'doctor') {
+    } else if (currentRoute?.split('/')[1] == 'doctor') {
       this.isDoctorDashboard = true;
       this.isAdminDashboard = false;
       this.isReceptionistDashboard = false;
       this.isSuperAdminDashboard = false;
-    } else if (currentRoute.split('/')[1] == 'receptionist') {
+    } 
+    else if (currentRoute?.split('/')[1] == 'receptionist') {
       this.isAdminDashboard = false;
       this.isDoctorDashboard = false;
       this.isReceptionistDashboard = true;
       this.isSuperAdminDashboard = false;
-    } else if (currentRoute.split('/')[1] == 'super-admin') {
+    } else if (currentRoute?.split('/')[1] == 'super-admin') {
       this.isAdminDashboard = false;
       this.isDoctorDashboard = false;
       this.isReceptionistDashboard = false;
@@ -213,7 +214,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
     },
     {
       name: 'Consultation',
-      url: ['/doctor', { outlets: { doc_Menu: 'patient' } }],
+      url: '/doctor',
       iconComponent: { name: 'cilList' },
       children: [
         {
@@ -230,10 +231,24 @@ export class AppComponent implements OnInit, AfterContentChecked {
       ]
     },
     {
-      name: 'lead',
-      url: ['/doctor', { outlets: { doc_Menu: 'lead' } }],
-      iconComponent: { name: 'cil-drop' }
+      name: 'Lead',
+      url: '/doctor',
+      iconComponent: { name: 'cilList' },
+      children: [
+        {
+          name: 'lead',
+          url: ['/doctor', { outlets: { doc_Menu: 'lead' } }],
+          
+        },
+        {
+          name: 'Search',
+          url: ['/doctor', { outlets: { doc_Menu: 'patient' } }],
+
+        }
+           
+      ]
     },
+   
     {
       name: 'Logout',
       url: '/auth',
@@ -260,7 +275,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
         },
         {
           name: 'Search',
-          url: ['/receptionist', { outlets: { receptionist_Menu: 'leads' } }],
+          url: ['/receptionist', { outlets: { receptionist_Menu: 'search-patient' } }],
 
         }
            
@@ -279,7 +294,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
         },
         {
           name: 'Search',
-          url: ['/receptionist', { outlets: { receptionist_Menu: 'leads' } }],
+          url: ['/receptionist', { outlets: { receptionist_Menu: 'search-leads' } }],
 
         }
            

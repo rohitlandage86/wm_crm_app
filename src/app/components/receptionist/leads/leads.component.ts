@@ -4,6 +4,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { ToastrService } from 'ngx-toastr';
 import { ReceptionistService } from './../receptionist.service';
 import { AddUpdateLeadsComponent } from './add-update-leads/add-update-leads.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-leads',
@@ -11,26 +12,42 @@ import { AddUpdateLeadsComponent } from './add-update-leads/add-update-leads.com
   styleUrl: './leads.component.scss'
 })
 export class LeadsComponent implements OnInit{
-  allLeadList: Array<any> = [];
+  allLeadFollowUpList: Array<any> = [];
+  firstCardContent: any;
   icons = freeSet;
   page = 1;
   perPage = 10;
-  total = 0
-color: string|undefined;
-  constructor( private _receptionistService: ReceptionistService,private _toastrService: ToastrService) { }
+  total = 0;
+  lead_date: string;
+  color: string | undefined;
+  constructor(private _receptionistService: ReceptionistService, private _toastrService: ToastrService) { this.lead_date = ''; }
 
   ngOnInit() {
-    this.getAllLeadsList();
+    this.setTodayDate();
+    this.getAllLeadFollowUpList();
+    this.getFirstCardData().subscribe((data: any) => {
+      this.firstCardContent = data;
+    });
   }
-  //get all Lead List...
-  getAllLeadsList() {
-    this._receptionistService.getAllLeadsList(this.page, this.perPage).subscribe({
+  getFirstCardData(): Observable<any> {
+    return this._receptionistService.getAllReceptionistDashboard(); // Make sure this returns an Observable
+  }
+
+  setTodayDate() {
+    const today = new Date();
+    // Format the date as per your backend requirement
+    this.lead_date = `${today.getFullYear()}-${(today.getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
+  }
+  //get all LeadFollowUp List...
+  getAllLeadFollowUpList() {
+    this._receptionistService.getAllLeadFollowUpList(this.page, this.perPage, this.lead_date).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
-
-          this.allLeadList = res.data;
-
-
+          console.log(res);
+          
+          this.allLeadFollowUpList = res.data;
           this.total = res.pagination.total;
         }
       }
@@ -39,47 +56,9 @@ color: string|undefined;
   onPageChange(event: PageEvent): void {
     this.page = event.pageIndex + 1;
     this.perPage = event.pageSize;
-    this.getAllLeadsList();
+    this.getAllLeadFollowUpList();
   }
 
-  // //open Lead...
-  // openDialog(data?: any) {
-  //   const dialogRef = this.dialog.open(AddUpdateLeadsComponent, {
-  //     data: data,
-  //     width: '50%',
-  //     panelClass: 'mat-mdc-dialog-container'
-  //   });
-  //   dialogRef.afterClosed().subscribe((message: any) => {
-  //     if (message == 'create' || message == 'update') {
-  //       this.getAllLeadsList();
-  //     } else {
-  //       console.log('nothing happen');
-  //     }
-  //   });
-  // }
-  //slide-toggle change Lead
-  changeEvent(event: any, id: any) {
-    console.log(event.checked, id);
-    let status = 0;
-    if (event.checked) {
-      status = 1;
-    }
-    this._receptionistService.onLeadStatusChange(status, id).subscribe({
-      next: (res: any) => {
-        this._toastrService.success(res.message);
-        console.log(res);
-        this.getAllLeadsList();
-      },
-      error: (error: any) => {
-        console.log(error.error.message)
-        if (error.status == 422) {
-          this._toastrService.warning(error.message);
-          console.log(error.status);
-          this.getAllLeadsList();
-        }
-      },
-    })
 
 
-  }
 }

@@ -8,6 +8,8 @@ import { PatientComponent } from './patient/patient.component';
 import { AddUpdatePatientComponent } from './patient/add-update-patient/add-update-patient.component';
 import { LeadsComponent } from './leads/leads.component';
 import { AddUpdateLeadsComponent } from './leads/add-update-leads/add-update-leads.component';
+import { SearchLeadsComponent } from './leads/search-leads/search-leads.component';
+import { SearchPatientComponent } from './patient/search-patient/search-patient.component';
 
 
 
@@ -18,7 +20,9 @@ import { AddUpdateLeadsComponent } from './leads/add-update-leads/add-update-lea
     PatientComponent,
     AddUpdatePatientComponent,
     LeadsComponent,
-    AddUpdateLeadsComponent
+    AddUpdateLeadsComponent,
+    SearchLeadsComponent,
+    SearchPatientComponent
   ],
   imports: [
     ReceptionistRoutingModule,

@@ -22,6 +22,25 @@ export class ReceptionistService {
         }
         return this.http.get(this.baseUrl + 'api/lead_header/', { params: params });
     }
+    //get all search-lead-header list...............................................................
+    getAllSearchLeadHeaderList(page: any, perPage: any, key: any): Observable<any> {
+        let params: any = {
+            page: page,
+            perPage: perPage,
+            key: key  // Include the key parameter in the params object
+        };
+
+        // Check if page or perPage is empty and remove them from params if so
+        if (page === '' || perPage === '') {
+            delete params.page;
+            delete params.perPage;
+        }
+
+        // Make the HTTP GET request
+        return this.http.get(this.baseUrl + 'api/lead_header/search-lead-header', {
+            params: params
+        });
+    }
     //get All leads list wma...
     getAllLeadsListWma(): Observable<any> {
         return this.http.get(this.baseUrl + 'api/lead_header/wma');
@@ -102,14 +121,34 @@ export class ReceptionistService {
             params: params
         });
     }
-      //Edit lead-follow-up...
-      editLeadFollowUp(data: any, id: any) {
+
+    //Edit lead-follow-up...
+    editLeadFollowUp(data: any, id: any) {
         return this.http.put(this.baseUrl + 'api/lead_header/lead-follow-up/' + id, data);
     }
 
-     //get All receptionist-dashboard ..
-     getAllReceptionistDashboard(): Observable<any> {
+    //get All receptionist-dashboard ..
+    getAllReceptionistDashboard(): Observable<any> {
         return this.http.get(this.baseUrl + 'api/receptionist-dashboard');
+    }
+    //get all Patient Registration List...............................................................
+    getAllSearchPatientRegistrationList(page: any, perPage: any, key: any): Observable<any> {
+        let params: any = {
+            page: page,
+            perPage: perPage,
+            key: key  // Include the key parameter in the params object
+        };
+
+        // Check if page or perPage is empty and remove them from params if so
+        if (page === '' || perPage === '') {
+            delete params.page;
+            delete params.perPage;
+        }
+
+        // Make the HTTP GET request
+        return this.http.get(this.baseUrl + 'api/patient_registration/search-patient-registration', {
+            params: params
+        });
     }
 
 

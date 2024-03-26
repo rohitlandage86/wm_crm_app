@@ -18,7 +18,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of allLeadList; let i = index">
+                        <tr *ngFor="let item of allLeadFollowUpList; let i = index">
                             <td>{{ i + 1 }}</td>
                             <td>{{ item.lead_date | date:'dd-MM-yyyy'  }}</td>
                             <td>{{ item.name }}</td>
@@ -27,7 +27,7 @@
                             <td> <a [routerLink]="['/receptionist', { outlets: { receptionist_Menu: ['edit-leads',item.lead_hid]}}]" class="pointer"><svg [cIcon]="icons.cilPencil"  size="xl"
                                 title="List Icon" ></svg></a></td>
                         </tr>
-                        <tr class=" fw-bold text-center" *ngIf="allLeadList.length===0">
+                        <tr class=" fw-bold text-center" *ngIf="allLeadFollowUpList.length===0">
                             <td colspan="10" class="text-danger">No Data Available</td>
                         </tr>
                     </tbody>

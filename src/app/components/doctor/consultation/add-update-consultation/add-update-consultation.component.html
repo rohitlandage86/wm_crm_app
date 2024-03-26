@@ -2,7 +2,7 @@
   <c-col xs="12 " class="p-0">
     <c-card class="">
       <c-card-header>
-        <strong>{{ isEdit ? "Add" : "Edit" }} consultation</strong>
+        <strong>{{ isEdit ? "Edit" : "Add " }} Consultation</strong>
       </c-card-header>
       <c-card-body>
         <form cForm class="row g-3" [formGroup]="form_patient">
@@ -25,14 +25,7 @@
             </select>
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="mrno_entity_series"
-              >MR No Entity Series
-              <span
-                style="color: red"
-                *ngIf="!form.get('mrno_entity_series')?.value"
-                >*</span
-              ></label
-            >
+            <label cLabel for="mrno_entity_series">MR No Entity Series </label>
             <input
               cFormControl
               id="mrno_entity_series"
@@ -41,14 +34,7 @@
             />
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="registration_date"
-              >Registration Date
-              <span
-                style="color: red"
-                *ngIf="!form.get('registration_date')?.value"
-                >*</span
-              ></label
-            >
+            <label cLabel for="registration_date">Registration Date </label>
             <input
               cFormControl
               id="registration_date"
@@ -57,12 +43,7 @@
             />
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="patient_name"
-              >Patient Name
-              <span style="color: red" *ngIf="!form.get('patient_name')?.value"
-                >*</span
-              ></label
-            >
+            <label cLabel for="patient_name">Patient Name </label>
             <input
               cFormControl
               id="patient_name"
@@ -71,12 +52,7 @@
             />
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="mobile_no"
-              >Mobile Number
-              <span style="color: red" *ngIf="!form.get('mobile_no')?.value"
-                >*</span
-              ></label
-            >
+            <label cLabel for="mobile_no">Mobile Number </label>
             <input
               cFormControl
               id="mobile_no"
@@ -85,12 +61,7 @@
             />
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="validationDefault01"
-              >Gender
-              <span style="color: red" *ngIf="!form.get('gender')?.value"
-                >*</span
-              ></label
-            >
+            <label cLabel for="validationDefault01">Gender </label>
             <select
               aria-label="select lead gender"
               cSelect
@@ -105,21 +76,11 @@
             </select>
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="age"
-              >Age
-              <span style="color: red" *ngIf="!form.get('age')?.value"
-                >*</span
-              ></label
-            >
+            <label cLabel for="age">Age </label>
             <input cFormControl id="age" formControlName="age" type="number" />
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="address"
-              >Address
-              <span style="color: red" *ngIf="!form.get('address')?.value"
-                >*</span
-              ></label
-            >
+            <label cLabel for="address">Address </label>
             <input
               cFormControl
               id="address"
@@ -128,12 +89,7 @@
             />
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="validationDefault01"
-              >City
-              <span style="color: red" *ngIf="!form.get('city')?.value"
-                >*</span
-              ></label
-            >
+            <label cLabel for="validationDefault01">City </label>
             <input
               cFormControl
               id="validationDefault01"
@@ -158,12 +114,7 @@
             </select>
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="validationDefault01"
-              >Height (cm)
-              <span style="color: red" *ngIf="!form.get('height')?.value"
-                >*</span
-              ></label
-            >
+            <label cLabel for="validationDefault01">Height (cm) </label>
             <input
               cFormControl
               id="height"
@@ -172,12 +123,7 @@
             />
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="validationDefault01"
-              >Weight (kg)
-              <span style="color: red" *ngIf="!form.get('weight')?.value"
-                >*</span
-              ></label
-            >
+            <label cLabel for="validationDefault01">Weight (kg) </label>
             <input
               cFormControl
               id="weight"
@@ -186,23 +132,11 @@
             />
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="bmi"
-              >BMI (kg/m²)
-              <span style="color: red" *ngIf="!form.get('bmi')?.value"
-                >*</span
-              ></label
-            >
+            <label cLabel for="bmi">BMI (kg/m²) </label>
             <input cFormControl id="bmi" formControlName="bmi" type="text" />
           </c-col>
           <c-col md="2" class="p-2">
-            <label for="source_of_patient_id" cLabel>
-              Source Of Patient
-              <span
-                style="color: red"
-                *ngIf="!form.get('source_of_patient_id')?.value"
-                >*</span
-              ></label
-            >
+            <label for="source_of_patient_id" cLabel> Source Of Patient </label>
             <select
               aria-label="select source_of_patient_id"
               cSelect
@@ -223,14 +157,7 @@
           </c-col>
           <c-col md="2" class="p-2 m-9">
             <div>
-              <label for="refered_by_id" cLabel>
-                Refered By
-                <span
-                  style="color: red"
-                  *ngIf="!form.get('refered_by_id')?.value"
-                  >*</span
-                ></label
-              >
+              <label for="refered_by_id" cLabel> Refered By </label>
             </div>
             <div class="refered-by">
               <select
@@ -253,12 +180,7 @@
             </div>
           </c-col>
           <c-col md="2" class="p-2">
-            <label for="employee_id" cLabel>
-              Assign to
-              <span style="color: red" *ngIf="!form.get('employee_id')?.value"
-                >*</span
-              ></label
-            >
+            <label for="employee_id" cLabel> Assign to </label>
             <select
               aria-label="select employee_id"
               cSelect
@@ -278,12 +200,7 @@
             </select>
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="validationDefault01"
-              >Payment Type
-              <span style="color: red" *ngIf="!form.get('payment_type')?.value"
-                >*</span
-              ></label
-            >
+            <label cLabel for="validationDefault01">Payment Type </label>
             <select
               aria-label="select lead payment_type"
               cSelect
@@ -299,12 +216,7 @@
             </select>
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="amount"
-              >Amount
-              <span style="color: red" *ngIf="!form.get('amount')?.value"
-                >*</span
-              ></label
-            >
+            <label cLabel for="amount">Amount </label>
             <input
               cFormControl
               id="amount"
@@ -317,63 +229,52 @@
 
         <form cForm class="row g-3" [formGroup]="form">
           <c-col md="3" class="p-2">
-            <label cLabel for="validationDefault01"
-              >Pluse
-              <span style="color: red" *ngIf="!form.get('pluse')?.value"
-                >*</span
-              ></label
-            >
+            <label cLabel for="validationDefault01">Pulse </label>
             <input
               cFormControl
               id="pluse"
               type="number"
               formControlName="pluse"
-              [ngClass]="{
-                'is-invalid':
-                  control['pluse'].invalid &&
-                  (control['pluse'].dirty || control['pluse'].touched)
-              }"
             />
-            <div
-              class="text-danger"
-              *ngIf="
-                control['pluse'].invalid &&
-                (control['pluse'].dirty || control['pluse'].touched)
-              "
-            >
-              <small>Please provide a valid Pluse.</small>
-            </div>
+          </c-col>
+          <c-col md="3" class="p-2">
+            <label cLabel for="validationDefault01">BP</label>
+            <input cFormControl id="bp" type="number" formControlName="bp" />
           </c-col>
           <c-col md="3" class="p-2">
             <label cLabel for="validationDefault01"
-              >BP<span style="color: red" *ngIf="!form.get('bp')?.value"
+              >Past History<span
+                style="color: red"
+                *ngIf="!form.get('past_history')?.value"
                 >*</span
               ></label
             >
             <input
               cFormControl
-              id="bp"
-              type="number"
-              formControlName="bp"
+              id="past_history"
+              type="text"
+              formControlName="past_history"
               [ngClass]="{
                 'is-invalid':
-                  control['bp'].invalid &&
-                  (control['bp'].dirty || control['bp'].touched)
+                  control['past_history'].invalid &&
+                  (control['past_history'].dirty ||
+                    control['past_history'].touched)
               }"
             />
             <div
               class="text-danger"
               *ngIf="
-                control['bp'].invalid &&
-                (control['bp'].dirty || control['bp'].touched)
+                control['past_history'].invalid &&
+                (control['past_history'].dirty ||
+                  control['past_history'].touched)
               "
             >
-              <small>Please provide a valid BP.</small>
+              <small>Please provide a valid Past History.</small>
             </div>
           </c-col>
           <c-col md="3" class="p-2">
-            <label cLabel for="validationDefault01"
-              >Past History<span
+            <label for="chief_complaints_id" cLabel>
+              Chief Complaints<span
                 style="color: red"
                 *ngIf="!form.get('chief_complaints_id')?.value"
                 >*</span
@@ -383,7 +284,9 @@
               cFormControl
               id="chief_complaints_id"
               type="text"
+              placeholder="Search Complaint"
               formControlName="chief_complaints_id"
+              [matAutocomplete]="auto"
               [ngClass]="{
                 'is-invalid':
                   control['chief_complaints_id'].invalid &&
@@ -391,48 +294,21 @@
                     control['chief_complaints_id'].touched)
               }"
             />
-            <div
-              class="text-danger"
-              *ngIf="
-                control['chief_complaints_id'].invalid &&
-                (control['chief_complaints_id'].dirty ||
-                  control['chief_complaints_id'].touched)
-              "
-            >
-              <small>Please provide a valid Past History.</small>
-            </div>
-          </c-col>
-          <c-col md="3" class="p-2">
-            <label for="state_id" cLabel>
-              Chief Complaints<span
-                style="color: red"
-                *ngIf="!form.get('state_id')?.value"
-                >*</span
-              ></label
-            >
-            <input
-              cFormControl
-              id="chief_complaints_id"
-              type="text"
-              placeholder="Search street"
-              [formControl]="streetControl"
-              [matAutocomplete]="auto"
-            />
             <mat-autocomplete #auto="matAutocomplete">
               <mat-option
-                *ngFor="let street of filteredStreets | async"
-                [value]="street"
+                *ngFor="let complaint of filteredChiefComplaints | async"
+                [value]="complaint.chief_complaint"
               >
-                {{ street }}
+                {{ complaint.chief_complaint }}
               </mat-option>
             </mat-autocomplete>
 
             <div
               class="text-danger"
               *ngIf="
-                control['past_history'].invalid &&
-                (control['past_history'].dirty ||
-                  control['past_history'].touched)
+                control['chief_complaints_id'].invalid &&
+                (control['chief_complaints_id'].dirty ||
+                  control['chief_complaints_id'].touched)
               "
             >
               <small>Please provide a valid Chief Complaints.</small>
@@ -448,7 +324,7 @@
                 <tr>
                   <th scope="col">Sr No</th>
                   <th scope="col">Diagnosis</th>
-                  <th scope="col">notes</th>
+                  <th scope="col">Notes</th>
                   <th scope="col" class="text-center">Action</th>
                 </tr>
               </thead>
@@ -460,50 +336,60 @@
                   "
                   [formGroupName]="i"
                 >
-                  <th>{{ 1 }}</th>
+                  <th>{{ i + 1 }}</th>
 
                   <td>
                     <input
                       cFormControl
-                      id="chief_complaints_id"
+                      id="diagnosis_id"
                       type="text"
-                      placeholder="Search street"
+                      placeholder="Search Diagnosis"
                       formControlName="diagnosis_id"
                       [matAutocomplete]="auto"
                       [ngClass]="{
                         'is-invalid':
-                        consultationDiagnosisDetailsArray.at(i).get('diagnosis_id')
-                            ?.invalid &&
-                          (consultationDiagnosisDetailsArray.at(i).get('diagnosis_id')
-                            ?.dirty ||
-                            consultationDiagnosisDetailsArray.at(i).get('diagnosis_id')
-                              ?.touched)
+                          consultationDiagnosisDetailsArray
+                            .at(i)
+                            .get('diagnosis_id')?.invalid &&
+                          (consultationDiagnosisDetailsArray
+                            .at(i)
+                            .get('diagnosis_id')?.dirty ||
+                            consultationDiagnosisDetailsArray
+                              .at(i)
+                              .get('diagnosis_id')?.touched)
                       }"
                     />
                     <mat-autocomplete #auto="matAutocomplete">
                       <mat-option
-                        *ngFor="let street of filteredStreets | async"
-                        [value]="street"
+                        *ngFor="let diagnosis of filteredDiagnosis | async"
+                        [value]="diagnosis.diagnosis_name"
                       >
-                        {{ street }}
+                        {{ diagnosis.diagnosis_name }}
                       </mat-option>
                     </mat-autocomplete>
                     <div
-                    class="text-danger"
-                    *ngIf="
-                    consultationDiagnosisDetailsArray.at(i).get('diagnosis_id')
-                        ?.invalid &&
-                      (consultationDiagnosisDetailsArray.at(i).get('diagnosis_id')
-                        ?.dirty ||
-                        consultationDiagnosisDetailsArray.at(i).get('diagnosis_id')
-                          ?.touched)
-                    "
-                  >
-                    <small>Please provide a valid Diagnosis.</small>
-                  </div>
+                      class="text-danger"
+                      *ngIf="
+                        consultationDiagnosisDetailsArray
+                          .at(i)
+                          .get('diagnosis_id')?.invalid &&
+                        (consultationDiagnosisDetailsArray
+                          .at(i)
+                          .get('diagnosis_id')?.dirty ||
+                          consultationDiagnosisDetailsArray
+                            .at(i)
+                            .get('diagnosis_id')?.touched)
+                      "
+                    >
+                      <small>Please provide a valid Diagnosis.</small>
+                    </div>
                   </td>
                   <td>
-                    <input type="text" class="form-control"notes />
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="notes"
+                    />
                   </td>
 
                   <td class="d-flex pb-3 justify-content-center">
@@ -541,7 +427,7 @@
                 <tr>
                   <th scope="col">Sr No</th>
                   <th scope="col">Treatment</th>
-                  <th scope="col">notes</th>
+                  <th scope="col">Notes</th>
                   <th scope="col" class="text-center">Action</th>
                 </tr>
               </thead>
@@ -553,28 +439,60 @@
                   "
                   [formGroupName]="i"
                 >
-                  <th>{{ 1 }}</th>
+                  <th>{{ i + 1 }}</th>
 
                   <td>
                     <input
                       cFormControl
-                      id="chief_complaints_id"
+                      id="treatment_id"
                       type="text"
                       placeholder="Search Treatment"
-                      [formControl]="streetControl"
+                      formControlName="treatment_id"
                       [matAutocomplete]="auto"
+                      [ngClass]="{
+                        'is-invalid':
+                          consultationTreatmentDetailsArray
+                            .at(i)
+                            .get('treatment_id')?.invalid &&
+                          (consultationTreatmentDetailsArray
+                            .at(i)
+                            .get('treatment_id')?.dirty ||
+                            consultationTreatmentDetailsArray
+                              .at(i)
+                              .get('treatment_id')?.touched)
+                      }"
                     />
                     <mat-autocomplete #auto="matAutocomplete">
                       <mat-option
-                        *ngFor="let street of filteredStreets | async"
-                        [value]="street"
+                        *ngFor="let treatment of filteredTreatment | async"
+                        [value]="treatment.treatment_name"
                       >
-                        {{ street }}
+                        {{ treatment.treatment_name }}
                       </mat-option>
                     </mat-autocomplete>
+                    <div
+                      class="text-danger"
+                      *ngIf="
+                        consultationTreatmentDetailsArray
+                          .at(i)
+                          .get('treatment_id')?.invalid &&
+                        (consultationTreatmentDetailsArray
+                          .at(i)
+                          .get('treatment_id')?.dirty ||
+                          consultationTreatmentDetailsArray
+                            .at(i)
+                            .get('treatment_id')?.touched)
+                      "
+                    >
+                      <small>Please provide a valid Treatment.</small>
+                    </div>
                   </td>
                   <td>
-                    <input type="text" class="form-control" />
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="notes"
+                    />
                   </td>
 
                   <td class="d-flex pb-3 justify-content-center">
@@ -626,49 +544,57 @@
                   "
                   [formGroupName]="i"
                 >
-                  <th>{{ 1 }}</th>
+                  <th>{{ i + 1 }}</th>
 
                   <td>
                     <input
                       cFormControl
-                      id="chief_complaints_id"
+                      id="medicines_id"
                       type="text"
-                      placeholder="Search street"
-                      [formControl]="streetControl"
+                      placeholder="Search Medicines"
+                      formControlName="medicines_id"
                       [matAutocomplete]="auto"
                     />
                     <mat-autocomplete #auto="matAutocomplete">
                       <mat-option
-                        *ngFor="let street of filteredStreets | async"
-                        [value]="street"
+                        *ngFor="let medicines of filteredMedicines | async"
+                        [value]="medicines.medicines_name"
                       >
-                        {{ street }}
+                        {{ medicines.medicines_name }}
                       </mat-option>
                     </mat-autocomplete>
                   </td>
                   <td>
                     <input
                       cFormControl
-                      id="chief_complaints_id"
+                      id="dosages_id"
                       type="text"
-                      placeholder="Search street"
-                      [formControl]="streetControl"
-                      [matAutocomplete]="auto"
+                      placeholder="Search Dosages"
+                      formControlName="dosages_id"
+                      [matAutocomplete]="autoDosages"
                     />
-                    <mat-autocomplete #auto="matAutocomplete">
+                    <mat-autocomplete #autoDosages="matAutocomplete">
                       <mat-option
-                        *ngFor="let street of filteredStreets | async"
-                        [value]="street"
+                        *ngFor="let dosages of filteredDosages | async"
+                        [value]="dosages.dosage_name"
                       >
-                        {{ street }}
+                        {{ dosages.dosage_name }}
                       </mat-option>
                     </mat-autocomplete>
                   </td>
                   <td>
-                    <input type="text" class="form-control" />
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="days"
+                    />
                   </td>
                   <td>
-                    <input type="text" class="form-control" />
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="instructions_id"
+                    />
                   </td>
                   <td class="d-flex pb-3 justify-content-center">
                     <i
@@ -717,17 +643,25 @@
                   "
                   [formGroupName]="i"
                 >
-                  <th>{{ 1 }}</th>
+                  <th>{{ i + 1 }}</th>
                   <td>
-                    <input
-                      type="file"
-                      class="form-control"
-                      id="longLogoName"
-                      accept=".jpeg, .jfif, .pjpeg, .pjp, .png, .jpg"
-                    />
+                    <div class="d-flex">
+                      <input
+                        type="file"
+                        class="form-control"
+                        id="imageBase64"
+                        (change)="onImageChange($event)"
+                        accept=".jpeg, .jfif, .pjpeg, .pjp, .png, .jpg"
+                        formControlName="imageBase64"
+                      />
+                    </div>
                   </td>
                   <td>
-                    <input type="text" class="form-control" />
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="notes"
+                    />
                   </td>
                   <td class="d-flex pb-3 justify-content-center">
                     <i
@@ -758,16 +692,22 @@
             <strong>Book Appointment</strong>
           </div>
           <c-col md="4" class="p-2">
-            <label cLabel for="registration_date"
-              >Appointment Date <span style="color: red">*</span></label
-            >
-            <input cFormControl id="registration_date" type="date" />
+            <label cLabel for="appointment_date">Appointment Date </label>
+            <input
+              cFormControl
+              id="appointment_date"
+              type="date"
+              formControlName="appointment_date"
+            />
           </c-col>
           <c-col md="4" class="p-2">
-            <label cLabel for="registration_date"
-              >Appointment Time <span style="color: red">*</span></label
-            >
-            <input cFormControl id="registration_date" type="time" />
+            <label cLabel for="appointment_time">Appointment Time </label>
+            <input
+              cFormControl
+              id="appointment_time"
+              type="time"
+              formControlName="appointment_time"
+            />
           </c-col>
           <c-col xs="12">
             <button cButton class="me-1" color="primary" (click)="submit()">

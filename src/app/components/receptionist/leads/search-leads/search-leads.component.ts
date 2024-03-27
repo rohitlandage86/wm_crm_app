@@ -1,28 +1,37 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { freeSet } from '@coreui/icons';
+import { PageEvent } from '@angular/material/paginator';
 import { ToastrService } from 'ngx-toastr';
-import { LeadsComponent } from '../leads.component';
-import { ReceptionistService } from '../../receptionist.service';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminService } from 'src/app/components/admin/admin.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ReceptionistService } from '../../receptionist.service';
 
 @Component({
-  selector: 'app-add-update-leads',
-  templateUrl: './add-update-leads.component.html',
-  styleUrl: './add-update-leads.component.scss'
+  selector: 'app-search-leads',
+  templateUrl: './search-leads.component.html',
+  styleUrl: './search-leads.component.scss'
 })
-export class AddUpdateLeadsComponent implements OnInit{
+export class SearchLeadsComponent implements OnInit{
   form!:FormGroup;
+  allLeadList: Array<any> = [];
   isEdit=false;
-  lead_hid:any
+  lead_hid:any;
+  icons = freeSet;
   allCategoryList:Array<any>=[];
   allLeadStatusList:Array<any>=[];
   leadStatusDetailAdded: boolean = false;
+  isInputVisible: boolean = false;
+  isValidMobileNo: boolean = false;
+  page = 1;
+  perPage = 10;
+  total = 0;
+  searchQuery: string = '';
   constructor (
     private fb:FormBuilder,
     private _receptionistService: ReceptionistService,private _adminService: AdminService,
-    private _toastrService:ToastrService,private _superAdminService: SuperAdminService,private router: Router, private url: ActivatedRoute){}
+   private _superAdminService: SuperAdminService,private router: Router, private url: ActivatedRoute){}
 
 
   ngOnInit(){
@@ -33,8 +42,9 @@ export class AddUpdateLeadsComponent implements OnInit{
       lead_date: new Date().toISOString().split('T')[0],
     });
     this.lead_hid = this.url.snapshot.params['id']
-
+    
     if (this.lead_hid) {
+      
       this.getLeadById(this.lead_hid)
       // this.prepopulateData(this.lead_hid)
       this.leadStatusDetailAdded = true;
@@ -60,7 +70,9 @@ export class AddUpdateLeadsComponent implements OnInit{
       category_id: [null, Validators.required],
       leadFooterDetails: this.fb.array([this.newLeadFooter()])
     });
+    
   }
+ 
   get control(){
     return this.form.controls;
   }
@@ -68,6 +80,7 @@ export class AddUpdateLeadsComponent implements OnInit{
     return this.form.get('leadFooterDetails') as FormArray<any>;
 
   }
+ 
 
   newLeadFooter(): FormGroup {
     return this.fb.group({
@@ -91,85 +104,38 @@ export class AddUpdateLeadsComponent implements OnInit{
   deleteLeadFooter(i: any) {
     this.leadstatusDetailsArray.removeAt(i)
   }
-  submit(){ this.isEdit? this.updateLead():this.addLead();}
-
-  updateLead(){
-    if (this.form.valid) {
-      console.log(this.form.value);
-      this._receptionistService.editLead(this.form.value,this.lead_hid).subscribe({
-        next:(res:any)=>{
-          if (res.status==200) {
-            this._toastrService.success(res.message);
-            this.router.navigate(['/receptionist', { outlets: { receptionist_Menu: 'leads' } }])
-          }else{
-            this._toastrService.warning(res.message);
-          }
-        },
-        error:(err:any)=>{
-          if (err.error.status==401 || err.error.status==422) {
-            this._toastrService.warning(err.error.message);
-          } else {
-            this._toastrService.error("Internal Server Error");
-          }
-        }
-      });
-    } else {
-      this.form.markAllAsTouched();
-      this._toastrService.warning("Fill required fields");
+//get is lead search data
+getSearchLead(searchQuery: string): void {
+  // Make API call with the search query
+  this._receptionistService.getAllSearchLeadHeaderList(this.page, this.perPage, searchQuery).subscribe({
+    next: (res: any) => {
+      if (res.data.length > 0) {
+        this.allLeadList = res.data;
+        this.total = res.pagination.total;
+      }
     }
+  });
+}
+  // Other properties and methods
+  isValidName(inputValue: string): boolean {
+
+    const namePattern = /^[A-Za-z\s]+$/;
+    return namePattern.test(inputValue);
+  }
+  validateMobileNo(inputValue: string): boolean {
+
+    const mobileNumberPattern = /^\d{10}$/;
+    return mobileNumberPattern.test(inputValue);
   }
 
-  addLead(){
-    if (this.form.valid){
-      this._receptionistService.addLead(this.form.value).subscribe({
-        next:(res:any)=>{
-          if(res.status==201||res.status==200){
-            this._toastrService.success(res.message);
-            this.router.navigate(['/receptionist', { outlets: { receptionist_Menu: 'leads' } }])
-          }else{
-            this._toastrService.warning(res.message);
-          }
-        },
-        error:(err:any)=>{
-          if(err.error.status== 422){
-            this._toastrService.warning(err.error.message);
-          }else{
-            this._toastrService.error("Internal Server Error");
-          }
-        }
-      });
-    }else{
-      this.form.markAllAsTouched();
-      this._toastrService.warning("Fill required fields");
-    }
+  isValidInput(inputValue: string): boolean {
+    return this.validateMobileNo(inputValue) || this.isValidName(inputValue);
   }
-  // prepopulateData(data: any) {
-  //   this.control['name'].patchValue(data.name);
-  //   this.control['lead_date'].patchValue(data.lead_date);
-  //   this.control['city'].patchValue(data.city);
-  //   this.control['mobile_number'].patchValue(data.mobile_number);
-  //   this.control['note'].patchValue(data.note);
-  //   this.control['category_id'].patchValue(data.category_id);
 
-  //   if (data.leadFooterDetails.length > 0) {
-  //     this.leadstatusDetailsArray.clear();
-  //     let leadstatusDetailsArray = data.leadFooterDetails
-  //     for (let index = 0; index < leadstatusDetailsArray.length; index++) {
-  //       const element = leadstatusDetailsArray[index];
-  //       this.leadstatusDetailsArray.push(this.newLeadFooter());
-  //       this.leadstatusDetailsArray.at(index).get('lead_fid')?.patchValue(element.lead_fid);
-  //       this.leadstatusDetailsArray.at(index).get('comments')?.patchValue(element.comments);
-  //       this.leadstatusDetailsArray.at(index).get('calling_time')?.patchValue(element.calling_time);
-  //       this.leadstatusDetailsArray.at(index).get('no_of_calls')?.patchValue(element.no_of_calls);
-  //       this.leadstatusDetailsArray.at(index).get('lead_status_id')?.patchValue(element.lead_status_id);
-  //       this.leadstatusDetailsArray.at(index).get('follow_up_date')?.patchValue(element.follow_up_date);
-
-  //     }
-  //   }
-  // }
   getLeadById(id:any){
     this._receptionistService.getLeadById(id).subscribe((result: any) => {
       this.form.patchValue(result.data)
+      this.form.disable(); 
       const leadDate = new Date(result.data.lead_date);
     this.form.get('lead_date')?.patchValue(
       `${leadDate.getFullYear()}-${('0' + (leadDate.getMonth() + 1)).slice(-2)}-${('0' + leadDate.getDate()).slice(-2)}`
@@ -194,6 +160,7 @@ export class AddUpdateLeadsComponent implements OnInit{
       }
 
     })
+    
   }
 
 
@@ -218,5 +185,14 @@ export class AddUpdateLeadsComponent implements OnInit{
       }
     });
   }
+  onPageChange(event: PageEvent): void {
+    this.page = event.pageIndex + 1;
+    this.perPage = event.pageSize;
+    // this.getAllLeadsList();
+  }
 
 }
+
+
+
+

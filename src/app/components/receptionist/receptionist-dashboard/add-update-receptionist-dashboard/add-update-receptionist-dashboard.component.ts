@@ -94,15 +94,10 @@ export class AddUpdateReceptionistDashboardComponent implements OnInit{
   deleteLeadFooter(i: any) {
     this.leadstatusDetailsArray.removeAt(i)
   }
-  submit(){  console.log('Form status:', this.form.status);
-  console.log('Lead date value:', this.form.get('lead_date')?.value);
-  this.addLeadFollowUp();}
+  submit(){this.addLeadFollowUp();}
 
- 
-  
   addLeadFollowUp(){
     if (this.form.valid) {
-      console.log(this.form.value);
       this._receptionistService.editLeadFollowUp(this.form.value,this.lead_hid).subscribe({
         next:(res:any)=>{
           if (res.status==200) {
@@ -132,7 +127,6 @@ export class AddUpdateReceptionistDashboardComponent implements OnInit{
   
   getLeadById(id:any){
     this._receptionistService.getLeadById(id).subscribe((result: any) => {
-      console.log(result);
       this.form.patchValue(result.data)
       const leadDate = new Date(result.data.lead_date);
     this.form.get('lead_date')?.patchValue(
@@ -179,7 +173,6 @@ export class AddUpdateReceptionistDashboardComponent implements OnInit{
   getAllCategoryList(){
     this._adminService.getAllCategoryListWma().subscribe({
       next:(res:any)=>{
-        console.log('category',res);
         if (res.data.length>0) {
           this.allCategoryList =res.data;
         }
@@ -191,7 +184,6 @@ export class AddUpdateReceptionistDashboardComponent implements OnInit{
    getAllLeadStatusList(){
     this._superAdminService.allLeadStatusList().subscribe({
       next:(res:any)=>{
-        console.log(res);
         if (res.data.length>0) {
           this.allLeadStatusList =res.data;
         }

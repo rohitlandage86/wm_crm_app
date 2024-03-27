@@ -27,10 +27,7 @@ color: string|undefined;
     this._adminService.getAllPatientVisitList(this.page, this.perPage).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
-
           this.allPatientVisitList = res.data;
-
-
           this.total = res.pagination.total;
         }
       }
@@ -42,24 +39,8 @@ color: string|undefined;
     this.getAllPatientVisitList();
   }
 
-  // //open Lead...
-  // openDialog(data?: any) {
-  //   const dialogRef = this.dialog.open(AddUpdateLeadsComponent, {
-  //     data: data,
-  //     width: '50%',
-  //     panelClass: 'mat-mdc-dialog-container'
-  //   });
-  //   dialogRef.afterClosed().subscribe((message: any) => {
-  //     if (message == 'create' || message == 'update') {
-  //       this.getAllLeadsList();
-  //     } else {
-  //       console.log('nothing happen');
-  //     }
-  //   });
-  // }
   //slide-toggle change Patient
   changeEvent(event: any, id: any) {
-    console.log(event.checked, id);
     let status = 0;
     if (event.checked) {
       status = 1;
@@ -67,14 +48,11 @@ color: string|undefined;
     this._receptionistService.onPatientStatusChange(status, id).subscribe({
       next: (res: any) => {
         this._toastrService.success(res.message);
-        console.log(res);
         this.getAllPatientVisitList();
       },
       error: (error: any) => {
-        console.log(error.error.message)
         if (error.status == 422) {
           this._toastrService.warning(error.message);
-          console.log(error.status);
           this.getAllPatientVisitList();
         }
       },

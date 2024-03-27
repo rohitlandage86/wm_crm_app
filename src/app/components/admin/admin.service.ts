@@ -42,6 +42,9 @@ export class AdminService {
             params: params
         });
     }
+    getGenerateMrnoEntitySeries(entityId:any): Observable<any> {
+        return this.http.get(`${this.baseUrl}api/patient_registration/generate-mrno-entity-series/`+entityId);
+    }
     //get all service type list...............................................................
     getAllServiceTypeList(page: any, perPage: any): Observable<any> {
         let params = {
@@ -134,6 +137,10 @@ export class AdminService {
             params: params
         });
     }
+    //get All treatment wma...
+    getAllTreatmentListWma(): Observable<any> {
+        return this.http.get(this.baseUrl + 'api/treatment/wma');
+    }
 
     //get all diagnosis list...............................................................
     getAllDiagnosisList(page: any, perPage: any): Observable<any> {
@@ -165,7 +172,10 @@ export class AdminService {
             params: params
         });
     }
-
+    //get All Diagnosis wma...
+    getAllDiagnosisListWma(): Observable<any> {
+        return this.http.get(this.baseUrl + 'api/diagnosis/wma/');
+    }
     //get all category list...............................................................
     getAllCategoryList(page: any, perPage: any): Observable<any> {
         let params = {
@@ -196,12 +206,12 @@ export class AdminService {
             params: params
         });
     }
-      //get All Category wma...
-      getAllCategoryListWma(): Observable<any> {
-        let customes_id :any = localStorage.getItem("customer_id");
+    //get All Category wma...
+    getAllCategoryListWma(): Observable<any> {
+        let customes_id: any = localStorage.getItem("customer_id");
         const params = new HttpParams().set("customer_id", customes_id)
-        return this.http.get(this.baseUrl + 'api/category/wma',{
-            params:params
+        return this.http.get(this.baseUrl + 'api/category/wma', {
+            params: params
         });
     }
 
@@ -236,7 +246,10 @@ export class AdminService {
             params: params
         });
     }
-
+    //get All medicines wma...
+    getAllMedicinesListWma(): Observable<any> {
+        return this.http.get(this.baseUrl + 'api/medicines/wma/');
+    }
     //get all dosages  list...............................................................
 
     getAllDosagesList(page: any, perPage: any): Observable<any> {
@@ -267,6 +280,10 @@ export class AdminService {
         return this.http.patch(this.baseUrl + 'api/dosages/' + id, body, {
             params: params
         });
+    }
+     //get All dosages wma...
+     getAllDosagesListWma(): Observable<any> {
+        return this.http.get(this.baseUrl + 'api/dosages/wma/');
     }
 
     //get all instructions  list...............................................................
@@ -330,6 +347,10 @@ export class AdminService {
             params: params
         });
     }
+    //get All chief_complaints wma...
+    getAllChiefComplaintsListWma(): Observable<any> {
+        return this.http.get(this.baseUrl + 'api/chief_complaints/wma/');
+    }
 
     //Miscellaneous.............................
     //get all title list...............................................................
@@ -375,8 +396,8 @@ export class AdminService {
             params: params
         });
     }
-      //get All Source Of Patient wma...
-      getAllSourceOfPatientListWma(): Observable<any> {
+    //get All Source Of Patient wma...
+    getAllSourceOfPatientListWma(): Observable<any> {
         return this.http.get(this.baseUrl + 'api/source_of_patient/wma');
     }
     //add new source_of_patient...
@@ -407,7 +428,7 @@ export class AdminService {
             params: params
         });
     }
-     //get All refered_by wma...
+    //get All refered_by wma...
     getAllReferedByListWma(): Observable<any> {
         return this.http.get(this.baseUrl + 'api/refered_by/wma');
     }
@@ -456,8 +477,8 @@ export class AdminService {
         let params = new HttpParams().set('status', status);
         return this.http.patch(this.baseUrl + 'api/designation/' + id, body, { params: params });
     }
-      //get All designation wma...
-      getAllDesignationListWma(): Observable<any> {
+    //get All designation wma...
+    getAllDesignationListWma(): Observable<any> {
         return this.http.get(this.baseUrl + 'api/designation/wma');
     }
 
@@ -489,13 +510,13 @@ export class AdminService {
         let params = new HttpParams().set('status', status);
         return this.http.patch(this.baseUrl + 'api/employee/' + id, body, { params: params });
     }
-       //get All employee wma...
-       getAllEmployeeListWma(): Observable<any> {
+    //get All employee wma...
+    getAllEmployeeListWma(): Observable<any> {
         return this.http.get(this.baseUrl + 'api/employee/wma');
     }
 
-     //get all PatientVisit list...............................................................
-     getAllPatientVisitList(page: any, perPage: any): Observable<any> {
+    //get all PatientVisit list...............................................................
+    getAllPatientVisitList(page: any, perPage: any): Observable<any> {
         let params = {
             page: page,
             perPage: perPage

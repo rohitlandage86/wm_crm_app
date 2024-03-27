@@ -15,13 +15,34 @@ export class DoctorService {
         let params: any = {
             page: page,
             perPage: perPage,
+            
         };
-        if (page == '' || perPage == '') {
+    
+        // Remove page and perPage parameters if they are empty
+        if (page === '' || perPage === '') {
             delete params.page;
             delete params.perPage;
         }
-
+    
         return this.http.get(this.baseUrl + 'api/patient_registration/patient-visit-list/', {
+            params: params
+        });
+    }
+     //get all patient_visit_Checked-lists...............................................................
+     getAllPatientVisitCheckedLists(page: any, perPage: any): Observable<any> {
+        let params: any = {
+            page: page,
+            perPage: perPage,
+           
+        };
+    
+        // Remove page and perPage parameters if they are empty
+        if (page === '' || perPage === '') {
+            delete params.page;
+            delete params.perPage;
+        }
+    
+        return this.http.get(this.baseUrl + 'api/patient_registration/patient-visit-checked-list/', {
             params: params
         });
     }
@@ -30,6 +51,7 @@ export class DoctorService {
     addConsultation(data: any): Observable<any> {
         return this.http.post(this.baseUrl + 'api/consultation', data);
     }
+
     // //Edit Patient...
     // editPatient(data: any, id: any) {
     //     return this.http.put(this.baseUrl + 'api/patient_registration/' + id, data);

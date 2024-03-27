@@ -4,13 +4,16 @@ import { freeSet } from '@coreui/icons';
 import { PageEvent } from '@angular/material/paginator';
 import { ToastrService } from 'ngx-toastr';
 
+
 @Component({
   selector: 'app-patient',
   templateUrl: './patient.component.html',
-  styleUrl: './patient.component.scss'
+  styleUrl: './patient.component.scss',
+
 })
 export class PatientComponent implements OnInit{
   allPatientVisitList: Array<any> = [];
+  allPatientVisitCheckedList: Array<any> = [];
   firstCardContent: any;
   icons = freeSet;
   page = 1;
@@ -18,13 +21,15 @@ export class PatientComponent implements OnInit{
   total = 0;
   lead_date: string;
   color: string | undefined;
+
   constructor( private _doctorService: DoctorService, private _toastrService: ToastrService) { this.lead_date = ''; }
 
   ngOnInit() {
     this.setTodayDate();
+    this.getAllPatientVisitCheckedLists();
     this.getAllPatientVisitLists();
+   
   }
-
 
   setTodayDate() {
     const today = new Date();
@@ -35,12 +40,24 @@ export class PatientComponent implements OnInit{
   }
   //get all LeadFollowUp List...
   getAllPatientVisitLists() {
-    this._doctorService.getAllPatientVisitLists(this.page, this.perPage).subscribe({
+    this._doctorService.getAllPatientVisitLists(this.page, this.perPage,).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allPatientVisitList = res.data;
           console.log(res.data);
-
+  
+          this.total = res.pagination.total;
+        }
+      }
+    });
+  }
+  getAllPatientVisitCheckedLists() {
+    this._doctorService.getAllPatientVisitCheckedLists(this.page, this.perPage).subscribe({
+      next: (res: any) => {
+        if (res.data.length > 0) {
+          this.allPatientVisitCheckedList = res.data;
+          console.log('Checked',res.data);
+  
           this.total = res.pagination.total;
         }
       }
@@ -50,5 +67,6 @@ export class PatientComponent implements OnInit{
     this.page = event.pageIndex + 1;
     this.perPage = event.pageSize;
     this.getAllPatientVisitLists();
+    this.getAllPatientVisitCheckedLists();
   }
 }

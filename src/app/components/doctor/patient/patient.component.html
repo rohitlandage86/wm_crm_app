@@ -1,44 +1,81 @@
 <c-container breakpoint="lg">
-    <c-card class="mb-4">
-        <c-card-header class="d-flex justify-content-between">
-            <strong> Patients</strong>
-        </c-card-header>
-        <c-card-body>
-            <div class="col-md-12">
-                <table class="table table-striped" cTable>
-                    <thead cTableColor="light">
-                        <tr>
-                            <th>Sr. No</th>
-                            <th>Patient Name</th>
-                            <th>Visit Date</th>
-                            <th>Visit Type</th>
-                            <th>Mobile Number</th>
-                            <th>Gender</th>
-                            <th>Age</th>
-                            <th>City</th>
-                            <th>Add</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of allPatientVisitList; let i = index">
-                            <td>{{ i + 1 }}</td>
-                            <td>{{ item.patient_name  }}</td>
-                            <td>{{ item.visit_date| date:'dd-MM-yyyy'}}</td>
-                            <td>{{ item.visit_type}}</td>
-                            <td>{{ item.mobile_no }}</td>
-                            <td>{{ item.gender }}</td>
-                            <td>{{ item.age }}</td>
-                            <td>{{ item.city }}</td>
-                            <td> <a [routerLink]="['/doctor', { outlets: { doc_Menu: ['add-consultation',item.mrno]}}]" class="pointer"><svg [cIcon]="icons.cilPlus"  size="xl"
-                                title="List Icon" ></svg></a></td>
-                               
-                        </tr>
-                        <tr class=" fw-bold text-center" *ngIf="allPatientVisitList.length===0">
-                            <td colspan="10" class="text-danger">No Data Available</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+    <c-card class="mb-4">                                                                                                                                                                                                                 
+        <c-card-body >
+            <mat-tab-group>
+                <mat-tab label="Patient List">
+                        <div class="col-md-12 pt-3"  >
+                            <table class="table table-striped" cTable >
+                                <thead cTableColor="light">
+                                    <tr>
+                                        <th>Sr. No</th>
+                                        <th>Patient Name</th>
+                                        <th>Visit Date</th>
+                                        <th>Visit Type</th>
+                                        <th>Mobile Number</th>
+                                        <th>Gender</th>
+                                        <th>Age</th>
+                                        <th>City</th>
+                                        <th>Add</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of allPatientVisitList; let i = index">
+                                        <td>{{ i + 1 }}</td>
+                                        <td>{{ item.patient_name  }}</td>
+                                        <td>{{ item.visit_date| date:'dd-MM-yyyy'}}</td>
+                                        <td>{{ item.visit_type}}</td>
+                                        <td>{{ item.mobile_no }}</td>
+                                        <td>{{ item.gender }}</td>
+                                        <td>{{ item.age }}</td>
+                                        <td>{{ item.city }}</td>
+                                        <td> <a [routerLink]="['/doctor', { outlets: { doc_Menu: ['add-consultation',item.mrno]}}]" class="pointer"><svg [cIcon]="icons.cilPlus"  size="xl"
+                                            title="List Icon" ></svg></a></td>
+                                           
+                                    </tr>
+                                    <tr class=" fw-bold text-center" *ngIf="allPatientVisitList.length===0">
+                                        <td colspan="10" class="text-danger">No Data Available</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                </mat-tab>
+                <mat-tab label="Checked Patients">
+                        <div class="col-md-12 pt-3" >
+                            <table class="table table-striped" cTable >
+                                <thead cTableColor="light">
+                                    <tr>
+                                        <th>Sr. No</th>
+                                        <th>Patient Name</th>
+                                        <th>Visit Date</th>
+                                        <th>Visit Type</th>
+                                        <th>Mobile Number</th>
+                                        <th>Gender</th>
+                                        <th>Age</th>
+                                        <th>City</th>
+                                       
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of allPatientVisitCheckedList; let i = index">
+                                        <td>{{ i + 1 }}</td>
+                                        <td>{{ item.patient_name  }}</td>
+                                        <td>{{ item.visit_date| date:'dd-MM-yyyy'}}</td>
+                                        <td>{{ item.visit_type}}</td>
+                                        <td>{{ item.mobile_no }}</td>
+                                        <td>{{ item.gender }}</td>
+                                        <td>{{ item.age }}</td>
+                                        <td>{{ item.city }}</td>
+                                        
+                                    <tr class=" fw-bold text-center" *ngIf="allPatientVisitCheckedList.length===0">
+                                        <td colspan="10" class="text-danger">No Data Available</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                        </div>
+                </mat-tab>
+            </mat-tab-group>
+          
             <div class="col-md-12">
                 <mat-paginator [length]="total" [pageSize]="perPage" [pageSizeOptions]="[5, 10, 25, 100]"
                 aria-label="Select page" [showFirstLastButtons]="true" (page)="onPageChange($event)">

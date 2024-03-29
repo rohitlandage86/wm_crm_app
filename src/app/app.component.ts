@@ -265,7 +265,6 @@ export class AppComponent implements OnInit, AfterContentChecked {
    
     {
       name: 'Patients',
-      url: ['/receptionist', { outlets: { receptionist_Menu: 'patient' } }],
       iconComponent: { name: 'cilList' },
       children: [
         {
@@ -283,8 +282,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
     },
  
     {
-      name: 'Leads',
-      url: ['/receptionist', { outlets: { receptionist_Menu: 'leads' } }],
+      name: 'Leads', 
       iconComponent: { name: 'cilList' },
       children: [
         {
@@ -300,6 +298,50 @@ export class AppComponent implements OnInit, AfterContentChecked {
            
       ]
     },
+    {
+      name: 'Reports',
+     
+      iconComponent: { name: 'cil-description' }
+    },
+    {
+      name: 'Lead',
+      iconComponent: { name: 'cilList' },
+      children: [
+        {
+          name: 'Leads',
+          url: ['/receptionist', { outlets: { receptionist_Menu: 'lead-report' } }],
+
+        },
+        {
+          name: 'Follow up',
+          url: ['/receptionist', { outlets: { receptionist_Menu: 'lead-follow-up-report' } }],
+
+        }
+
+      ]
+    },
+    {
+      name: 'OPD',
+      iconComponent: { name: 'cilList' },
+      children: [
+        {
+          name: 'Registrations',
+          url: ['/receptionist', { outlets: { receptionist_Menu: 'patient-report' } }],
+
+        },
+        {
+          name: 'Visits',
+          url: ['/receptionist', { outlets: { receptionist_Menu: 'patient-visit-report' } }],
+
+        }
+      ]
+    },
+    {
+      name: 'Appointments',
+      url: ['/receptionist', { outlets: { receptionist_Menu: 'appointment' } }],
+      iconComponent: { name: 'cilList' },
+    },
+    
     {
       name: 'Logout',
       url: '/auth',

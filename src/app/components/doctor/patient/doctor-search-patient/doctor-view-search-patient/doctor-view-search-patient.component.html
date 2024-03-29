@@ -2,7 +2,7 @@
   <c-col xs="12 " class="p-0">
     <c-card class="">
       <c-card-header>
-        <strong>{{ isEdit ? "Edit" : "Add " }} Consultation</strong>
+        <strong>View Patient</strong>
       </c-card-header>
       <c-card-body>
         <form cForm class="row g-3" [formGroup]="form_patient">
@@ -242,13 +242,7 @@
             <input cFormControl id="bp" type="number" formControlName="bp" />
           </c-col>
           <c-col md="3" class="p-2">
-            <label cLabel for="validationDefault01"
-              >Past History<span
-                style="color: red"
-                *ngIf="!form.get('past_history')?.value"
-                >*</span
-              ></label
-            >
+            <label cLabel for="validationDefault01">Past History</label>
             <input
               cFormControl
               id="past_history"
@@ -257,61 +251,23 @@
             />
           </c-col>
           <c-col md="3" class="p-2">
-            <label for="chief_complaints_id" cLabel>
-              Chief Complaints<span
-                style="color: red"
-                *ngIf="!form.get('chief_complaints_id')?.value"
-                >*</span
-              ></label
-            >
+            <label for="chief_complaints_id" cLabel> Chief Complaints</label>
             <input
               cFormControl
               id="chief_complaints_id"
               type="text"
               placeholder="Search Complaint"
               formControlName="chief_complaints_id"
-        
-              [ngClass]="{
-                'is-invalid':
-                  control['chief_complaints_id'].invalid &&
-                  (control['chief_complaints_id'].dirty ||
-                    control['chief_complaints_id'].touched)
-              }"
+              [matAutocomplete]="auto"
             />
-            <!-- <mat-autocomplete
-              #auto="matAutocomplete"
-              [displayWith]="displayChiefComplaintsName"
-              (optionSelected)="onChiefComplaintsSelected($event)"
-            >
+            <mat-autocomplete #auto="matAutocomplete">
               <mat-option
                 *ngFor="let complaint of filteredChiefComplaints | async"
-                [value]="complaint"
+                [value]="complaint.chief_complaint"
               >
                 {{ complaint.chief_complaint }}
               </mat-option>
-            </mat-autocomplete> -->
-            <mat-form-field>
-              <mat-select [formControl]="bankCtrl" placeholder="Bank" #singleSelect>
-                <mat-option>
-                  <ngx-mat-select-search [formControl]="bankFilterCtrl"></ngx-mat-select-search>
-                </mat-option>
-          
-                <mat-option *ngFor="let complaint of filteredChiefComplaints | async"  [value]="complaint">
-                  {{complaint.chief_complaint}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <div
-              class="text-danger"
-              *ngIf="
-                control['chief_complaints_id'].invalid &&
-                (control['chief_complaints_id'].dirty ||
-                  control['chief_complaints_id'].touched)
-              "
-            >
-              <small>Please provide a valid Chief Complaints.</small>
-            </div>
+            </mat-autocomplete>
           </c-col>
           <hr class="mb-0" />
           <mat-tab-group class="mt-0">
@@ -344,47 +300,16 @@
                           placeholder="Search Diagnosis"
                           formControlName="diagnosis_id"
                           [matAutocomplete]="auto"
-                          [ngClass]="{
-                            'is-invalid':
-                              consultationDiagnosisDetailsArray
-                                .at(i)
-                                .get('diagnosis_id')?.invalid &&
-                              (consultationDiagnosisDetailsArray
-                                .at(i)
-                                .get('diagnosis_id')?.dirty ||
-                                consultationDiagnosisDetailsArray
-                                  .at(i)
-                                  .get('diagnosis_id')?.touched)
-                          }"
+                     
                         />
-                        <mat-autocomplete
-                          #auto="matAutocomplete"
-                          [displayWith]="displayDiagnosisName"
-                          (optionSelected)="onDiagnosisSelected($event)"
-                        >
+                        <mat-autocomplete #auto="matAutocomplete">
                           <mat-option
                             *ngFor="let diagnosis of filteredDiagnosis | async"
-                            [value]="diagnosis"
+                            [value]="diagnosis.diagnosis_name"
                           >
                             {{ diagnosis.diagnosis_name }}
                           </mat-option>
                         </mat-autocomplete>
-                        <div
-                          class="text-danger"
-                          *ngIf="
-                            consultationDiagnosisDetailsArray
-                              .at(i)
-                              .get('diagnosis_id')?.invalid &&
-                            (consultationDiagnosisDetailsArray
-                              .at(i)
-                              .get('diagnosis_id')?.dirty ||
-                              consultationDiagnosisDetailsArray
-                                .at(i)
-                                .get('diagnosis_id')?.touched)
-                          "
-                        >
-                          <small>Please provide a valid Diagnosis.</small>
-                        </div>
                       </td>
                       <td>
                         <input
@@ -449,47 +374,15 @@
                           placeholder="Search Treatment"
                           formControlName="treatment_id"
                           [matAutocomplete]="auto"
-                          [ngClass]="{
-                            'is-invalid':
-                              consultationTreatmentDetailsArray
-                                .at(i)
-                                .get('treatment_id')?.invalid &&
-                              (consultationTreatmentDetailsArray
-                                .at(i)
-                                .get('treatment_id')?.dirty ||
-                                consultationTreatmentDetailsArray
-                                  .at(i)
-                                  .get('treatment_id')?.touched)
-                          }"
                         />
-                        <mat-autocomplete
-                          #auto="matAutocomplete"
-                          [displayWith]="displayTreatmentsName"
-                          (optionSelected)="onTreatmentSelected($event)"
-                        >
+                        <mat-autocomplete #auto="matAutocomplete">
                           <mat-option
                             *ngFor="let treatment of filteredTreatment | async"
-                            [value]="treatment"
+                            [value]="treatment.treatment_name"
                           >
                             {{ treatment.treatment_name }}
                           </mat-option>
                         </mat-autocomplete>
-                        <div
-                          class="text-danger"
-                          *ngIf="
-                            consultationTreatmentDetailsArray
-                              .at(i)
-                              .get('treatment_id')?.invalid &&
-                            (consultationTreatmentDetailsArray
-                              .at(i)
-                              .get('treatment_id')?.dirty ||
-                              consultationTreatmentDetailsArray
-                                .at(i)
-                                .get('treatment_id')?.touched)
-                          "
-                        >
-                          <small>Please provide a valid Treatment.</small>
-                        </div>
                       </td>
                       <td>
                         <input
@@ -557,14 +450,10 @@
                           formControlName="medicines_id"
                           [matAutocomplete]="auto"
                         />
-                        <mat-autocomplete
-                          #auto="matAutocomplete"
-                          [displayWith]="displayMedicinesName"
-                          (optionSelected)="onMedicineSelected($event)"
-                        >
+                        <mat-autocomplete #auto="matAutocomplete">
                           <mat-option
                             *ngFor="let medicines of filteredMedicines | async"
-                            [value]="medicines"
+                            [value]="medicines.medicines_name"
                           >
                             {{ medicines.medicines_name }}
                           </mat-option>
@@ -579,14 +468,10 @@
                           formControlName="dosages_id"
                           [matAutocomplete]="autoDosages"
                         />
-                        <mat-autocomplete
-                          #autoDosages="matAutocomplete"
-                          [displayWith]="displayDosagesName"
-                          (optionSelected)="onDosagesSelected($event)"
-                        >
+                        <mat-autocomplete #autoDosages="matAutocomplete">
                           <mat-option
                             *ngFor="let dosages of filteredDosages | async"
-                            [value]="dosages"
+                            [value]="dosages.dosage_name"
                           >
                             {{ dosages.dosage_name }}
                           </mat-option>
@@ -658,7 +543,6 @@
                             type="file"
                             class="form-control"
                             id="imageBase64"
-                            (change)="onImageChange($event)"
                             accept=".jpeg, .jfif, .pjpeg, .pjp, .png, .jpg"
                             formControlName="imageBase64"
                           />
@@ -726,12 +610,9 @@
             />
           </c-col>
           <c-col xs="12">
-            <button cButton class="me-1" color="primary" (click)="submit()">
-              Submit
-            </button>
             <button
               cButton
-              color="secondary"
+              color="primary"
               [routerLink]="['/doctor', { outlets: { doc_Menu: 'patient' } }]"
             >
               Cancel

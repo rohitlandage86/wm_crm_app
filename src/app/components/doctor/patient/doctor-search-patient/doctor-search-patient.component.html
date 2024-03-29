@@ -44,7 +44,7 @@
                             <td>{{ item.age }}</td>
                             <td>{{ item.address }}</td>
                             <td>{{ item.mobile_no }}</td>
-                            <td> <a [routerLink]="['/receptionist', { outlets: { receptionist_Menu: ['view-search-patient',item.mrno]}}]" class="pointer"><svg [cIcon]="icons.cilDescription"  size="xl"
+                            <td> <a  [routerLink]="['/doctor', { outlets: { doc_Menu: ['doctor-view-search-patient',item.mrno]}}]"><svg [cIcon]="icons.cilDescription"  size="xl"
                                 title="List Icon" ></svg></a></td>
                         </tr>
                         <tr class=" fw-bold text-center" *ngIf="allPatientVisitList.length===0">

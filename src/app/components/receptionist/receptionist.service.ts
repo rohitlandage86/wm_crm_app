@@ -150,7 +150,10 @@ export class ReceptionistService {
             params: params
         });
     }
-
+ // patient revist ...
+ editPatientRevist(id: any,data: any) {
+    return this.http.put(this.baseUrl + 'api/patient_registration/patient-revisit/' + id, data);
+}
 
 
 }

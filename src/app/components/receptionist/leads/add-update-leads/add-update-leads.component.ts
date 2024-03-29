@@ -143,30 +143,7 @@ export class AddUpdateLeadsComponent implements OnInit{
       this._toastrService.warning("Fill required fields");
     }
   }
-  // prepopulateData(data: any) {
-  //   this.control['name'].patchValue(data.name);
-  //   this.control['lead_date'].patchValue(data.lead_date);
-  //   this.control['city'].patchValue(data.city);
-  //   this.control['mobile_number'].patchValue(data.mobile_number);
-  //   this.control['note'].patchValue(data.note);
-  //   this.control['category_id'].patchValue(data.category_id);
 
-  //   if (data.leadFooterDetails.length > 0) {
-  //     this.leadstatusDetailsArray.clear();
-  //     let leadstatusDetailsArray = data.leadFooterDetails
-  //     for (let index = 0; index < leadstatusDetailsArray.length; index++) {
-  //       const element = leadstatusDetailsArray[index];
-  //       this.leadstatusDetailsArray.push(this.newLeadFooter());
-  //       this.leadstatusDetailsArray.at(index).get('lead_fid')?.patchValue(element.lead_fid);
-  //       this.leadstatusDetailsArray.at(index).get('comments')?.patchValue(element.comments);
-  //       this.leadstatusDetailsArray.at(index).get('calling_time')?.patchValue(element.calling_time);
-  //       this.leadstatusDetailsArray.at(index).get('no_of_calls')?.patchValue(element.no_of_calls);
-  //       this.leadstatusDetailsArray.at(index).get('lead_status_id')?.patchValue(element.lead_status_id);
-  //       this.leadstatusDetailsArray.at(index).get('follow_up_date')?.patchValue(element.follow_up_date);
-
-  //     }
-  //   }
-  // }
   getLeadById(id:any){
     this._receptionistService.getLeadById(id).subscribe((result: any) => {
       this.form.patchValue(result.data)

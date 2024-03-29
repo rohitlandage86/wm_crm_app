@@ -40,6 +40,7 @@ export class AddUpdateReceptionistDashboardComponent implements OnInit{
       this.isEdit = true;
     }
     this.disableFormControls();
+ 
   }
   disableFormControls() {
     Object.keys(this.form.controls).forEach(key => {

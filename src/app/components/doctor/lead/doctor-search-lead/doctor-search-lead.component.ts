@@ -5,14 +5,14 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminService } from 'src/app/components/admin/admin.service';
 import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ReceptionistService } from '../../receptionist.service';
+import { ReceptionistService } from 'src/app/components/receptionist/receptionist.service';
 
 @Component({
-  selector: 'app-search-leads',
-  templateUrl: './search-leads.component.html',
-  styleUrl: './search-leads.component.scss'
+  selector: 'app-doctor-search-lead',
+  templateUrl: './doctor-search-lead.component.html',
+  styleUrl: './doctor-search-lead.component.scss'
 })
-export class SearchLeadsComponent implements OnInit{
+export class DoctorSearchLeadComponent implements OnInit{
   form!:FormGroup;
   allLeadList: Array<any> = [];
   isEdit=false;
@@ -189,9 +189,4 @@ getSearchLead(searchQuery: string): void {
     this.perPage = event.pageSize;
     // this.getAllLeadsList();
   }
-
 }
-
-
-
-

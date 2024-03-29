@@ -1,33 +1,61 @@
 <c-row class="m-0">
   <c-col xs="12 " class="p-0">
     <c-card class="">
-      <c-card-header class=" d-flex justify-content-between align-items-center ">
+      <c-card-header class="d-flex justify-content-between align-items-center">
         <strong>{{ isEdit ? "Edit" : "Add" }} Patient</strong>
-        <div class=" d-flex align-items-center">
+        <div class="d-flex align-items-center">
           <ng-container *ngIf="isInputVisible">
             <div class="d-flex flex-column pe-2">
-              <input cFormControl class="ms-2" type="number" placeholder="Search Mobile No" id="mobile_no" #mobileNoInput (input)="validateMobileNo(mobileNoInput.value)">
-              <small class="text-danger" *ngIf="mobileNoInput.value && !isValidMobileNo">
+              <input
+                cFormControl
+                class="ms-2"
+                type="number"
+                placeholder="Search Mobile No"
+                id="mobile_no"
+                #mobileNoInput
+                (input)="validateMobileNo(mobileNoInput.value)"
+              />
+              <small
+                class="text-danger"
+                *ngIf="mobileNoInput.value && !isValidMobileNo"
+              >
                 Please enter a valid 10-digit number.
               </small>
             </div>
-            <button cButton color="primary" class="fw-bold btn-sm ms-2" [disabled]="!isValidMobileNo" (click)="getSearchLead(mobileNoInput.value)">Submit</button>
-
+            <button
+              cButton
+              color="primary"
+              class="fw-bold btn-sm ms-2"
+              [disabled]="!isValidMobileNo"
+              (click)="getSearchLead(mobileNoInput.value)"
+            >
+              Submit
+            </button>
           </ng-container>
-          
-          
+
           <strong class="ps-2">Is Lead</strong>
-       
-            <div class="input-group-text ms-2">
-              <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input" (change)="toggleInputVisibility($event)" >
-            </div>
+
+          <div class="input-group-text ms-2">
+            <input
+              class="form-check-input mt-0"
+              type="checkbox"
+              value=""
+              aria-label="Checkbox for following text input"
+              (change)="toggleInputVisibility($event)"
+            />
+          </div>
         </div>
       </c-card-header>
       <c-card-body>
         <form cForm class="row g-3" [formGroup]="form">
           <c-col md="12" class="d-flex">
             <c-col md="4" class="p-2">
-              <label for="entity_id" cLabel> Entity Name <span style="color: red" *ngIf="!form.get('entity_id')?.value">*</span></label>
+              <label for="entity_id" cLabel>
+                Entity Name
+                <span style="color: red" *ngIf="!form.get('entity_id')?.value"
+                  >*</span
+                ></label
+              >
               <select
                 aria-label="select entity_id"
                 cSelect
@@ -37,12 +65,13 @@
                 [ngClass]="{
                   'is-invalid':
                     control['entity_id'].invalid &&
-                    (control['entity_id'].dirty ||
-                      control['entity_id'].touched)
+                    (control['entity_id'].dirty || control['entity_id'].touched)
                 }"
                 (change)="onEntitySelectionChange($event)"
               >
-                <option hidden value="null" disabled selected> Entity Name</option>
+                <option hidden value="null" disabled selected>
+                  Entity Name
+                </option>
                 <option
                   [value]="item.entity_id"
                   *ngFor="let item of allEntityList"
@@ -61,34 +90,50 @@
               </div>
             </c-col>
             <c-col md="4" class="p-2">
-              <label cLabel for="mrno_entity_series">MR No Entity Series <span style="color: red" *ngIf="!form.get('mrno_entity_series')?.value">*</span></label>
+              <label cLabel for="mrno_entity_series"
+                >MR No Entity Series
+                <span
+                  style="color: red"
+                  *ngIf="!form.get('mrno_entity_series')?.value"
+                  >*</span
+                ></label
+              >
               <input
                 cFormControl
                 id="mrno_entity_series"
                 formControlName="mrno_entity_series"
                 type="text"
-                [ngModel]="mrnoEntitySeries" 
+                [ngModel]="mrnoEntitySeries"
                 [ngClass]="{
                   'is-invalid':
                     control['mrno_entity_series'].invalid &&
-                    (control['mrno_entity_series'].dirty || control['mrno_entity_series'].touched)
+                    (control['mrno_entity_series'].dirty ||
+                      control['mrno_entity_series'].touched)
                 }"
-                [disabled]="form.get('mrno_entity_series')?.disabled ?? false" 
+                [disabled]="form.get('mrno_entity_series')?.disabled ?? false"
               />
               <div
                 class="text-danger"
                 *ngIf="
                   control['mrno_entity_series'].invalid &&
-                  (control['mrno_entity_series'].dirty || control['mrno_entity_series'].touched)
+                  (control['mrno_entity_series'].dirty ||
+                    control['mrno_entity_series'].touched)
                 "
               >
                 <small>Please provide a valid Mrno Entity Series.</small>
               </div>
             </c-col>
           </c-col>
-        
+
           <c-col md="4" class="p-2">
-            <label cLabel for="registration_date">Registration Date <span style="color: red" *ngIf="!form.get('registration_date')?.value">*</span></label>
+            <label cLabel for="registration_date"
+              >Registration Date
+              <span
+                style="color: red"
+                *ngIf="!form.get('registration_date')?.value"
+                >*</span
+              ></label
+            >
             <input
               cFormControl
               id="registration_date"
@@ -114,7 +159,12 @@
             </div>
           </c-col>
           <c-col md="4" class="p-2">
-            <label cLabel for="patient_name">Patient Name <span style="color: red" *ngIf="!form.get('patient_name')?.value">*</span></label>
+            <label cLabel for="patient_name"
+              >Patient Name
+              <span style="color: red" *ngIf="!form.get('patient_name')?.value"
+                >*</span
+              ></label
+            >
             <input
               cFormControl
               id="patient_name"
@@ -139,7 +189,12 @@
             </div>
           </c-col>
           <c-col md="4" class="p-2">
-            <label cLabel for="mobile_no">Mobile Number <span style="color: red" *ngIf="!form.get('mobile_no')?.value">*</span></label>
+            <label cLabel for="mobile_no"
+              >Mobile Number
+              <span style="color: red" *ngIf="!form.get('mobile_no')?.value"
+                >*</span
+              ></label
+            >
             <input
               cFormControl
               id="mobile_no"
@@ -167,7 +222,12 @@
             </span>
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="validationDefault01">Gender <span style="color: red" *ngIf="!form.get('gender')?.value">*</span></label>
+            <label cLabel for="validationDefault01"
+              >Gender
+              <span style="color: red" *ngIf="!form.get('gender')?.value"
+                >*</span
+              ></label
+            >
             <select
               aria-label="select lead gender"
               cSelect
@@ -176,33 +236,31 @@
               type="text"
               [ngClass]="{
                 'is-invalid':
-                control['gender'].invalid &&
-                (control['gender'].dirty ||
-                    control['gender'].touched)
-            }"
+                  control['gender'].invalid &&
+                  (control['gender'].dirty || control['gender'].touched)
+              }"
             >
-            <option hidden value="null" disabled selected>Gender </option>
-              <option
-              >Male
-              </option>
-              <option
-              >Female
-              </option>
-              <option
-              >Other
-              </option>
+              <option hidden value="null" disabled selected>Gender</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other</option>
             </select>
             <span
-            class="text-danger"
-            *ngIf="
+              class="text-danger"
+              *ngIf="
                 control['gender'].invalid &&
                 (control['gender'].dirty || control['gender'].touched)
-            "
+              "
               ><small> Please provide a valid Gender.</small></span
             >
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="age">Age <span style="color: red" *ngIf="!form.get('age')?.value">*</span></label>
+            <label cLabel for="age"
+              >Age
+              <span style="color: red" *ngIf="!form.get('age')?.value"
+                >*</span
+              ></label
+            >
             <input
               cFormControl
               id="age"
@@ -225,7 +283,12 @@
             </div>
           </c-col>
           <c-col md="3" class="p-2">
-            <label cLabel for="address">Address <span style="color: red" *ngIf="!form.get('address')?.value">*</span></label>
+            <label cLabel for="address"
+              >Address
+              <span style="color: red" *ngIf="!form.get('address')?.value"
+                >*</span
+              ></label
+            >
             <input
               cFormControl
               id="address"
@@ -248,7 +311,12 @@
             </div>
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="validationDefault01">City <span style="color: red" *ngIf="!form.get('city')?.value">*</span></label>
+            <label cLabel for="validationDefault01"
+              >City
+              <span style="color: red" *ngIf="!form.get('city')?.value"
+                >*</span
+              ></label
+            >
             <input
               cFormControl
               id="validationDefault01"
@@ -271,7 +339,12 @@
             </div>
           </c-col>
           <c-col md="3" class="p-2">
-            <label for="state_id" cLabel> State <span style="color: red" *ngIf="!form.get('state_id')?.value">*</span></label>
+            <label for="state_id" cLabel>
+              State
+              <span style="color: red" *ngIf="!form.get('state_id')?.value"
+                >*</span
+              ></label
+            >
             <select
               aria-label="select state_id"
               cSelect
@@ -281,16 +354,12 @@
               [ngClass]="{
                 'is-invalid':
                   control['state_id'].invalid &&
-                  (control['state_id'].dirty ||
-                    control['state_id'].touched)
+                  (control['state_id'].dirty || control['state_id'].touched)
               }"
-              [(ngModel)]="defaultStateId" 
+              [(ngModel)]="defaultStateId"
             >
-              <option hidden value="null" disabled selected> State</option>
-              <option
-                [value]="item.state_id"
-                *ngFor="let item of allStateList"
-              >
+              <option hidden value="null" disabled selected>State</option>
+              <option [value]="item.state_id" *ngFor="let item of allStateList">
                 {{ item.state_name }}
               </option>
             </select>
@@ -305,7 +374,12 @@
             </div>
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="validationDefault01">Height (cm) <span style="color: red" *ngIf="!form.get('height')?.value">*</span></label>
+            <label cLabel for="validationDefault01"
+              >Height (cm)
+              <span style="color: red" *ngIf="!form.get('height')?.value"
+                >*</span
+              ></label
+            >
             <input
               cFormControl
               id="height"
@@ -315,29 +389,39 @@
             />
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="validationDefault01">Weight (kg) <span style="color: red" *ngIf="!form.get('weight')?.value">*</span></label>
+            <label cLabel for="validationDefault01"
+              >Weight (kg)
+              <span style="color: red" *ngIf="!form.get('weight')?.value"
+                >*</span
+              ></label
+            >
             <input
               cFormControl
               id="weight"
               formControlName="weight"
               type="number"
               (change)="calculateBMI()"
-            /> 
+            />
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="bmi">BMI (kg/m²) <span style="color: red" *ngIf="!form.get('bmi')?.value">*</span></label>
-            <input
-              cFormControl
-              id="bmi"
-              formControlName="bmi"
-              type="text"
-           
-            />
-     
+            <label cLabel for="bmi"
+              >BMI (kg/m²)
+              <span style="color: red" *ngIf="!form.get('bmi')?.value"
+                >*</span
+              ></label
+            >
+            <input cFormControl id="bmi" formControlName="bmi" type="text" />
           </c-col>
-        
+
           <c-col md="3" class="p-2">
-            <label for="source_of_patient_id" cLabel> Source Of Patient <span style="color: red" *ngIf="!form.get('source_of_patient_id')?.value">*</span></label>
+            <label for="source_of_patient_id" cLabel>
+              Source Of Patient
+              <span
+                style="color: red"
+                *ngIf="!form.get('source_of_patient_id')?.value"
+                >*</span
+              ></label
+            >
             <select
               aria-label="select source_of_patient_id"
               cSelect
@@ -351,7 +435,9 @@
                     control['source_of_patient_id'].touched)
               }"
             >
-              <option hidden value="null" disabled selected>Source Of Patient </option>
+              <option hidden value="null" disabled selected>
+                Source Of Patient
+              </option>
               <option
                 [value]="item.source_of_patient_id"
                 *ngFor="let item of allSourceOfPatientList"
@@ -363,117 +449,140 @@
               class="text-danger"
               *ngIf="
                 control['source_of_patient_id'].invalid &&
-                (control['source_of_patient_id'].dirty || control['source_of_patient_id'].touched)
+                (control['source_of_patient_id'].dirty ||
+                  control['source_of_patient_id'].touched)
               "
             >
               <small>Please provide a valid Source Of Patient Name.</small>
             </div>
           </c-col>
-          
-            <c-col md="3" class="p-2 m-9 ">
-              <div >
-                <label for="refered_by_id" cLabel> Refered By <span style="color: red" *ngIf="!form.get('refered_by_id')?.value">*</span></label>
-               
-              </div>
-              <div class=" refered-by">
 
-                <select
-               
+          <c-col md="3" class="p-2 m-9">
+            <div>
+              <label for="refered_by_id" cLabel>
+                Refered By
+                <span
+                  style="color: red"
+                  *ngIf="!form.get('refered_by_id')?.value"
+                  >*</span
+                ></label
+              >
+            </div>
+            <div class="refered-by">
+              <select
                 aria-label="select refered_by_id"
                 cSelect
                 sizing="sm"
                 formControlName="refered_by_id"
                 type="text"
-              
-                >
-                <option hidden value="null" disabled selected> Refered By </option>
-                <option
-                    [value]="item.refered_by_id"
-                    *ngFor="let item of allReferedByList"
-                >
-                    {{ item.refered_by_name }}
+              >
+                <option hidden value="null" disabled selected>
+                  Refered By
                 </option>
-                </select>
-                <button cButton class="ms-1 mb-1 " color="primary" sizing="sm" (click)="openDialog()">+</button>
-              </div>
-             
-            </c-col>
-            <c-col md="4" class="p-2">
-              <label for="employee_id" cLabel> Assign to <span style="color: red" *ngIf="!form.get('employee_id')?.value">*</span></label>
-              <select
-                aria-label="select employee_id"
-                cSelect
-                sizing="sm"
-                formControlName="employee_id"
-                type="text"
-                [ngClass]="{
-                  'is-invalid':
-                    control['employee_id'].invalid &&
-                    (control['employee_id'].dirty ||
-                      control['employee_id'].touched)
-                }"
-                (change)="onEmployeeSelectionChange($event)"
-
-              >
-                <option hidden value="null" disabled selected>Select Name</option>
-                <ng-container *ngFor="let item of allEmployeeList">
-                  <option
-                    [value]="item.employee_id"
-                    *ngIf="item.designation_name.toLowerCase() === 'doctor'"
-                  >
-                    {{ item.name }}
-                  </option>
-                </ng-container>
+                <option
+                  [value]="item.refered_by_id"
+                  *ngFor="let item of allReferedByList"
+                >
+                  {{ item.refered_by_name }}
+                </option>
               </select>
-              <div
-                class="text-danger"
-                *ngIf="
-                  control['employee_id'].invalid &&
-                  (control['employee_id'].dirty || control['employee_id'].touched)
-                "
-                
+              <button
+                cButton
+                class="ms-1 mb-1"
+                color="primary"
+                sizing="sm"
+                (click)="openDialog()"
               >
-                <small>Please provide a valid Employee Name.</small>
-              </div>
-            </c-col>
-            
-            <c-col md="4" class="p-2">
-                <label cLabel for="validationDefault01">Payment Type <span style="color: red" *ngIf="!form.get('payment_type')?.value">*</span></label>
-                <select
-                  aria-label="select lead payment_type"
-                  cSelect
-                  sizing="sm"
-                  formControlName="payment_type"
-                  type="text"
-                  [ngClass]="{
-                    'is-invalid':
-                    control['payment_type'].invalid &&
-                    (control['payment_type'].dirty ||
-                        control['payment_type'].touched)
-                }"
-                
+                +
+              </button>
+            </div>
+          </c-col>
+          <c-col md="4" class="p-2">
+            <label for="employee_id" cLabel>
+              Assign to
+              <span style="color: red" *ngIf="!form.get('employee_id')?.value"
+                >*</span
+              ></label
+            >
+            <select
+              aria-label="select employee_id"
+              cSelect
+              sizing="sm"
+              formControlName="employee_id"
+              type="text"
+              [ngClass]="{
+                'is-invalid':
+                  control['employee_id'].invalid &&
+                  (control['employee_id'].dirty ||
+                    control['employee_id'].touched)
+              }"
+              (change)="onEmployeeSelectionChange($event)"
+            >
+              <option hidden value="null" disabled selected>Select Name</option>
+              <ng-container *ngFor="let item of allEmployeeList">
+                <option
+                  [value]="item.employee_id"
+                  *ngIf="item.designation_name.toLowerCase() === 'doctor'"
                 >
-                  <option hidden value="null" disabled selected> Payment Type</option>
-                  <option
-                  >Cash
-                  </option>
-                  <option
-                  >Online Payment
-                  </option>
-                
-                </select>
-                <span
-                class="text-danger"
-                *ngIf="
-                    control['payment_type'].invalid &&
-                    (control['payment_type'].dirty || control['payment_type'].touched)
-                "
-                  ><small> Please provide a valid Payment Type.</small></span
-                >
-              </c-col>
-          
+                  {{ item.name }}
+                </option>
+              </ng-container>
+            </select>
+            <div
+              class="text-danger"
+              *ngIf="
+                control['employee_id'].invalid &&
+                (control['employee_id'].dirty || control['employee_id'].touched)
+              "
+            >
+              <small>Please provide a valid Employee Name.</small>
+            </div>
+          </c-col>
+
+          <c-col md="4" class="p-2">
+            <label cLabel for="validationDefault01"
+              >Payment Type
+              <span style="color: red" *ngIf="!form.get('payment_type')?.value"
+                >*</span
+              ></label
+            >
+            <select
+              aria-label="select lead payment_type"
+              cSelect
+              sizing="sm"
+              formControlName="payment_type"
+              type="text"
+              [ngClass]="{
+                'is-invalid':
+                  control['payment_type'].invalid &&
+                  (control['payment_type'].dirty ||
+                    control['payment_type'].touched)
+              }"
+            >
+              <option hidden value="null" disabled selected>
+                Payment Type
+              </option>
+              <option>Cash</option>
+              <option>Online Payment</option>
+            </select>
+            <span
+              class="text-danger"
+              *ngIf="
+                control['payment_type'].invalid &&
+                (control['payment_type'].dirty ||
+                  control['payment_type'].touched)
+              "
+              ><small> Please provide a valid Payment Type.</small></span
+            >
+          </c-col>
+
           <c-col md="3" class="p-2">
-            <label cLabel for="amount">Amount <span style="color: red" *ngIf="!form.get('amount')?.value">*</span></label>
+            <label cLabel for="amount"
+              >Amount
+              <span style="color: red" *ngIf="!form.get('amount')?.value"
+                >*</span
+              ></label
+            >
             <input
               cFormControl
               id="amount"
@@ -484,7 +593,6 @@
                   control['amount'].invalid &&
                   (control['amount'].dirty || control['amount'].touched)
               }"
-              
             />
             <div
               class="text-danger"

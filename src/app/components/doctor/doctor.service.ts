@@ -51,24 +51,10 @@ export class DoctorService {
     addConsultation(data: any): Observable<any> {
         return this.http.post(this.baseUrl + 'api/consultation', data);
     }
-
-    // //Edit Patient...
-    // editPatient(data: any, id: any) {
-    //     return this.http.put(this.baseUrl + 'api/patient_registration/' + id, data);
-    // }
-    // // Patient get by id ...
-    // getPatientById(id: any) {
-    //     return this.http.get(this.baseUrl + 'api/patient_registration/' + id)
-    // }
-    // // Patient status change...
-    // onPatientStatusChange(status: any, id: any): Observable<any> {
-    //     const body = { status: status };
-    //     let params = new HttpParams().set('status', status);
-    //     return this.http.patch(this.baseUrl + 'api/patient_registration/' + id, body, { params: params });
-    // }
-    // //get All Patient wma...
-    // getAllPatientListWma(): Observable<any> {
-    //     return this.http.get(this.baseUrl + 'api/patient_registration/wma');
-    // }
+ // consultation get by id ...
+ getConsultationById(id: any) {
+    return this.http.get(this.baseUrl + 'api/consultation/' + id)
+}
+  
 
 }

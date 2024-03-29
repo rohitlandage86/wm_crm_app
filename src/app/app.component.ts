@@ -224,7 +224,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
         },
         {
           name: 'Search',
-          url: ['/doctor', { outlets: { doc_Menu: 'patient' } }],
+          url: ['/doctor', { outlets: { doc_Menu: 'doctor-search-patient' } }],
 
         }
            
@@ -236,13 +236,13 @@ export class AppComponent implements OnInit, AfterContentChecked {
       iconComponent: { name: 'cilList' },
       children: [
         {
-          name: 'lead',
+          name: 'Lead',
           url: ['/doctor', { outlets: { doc_Menu: 'lead' } }],
           
         },
         {
           name: 'Search',
-          url: ['/doctor', { outlets: { doc_Menu: 'patient' } }],
+          url: ['/doctor', { outlets: { doc_Menu: 'doctor-search-lead' } }],
 
         }
            

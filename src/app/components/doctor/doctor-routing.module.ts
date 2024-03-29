@@ -5,6 +5,10 @@ import { LeadComponent } from './lead/lead.component';
 import { PatientComponent } from './patient/patient.component';
 import { ConsultationComponent } from './consultation/consultation.component';
 import { AddUpdateConsultationComponent } from './consultation/add-update-consultation/add-update-consultation.component';
+import { DoctorSearchPatientComponent } from './patient/doctor-search-patient/doctor-search-patient.component';
+import { DoctorViewSearchPatientComponent } from './patient/doctor-search-patient/doctor-view-search-patient/doctor-view-search-patient.component';
+import { DoctorSearchLeadComponent } from './lead/doctor-search-lead/doctor-search-lead.component';
+import { DoctorViewSearchLeadComponent } from './lead/doctor-search-lead/doctor-view-search-lead/doctor-view-search-lead.component';
 
 
 const routes: Routes = [
@@ -44,6 +48,30 @@ const routes: Routes = [
   {
     path: "lead",
     component: LeadComponent,
+    pathMatch: "full",
+    outlet: "doc_Menu",
+  },
+  {
+    path: "doctor-search-lead",
+    component: DoctorSearchLeadComponent,
+    pathMatch: "full",
+    outlet: "doc_Menu",
+  },
+  {
+    path: "doctor-view-search-lead/:id",
+    component: DoctorViewSearchLeadComponent,
+    pathMatch: "full",
+    outlet: "doc_Menu",
+  },
+  {
+    path: "doctor-search-patient",
+    component: DoctorSearchPatientComponent,
+    pathMatch: "full",
+    outlet: "doc_Menu",
+  },
+  {
+    path: "doctor-view-search-patient/:id",
+    component: DoctorViewSearchPatientComponent,
     pathMatch: "full",
     outlet: "doc_Menu",
   },

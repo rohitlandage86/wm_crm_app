@@ -10,6 +10,8 @@ import { LeadsComponent } from './leads/leads.component';
 import { AddUpdateLeadsComponent } from './leads/add-update-leads/add-update-leads.component';
 import { SearchLeadsComponent } from './leads/search-leads/search-leads.component';
 import { SearchPatientComponent } from './patient/search-patient/search-patient.component';
+import { ViewSearchPatientComponent } from './patient/search-patient/view-search-patient/view-search-patient.component';
+import { ViewSearchLeadsComponent } from './leads/search-leads/view-search-leads/view-search-leads.component';
 
 
 
@@ -22,7 +24,9 @@ import { SearchPatientComponent } from './patient/search-patient/search-patient.
     LeadsComponent,
     AddUpdateLeadsComponent,
     SearchLeadsComponent,
-    SearchPatientComponent
+    SearchPatientComponent,
+    ViewSearchPatientComponent,
+    ViewSearchLeadsComponent
   ],
   imports: [
     ReceptionistRoutingModule,

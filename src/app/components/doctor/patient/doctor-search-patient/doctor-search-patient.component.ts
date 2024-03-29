@@ -1,20 +1,21 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, FormControl, FormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { freeSet } from '@coreui/icons';
+import { PageEvent } from '@angular/material/paginator';
 import { ToastrService } from 'ngx-toastr';
-import { ReceptionistService } from '../../receptionist.service';
+import {  FormBuilder, FormControl, FormGroup,Validators } from '@angular/forms';
 import { AdminService } from 'src/app/components/admin/admin.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
-import { MatDialog } from '@angular/material/dialog';
-import { AddUpdateReferedByComponent } from 'src/app/components/admin/miscellaneous/refered-by/add-update-refered-by/add-update-refered-by.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ReceptionistService } from 'src/app/components/receptionist/receptionist.service';
 
 @Component({
-  selector: 'app-add-update-patient',
-  templateUrl: './add-update-patient.component.html',
-  styleUrl: './add-update-patient.component.scss'
+  selector: 'app-doctor-search-patient',
+  templateUrl: './doctor-search-patient.component.html',
+  styleUrl: './doctor-search-patient.component.scss'
 })
-export class AddUpdatePatientComponent implements OnInit {
+export class DoctorSearchPatientComponent implements OnInit{
   form!: FormGroup;
+  allPatientVisitList: Array<any> = [];
   isEdit = false;
   mrno: any
   allStateList: Array<any> = [];
@@ -28,10 +29,11 @@ export class AddUpdatePatientComponent implements OnInit {
   isValidMobileNo: boolean = false;
   page = 1;
   perPage = 10;
-  total = 0
+  total = 0;
+   icons = freeSet;
   constructor(
     private fb: FormBuilder,
-    private _receptionistService: ReceptionistService, private _adminService: AdminService, private dialog: MatDialog,
+    private _receptionistService: ReceptionistService, private _adminService: AdminService,
     private _toastrService: ToastrService, private _superAdminService: SuperAdminService, private router: Router, private url: ActivatedRoute) { this.defaultStateId = 20, this.createForm() }
 
 
@@ -65,18 +67,12 @@ export class AddUpdatePatientComponent implements OnInit {
         });
       }
     });
-         // by defult cash pATCH dropdown
-         this.form.patchValue({
-          payment_type: 'Cash'
-        });
-    
-
 
   }
 
   createForm() {
     this.form = this.fb.group({
-      registration_date: ['', [Validators.required, this.futureDateValidator()]],
+      registration_date: [''],
       patient_name: ['', Validators.required],
       mobile_no: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       gender: ['', [Validators.required]],
@@ -93,7 +89,7 @@ export class AddUpdatePatientComponent implements OnInit {
       source_of_patient_id: [null, Validators.required],
       employee_id: [null, Validators.required],
       refered_by_id: [null,],
-      payment_type: [Validators.required],
+      payment_type: ['Cash', Validators.required],
     });
 
   }
@@ -119,75 +115,42 @@ export class AddUpdatePatientComponent implements OnInit {
       });
     }
   }
-  onEmployeeSelectionChange(event: any) {
-    const selectedEmployeeId = event.target.value;
-    const chargesControl = this.form.get('amount');
 
-    if (chargesControl) {
-      if (selectedEmployeeId === '2') { // Assuming '2' is the ID of Suhas doctor
-        chargesControl.setValue(500); // Set charges to 300 for Suhas doctor
-      } else if (selectedEmployeeId === '3') { // Assuming '3' is the ID of other type of doctor
-        chargesControl.setValue(300); // Set charges to 500 for other type of doctor
-      } else {
-        chargesControl.setValue(null); // Reset charges for other employees
+ 
+
+ 
+//get is Patient search data
+getSearchPatient(searchQuery: string): void {
+  // Make API call with the search query
+  this._receptionistService.getAllSearchPatientRegistrationList(this.page, this.perPage, searchQuery).subscribe({
+    next: (res: any) => {
+      console.log(res);
+      
+      if (res.data.length > 0) {
+        this.allPatientVisitList = res.data;
+        this.total = res.pagination.total;
       }
     }
-  }
-  getCurrentDate(): string {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = ('0' + (today.getMonth() + 1)).slice(-2); // Month is zero-based
-    const day = ('0' + today.getDate()).slice(-2);
+  });
+}
+  // Other properties and methods
+  isValidName(inputValue: string): boolean {
 
-    return `${year}-${month}-${day}`;
+    const namePattern = /^[A-Za-z\s]+$/;
+    return namePattern.test(inputValue);
   }
-  futureDateValidator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      const selectedDate = new Date(control.value);
-      const today = new Date();
-      if (selectedDate.getTime() > today.getTime()) {
-        return { futureDate: true }; // Return error for future dates
-      }
-      return null; // Return null for valid dates (past or present)
-    };
-  }
-  // BMI calculation logic
-  calculateBMI() {
-    const height = this.form.value.height;
-    const weight = this.form.value.weight;
+  validateMobileNo(inputValue: string): boolean {
 
-    if (height && weight) {
-      const heightInMeters = height / 100; // Convert height to meters
-      const bmi = weight / (heightInMeters * heightInMeters);
-      this.form.patchValue({
-        bmi: bmi.toFixed(2) // Round BMI to two decimal places
-      });
-    }
-  }
-  //is lead checked or not checked
-  toggleInputVisibility(event: any) {
-    this.isInputVisible = event.target.checked;
-  }
-  //get is lead search data
-  getSearchLead(mobileNumber: string): void {
-    // Make API call with the mobile number
-    this._receptionistService.getAllSearchLeadHeaderList(this.page, this.perPage, mobileNumber).subscribe({
-      next: (res: any) => {
-        this.control['patient_name'].patchValue(res.data[0].name);
-        this.control['mobile_no'].patchValue(res.data[0].mobile_number);
-        this.control['city'].patchValue(res.data[0].city);
-
-      }
-    });
-  }
-  // validation only 10 digit is lead mobile no.
-  validateMobileNo(value: string): void {
-    // Check if the value is a 10-digit number
-    this.isValidMobileNo = /^\d{10}$/.test(value);
+    const mobileNumberPattern = /^\d{10}$/;
+    return mobileNumberPattern.test(inputValue);
   }
 
+  isValidInput(inputValue: string): boolean {
+    return this.validateMobileNo(inputValue) || this.isValidName(inputValue);
+  }
+  
 
-  submit() { this.isEdit ? this.updatePatient() : this.addPatient(); }
+  submit() {  this.updatePatient() }
 
   updatePatient() {
     if (this.form.valid) {
@@ -217,31 +180,6 @@ export class AddUpdatePatientComponent implements OnInit {
     }
   }
 
-  addPatient() {
-
-    if (this.form.valid) {
-      this._receptionistService.addPatient(this.form.getRawValue()).subscribe({
-        next: (res: any) => {
-          if (res.status == 201 || res.status == 200) {
-            this._toastrService.success(res.message);
-            this.router.navigate(['/receptionist', { outlets: { receptionist_Menu: 'patient' } }])
-          } else {
-            this._toastrService.warning(res.message);
-          }
-        },
-        error: (err: any) => {
-          if (err.error.status == 422) {
-            this._toastrService.warning(err.error.message);
-          } else {
-            this._toastrService.error("Internal Server Error");
-          }
-        }
-      });
-    } else {
-      this.form.markAllAsTouched();
-      this._toastrService.warning("Fill required fields");
-    }
-  }
 
   getPatientById(id: any) {
     this._receptionistService.getPatientById(id).subscribe((result: any) => {
@@ -265,26 +203,12 @@ export class AddUpdatePatientComponent implements OnInit {
         source_of_patient_id: patientData.source_of_patient_id,
         employee_id: patientData.employee_id,
         refered_by_id: patientData.refered_by_id,
+        payment_type: patientData.payment_type
       });
 
     })
   }
 
-  //open dosages...
-  openDialog(data?: any) {
-    const dialogRef = this.dialog.open(AddUpdateReferedByComponent, {
-      data: data,
-      width: '50%',
-      panelClass: 'mat-mdc-dialog-container'
-    });
-    dialogRef.afterClosed().subscribe((message: any) => {
-      // if (message == 'create' || message == 'update') {
-      //   this.getAllDosagesList();
-      // } else {
-      //   console.log('nothing happen');
-      // }
-    });
-  }
   getLeadById(id: any) {
     this._receptionistService.getLeadById(id).subscribe((result: any) => {
       console.log(result);
@@ -334,8 +258,6 @@ export class AddUpdatePatientComponent implements OnInit {
     });
   }
 
-
-
   //get ReferedBy list...
   getAllReferedByList() {
     this._adminService.getAllReferedByListWma().subscribe({
@@ -357,5 +279,10 @@ export class AddUpdatePatientComponent implements OnInit {
         }
       }
     });
+  }
+  onPageChange(event: PageEvent): void {
+    this.page = event.pageIndex + 1;
+    this.perPage = event.pageSize;
+    // this.getAllLeadsList();
   }
 }

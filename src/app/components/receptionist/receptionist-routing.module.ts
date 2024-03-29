@@ -8,6 +8,8 @@ import { AddUpdateLeadsComponent } from './leads/add-update-leads/add-update-lea
 import { AddUpdateReceptionistDashboardComponent } from './receptionist-dashboard/add-update-receptionist-dashboard/add-update-receptionist-dashboard.component';
 import { SearchLeadsComponent } from './leads/search-leads/search-leads.component';
 import { SearchPatientComponent } from './patient/search-patient/search-patient.component';
+import { ViewSearchPatientComponent } from './patient/search-patient/view-search-patient/view-search-patient.component';
+import { ViewSearchLeadsComponent } from './leads/search-leads/view-search-leads/view-search-leads.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "receptionist", pathMatch: "full" },
@@ -19,7 +21,7 @@ const routes: Routes = [
     outlet: "receptionist_Menu",
   },
  {
-   path: "edit-receptionist/:id",  
+   path: "add-receptionist/:id",  
    component: AddUpdateReceptionistDashboardComponent,
    pathMatch: "full",
    outlet: "receptionist_Menu",
@@ -67,6 +69,18 @@ const routes: Routes = [
 {
   path: "search-patient",  
   component: SearchPatientComponent,
+  pathMatch: "full",
+  outlet: "receptionist_Menu",
+},
+{
+  path: "view-search-patient/:id",  
+  component: ViewSearchPatientComponent,
+  pathMatch: "full",
+  outlet: "receptionist_Menu",
+},
+{
+  path: "view-search-leads/:id",  
+  component: ViewSearchLeadsComponent,
   pathMatch: "full",
   outlet: "receptionist_Menu",
 },

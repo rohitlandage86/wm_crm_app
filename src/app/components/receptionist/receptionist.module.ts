@@ -10,9 +10,11 @@ import { LeadsComponent } from './leads/leads.component';
 import { AddUpdateLeadsComponent } from './leads/add-update-leads/add-update-leads.component';
 import { SearchLeadsComponent } from './leads/search-leads/search-leads.component';
 import { SearchPatientComponent } from './patient/search-patient/search-patient.component';
-
-
-
+import { ReceptionistPatientReportComponent } from './reports/receptionist-patient-report/receptionist-patient-report.component';
+import { ReceptionistLeadReportComponent } from './reports/receptionist-lead-report/receptionist-lead-report.component';
+import { ReceptionistPatientVisitReportComponent } from './reports/receptionist-patient-visit-report/receptionist-patient-visit-report.component'
+import { ReceptionistFollowUpReportComponent } from './reports/receptionist-follow-up-report/receptionist-follow-up-report.component';
+import { ReceptionistAppointmentReportComponent } from './reports/receptionist-appointment-report/receptionist-appointment-report.component'
 @NgModule({
   declarations: [
     ReceptionistDashboardComponent,
@@ -22,7 +24,12 @@ import { SearchPatientComponent } from './patient/search-patient/search-patient.
     LeadsComponent,
     AddUpdateLeadsComponent,
     SearchLeadsComponent,
-    SearchPatientComponent
+    SearchPatientComponent,
+    ReceptionistPatientReportComponent,
+    ReceptionistLeadReportComponent,
+    ReceptionistPatientVisitReportComponent,
+    ReceptionistFollowUpReportComponent,
+    ReceptionistAppointmentReportComponent
   ],
   imports: [
     ReceptionistRoutingModule,

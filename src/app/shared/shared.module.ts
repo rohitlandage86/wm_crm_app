@@ -6,7 +6,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { IconModule } from '@coreui/icons-angular';
 import { WidgetModule } from '@coreui/angular';
 import { ChartjsModule } from '@coreui/angular-chartjs';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
@@ -42,7 +42,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatPaginatorModule,
     MatSlideToggleModule,
     MatAutocompleteModule,
-    MatTabsModule
+    MatTabsModule,
+    FormsModule
   ],
   exports:[
     CommonModule,
@@ -73,7 +74,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatPaginatorModule,
     MatSlideToggleModule,
     MatAutocompleteModule,
-    MatTabsModule
+    MatTabsModule,
+    FormsModule
 
     
   ]

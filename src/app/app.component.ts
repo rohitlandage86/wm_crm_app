@@ -214,7 +214,6 @@ export class AppComponent implements OnInit, AfterContentChecked {
     },
     {
       name: 'Consultation',
-      url: '/doctor',
       iconComponent: { name: 'cilList' },
       children: [
         {
@@ -232,7 +231,6 @@ export class AppComponent implements OnInit, AfterContentChecked {
     },
     {
       name: 'Lead',
-      url: '/doctor',
       iconComponent: { name: 'cilList' },
       children: [
         {
@@ -247,6 +245,49 @@ export class AppComponent implements OnInit, AfterContentChecked {
         }
            
       ]
+    },
+    {
+      name: 'Reports',
+     
+      iconComponent: { name: 'cil-description' }
+    },
+    {
+      name: 'Lead',
+      iconComponent: { name: 'cilList' },
+      children: [
+        {
+          name: 'Leads',
+          url: ['/doctor', { outlets: { doc_Menu: 'lead-reports' } }],
+
+        },
+        {
+          name: 'Follow up',
+          url: ['/doctor', { outlets: { doc_Menu: 'lead-follow-up-reports' } }],
+
+        }
+
+      ]
+    },
+    {
+      name: 'OPD',
+      iconComponent: { name: 'cilList' },
+      children: [
+        {
+          name: 'Registrations',
+          url: ['/doctor', { outlets: { doc_Menu: 'patient-reports' } }],
+
+        },
+        {
+          name: 'Visits',
+          url: ['/doctor', { outlets: { doc_Menu: 'patient-visit-reports' } }],
+
+        }
+      ]
+    },
+    {
+      name: 'Appointments',
+      url: ['/doctor', { outlets: { doc_Menu: 'appointments' } }],
+      iconComponent: { name: 'cilList' },
     },
    
     {
@@ -320,6 +361,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
 
       ]
     },
+    
     {
       name: 'OPD',
       iconComponent: { name: 'cilList' },

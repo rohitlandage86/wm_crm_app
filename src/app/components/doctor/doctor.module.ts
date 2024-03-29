@@ -12,6 +12,11 @@ import { DoctorSearchPatientComponent } from './patient/doctor-search-patient/do
 import { DoctorViewSearchPatientComponent } from './patient/doctor-search-patient/doctor-view-search-patient/doctor-view-search-patient.component';
 import { DoctorSearchLeadComponent } from './lead/doctor-search-lead/doctor-search-lead.component';
 import { DoctorViewSearchLeadComponent } from './lead/doctor-search-lead/doctor-view-search-lead/doctor-view-search-lead.component';
+import { DoctorFollowUpReportComponent } from './reports/doctor-follow-up-report/doctor-follow-up-report.component';
+import { DoctorPatientReportComponent } from './reports/doctor-patient-report/doctor-patient-report.component';
+import { DoctorLeadReportComponent } from './reports/doctor-lead-report/doctor-lead-report.component';
+import { DoctorPatientVisitReportComponent } from './reports/doctor-patient-visit-report/doctor-patient-visit-report.component';
+import { DoctorAppointmentReportComponent } from './reports/doctor-appointment-report/doctor-appointment-report.component';
 
 
 @NgModule({
@@ -25,7 +30,12 @@ import { DoctorViewSearchLeadComponent } from './lead/doctor-search-lead/doctor-
     DoctorSearchPatientComponent,
     DoctorViewSearchPatientComponent,
     DoctorSearchLeadComponent,
-    DoctorViewSearchLeadComponent
+    DoctorViewSearchLeadComponent,
+    DoctorLeadReportComponent,
+    DoctorFollowUpReportComponent,
+    DoctorPatientReportComponent,
+    DoctorPatientVisitReportComponent,
+    DoctorAppointmentReportComponent
 
   ],
   imports: [

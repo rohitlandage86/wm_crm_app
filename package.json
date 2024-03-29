@@ -38,9 +38,11 @@
     "@coreui/utils": "^2.0.2",
     "chart.js": "^3.9.1",
     "lodash-es": "^4.17.21",
+    "ngx-mat-select-search": "^7.0.6",
     "ngx-scrollbar": "^13.0.3",
     "ngx-toastr": "^18.0.0",
     "rxjs": "~7.8.1",
+    "sweetalert2": "^11.10.7",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
   },

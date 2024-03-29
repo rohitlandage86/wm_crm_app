@@ -65,6 +65,12 @@ export class AddUpdatePatientComponent implements OnInit {
         });
       }
     });
+         // by defult cash pATCH dropdown
+         this.form.patchValue({
+          payment_type: 'Cash'
+        });
+    
+
 
   }
 
@@ -87,7 +93,7 @@ export class AddUpdatePatientComponent implements OnInit {
       source_of_patient_id: [null, Validators.required],
       employee_id: [null, Validators.required],
       refered_by_id: [null,],
-      payment_type: ['Cash', Validators.required],
+      payment_type: [Validators.required],
     });
 
   }
@@ -259,7 +265,6 @@ export class AddUpdatePatientComponent implements OnInit {
         source_of_patient_id: patientData.source_of_patient_id,
         employee_id: patientData.employee_id,
         refered_by_id: patientData.refered_by_id,
-        payment_type: patientData.payment_type
       });
 
     })

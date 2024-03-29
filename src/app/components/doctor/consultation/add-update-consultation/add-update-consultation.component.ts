@@ -35,14 +35,14 @@ export class AddUpdateConsultationComponent implements OnInit {
   allReferedByList: Array<any> = [];
   defaultStateId: any;
   //consultation array list
-  allChiefComplaintsList: Array<any> = [];
-  allDiagnosisList: Array<any> = [];
+  // allChiefComplaintsList: Array<any> = [];
+  allDiagnosisList:   Array<any> = [];
   allTreatmentList: Array<any> = [];
   allMedicinesList: Array<any> = [];
   allDosagesList: Array<any> = [];
   color: string | undefined;
   apiUrl = environment.baseUrl;
-  filteredChiefComplaints: Observable<any[]> | undefined;
+  // filteredChiefComplaints: Observable<any[]> | undefined;
   filteredDiagnosis: Observable<any[]> | undefined;
   filteredTreatment: Observable<any[]> | undefined;
   filteredMedicines: Observable<any[]> | undefined;
@@ -64,6 +64,14 @@ export class AddUpdateConsultationComponent implements OnInit {
 
   /** Subject that emits when the component has been destroyed. */
   protected _onDestroy = new Subject<void>();
+
+
+
+  //for cheif compliant
+  searchChiefComplaintsValue = '';
+  filteredChiefComplaintsArray: Array<any> = [];
+  allChiefComplaints: Array<any> = [];
+
   constructor(
     private fb: FormBuilder,
     private _receptionistService: ReceptionistService, private _adminService: AdminService, private _doctorService: DoctorService,
@@ -115,9 +123,9 @@ export class AddUpdateConsultationComponent implements OnInit {
     });
 
     // Initialize Chief Complaints autocomplete
-    this.initChiefComplaintsAutocomplete();
+    // this.initChiefComplaintsAutocomplete();
     // Initialize diagnosis autocomplete
-    this.initDiagnosisAutocomplete();
+    // this.initDiagnosisAutocomplete();
     // Initialize treatment autocomplete
     this.initTreatmentAutocomplete();
     // Initialize dosages autocomplete
@@ -189,57 +197,57 @@ export class AddUpdateConsultationComponent implements OnInit {
 
 
   // Initialize Chief Complaints autocomplete
-  initChiefComplaintsAutocomplete() {
-    if (this.form && this.form.get('chief_complaints_id')) {
-      const chiefComplaintsControl = this.form.get('chief_complaints_id');
-      if (chiefComplaintsControl) {
-        this.filteredChiefComplaints = chiefComplaintsControl.valueChanges.pipe(
-          startWith(''),
-          map(value => typeof value === 'string' ? value : value?.chief_complaint),
-          map(chiefComplaint => chiefComplaint ? this.filterChiefComplaints(chiefComplaint) : this.allChiefComplaintsList.slice())
-        );
-      }
-    }
-  }
+  // initChiefComplaintsAutocomplete() {
+  //   if (this.form && this.form.get('chief_complaints_id')) {
+  //     const chiefComplaintsControl = this.form.get('chief_complaints_id');
+  //     if (chiefComplaintsControl) {
+  //       this.filteredChiefComplaints = chiefComplaintsControl.valueChanges.pipe(
+  //         startWith(''),
+  //         map(value => typeof value === 'string' ? value : value?.chief_complaint),
+  //         map(chiefComplaint => chiefComplaint ? this.filterChiefComplaints(chiefComplaint) : this.allChiefComplaintsList.slice())
+  //       );
+  //     }
+  //   }
+  // }
   // Filter chief_complaint
-  filterChiefComplaints(value: string): any[] {
-    const filterValue = value.toLowerCase();
-    return this.allChiefComplaintsList.filter((item: { chief_complaint: string }) =>
-      item.chief_complaint.toLowerCase().includes(filterValue)
-    );
-  }
-  displayChiefComplaintsName(complaint?: any): string {
-    return complaint ? complaint.chief_complaint : '';
-  }
-  onChiefComplaintsSelected(event: MatAutocompleteSelectedEvent) {
-    const selectedChiefComplaints = event.option.value;
-    const selectedChiefComplaintsId = selectedChiefComplaints.chief_complaint_id;
-    console.log('Selected Chief Complaints Id:', selectedChiefComplaintsId);
-    this.control['chief_complaints_id'].patchValue(selectedChiefComplaintsId);
+  // filterChiefComplaints(value: string): any[] {
+  //   const filterValue = value.toLowerCase();
+  //   return this.allChiefComplaintsList.filter((item: { chief_complaint: string }) =>
+  //     item.chief_complaint.toLowerCase().includes(filterValue)
+  //   );
+  // }
+  // displayChiefComplaintsName(complaint?: any): string {
+  //   return complaint ? complaint.chief_complaint : '';
+  // }
+  // onChiefComplaintsSelected(event: MatAutocompleteSelectedEvent) {
+  //   const selectedChiefComplaints = event.option.value;
+  //   const selectedChiefComplaintsId = selectedChiefComplaints.chief_complaint_id;
+  //   console.log('Selected Chief Complaints Id:', selectedChiefComplaintsId);
+  //   this.control['chief_complaints_id'].patchValue(selectedChiefComplaintsId);
 
 
-  }
+  // }
 
   // Initialize Diagnosis autocomplete
-  initDiagnosisAutocomplete() {
-    const consultationDiagnosisArray = this.form.get('consultationDiagnosisDetails') as FormArray;
-    if (consultationDiagnosisArray && consultationDiagnosisArray.length > 0) {
-      const diagnosisControl = consultationDiagnosisArray.at(0).get('diagnosis_id');
-      if (diagnosisControl) {
-        this.filteredDiagnosis = diagnosisControl.valueChanges.pipe(
-          startWith(''),
-          map(value => typeof value === 'string' ? value : value?.diagnosis_name),
-          map(diagnosis => diagnosis ? this.filterDiagnosis(diagnosis) : this.allDiagnosisList.slice())
-        );
-      }
-    }
+  // initDiagnosisAutocomplete() {
+  //   const consultationDiagnosisArray = this.form.get('consultationDiagnosisDetails') as FormArray;
+  //   if (consultationDiagnosisArray && consultationDiagnosisArray.length > 0) {
+  //     const diagnosisControl = consultationDiagnosisArray.at(0).get('diagnosis_id');
+  //     if (diagnosisControl) {
+  //       this.filteredDiagnosis = diagnosisControl.valueChanges.pipe(
+  //         startWith(''),
+  //         map(value => typeof value === 'string' ? value : value?.diagnosis_name),
+  //         map(diagnosis => diagnosis ? this.filterDiagnosis(diagnosis) : this.allDiagnosisList.slice())
+  //       );
+  //     }
+  //   }
 
-  }
+  // }
   // Filter diagnosis
-  filterDiagnosis(diagnosis: string): any[] {
-    const filterValue = diagnosis.toLowerCase();
-    return this.allDiagnosisList.filter(item => item.diagnosis_name.toLowerCase().includes(filterValue));
-  }
+  // filterDiagnosis(diagnosis: string): any[] {
+  //   const filterValue = diagnosis.toLowerCase();
+  //   return this.allDiagnosisList.filter(item => item.diagnosis_name.toLowerCase().includes(filterValue));
+  // }
   displayDiagnosisName(diagnosis?: any): string {
     return diagnosis ? diagnosis.diagnosis_name : '';
   }
@@ -338,6 +346,36 @@ export class AddUpdateConsultationComponent implements OnInit {
     console.log('Selected Medicine Id:', selectedMedicineId);
 
   }
+
+
+
+// ------------------------------------------------------------------
+  //get Chief Complaints list...
+  getAllChiefComplaintsList() {
+    this._adminService.getAllChiefComplaintsListWma().subscribe({
+      next: (res: any) => {
+        if (res.data.length > 0) {
+          this.allChiefComplaints = res.data;
+          this.filteredChiefComplaintsArray = this.allChiefComplaints;
+        }
+      }
+    });
+  }
+
+  //Filter chief complaints array
+  filterChiefComplaints() {
+    if (this.searchChiefComplaintsValue != "") {
+      this.filteredChiefComplaintsArray = [];
+      const filteredArr = this.allChiefComplaints.filter((obj: any) =>
+        obj.chief_complaint.toLowerCase().includes(this.searchChiefComplaintsValue)
+      );
+      this.filteredChiefComplaintsArray = filteredArr;
+    } else {
+      this.filteredChiefComplaintsArray = this.allChiefComplaints;
+    }
+  }
+
+// --------------------------------------------------------------------------
 
   // Utility function to convert file to base64 format
   fileToBase64(file: File): Promise<string | ArrayBuffer | null> {
@@ -490,6 +528,8 @@ export class AddUpdateConsultationComponent implements OnInit {
   }
 
   addConsultation() {
+    console.log(this.form.value);
+
     if (this.form.valid) {
 
       this._doctorService.addConsultation(this.form.value).subscribe({
@@ -658,17 +698,7 @@ export class AddUpdateConsultationComponent implements OnInit {
       }
     });
   }
-  //get Chief Complaints list...
-  getAllChiefComplaintsList() {
-    this._adminService.getAllChiefComplaintsListWma().subscribe({
-      next: (res: any) => {
-        if (res.data.length > 0) {
-          this.allChiefComplaintsList = res.data;
-        }
-      }
-    });
 
-  }
   //get diagnosis list...
   getAllDiagnosisList() {
     this._adminService.getAllDiagnosisListWma().subscribe({
@@ -678,8 +708,8 @@ export class AddUpdateConsultationComponent implements OnInit {
         }
       }
     });
-
   }
+
   //get treatment list...
   getAllTreatmentList() {
     this._adminService.getAllTreatmentListWma().subscribe({

@@ -6,6 +6,11 @@
     pointer-events: none;
     cursor: not-allowed; /* Change cursor to indicate it's not clickable */
   }
+  .chief_complaints{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 //   tr td:last-child{
 //     border: 1px solid red!important;
 //     background-color: red;

@@ -1,87 +1,87 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ReceptionistService } from 'src/app/components/receptionist/receptionist.service';
 import { AdminService } from 'src/app/components/admin/admin.service';
 import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, Observable, ReplaySubject, startWith, Subject, take, takeUntil } from 'rxjs';
 import { DoctorService } from '../../doctor.service';
 import { environment } from 'src/environments/environment';
-import { LoginComponent } from 'src/app/components/auth/login/login.component';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatSelect } from '@angular/material/select';
-
+import { AddUpdateChiefComplaintsComponent } from 'src/app/components/admin/clinical-masters/chief-complaints/add-update-chief-complaints/add-update-chief-complaints.component';
+import { MatDialog } from '@angular/material/dialog';
+import { AddUpdateDiagnosisComponent } from 'src/app/components/admin/masters/diagnosis/add-update-diagnosis/add-update-diagnosis.component';
+import { AddUpdateTreatmentComponent } from 'src/app/components/admin/masters/treatment/add-update-treatment/add-update-treatment.component';
 
 @Component({
   selector: 'app-add-update-consultation',
   templateUrl: './add-update-consultation.component.html',
-  styleUrl: './add-update-consultation.component.scss'
+  styleUrl: './add-update-consultation.component.scss',
 })
 export class AddUpdateConsultationComponent implements OnInit {
-  [x: string]: any;
   form!: FormGroup;
   form_patient!: FormGroup;
   isEdit = true;
-  DiagnosisDetailsAdded: boolean = false;
-  TreatmentDetailsAdded: boolean = false;
-  MedicineDetailAdded: boolean = false;
-  FileUploadDetailsAdded: boolean = false;
-  mrno: any
+  mrno: any;
   allStateList: Array<any> = [];
   allEntityList: Array<any> = [];
   allSourceOfPatientList: Array<any> = [];
   allEmployeeList: Array<any> = [];
   allReferedByList: Array<any> = [];
   defaultStateId: any;
-  //consultation array list
-  // allChiefComplaintsList: Array<any> = [];
-  allDiagnosisList:   Array<any> = [];
-  allTreatmentList: Array<any> = [];
-  allMedicinesList: Array<any> = [];
-  allDosagesList: Array<any> = [];
   color: string | undefined;
   apiUrl = environment.baseUrl;
-  // filteredChiefComplaints: Observable<any[]> | undefined;
-  filteredDiagnosis: Observable<any[]> | undefined;
-  filteredTreatment: Observable<any[]> | undefined;
-  filteredMedicines: Observable<any[]> | undefined;
-  filteredDosages: Observable<any[]> | undefined;
-
   streetControl = new FormControl();
-  i: any;
   @ViewChild('imagePreview') imagePreview!: ElementRef<HTMLImageElement>;
   showImagePreview: boolean[] = [];
 
-
-  /** control for the selected bank */
-  public bankCtrl: FormControl = new FormControl();
-
-  /** control for the MatSelect filter keyword */
-  public bankFilterCtrl: FormControl = new FormControl();
-
   @ViewChild('singleSelect') singleSelect: MatSelect | undefined;
-
-  /** Subject that emits when the component has been destroyed. */
-  protected _onDestroy = new Subject<void>();
-
-
-
   //for cheif compliant
   searchChiefComplaintsValue = '';
   filteredChiefComplaintsArray: Array<any> = [];
   allChiefComplaints: Array<any> = [];
+  //for diagnosis
+  searchDiagnosisValue = '';
+  filteredDiagnosisArray: Array<any> = [];
+  allDiagnosis: Array<any> = [];
+  //for Treatment
+  searchTreatmentValue = '';
+  filteredTreatmentArray: Array<any> = [];
+  allTreatment: Array<any> = [];
+  //for Medicines
+  searchMedicinesValue = '';
+  filteredMedicinesArray: Array<any> = [];
+  allMedicines: Array<any> = [];
+  //for Dosages
+  searchDosagesValue = '';
+  filteredDosagesArray: Array<any> = [];
+  allDosages: Array<any> = [];
+  //for Instructions
+  searchInstructionsValue = '';
+  filteredInstructionsArray: Array<any> = [];
+  allInstructions: Array<any> = [];
 
   constructor(
     private fb: FormBuilder,
-    private _receptionistService: ReceptionistService, private _adminService: AdminService, private _doctorService: DoctorService,
-    private _toastrService: ToastrService, private _superAdminService: SuperAdminService, private router: Router, private url: ActivatedRoute) {
+    private _receptionistService: ReceptionistService,
+    private _adminService: AdminService,
+    private _doctorService: DoctorService,
+    private _toastrService: ToastrService,
+    private _superAdminService: SuperAdminService,
+    private router: Router,
+    private url: ActivatedRoute,
+    private dialog: MatDialog,
+  ) {
     this.defaultStateId = 20;
   }
 
-
   ngOnInit() {
-
     this.patientForm();
     this.createForm();
     this.getAllStateList();
@@ -95,51 +95,27 @@ export class AddUpdateConsultationComponent implements OnInit {
     this.getAllChiefComplaintsList();
     this.getAllDosagesList();
     this.getAllDiagnosisList();
-
+    this.getAllInstructionsList();
 
     this.form_patient.patchValue({
       registration_date: new Date().toISOString().split('T')[0],
     });
-    //url id 
-    this.mrno = this.url.snapshot.params['id']
+    //url id
+    this.mrno = this.url.snapshot.params['id'];
     console.log(this.mrno);
 
     if (this.mrno) {
       this.getPatientById(this.mrno);
       console.log(this.mrno);
       this.isEdit = false;
-      this.DiagnosisDetailsAdded = true;
-      this.TreatmentDetailsAdded = true;
-      this.MedicineDetailAdded = true;
-      this.FileUploadDetailsAdded = true;
     }
     this.form.patchValue({
-      mrno: this.url.snapshot.params['id']
-    })
-
+      mrno: this.url.snapshot.params['id'],
+    });
     // by defult cash pATCH dropdown
     this.form_patient.patchValue({
-      payment_type: 'Cash'
+      payment_type: 'Cash',
     });
-
-    // Initialize Chief Complaints autocomplete
-    // this.initChiefComplaintsAutocomplete();
-    // Initialize diagnosis autocomplete
-    // this.initDiagnosisAutocomplete();
-    // Initialize treatment autocomplete
-    this.initTreatmentAutocomplete();
-    // Initialize dosages autocomplete
-    this.initDosageAutocomplete();
-    // Initialize medicines autocomplete
-    this.initMedicineAutocomplete();
-
-
-    // listen for search field value changes
-    this.bankFilterCtrl.valueChanges
-      .pipe(takeUntil(this._onDestroy))
-      .subscribe(() => {
-
-      });
   }
 
   //patientform + consultation form
@@ -163,8 +139,6 @@ export class AddUpdateConsultationComponent implements OnInit {
       employee_id: [null],
       refered_by_id: [null],
       payment_type: [],
-
-
     });
   }
   //consultation form
@@ -177,179 +151,30 @@ export class AddUpdateConsultationComponent implements OnInit {
       chief_complaints_id: ['', Validators.required], // Add this line to define chief_complaints_id
       appointment_date: [''],
       appointment_time: [''],
-      consultationDiagnosisDetails: this.fb.array([this.newConsultationDiagnosis()]),
-      consultationTreatmentDetails: this.fb.array([this.newConsultationTreatment()]),
-      consultationMedicineDetails: this.fb.array([this.newConsultationMedicineDetails()]),
-      consultationFileUploadDetails: this.fb.array([this.newconsultationFileUploadDetails()]),
+      consultationDiagnosisDetails: this.fb.array([
+        this.newConsultationDiagnosis(),
+      ]),
+      consultationTreatmentDetails: this.fb.array([
+        this.newConsultationTreatment(),
+      ]),
+      consultationMedicineDetails: this.fb.array([
+        this.newConsultationMedicineDetails(),
+      ]),
+      consultationFileUploadDetails: this.fb.array([
+        this.newconsultationFileUploadDetails(),
+      ]),
     });
   }
-
 
   //form controls
   get control() {
     return this.form.controls;
   }
-
-  ngOnDestroy() {
-    this._onDestroy.next();
-    this._onDestroy.complete();
+  get controls() {
+    return this.form_patient.controls;
   }
 
-
-  // Initialize Chief Complaints autocomplete
-  // initChiefComplaintsAutocomplete() {
-  //   if (this.form && this.form.get('chief_complaints_id')) {
-  //     const chiefComplaintsControl = this.form.get('chief_complaints_id');
-  //     if (chiefComplaintsControl) {
-  //       this.filteredChiefComplaints = chiefComplaintsControl.valueChanges.pipe(
-  //         startWith(''),
-  //         map(value => typeof value === 'string' ? value : value?.chief_complaint),
-  //         map(chiefComplaint => chiefComplaint ? this.filterChiefComplaints(chiefComplaint) : this.allChiefComplaintsList.slice())
-  //       );
-  //     }
-  //   }
-  // }
-  // Filter chief_complaint
-  // filterChiefComplaints(value: string): any[] {
-  //   const filterValue = value.toLowerCase();
-  //   return this.allChiefComplaintsList.filter((item: { chief_complaint: string }) =>
-  //     item.chief_complaint.toLowerCase().includes(filterValue)
-  //   );
-  // }
-  // displayChiefComplaintsName(complaint?: any): string {
-  //   return complaint ? complaint.chief_complaint : '';
-  // }
-  // onChiefComplaintsSelected(event: MatAutocompleteSelectedEvent) {
-  //   const selectedChiefComplaints = event.option.value;
-  //   const selectedChiefComplaintsId = selectedChiefComplaints.chief_complaint_id;
-  //   console.log('Selected Chief Complaints Id:', selectedChiefComplaintsId);
-  //   this.control['chief_complaints_id'].patchValue(selectedChiefComplaintsId);
-
-
-  // }
-
-  // Initialize Diagnosis autocomplete
-  // initDiagnosisAutocomplete() {
-  //   const consultationDiagnosisArray = this.form.get('consultationDiagnosisDetails') as FormArray;
-  //   if (consultationDiagnosisArray && consultationDiagnosisArray.length > 0) {
-  //     const diagnosisControl = consultationDiagnosisArray.at(0).get('diagnosis_id');
-  //     if (diagnosisControl) {
-  //       this.filteredDiagnosis = diagnosisControl.valueChanges.pipe(
-  //         startWith(''),
-  //         map(value => typeof value === 'string' ? value : value?.diagnosis_name),
-  //         map(diagnosis => diagnosis ? this.filterDiagnosis(diagnosis) : this.allDiagnosisList.slice())
-  //       );
-  //     }
-  //   }
-
-  // }
-  // Filter diagnosis
-  // filterDiagnosis(diagnosis: string): any[] {
-  //   const filterValue = diagnosis.toLowerCase();
-  //   return this.allDiagnosisList.filter(item => item.diagnosis_name.toLowerCase().includes(filterValue));
-  // }
-  displayDiagnosisName(diagnosis?: any): string {
-    return diagnosis ? diagnosis.diagnosis_name : '';
-  }
-  onDiagnosisSelected(event: MatAutocompleteSelectedEvent) {
-    const selectedDiagnosis = event.option.value;
-    const selectedDiagnosisId = selectedDiagnosis.diagnosis_id;
-    // Here, you can save the selectedDiagnosisName to the database
-    console.log('Selected Diagnosis Id:', selectedDiagnosisId);
-
-  }
-  // Initialize Treatment autocomplete
-  initTreatmentAutocomplete() {
-    const consultationTreatmentArray = this.form.get('consultationTreatmentDetails') as FormArray;
-    if (consultationTreatmentArray && consultationTreatmentArray.length > 0) {
-      const treatmentControl = consultationTreatmentArray.at(0).get('treatment_id');
-      if (treatmentControl) {
-        this.filteredTreatment = treatmentControl.valueChanges.pipe(
-          startWith(''),
-          map(value => typeof value === 'string' ? value : value?.treatment_name),
-          map(treatment => treatment ? this.filterTreatments(treatment) : this.allTreatmentList.slice())
-        );
-      }
-    }
-  }
-  // Filter treatment
-  filterTreatments(value: string): any[] {
-    const filterValue = value.toLowerCase();
-    return this.allTreatmentList.filter(treatment => treatment.treatment_name.toLowerCase().includes(filterValue));
-  }
-  displayTreatmentsName(treatment?: any): string {
-    return treatment ? treatment.treatment_name : '';
-  }
-  onTreatmentSelected(event: MatAutocompleteSelectedEvent) {
-    const selectedTreatment = event.option.value;
-    const selectedTreatmentId = selectedTreatment.treatment_id;
-    console.log('Selected treatment Id:', selectedTreatmentId);
-  }
-  // Initialize dosages autocomplete
-  initDosageAutocomplete() {
-    const consultationMedicineArray = this.form.get('consultationMedicineDetails') as FormArray;
-    if (consultationMedicineArray && consultationMedicineArray.length > 0) {
-      const dosagesControl = consultationMedicineArray.at(0).get('dosages_id');
-      if (dosagesControl) {
-        this.filteredDosages = dosagesControl.valueChanges.pipe(
-          startWith(''),
-          map(value => typeof value === 'string' ? value : value?.dosage_name),
-          map(dosage => dosage ? this.filterDosages(dosage) : this.allDosagesList.slice())
-        );
-      }
-    }
-  }
-  // Filter Dosages
-  filterDosages(value: string): any[] {
-    const filterValue = value.toLowerCase();
-    return this.allDosagesList.filter((item: { dosage_name: string }) =>
-      item.dosage_name.toLowerCase().includes(filterValue)
-    );
-  }
-  displayDosagesName(dosages?: any): string {
-    return dosages ? dosages.dosage_name : '';
-  }
-  onDosagesSelected(event: MatAutocompleteSelectedEvent) {
-    const selectedDosages = event.option.value;
-
-    const selectedDosagesId = selectedDosages.dosage_id;
-    console.log('Selected Dosages Id:', selectedDosagesId);
-  }
-  // Initialize medicines autocomplete
-  initMedicineAutocomplete() {
-    const consultationMedicineArray = this.form.get('consultationMedicineDetails') as FormArray;
-    if (consultationMedicineArray && consultationMedicineArray.length > 0) {
-      const medicinesControl = consultationMedicineArray.at(0).get('medicines_id');
-      if (medicinesControl) {
-        this.filteredMedicines = medicinesControl.valueChanges.pipe(
-          startWith(''),
-          map(value => typeof value === 'string' ? value : value?.medicines_name),
-          map(medicine => medicine ? this.filterMedicines(medicine) : this.allMedicinesList.slice())
-        );
-      }
-    }
-  }
-
-  // Filter Medicines
-  filterMedicines(value: string): any[] {
-    const filterValue = value.toLowerCase();
-    return this.allMedicinesList.filter((item: { medicines_name: string }) =>
-      item.medicines_name.toLowerCase().includes(filterValue)
-    );
-  }
-  displayMedicinesName(medicines?: any): string {
-    return medicines ? medicines.medicines_name : '';
-  }
-  onMedicineSelected(event: MatAutocompleteSelectedEvent) {
-    const selectedMedicine = event.option.value;
-    const selectedMedicineId = selectedMedicine.medicines_id;
-    console.log('Selected Medicine Id:', selectedMedicineId);
-
-  }
-
-
-
-// ------------------------------------------------------------------
+  // ------------------------------------------------------------------
   //get Chief Complaints list...
   getAllChiefComplaintsList() {
     this._adminService.getAllChiefComplaintsListWma().subscribe({
@@ -358,16 +183,17 @@ export class AddUpdateConsultationComponent implements OnInit {
           this.allChiefComplaints = res.data;
           this.filteredChiefComplaintsArray = this.allChiefComplaints;
         }
-      }
+      },
     });
   }
-
   //Filter chief complaints array
   filterChiefComplaints() {
-    if (this.searchChiefComplaintsValue != "") {
+    if (this.searchChiefComplaintsValue != '') {
       this.filteredChiefComplaintsArray = [];
       const filteredArr = this.allChiefComplaints.filter((obj: any) =>
-        obj.chief_complaint.toLowerCase().includes(this.searchChiefComplaintsValue)
+        obj.chief_complaint
+          .toLowerCase()
+          .includes(this.searchChiefComplaintsValue)
       );
       this.filteredChiefComplaintsArray = filteredArr;
     } else {
@@ -375,15 +201,139 @@ export class AddUpdateConsultationComponent implements OnInit {
     }
   }
 
-// --------------------------------------------------------------------------
-
+  // --------------------------------------------------------------------------
+  //-------------------------------------------------------------------
+  //get diagnosis list...
+  getAllDiagnosisList() {
+    this._adminService.getAllDiagnosisListWma().subscribe({
+      next: (res: any) => {
+        if (res.data.length > 0) {
+          this.allDiagnosis = res.data;
+          this.filteredDiagnosisArray = this.allDiagnosis;
+        }
+      },
+    });
+  }
+  //Filter diagnosis array
+  filterDiagnosis() {
+    if (this.searchDiagnosisValue != '') {
+      this.filteredDiagnosisArray = [];
+      const filteredArr = this.allDiagnosis.filter((obj: any) =>
+        obj.diagnosis_name.toLowerCase().includes(this.searchDiagnosisValue)
+      );
+      this.filteredDiagnosisArray = filteredArr;
+    } else {
+      this.filteredDiagnosisArray = this.allDiagnosis;
+    }
+  }
+  //-------------------------------------------------------------------
+  //-------------------------------------------------------------------
+  //get treatment list...
+  getAllTreatmentList() {
+    this._adminService.getAllTreatmentListWma().subscribe({
+      next: (res: any) => {
+        if (res.data.length > 0) {
+          this.allTreatment = res.data;
+          this.filteredTreatmentArray = this.allTreatment;
+        }
+      },
+    });
+  }
+  //Filter Treatment array
+  filterTreatment() {
+    if (this.searchTreatmentValue != '') {
+      this.filteredTreatmentArray = [];
+      const filteredArr = this.allTreatment.filter((obj: any) =>
+        obj.treatment_name.toLowerCase().includes(this.searchTreatmentValue)
+      );
+      this.filteredTreatmentArray = filteredArr;
+    } else {
+      this.filteredTreatmentArray = this.allTreatment;
+    }
+  }
+  //-------------------------------------------------------------------
+  //-------------------------------------------------------------------
+  //get medicines list...
+  getAllMedicinesList() {
+    this._adminService.getAllMedicinesListWma().subscribe({
+      next: (res: any) => {
+        if (res.data.length > 0) {
+          this.allMedicines = res.data;
+          this.filteredMedicinesArray = this.allMedicines;
+        }
+      },
+    });
+  }
+  //Filter Medicines array
+  filterMedicines() {
+    if (this.searchMedicinesValue != '') {
+      this.filteredMedicinesArray = [];
+      const filteredArr = this.allMedicines.filter((obj: any) =>
+        obj.medicines_name.toLowerCase().includes(this.searchMedicinesValue)
+      );
+      this.filteredMedicinesArray = filteredArr;
+    } else {
+      this.filteredMedicinesArray = this.allMedicines;
+    }
+  }
+  //-------------------------------------------------------------------
+  //-------------------------------------------------------------------
+  //get dosages list...
+  getAllDosagesList() {
+    this._adminService.getAllDosagesListWma().subscribe({
+      next: (res: any) => {
+        if (res.data.length > 0) {
+          this.allDosages = res.data;
+          this.filteredDosagesArray = this.allDosages;
+        }
+      },
+    });
+  }
+  //Filter Dosages array
+  filterDosages() {
+    if (this.searchDosagesValue != '') {
+      this.filteredDosagesArray = [];
+      const filteredArr = this.allDosages.filter((obj: any) =>
+        obj.dosage_name.toLowerCase().includes(this.searchDosagesValue)
+      );
+      this.filteredDosagesArray = filteredArr;
+    } else {
+      this.filteredDosagesArray = this.allDosages;
+    }
+  }
+  //-------------------------------------------------------------------
+  //-------------------------------------------------------------------
+  //get Instructions list...
+  getAllInstructionsList() {
+    this._adminService.getAllInstructionsWma().subscribe({
+      next: (res: any) => {
+        if (res.data.length > 0) {
+          this.allInstructions = res.data;
+          this.filteredInstructionsArray = this.allInstructions;
+        }
+      },
+    });
+  }
+  //Filter Instructions array
+  filterInstructions() {
+    if (this.searchInstructionsValue != '') {
+      this.filteredInstructionsArray = [];
+      const filteredArr = this.allInstructions.filter((obj: any) =>
+        obj.instruction.toLowerCase().includes(this.searchInstructionsValue)
+      );
+      this.filteredInstructionsArray = filteredArr;
+    } else {
+      this.filteredInstructionsArray = this.allInstructions;
+    }
+  }
+  //-------------------------------------------------------------------
   // Utility function to convert file to base64 format
   fileToBase64(file: File): Promise<string | ArrayBuffer | null> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => resolve(reader.result);
-      reader.onerror = error => reject(error);
+      reader.onerror = (error) => reject(error);
     });
   }
   onImageChange(event: any) {
@@ -414,7 +364,9 @@ export class AddUpdateConsultationComponent implements OnInit {
     this.showImagePreview[index] = !this.showImagePreview[index];
     if (this.showImagePreview[index]) {
       // If image preview is shown, update the image source
-      const fileInput = this.consultationFileUploadDetailsArray.at(index).get('imageBase64');
+      const fileInput = this.consultationFileUploadDetailsArray
+        .at(index)
+        .get('imageBase64');
       if (fileInput) {
         const file = fileInput.value;
         if (file) {
@@ -429,7 +381,7 @@ export class AddUpdateConsultationComponent implements OnInit {
   }
   // patientform all filed disable
   disableFormFields() {
-    Object.keys(this.form_patient.controls).forEach(key => {
+    Object.keys(this.form_patient.controls).forEach((key) => {
       const control = this.form_patient.get(key);
       if (control) {
         control.disable();
@@ -437,49 +389,45 @@ export class AddUpdateConsultationComponent implements OnInit {
     });
   }
 
-
   //Diagnosis array controls
   get consultationDiagnosisDetailsArray() {
     return this.form.get('consultationDiagnosisDetails') as FormArray<any>;
-
   }
   newConsultationDiagnosis(): FormGroup {
     return this.fb.group({
       diagnosis_id: [null, Validators.required],
       notes: [null, Validators.required],
-
-    })
+    });
   }
   addConsultationDiagnosis() {
-    this.consultationDiagnosisDetailsArray.push(this.newConsultationDiagnosis());
-    this.DiagnosisDetailsAdded = true;
+    this.consultationDiagnosisDetailsArray.push(
+      this.newConsultationDiagnosis()
+    );
   }
   deleteConsultationDiagnosis(i: any) {
-    this.consultationDiagnosisDetailsArray.removeAt(i)
+    this.consultationDiagnosisDetailsArray.removeAt(i);
   }
   //Treatment array controls
   get consultationTreatmentDetailsArray() {
     return this.form.get('consultationTreatmentDetails') as FormArray<any>;
-
   }
   newConsultationTreatment(): FormGroup {
     return this.fb.group({
       treatment_id: [null, Validators.required],
       notes: [null, Validators.required],
-
-    })
+    });
   }
   addConsultationTreatment() {
-    this.consultationTreatmentDetailsArray.push(this.newConsultationTreatment());
-    this.TreatmentDetailsAdded = true;
+    this.consultationTreatmentDetailsArray.push(
+      this.newConsultationTreatment()
+    );
   }
   deleteConsultationTreatment(i: any) {
-    this.consultationTreatmentDetailsArray.removeAt(i)
+    this.consultationTreatmentDetailsArray.removeAt(i);
   }
   //Medicine array controls
   get consultationMedicineDetailsArray() {
     return this.form.get('consultationMedicineDetails') as FormArray<any>;
-
   }
   newConsultationMedicineDetails(): FormGroup {
     return this.fb.group({
@@ -487,20 +435,19 @@ export class AddUpdateConsultationComponent implements OnInit {
       dosages_id: [null],
       days: [null],
       instructions_id: [null],
-
-    })
+    });
   }
   addConsultationMedicine() {
-    this.consultationMedicineDetailsArray.push(this.newConsultationMedicineDetails());
-    this.MedicineDetailAdded = true;
+    this.consultationMedicineDetailsArray.push(
+      this.newConsultationMedicineDetails()
+    );
   }
   deleteConsultationMedicine(i: any) {
-    this.consultationMedicineDetailsArray.removeAt(i)
+    this.consultationMedicineDetailsArray.removeAt(i);
   }
   //FileUpload array controls
   get consultationFileUploadDetailsArray() {
     return this.form.get('consultationFileUploadDetails') as FormArray<any>;
-
   }
 
   newconsultationFileUploadDetails(): FormGroup {
@@ -508,35 +455,35 @@ export class AddUpdateConsultationComponent implements OnInit {
       imageBase64: [null],
       image_name: [null],
       notes: [null],
-
-    })
+    });
   }
   addConsultationFileUpload() {
-    this.consultationFileUploadDetailsArray.push(this.newconsultationFileUploadDetails());
-    this.FileUploadDetailsAdded = true;
+    this.consultationFileUploadDetailsArray.push(
+      this.newconsultationFileUploadDetails()
+    );
   }
   deleteConsultationFileUpload(i: any) {
-    this.consultationFileUploadDetailsArray.removeAt(i)
+    this.consultationFileUploadDetailsArray.removeAt(i);
   }
 
-
-
-  submit() { this.isEdit ? this.updateConsultation() : this.addConsultation(); }
-
-  updateConsultation() {
-
+  submit() {
+    this.isEdit ? this.updateConsultation() : this.addConsultation();
   }
+
+  updateConsultation() { }
 
   addConsultation() {
     console.log(this.form.value);
 
     if (this.form.valid) {
-
       this._doctorService.addConsultation(this.form.value).subscribe({
         next: (res: any) => {
           if (res.status == 201 || res.status == 200) {
             this._toastrService.success(res.message);
-            this.router.navigate(['/doctor', { outlets: { doc_Menu: 'patient' } }]);
+            this.router.navigate([
+              '/doctor',
+              { outlets: { doc_Menu: 'patient' } },
+            ]);
           } else {
             this._toastrService.warning(res.message);
           }
@@ -545,15 +492,14 @@ export class AddUpdateConsultationComponent implements OnInit {
           if (err.error.status == 422) {
             this._toastrService.warning(err.error.message);
           } else {
-            this._toastrService.error("Internal Server Error");
+            this._toastrService.error('Internal Server Error');
           }
-        }
+        },
       });
     } else {
       this.form.markAllAsTouched();
-      this._toastrService.warning("Fill required fields");
+      this._toastrService.warning('Fill required fields');
     }
-
   }
 
   //patient by id patch data
@@ -561,7 +507,9 @@ export class AddUpdateConsultationComponent implements OnInit {
     this._receptionistService.getPatientById(id).subscribe((result: any) => {
       const patientData = result.data;
       this.form_patient.patchValue({
-        registration_date: new Date(patientData.registration_date).toISOString().split('T')[0],
+        registration_date: new Date(patientData.registration_date)
+          .toISOString()
+          .split('T')[0],
         patient_name: patientData.patient_name,
         mobile_no: patientData.mobile_no,
         gender: patientData.gender,
@@ -579,69 +527,116 @@ export class AddUpdateConsultationComponent implements OnInit {
         employee_id: patientData.employee_id,
         refered_by_id: patientData.refered_by_id,
       });
-
-    })
+    });
   }
-  getConsultationId(id: any) {
-    this._doctorService.getConsultationById(id).subscribe((result: any) => {
-      this.form.patchValue(result.data)
-      // patch diagnosis 
-      let consultationDiagnosisDetails = result.data.consultationDiagnosisDetails;
-      if (consultationDiagnosisDetails.length > 0) {
-        this.consultationDiagnosisDetailsArray.clear();
-        for (let index = 0; index < consultationDiagnosisDetails.length; index++) {
-          const element = consultationDiagnosisDetails[index];
-          this.consultationDiagnosisDetailsArray.push(this.newConsultationDiagnosis())
-          this.consultationDiagnosisDetailsArray.at(index).get('diagnosis_id')?.patchValue(element.diagnosis_id)
-          this.consultationDiagnosisDetailsArray.at(index).get('notes')?.patchValue(element.notes);
+  // getConsultationId(id: any) {
+  //   this._doctorService.getConsultationById(id).subscribe((result: any) => {
+  //     this.form.patchValue(result.data);
+  //     this.form.disable();
 
+  //     // Patch Diagnosis
+  //     let consultationDiagnosisDetails = result.data.consultationDiagnosisDetails;
+  //     if (consultationDiagnosisDetails && consultationDiagnosisDetails.length > 0) {
+  //       this.consultationDiagnosisDetailsArray.clear();
+  //       consultationDiagnosisDetails.forEach((element: any) => {
+  //         const diagnosisFormGroup = this.newConsultationDiagnosis();
+  //         diagnosisFormGroup.get('diagnosis_id')?.patchValue(element.diagnosis_id); // Assuming diagnosis_id is the correct field
+  //         diagnosisFormGroup.get('notes')?.patchValue(element.notes);
+  //         this.consultationDiagnosisDetailsArray.push(diagnosisFormGroup);
+  //       });
+  //     }
+
+  //     // Patch Treatment
+  //     let consultationTreatmentDetails = result.data.consultationTreatmentDetails;
+  //     if (consultationTreatmentDetails && consultationTreatmentDetails.length > 0) {
+  //       this.consultationTreatmentDetailsArray.clear();
+  //       consultationTreatmentDetails.forEach((element: any) => {
+
+  //         const treatmentFormGroup = this.newConsultationTreatment();
+  //         treatmentFormGroup.get('treatment_id')?.patchValue(element.treatment_id); // Assuming treatment_id is the correct field
+  //         treatmentFormGroup.get('notes')?.patchValue(element.notes);
+  //         this.consultationTreatmentDetailsArray.push(treatmentFormGroup);
+  //       });
+  //     }
+
+  //     // Patch Medicine
+  //     let consultationMedicineDetails = result.data.consultationMedicineDetails;
+  //     if (consultationMedicineDetails && consultationMedicineDetails.length > 0) {
+  //       this.consultationMedicineDetailsArray.clear();
+  //       consultationMedicineDetails.forEach((element: any) => {
+  //         const medicineFormGroup = this.newConsultationMedicineDetails();
+  //         medicineFormGroup.get('medicines_id')?.patchValue(element.medicines_id); // Assuming medicines_id is the correct field
+  //         medicineFormGroup.get('dosages_id')?.patchValue(element.dosages_id); // Assuming dosages_id is the correct field
+  //         medicineFormGroup.get('days')?.patchValue(element.days);
+  //         medicineFormGroup.get('instructions_id')?.patchValue(element.instructions_id);
+  //         this.consultationMedicineDetailsArray.push(medicineFormGroup);
+  //       });
+  //     }
+
+  //     // Patch File Upload
+  //     let consultationFileUploadDetails = result.data.consultationFileUploadDetails;
+  //     if (consultationFileUploadDetails && consultationFileUploadDetails.length > 0) {
+  //       this.consultationFileUploadDetailsArray.clear();
+  //       consultationFileUploadDetails.forEach((element: any) => {
+  //         const fileUploadFormGroup = this.newconsultationFileUploadDetails();
+  //         fileUploadFormGroup.get('imageBase64')?.patchValue(element.imageBase64);
+  //         fileUploadFormGroup.get('notes')?.patchValue(element.notes);
+  //         this.consultationFileUploadDetailsArray.push(fileUploadFormGroup);
+  //       });
+  //     }
+  //   });
+  // }
+
+    //open chief complaints by...
+    openDialog(data?: any) {
+      const dialogRef = this.dialog.open(AddUpdateChiefComplaintsComponent, {
+        
+        data: data,
+        width: '50%',
+        panelClass: 'mat-mdc-dialog-container'
+      });
+      dialogRef.afterClosed().subscribe((message: any) => {
+        if (message == 'create' || message == 'update') {
+          this.getAllChiefComplaintsList();
+        } else {
+          console.log('nothing happen');
         }
-      }
-      //patch treatment
-      let consultationTreatmentDetails = result.data.consultationTreatmentDetails;
-      if (consultationTreatmentDetails.length > 0) {
-        this.consultationTreatmentDetailsArray.clear();
-        for (let index = 0; index < consultationTreatmentDetails.length; index++) {
-          const element = consultationTreatmentDetails[index];
-          this.consultationTreatmentDetailsArray.push(this.newConsultationTreatment())
-          this.consultationTreatmentDetailsArray.at(index).get('treatment_id')?.patchValue(element.treatment_id)
-          this.consultationTreatmentDetailsArray.at(index).get('notes')?.patchValue(element.notes);
+      });
+    }
 
+        //open Diagnosis by...
+        openDialogDiagnosis(data?: any) {
+          const dialogRef = this.dialog.open(AddUpdateDiagnosisComponent, {
+            
+            data: data,
+            width: '50%',
+            panelClass: 'mat-mdc-dialog-container'
+          });
+          dialogRef.afterClosed().subscribe((message: any) => {
+            if (message == 'create' || message == 'update') {
+              this.getAllDiagnosisList();
+            } else {
+              console.log('nothing happen');
+            }
+          });
         }
-      }
-      //patch Medicine
-      let consultationMedicineDetails = result.data.consultationMedicineDetails;
-      if (consultationMedicineDetails.length > 0) {
-        this.consultationMedicineDetailsArray.clear();
-        for (let index = 0; index < consultationMedicineDetails.length; index++) {
-          const element = consultationMedicineDetails[index];
-          this.consultationMedicineDetailsArray.push(this.newConsultationMedicineDetails())
-          this.consultationMedicineDetailsArray.at(index).get('medicines_id')?.patchValue(element.medicines_id)
-          this.consultationMedicineDetailsArray.at(index).get('dosages_id')?.patchValue(element.dosages_id);
-          this.consultationMedicineDetailsArray.at(index).get('days')?.patchValue(element.days);
-          this.consultationMedicineDetailsArray.at(index).get('instructions_id')?.patchValue(element.instructions_id);
+
+         //open Treatment by...
+         openDialogTreatment(data?: any) {
+          const dialogRef = this.dialog.open(AddUpdateTreatmentComponent, {
+            
+            data: data,
+            width: '50%',
+            panelClass: 'mat-mdc-dialog-container'
+          });
+          dialogRef.afterClosed().subscribe((message: any) => {
+            if (message == 'create' || message == 'update') {
+              this.getAllTreatmentList();
+            } else {
+              console.log('nothing happen');
+            }
+          });
         }
-      }
-
-      //patch File Uplode
-      let consultationFileUploadDetails = result.data.consultationFileUploadDetails;
-      if (consultationFileUploadDetails.length > 0) {
-        this.consultationFileUploadDetailsArray.clear();
-        for (let index = 0; index < consultationFileUploadDetails.length; index++) {
-          const element = consultationFileUploadDetails[index];
-          this.consultationFileUploadDetailsArray.push(this.newconsultationFileUploadDetails())
-          this.consultationFileUploadDetailsArray.at(index).get('imageBase64')?.patchValue(element.imageBase64)
-          this.consultationFileUploadDetailsArray.at(index).get('notes')?.patchValue(element.notes);
-        }
-      }
-    })
-
-
-
-  }
-
-
-
   //get entity list...
   getAllEntityList() {
     this._adminService.getAllEntitiesListWma().subscribe({
@@ -649,9 +644,8 @@ export class AddUpdateConsultationComponent implements OnInit {
         if (res.data.length > 0) {
           this.allEntityList = res.data;
         }
-      }
+      },
     });
-
   }
   //get source_of_patient list...
   getAllSourceOfPatientList() {
@@ -660,9 +654,8 @@ export class AddUpdateConsultationComponent implements OnInit {
         if (res.data.length > 0) {
           this.allSourceOfPatientList = res.data;
         }
-      }
+      },
     });
-
   }
   //get Employee list...
   getAllEmployeeList() {
@@ -671,9 +664,8 @@ export class AddUpdateConsultationComponent implements OnInit {
         if (res.data.length > 0) {
           this.allEmployeeList = res.data;
           console.log(res.data);
-
         }
-      }
+      },
     });
   }
 
@@ -684,7 +676,7 @@ export class AddUpdateConsultationComponent implements OnInit {
         if (res.data.length > 0) {
           this.allReferedByList = res.data;
         }
-      }
+      },
     });
   }
 
@@ -695,49 +687,7 @@ export class AddUpdateConsultationComponent implements OnInit {
         if (res.data.length > 0) {
           this.allStateList = res.data;
         }
-      }
-    });
-  }
-
-  //get diagnosis list...
-  getAllDiagnosisList() {
-    this._adminService.getAllDiagnosisListWma().subscribe({
-      next: (res: any) => {
-        if (res.data.length > 0) {
-          this.allDiagnosisList = res.data;
-        }
-      }
-    });
-  }
-
-  //get treatment list...
-  getAllTreatmentList() {
-    this._adminService.getAllTreatmentListWma().subscribe({
-      next: (res: any) => {
-        if (res.data.length > 0) {
-          this.allTreatmentList = res.data;
-        }
-      }
-    });
-  }
-  //get medicines list...
-  getAllMedicinesList() {
-    this._adminService.getAllMedicinesListWma().subscribe({
-      next: (res: any) => {
-        if (res.data.length > 0) {
-          this.allMedicinesList = res.data;
-        }
-      }
-    });
-  }
-  //get dosages list...
-  getAllDosagesList() {
-    this._adminService.getAllDosagesListWma().subscribe({
-      next: (res: any) => {
-        if (res.data.length > 0) {
-          this.allDosagesList = res.data;
-        }
-      }
+      },
     });
   }
 }

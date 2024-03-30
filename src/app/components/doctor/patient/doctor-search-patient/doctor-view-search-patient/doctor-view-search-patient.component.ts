@@ -18,10 +18,6 @@ export class DoctorViewSearchPatientComponent implements OnInit {
   form!: FormGroup;
   form_patient!: FormGroup;
   isEdit = true;
-  DiagnosisDetailsAdded: boolean = false;
-  TreatmentDetailsAdded: boolean = false;
-  MedicineDetailAdded: boolean = false;
-  FileUploadDetailsAdded: boolean = false;
   mrno: any
   allStateList: Array<any> = [];
   allEntityList: Array<any> = [];
@@ -30,18 +26,33 @@ export class DoctorViewSearchPatientComponent implements OnInit {
   allReferedByList: Array<any> = [];
   defaultStateId: any;
   //consultation array list
-  allChiefComplaintsList: Array<any> = [];
-  allDiagnosisList: Array<any> = [];
-  allTreatmentList: Array<any> = [];
-  allMedicinesList: Array<any> = [];
-  allDosagesList: Array<any> = [];
+  
+  //for cheif compliant
+  searchChiefComplaintsValue = '';
+  filteredChiefComplaintsArray: Array<any> = [];
+  allChiefComplaints: Array<any> = [];
+  //for diagnosis
+  searchDiagnosisValue = '';
+  filteredDiagnosisArray: Array<any> = [];
+  allDiagnosis: Array<any> = [];
+  //for Treatment
+  searchTreatmentValue = '';
+  filteredTreatmentArray: Array<any> = [];
+  allTreatment: Array<any> = [];
+  //for Medicines
+  searchMedicinesValue = '';
+  filteredMedicinesArray: Array<any> = [];
+  allMedicines: Array<any> = [];
+  //for Dosages
+  searchDosagesValue = '';
+  filteredDosagesArray: Array<any> = [];
+  allDosages: Array<any> = [];
+    //for Instructions
+    searchInstructionsValue = '';
+    filteredInstructionsArray: Array<any> = [];
+    allInstructions: Array<any> = [];
   color: string | undefined;
   apiUrl = environment.baseUrl;
-  filteredChiefComplaints: Observable<any[]> | undefined;
-  filteredDiagnosis: Observable<any[]> | undefined;
-  filteredTreatment: Observable<any[]> | undefined;
-  filteredMedicines: Observable<any[]> | undefined;
-  filteredDosages: Observable<any[]> | undefined;
 
   streetControl = new FormControl();
   i: any;
@@ -67,14 +78,15 @@ export class DoctorViewSearchPatientComponent implements OnInit {
     this.getAllEmployeeList();
     this.getAllReferedByList();
     this.disableFormFields();
-    this.disableConsultationFormFields();
+    // this.disableConsultationFormFields();
     this.getAllMedicinesList();
     this.getAllTreatmentList();
     this.getAllChiefComplaintsList();
     this.getAllDosagesList();
     this.getAllDiagnosisList();
+    this.getAllInstructionsList();
 
-
+   
     this.form_patient.patchValue({
       registration_date: new Date().toISOString().split('T')[0],
     });
@@ -87,10 +99,6 @@ export class DoctorViewSearchPatientComponent implements OnInit {
       this.getConsultationId(this.mrno);
       console.log(this.mrno);
       this.isEdit = false;
-      this.DiagnosisDetailsAdded = true;
-      this.TreatmentDetailsAdded = true;
-      this.MedicineDetailAdded = true;
-      this.FileUploadDetailsAdded = true;
 
     }
     this.form.patchValue({
@@ -101,133 +109,12 @@ export class DoctorViewSearchPatientComponent implements OnInit {
     this.form_patient.patchValue({
       payment_type: 'Cash'
     });
-    // Inside ngOnInit or wherever you initialize your component
-    if (this.form && this.form.get('chief_complaints_id')) {
-      const chiefComplaintsControl = this.form.get('chief_complaints_id');
-      if (chiefComplaintsControl) {
-        this.filteredChiefComplaints = chiefComplaintsControl.valueChanges.pipe(
-          startWith(''),
-          map(value => typeof value === 'string' ? value : value?.chief_complaint),
-          map(chiefComplaint => chiefComplaint ? this.filterChiefComplaints(chiefComplaint) : this.allChiefComplaintsList.slice())
-        );
-      }
-    }
-
-    // Initialize diagnosis autocomplete
-    const consultationDiagnosisArray = this.form.get('consultationDiagnosisDetails') as FormArray;
-    if (consultationDiagnosisArray && consultationDiagnosisArray.length > 0) {
-      const diagnosisControl = consultationDiagnosisArray.at(0).get('diagnosis_id');
-      if (diagnosisControl) {
-        this.filteredDiagnosis = diagnosisControl.valueChanges.pipe(
-          startWith(''),
-          map(value => typeof value === 'string' ? value : value?.diagnosis_name),
-          map(diagnosis => diagnosis ? this.filterDiagnosis(diagnosis) : this.allDiagnosisList.slice())
-        );
-      }
-    }
-    // Initialize treatment autocomplete
-    const consultationTreatmentArray = this.form.get('consultationTreatmentDetails') as FormArray;
-    if (consultationTreatmentArray && consultationTreatmentArray.length > 0) {
-      const treatmentControl = consultationTreatmentArray.at(0).get('treatment_id');
-      if (treatmentControl) {
-        this.filteredTreatment = treatmentControl.valueChanges.pipe(
-          startWith(''),
-          map(value => typeof value === 'string' ? value : value?.treatment_name),
-          map(treatment => treatment ? this.filterTreatments(treatment) : this.allTreatmentList.slice())
-        );
-      }
-    }
-    // Initialize dosages autocomplete
-    this.initDosageAutocomplete();
-    // Initialize medicines autocomplete
-    this.initMedicineAutocomplete();
+   
 
 
   }
-  // Initialize dosages autocomplete
-  initDosageAutocomplete() {
-    const consultationMedicineArray = this.form.get('consultationMedicineDetails') as FormArray;
-    if (consultationMedicineArray && consultationMedicineArray.length > 0) {
-      const dosagesControl = consultationMedicineArray.at(0).get('dosages_id');
-      if (dosagesControl) {
-        this.filteredDosages = dosagesControl.valueChanges.pipe(
-          startWith(''),
-          map(value => typeof value === 'string' ? value : value?.dosage_name),
-          map(dosage => dosage ? this.filterDosages(dosage) : this.allDosagesList.slice())
-        );
-      }
-    }
-  }
-  // Initialize medicines autocomplete
-  initMedicineAutocomplete() {
-    const consultationMedicineArray = this.form.get('consultationMedicineDetails') as FormArray;
-    if (consultationMedicineArray && consultationMedicineArray.length > 0) {
-      const medicinesControl = consultationMedicineArray.at(0).get('medicines_id');
-      if (medicinesControl) {
-        this.filteredMedicines = medicinesControl.valueChanges.pipe(
-          startWith(''),
-          map(value => typeof value === 'string' ? value : value?.medicines_name),
-          map(medicine => medicine ? this.filterMedicines(medicine) : this.allMedicinesList.slice())
-        );
-      }
-    }
-  }
 
-
-  // Filter chief_complaint
-  filterChiefComplaints(value: string): any[] {
-    const filterValue = value.toLowerCase();
-    return this.allChiefComplaintsList.filter((item: { chief_complaint: string }) =>
-      item.chief_complaint.toLowerCase().includes(filterValue)
-    );
-  }
-  // Filter diagnosis
-  filterDiagnosis(diagnosis: string): any[] {
-    const filterValue = diagnosis.toLowerCase();
-    return this.allDiagnosisList.filter(item => item.diagnosis_name.toLowerCase().includes(filterValue));
-  }
-  // Filter treatment
-  filterTreatments(value: string): any[] {
-    const filterValue = value.toLowerCase();
-    return this.allTreatmentList.filter(treatment => treatment.treatment_name.toLowerCase().includes(filterValue));
-  }
-  // Filter Medicines
-  filterMedicines(value: string): any[] {
-    const filterValue = value.toLowerCase();
-    return this.allMedicinesList.filter((item: { medicines_name: string }) =>
-      item.medicines_name.toLowerCase().includes(filterValue)
-    );
-  }
-  // Filter Dosages
-  filterDosages(value: string): any[] {
-    const filterValue = value.toLowerCase();
-    return this.allDosagesList.filter((item: { dosage_name: string }) =>
-      item.dosage_name.toLowerCase().includes(filterValue)
-    );
-  }
-
-
-
-  // patientform all filed disable
-  disableConsultationFormFields() {
-    Object.keys(this.form.controls).forEach(key => {
-      const control = this.form.get(key);
-      if (control) {
-        control.disable();
-      }
-    });
-  }
-
-  // patientform all filed disable
-  disableFormFields() {
-    Object.keys(this.form_patient.controls).forEach(key => {
-      const control = this.form_patient.get(key);
-      if (control) {
-        control.disable();
-      }
-    });
-  }
-
+  
   //patientform + consultation form
   patientForm() {
     this.form_patient = this.fb.group({
@@ -275,6 +162,186 @@ export class DoctorViewSearchPatientComponent implements OnInit {
   get control() {
     return this.form.controls;
   }
+  get controls() {
+    return this.form_patient.controls;
+  }
+ 
+  // ------------------------------------------------------------------
+  //get Chief Complaints list...
+  getAllChiefComplaintsList() {
+    this._adminService.getAllChiefComplaintsListWma().subscribe({
+      next: (res: any) => {
+        if (res.data.length > 0) {
+          this.allChiefComplaints = res.data;
+          this.filteredChiefComplaintsArray = this.allChiefComplaints;
+          // this.control['chief_complaints_id'].patchValue(res.data.chief_complaints_id)
+        }
+      },
+    });
+  }
+  //Filter chief complaints array
+  filterChiefComplaints() {
+    if (this.searchChiefComplaintsValue != '') {
+      this.filteredChiefComplaintsArray = [];
+      const filteredArr = this.allChiefComplaints.filter((obj: any) =>
+        obj.chief_complaint
+          .toLowerCase()
+          .includes(this.searchChiefComplaintsValue)
+      );
+      this.filteredChiefComplaintsArray = filteredArr;
+    } else {
+      this.filteredChiefComplaintsArray = this.allChiefComplaints;
+    }
+  }
+
+  // --------------------------------------------------------------------------
+  //-------------------------------------------------------------------
+  //get diagnosis list...
+  getAllDiagnosisList() {
+    this._adminService.getAllDiagnosisListWma().subscribe({
+      next: (res: any) => {
+        if (res.data.length > 0) {
+          this.allDiagnosis = res.data;
+          this.filteredDiagnosisArray = this.allDiagnosis;
+        }
+      },
+    });
+  }
+  //Filter diagnosis array
+  filterDiagnosis() {
+    if (this.searchDiagnosisValue != '') {
+      this.filteredDiagnosisArray = [];
+      const filteredArr = this.allDiagnosis.filter((obj: any) =>
+        obj.diagnosis_name.toLowerCase().includes(this.searchDiagnosisValue)
+      );
+      this.filteredDiagnosisArray = filteredArr;
+    } else {
+      this.filteredDiagnosisArray = this.allDiagnosis;
+    }
+  }
+  //-------------------------------------------------------------------
+  //-------------------------------------------------------------------
+  //get treatment list...
+  getAllTreatmentList() {
+    this._adminService.getAllTreatmentListWma().subscribe({
+      next: (res: any) => {
+        if (res.data.length > 0) {
+          this.allTreatment = res.data;
+          this.filteredTreatmentArray = this.allTreatment;
+        }
+      },
+    });
+  }
+  //Filter Treatment array
+  filterTreatment() {
+    if (this.searchTreatmentValue != '') {
+      this.filteredTreatmentArray = [];
+      const filteredArr = this.allTreatment.filter((obj: any) =>
+        obj.treatment_name.toLowerCase().includes(this.searchTreatmentValue)
+      );
+      this.filteredTreatmentArray = filteredArr;
+    } else {
+      this.filteredTreatmentArray = this.allTreatment;
+    }
+  }
+  //-------------------------------------------------------------------
+  //-------------------------------------------------------------------
+  //get medicines list...
+  getAllMedicinesList() {
+    this._adminService.getAllMedicinesListWma().subscribe({
+      next: (res: any) => {
+        if (res.data.length > 0) {
+          this.allMedicines = res.data;
+          this.filteredMedicinesArray = this.allMedicines;
+        }
+      },
+    });
+  }
+  //Filter Medicines array
+  filterMedicines() {
+    if (this.searchMedicinesValue != '') {
+      this.filteredMedicinesArray = [];
+      const filteredArr = this.allMedicines.filter((obj: any) =>
+        obj.medicines_name.toLowerCase().includes(this.searchMedicinesValue)
+      );
+      this.filteredMedicinesArray = filteredArr;
+    } else {
+      this.filteredMedicinesArray = this.allMedicines;
+    }
+  }
+  //-------------------------------------------------------------------
+  //-------------------------------------------------------------------
+  //get dosages list...
+  getAllDosagesList() {
+    this._adminService.getAllDosagesListWma().subscribe({
+      next: (res: any) => {
+        if (res.data.length > 0) {
+          this.allDosages = res.data;
+          this.filteredDosagesArray = this.allDosages;
+        }
+      },
+    });
+  }
+  //Filter Dosages array
+  filterDosages() {
+    if (this.searchDosagesValue != '') {
+      this.filteredDosagesArray = [];
+      const filteredArr = this.allDosages.filter((obj: any) =>
+        obj.dosage_name.toLowerCase().includes(this.searchDosagesValue)
+      );
+      this.filteredDosagesArray = filteredArr;
+    } else {
+      this.filteredDosagesArray = this.allDosages;
+    }
+  }
+  //-------------------------------------------------------------------
+    //-------------------------------------------------------------------
+  //get Instructions list...
+  getAllInstructionsList() {
+    this._adminService.getAllInstructionsWma().subscribe({
+      next: (res: any) => {
+        if (res.data.length > 0) {
+          this.allInstructions = res.data;
+          this.filteredInstructionsArray = this.allInstructions;
+        }
+      },
+    });
+  }
+  //Filter Instructions array
+  filterInstructions() {
+    if (this.searchInstructionsValue != '') {
+      this.filteredInstructionsArray = [];
+      const filteredArr = this.allInstructions.filter((obj: any) =>
+        obj.instruction.toLowerCase().includes(this.searchInstructionsValue)
+      );
+      this.filteredInstructionsArray = filteredArr;
+    } else {
+      this.filteredInstructionsArray = this.allInstructions;
+    }
+  }
+  //-------------------------------------------------------------------
+
+
+  // patientform all filed disable
+  disableConsultationFormFields() {
+    Object.keys(this.form.controls).forEach(key => {
+      const control = this.form.get(key);
+      if (control) {
+        control.disable();
+      }
+    });
+  }
+
+  // patientform all filed disable
+  disableFormFields() {
+    Object.keys(this.form_patient.controls).forEach(key => {
+      const control = this.form_patient.get(key);
+      if (control) {
+        control.disable();
+      }
+    });
+  }
+
 
   //Diagnosis array controls
   get consultationDiagnosisDetailsArray() {
@@ -290,11 +357,8 @@ export class DoctorViewSearchPatientComponent implements OnInit {
   }
   addConsultationDiagnosis() {
     this.consultationDiagnosisDetailsArray.push(this.newConsultationDiagnosis());
-    this.DiagnosisDetailsAdded = true;
   }
-  deleteConsultationDiagnosis(i: any) {
-    this.consultationDiagnosisDetailsArray.removeAt(i)
-  }
+
   //Treatment array controls
   get consultationTreatmentDetailsArray() {
     return this.form.get('consultationTreatmentDetails') as FormArray<any>;
@@ -309,11 +373,8 @@ export class DoctorViewSearchPatientComponent implements OnInit {
   }
   addConsultationTreatment() {
     this.consultationTreatmentDetailsArray.push(this.newConsultationTreatment());
-    this.TreatmentDetailsAdded = true;
   }
-  deleteConsultationTreatment(i: any) {
-    this.consultationTreatmentDetailsArray.removeAt(i)
-  }
+  
   //Medicine array controls
   get consultationMedicineDetailsArray() {
     return this.form.get('consultationMedicineDetails') as FormArray<any>;
@@ -330,11 +391,8 @@ export class DoctorViewSearchPatientComponent implements OnInit {
   }
   addConsultationMedicine() {
     this.consultationMedicineDetailsArray.push(this.newConsultationMedicineDetails());
-    this.MedicineDetailAdded = true;
   }
-  deleteConsultationMedicine(i: any) {
-    this.consultationMedicineDetailsArray.removeAt(i)
-  }
+  
   //FileUpload array controls
   get consultationFileUploadDetailsArray() {
     return this.form.get('consultationFileUploadDetails') as FormArray<any>;
@@ -351,14 +409,30 @@ export class DoctorViewSearchPatientComponent implements OnInit {
   }
   addConsultationFileUpload() {
     this.consultationFileUploadDetailsArray.push(this.newconsultationFileUploadDetails());
-    this.FileUploadDetailsAdded = true;
-  }
-  deleteConsultationFileUpload(i: any) {
-    this.consultationFileUploadDetailsArray.removeAt(i)
   }
 
+  onImageChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        // Convert the file to Base64 string
+        const base64Image = e.target.result.split(',')[1];
 
+        // Patch the Base64 image data to the form control
+        const imageControl = this.form.get('imageBase64');
+        if (imageControl) {
+          imageControl.patchValue(base64Image);
+        }
 
+        // Preview the selected image
+        this.imagePreview.nativeElement.src = e.target.result;
+      };
+
+      // Read the file as a data URL
+      reader.readAsDataURL(file);
+    }
+  }
 
 
   //patient by id patch data
@@ -389,91 +463,85 @@ export class DoctorViewSearchPatientComponent implements OnInit {
     })
   }
   getConsultationId(id: any) {
-    this._doctorService.getConsultationById(id).subscribe((result: any) => {
-      this.form.patchValue(result.data)
-      const ConsultationData = result.data;
-      const selectedComplaint = this.allChiefComplaintsList.find(complaint => complaint.id === ConsultationData.chief_complaint);
-      if (selectedComplaint) {
-        this.form.patchValue({
-          chief_complaints_id: selectedComplaint.chief_complaint, // Patching the name directly
-        });
-      }
+      this.control['chief_complaints_id'].patchValue(7)
+    // this._doctorService.getConsultationById(1).subscribe((result: any) => {
+    //   console.log('consultation q',result);
+    //   this.form.patchValue(result.data);
+    //   // this.form.disable();
 
-      
-      //patch Diagnosis
-      let consultationDiagnosisDetails = result.data.consultationDiagnosisDetails;
-      if (consultationDiagnosisDetails.length > 0) {
-        this.consultationDiagnosisDetailsArray.clear();
-        for (let index = 0; index < consultationDiagnosisDetails.length; index++) {
-          const element = consultationDiagnosisDetails[index];
-          this.consultationDiagnosisDetailsArray.push(this.newConsultationDiagnosis);
-          this.consultationDiagnosisDetailsArray.at(index).get('diagnosis_id')?.patchValue(element.diagnosis_name)
-          this.consultationDiagnosisDetailsArray.at(index).get('notes')?.patchValue(element.notes);
-          if (index !== consultationDiagnosisDetails.length) {
-            this.consultationDiagnosisDetailsArray.at(index).get('diagnosis_id')?.disable();
-            this.consultationDiagnosisDetailsArray.at(index).get('notes')?.disable();
-
-          }
-        }
-
-      }
-
-
-
-
-      //patch treatment
-      let consultationTreatmentDetails = result.data.consultationTreatmentDetails;
-      if (consultationTreatmentDetails.length > 0) {
-        this.consultationTreatmentDetailsArray.clear();
-        for (let index = 0; index < consultationTreatmentDetails.length; index++) {
-          const element = consultationTreatmentDetails[index];
-          this.consultationTreatmentDetailsArray.push(this.newConsultationTreatment())
-          this.consultationTreatmentDetailsArray.at(index).get('treatment_id')?.patchValue(element.treatment_id)
-          this.consultationTreatmentDetailsArray.at(index).get('notes')?.patchValue(element.notes);
-          if (index !== consultationTreatmentDetails.length) {
-            this.consultationTreatmentDetailsArray.at(index).get('treatment_id')?.disable();
-            this.consultationTreatmentDetailsArray.at(index).get('notes')?.disable();
-
-          }
-        }
-      }
-      //patch Medicine
-      let consultationMedicineDetails = result.data.consultationMedicineDetails;
-      if (consultationMedicineDetails.length > 0) {
-        this.consultationMedicineDetailsArray.clear();
-        for (let index = 0; index < consultationMedicineDetails.length; index++) {
-          const element = consultationMedicineDetails[index];
-          this.consultationMedicineDetailsArray.push(this.newConsultationMedicineDetails())
-          this.consultationMedicineDetailsArray.at(index).get('medicines_id')?.patchValue(element.medicines_name)
-          this.consultationMedicineDetailsArray.at(index).get('dosages_id')?.patchValue(element.dosage_name);
-          this.consultationMedicineDetailsArray.at(index).get('days')?.patchValue(element.days);
-          this.consultationMedicineDetailsArray.at(index).get('instructions_id')?.patchValue(element.instructions_id);
-          if (index !== consultationMedicineDetails.length) {
-            this.consultationMedicineDetailsArray.at(index).get('medicines_id')?.disable();
-            this.consultationMedicineDetailsArray.at(index).get('dosages_id')?.disable();
-            this.consultationMedicineDetailsArray.at(index).get('days')?.disable();
-            this.consultationMedicineDetailsArray.at(index).get('instructions_id')?.disable();
-          }
-        }
-      }
-
-      //patch File Uplode
-      let consultationFileUploadDetails = result.data.consultationFileUploadDetails;
-      if (consultationFileUploadDetails.length > 0) {
-        this.consultationFileUploadDetailsArray.clear();
-        for (let index = 0; index < consultationFileUploadDetails.length; index++) {
-          const element = consultationFileUploadDetails[index];
-          this.consultationFileUploadDetailsArray.push(this.newconsultationFileUploadDetails())
-          this.consultationFileUploadDetailsArray.at(index).get('imageBase64')?.patchValue(element.imageBase64)
-          this.consultationFileUploadDetailsArray.at(index).get('notes')?.patchValue(element.notes);
-        }
-      }
-    })
-
-
-
+  
+    //   // Patching chief complaint
+    //   // const ConsultationData = result.data;
+    //   // const selectedComplaint = this.allChiefComplaints.find(complaint => complaint.id === ConsultationData.chief_complaints_id);
+    //   // this.form.patchValue({
+    //   //   chief_complaints_id: selectedComplaint.chief_complaint,
+    //   // });
+    
+  
+    //   // Patching diagnosis details
+    //   let consultationDiagnosisDetails = result.data.consultationDiagnosisDetails;
+    //   if (consultationDiagnosisDetails.length > 0) {
+    //     this.consultationDiagnosisDetailsArray.clear();
+    //     for (let index = 0; index < consultationDiagnosisDetails.length; index++) {
+    //       const element = consultationDiagnosisDetails[index];
+    //       const diagnosisFormGroup = this.newConsultationDiagnosis();
+    //       this.consultationDiagnosisDetailsArray.push(diagnosisFormGroup);
+    //       this.consultationDiagnosisDetailsArray.at(index).patchValue({
+    //         diagnosis_id: element.diagnosis_name,
+    //         notes: element.notes
+    //       });       
+    //     }
+    //   }
+  
+    //   // Patching treatment details
+    //   let consultationTreatmentDetails = result.data.consultationTreatmentDetails;
+    //   if (consultationTreatmentDetails.length > 0) {
+    //     this.consultationTreatmentDetailsArray.clear();
+    //     for (let index = 0; index < consultationTreatmentDetails.length; index++) {
+    //       const element = consultationTreatmentDetails[index];
+    //       const treatmentFormGroup = this.newConsultationTreatment();
+    //       this.consultationTreatmentDetailsArray.push(treatmentFormGroup);
+    //       this.consultationTreatmentDetailsArray.at(index).patchValue({
+    //         treatment_id: element.treatment_id,
+    //         notes: element.notes
+    //       });
+    //     }
+    //   }
+  
+    //   // Patching medicine details
+    //   let consultationMedicineDetails = result.data.consultationMedicineDetails;
+    //   if (consultationMedicineDetails.length > 0) {
+    //     this.consultationMedicineDetailsArray.clear();
+    //     for (let index = 0; index < consultationMedicineDetails.length; index++) {
+    //       const element = consultationMedicineDetails[index];
+    //       const medicineFormGroup = this.newConsultationMedicineDetails();
+    //       this.consultationMedicineDetailsArray.push(medicineFormGroup);
+    //       this.consultationMedicineDetailsArray.at(index).patchValue({
+    //         medicines_id: element.medicines_id,
+    //         dosages_id: element.dosages_id,
+    //         days: element.days,
+    //         instructions_id: element.instructions_id
+    //       });
+    //     }
+    //   }
+  
+    //   // Patching file upload details
+    //   let consultationFileUploadDetails = result.data.consultationFileUploadDetails;
+    //   if (consultationFileUploadDetails.length > 0) {
+    //     this.consultationFileUploadDetailsArray.clear();
+    //     for (let index = 0; index < consultationFileUploadDetails.length; index++) {
+    //       const element = consultationFileUploadDetails[index];
+    //       const fileUploadFormGroup = this.newconsultationFileUploadDetails();
+    //       this.consultationFileUploadDetailsArray.push(fileUploadFormGroup);
+    //       this.consultationFileUploadDetailsArray.at(index).patchValue({
+    //         imageBase64: element.imageBase64,
+    //         notes: element.notes
+    //       });
+    //     }
+    //   }
+    // });
   }
-
+  
 
 
   //get entity list...
@@ -537,62 +605,6 @@ export class DoctorViewSearchPatientComponent implements OnInit {
       }
     });
   }
-  //get Chief Complaints list...
-  getAllChiefComplaintsList() {
-    this._adminService.getAllChiefComplaintsListWma().subscribe({
-      next: (res: any) => {
-        console.log(res);
-        if (res.data.length > 0) {
-          this.allChiefComplaintsList = res.data;
-        }
-      }
-    });
 
-  }
-  //get diagnosis list...
-  getAllDiagnosisList() {
-    this._adminService.getAllDiagnosisListWma().subscribe({
-      next: (res: any) => {
-        console.log(res);
-        if (res.data.length > 0) {
-          this.allDiagnosisList = res.data;
-        }
-      }
-    });
-
-  }
-  //get treatment list...
-  getAllTreatmentList() {
-    this._adminService.getAllTreatmentListWma().subscribe({
-      next: (res: any) => {
-        console.log(res);
-        if (res.data.length > 0) {
-          this.allTreatmentList = res.data;
-        }
-      }
-    });
-  }
-  //get medicines list...
-  getAllMedicinesList() {
-    this._adminService.getAllMedicinesListWma().subscribe({
-      next: (res: any) => {
-        console.log(res);
-        if (res.data.length > 0) {
-          this.allMedicinesList = res.data;
-        }
-      }
-    });
-  }
-  //get dosages list...
-  getAllDosagesList() {
-    this._adminService.getAllDosagesListWma().subscribe({
-      next: (res: any) => {
-        console.log(res);
-        if (res.data.length > 0) {
-          this.allDosagesList = res.data;
-        }
-      }
-    });
-  }
 
 }

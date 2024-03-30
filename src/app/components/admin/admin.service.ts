@@ -316,6 +316,10 @@ export class AdminService {
             params: params
         });
     }
+      //get All instructions wma...
+      getAllInstructionsWma(): Observable<any> {
+        return this.http.get(this.baseUrl + 'api/instructions/wma/');
+    }
 
     //get all chief_complaints  list...............................................................
     getAllChiefComplaintsList(page: any, perPage: any): Observable<any> {

@@ -8,32 +8,67 @@
         <form cForm class="row g-3" [formGroup]="form_patient">
           <c-col md="2" class="p-2">
             <label for="entity_id" cLabel> Entity Name </label>
-            <select aria-label="select entity_id" cSelect sizing="sm" formControlName="entity_id" type="text">
+            <select
+              aria-label="select entity_id"
+              cSelect
+              sizing="sm"
+              formControlName="entity_id"
+              type="text"
+            >
               <option hidden value="null" disabled selected>Entity Name</option>
-              <option [value]="item.entity_id" *ngFor="let item of allEntityList">
+              <option
+                [value]="item.entity_id"
+                *ngFor="let item of allEntityList"
+              >
                 {{ item.entity_name }}
               </option>
             </select>
           </c-col>
           <c-col md="2" class="p-2">
             <label cLabel for="mrno_entity_series">MR No Entity Series </label>
-            <input cFormControl id="mrno_entity_series" formControlName="mrno_entity_series" type="text" />
+            <input
+              cFormControl
+              id="mrno_entity_series"
+              formControlName="mrno_entity_series"
+              type="text"
+            />
           </c-col>
           <c-col md="2" class="p-2">
             <label cLabel for="registration_date">Registration Date </label>
-            <input cFormControl id="registration_date" formControlName="registration_date" type="date" />
+            <input
+              cFormControl
+              id="registration_date"
+              formControlName="registration_date"
+              type="date"
+            />
           </c-col>
           <c-col md="2" class="p-2">
             <label cLabel for="patient_name">Patient Name </label>
-            <input cFormControl id="patient_name" formControlName="patient_name" type="text" />
+            <input
+              cFormControl
+              id="patient_name"
+              formControlName="patient_name"
+              type="text"
+            />
           </c-col>
           <c-col md="2" class="p-2">
             <label cLabel for="mobile_no">Mobile Number </label>
-            <input cFormControl id="mobile_no" formControlName="mobile_no" type="number" />
+            <input
+              cFormControl
+              id="mobile_no"
+              formControlName="mobile_no"
+              type="number"
+            />
           </c-col>
           <c-col md="2" class="p-2">
             <label cLabel for="validationDefault01">Gender </label>
-            <select aria-label="select lead gender" cSelect sizing="sm" formControlName="gender" type="text">
+            <select
+              aria-label="select lead gender"
+              cSelect
+              sizing="sm"
+              formControlName="gender"
+              type="text"
+            >
               <option hidden value="null" disabled selected>Gender</option>
               <option>Male</option>
               <option>Female</option>
@@ -46,16 +81,32 @@
           </c-col>
           <c-col md="2" class="p-2">
             <label cLabel for="address">Address </label>
-            <input cFormControl id="address" formControlName="address" type="text" />
+            <input
+              cFormControl
+              id="address"
+              formControlName="address"
+              type="text"
+            />
           </c-col>
           <c-col md="2" class="p-2">
             <label cLabel for="validationDefault01">City </label>
-            <input cFormControl id="validationDefault01" formControlName="city" type="text" />
+            <input
+              cFormControl
+              id="validationDefault01"
+              formControlName="city"
+              type="text"
+            />
           </c-col>
           <c-col md="2" class="p-2">
             <label for="state_id" cLabel> State </label>
-            <select aria-label="select state_id" cSelect sizing="sm" formControlName="state_id" type="text"
-              [(ngModel)]="defaultStateId">
+            <select
+              aria-label="select state_id"
+              cSelect
+              sizing="sm"
+              formControlName="state_id"
+              type="text"
+              [(ngModel)]="defaultStateId"
+            >
               <option hidden value="null" disabled selected>State</option>
               <option [value]="item.state_id" *ngFor="let item of allStateList">
                 {{ item.state_name }}
@@ -64,11 +115,21 @@
           </c-col>
           <c-col md="2" class="p-2">
             <label cLabel for="validationDefault01">Height (cm) </label>
-            <input cFormControl id="height" formControlName="height" type="number" />
+            <input
+              cFormControl
+              id="height"
+              formControlName="height"
+              type="number"
+            />
           </c-col>
           <c-col md="2" class="p-2">
             <label cLabel for="validationDefault01">Weight (kg) </label>
-            <input cFormControl id="weight" formControlName="weight" type="number" />
+            <input
+              cFormControl
+              id="weight"
+              formControlName="weight"
+              type="number"
+            />
           </c-col>
           <c-col md="2" class="p-2">
             <label cLabel for="bmi">BMI (kg/m²) </label>
@@ -76,12 +137,20 @@
           </c-col>
           <c-col md="2" class="p-2">
             <label for="source_of_patient_id" cLabel> Source Of Patient </label>
-            <select aria-label="select source_of_patient_id" cSelect sizing="sm" formControlName="source_of_patient_id"
-              type="text">
+            <select
+              aria-label="select source_of_patient_id"
+              cSelect
+              sizing="sm"
+              formControlName="source_of_patient_id"
+              type="text"
+            >
               <option hidden value="null" disabled selected>
                 Source Of Patient
               </option>
-              <option [value]="item.source_of_patient_id" *ngFor="let item of allSourceOfPatientList">
+              <option
+                [value]="item.source_of_patient_id"
+                *ngFor="let item of allSourceOfPatientList"
+              >
                 {{ item.source_of_patient_name }}
               </option>
             </select>
@@ -91,11 +160,20 @@
               <label for="refered_by_id" cLabel> Refered By </label>
             </div>
             <div class="refered-by">
-              <select aria-label="select refered_by_id" cSelect sizing="sm" formControlName="refered_by_id" type="text">
+              <select
+                aria-label="select refered_by_id"
+                cSelect
+                sizing="sm"
+                formControlName="refered_by_id"
+                type="text"
+              >
                 <option hidden value="null" disabled selected>
                   Refered By
                 </option>
-                <option [value]="item.refered_by_id" *ngFor="let item of allReferedByList">
+                <option
+                  [value]="item.refered_by_id"
+                  *ngFor="let item of allReferedByList"
+                >
                   {{ item.refered_by_name }}
                 </option>
               </select>
@@ -103,10 +181,19 @@
           </c-col>
           <c-col md="2" class="p-2">
             <label for="employee_id" cLabel> Assign to </label>
-            <select aria-label="select employee_id" cSelect sizing="sm" formControlName="employee_id" type="text">
+            <select
+              aria-label="select employee_id"
+              cSelect
+              sizing="sm"
+              formControlName="employee_id"
+              type="text"
+            >
               <option hidden value="null" disabled selected>Select Name</option>
               <ng-container *ngFor="let item of allEmployeeList">
-                <option [value]="item.employee_id" *ngIf="item.designation_name.toLowerCase() === 'doctor'">
+                <option
+                  [value]="item.employee_id"
+                  *ngIf="item.designation_name.toLowerCase() === 'doctor'"
+                >
                   {{ item.name }}
                 </option>
               </ng-container>
@@ -114,8 +201,13 @@
           </c-col>
           <c-col md="2" class="p-2">
             <label cLabel for="validationDefault01">Payment Type </label>
-            <select aria-label="select lead payment_type" cSelect sizing="sm" formControlName="payment_type"
-              type="text">
+            <select
+              aria-label="select lead payment_type"
+              cSelect
+              sizing="sm"
+              formControlName="payment_type"
+              type="text"
+            >
               <option hidden value="null" disabled selected>
                 Payment Type
               </option>
@@ -125,7 +217,12 @@
           </c-col>
           <c-col md="2" class="p-2">
             <label cLabel for="amount">Amount </label>
-            <input cFormControl id="amount" formControlName="amount" type="number" />
+            <input
+              cFormControl
+              id="amount"
+              formControlName="amount"
+              type="number"
+            />
           </c-col>
         </form>
         <hr />
@@ -133,66 +230,81 @@
         <form cForm class="row g-3" [formGroup]="form">
           <c-col md="3" class="p-2">
             <label cLabel for="validationDefault01">Pulse </label>
-            <input cFormControl id="pluse" type="number" formControlName="pluse" />
+            <input
+              cFormControl
+              id="pluse"
+              type="number"
+              formControlName="pluse"
+            />
           </c-col>
           <c-col md="3" class="p-2">
             <label cLabel for="validationDefault01">BP</label>
             <input cFormControl id="bp" type="number" formControlName="bp" />
           </c-col>
           <c-col md="3" class="p-2">
-            <label cLabel for="validationDefault01">Past History<span style="color: red"
-                *ngIf="!form.get('past_history')?.value">*</span></label>
-            <input cFormControl id="past_history" type="text" formControlName="past_history" />
+            <label cLabel for="validationDefault01"
+              >Past History<span
+                style="color: red"
+                *ngIf="!form.get('past_history')?.value"
+                >*</span
+              ></label
+            >
+            <input
+              cFormControl
+              id="past_history"
+              type="text"
+              formControlName="past_history"
+            />
           </c-col>
           <c-col md="3" class="p-2">
             <label for="chief_complaints_id" cLabel>
-              Chief Complaints<span style="color: red" *ngIf="!form.get('chief_complaints_id')?.value">*</span></label>
-            <!-- <input cFormControl id="chief_complaints_id" type="text" placeholder="Search Complaint"
-              formControlName="chief_complaints_id" [ngClass]="{
-                'is-invalid':
-                  control['chief_complaints_id'].invalid &&
-                  (control['chief_complaints_id'].dirty ||
-                    control['chief_complaints_id'].touched)
-              }" /> -->
-            <!-- <mat-autocomplete
-              #auto="matAutocomplete"
-              [displayWith]="displayChiefComplaintsName"
-              (optionSelected)="onChiefComplaintsSelected($event)"
+              Chief Complaints<span
+                style="color: red"
+                *ngIf="!form.get('chief_complaints_id')?.value"
+                >*</span
+              ></label
             >
-              <mat-option
-                *ngFor="let complaint of filteredChiefComplaints | async"
-                [value]="complaint"
+            <div class="chief_complaints">
+              <mat-select
+                #singleSelect
+                formControlName="chief_complaints_id"
+                class="form-control theme-input"
               >
-                {{ complaint.chief_complaint }}
-              </mat-option>
-            </mat-autocomplete> -->
-            <!-- <mat-form-field>
-              <mat-select [formControl]="bankCtrl" placeholder="Bank" #singleSelect>
                 <mat-option>
-                  <ngx-mat-select-search [formControl]="bankFilterCtrl"></ngx-mat-select-search>
+                  <ngx-mat-select-search
+                    [(ngModel)]="searchChiefComplaintsValue"
+                    [ngModelOptions]="{ standalone: true }"
+                    (input)="filterChiefComplaints()"
+                    placeholderLabel="Search chief complaint"
+                    noEntriesFoundLabel="No result available"
+                  ></ngx-mat-select-search>
                 </mat-option>
-
-                <mat-option *ngFor="let complaint of filteredChiefComplaints | async" [value]="complaint">
-                  {{complaint.chief_complaint}}
+                <mat-option
+                  *ngFor="let item of filteredChiefComplaintsArray"
+                  [value]="item.chief_complaint_id"
+                >
+                  {{ item?.chief_complaint }}
                 </mat-option>
               </mat-select>
-            </mat-form-field> -->
-            <mat-select #singleSelect formControlName="chief_complaints_id"  class="form-control theme-input">
-              <mat-option>
-                  <ngx-mat-select-search [(ngModel)]="searchChiefComplaintsValue" [ngModelOptions]="{standalone: true}"
-                      (input)="filterChiefComplaints()" placeholderLabel="Search chief complaint"
-                      noEntriesFoundLabel='No result available'></ngx-mat-select-search>
-              </mat-option>
-              <mat-option  *ngFor="let item of filteredChiefComplaintsArray" [value]="item.chief_complaint_id">
-                   {{ item?.chief_complaint }}  
-              </mat-option>
-          </mat-select>
+              <button
+                cButton
+                class="ms-1 mb-1"
+                color="primary"
+                sizing="sm"
+                (click)="openDialog()"
+              >
+                +
+              </button>
+            </div>
 
-            <div class="text-danger" *ngIf="
+            <div
+              class="text-danger"
+              *ngIf="
                 control['chief_complaints_id'].invalid &&
                 (control['chief_complaints_id'].dirty ||
                   control['chief_complaints_id'].touched)
-              ">
+              "
+            >
               <small>Please provide a valid Chief Complaints.</small>
             </div>
           </c-col>
@@ -210,33 +322,52 @@
                     </tr>
                   </thead>
                   <tbody formArrayName="consultationDiagnosisDetails">
-                    <tr *ngFor="
+                    <tr
+                      *ngFor="
                         let item of consultationDiagnosisDetailsArray.controls;
                         let i = index
-                      " [formGroupName]="i">
+                      "
+                      [formGroupName]="i"
+                    >
                       <th>{{ i + 1 }}</th>
 
                       <td>
-                        <input cFormControl id="diagnosis_id" type="text" placeholder="Search Diagnosis"
-                          formControlName="diagnosis_id" [matAutocomplete]="auto" [ngClass]="{
-                            'is-invalid':
-                              consultationDiagnosisDetailsArray
-                                .at(i)
-                                .get('diagnosis_id')?.invalid &&
-                              (consultationDiagnosisDetailsArray
-                                .at(i)
-                                .get('diagnosis_id')?.dirty ||
-                                consultationDiagnosisDetailsArray
-                                  .at(i)
-                                  .get('diagnosis_id')?.touched)
-                          }" />
-                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayDiagnosisName"
-                          (optionSelected)="onDiagnosisSelected($event)">
-                          <mat-option *ngFor="let diagnosis of filteredDiagnosis | async" [value]="diagnosis">
-                            {{ diagnosis.diagnosis_name }}
+                        <div class="chief_complaints">
+                          <mat-select
+                          #singleSelect
+                          formControlName="diagnosis_id"
+                          class="form-control theme-input"
+                        >
+                          <mat-option>
+                            <ngx-mat-select-search
+                              [(ngModel)]="searchDiagnosisValue"
+                              [ngModelOptions]="{ standalone: true }"
+                              (input)="filterDiagnosis()"
+                              placeholderLabel="Search Diagnosis"
+                              noEntriesFoundLabel="No result available"
+                            ></ngx-mat-select-search>
                           </mat-option>
-                        </mat-autocomplete>
-                        <div class="text-danger" *ngIf="
+                          <mat-option
+                            *ngFor="let item of filteredDiagnosisArray"
+                            [value]="item.diagnosis_id"
+                          >
+                            {{ item?.diagnosis_name }}
+                          </mat-option>
+                        </mat-select>
+                        <button
+                          cButton
+                          class="ms-1 mb-1"
+                          color="primary"
+                          sizing="sm"
+                          (click)="openDialogDiagnosis()"
+                        >
+                          +
+                        </button>
+                        </div>
+                        
+                        <div
+                          class="text-danger"
+                          *ngIf="
                             consultationDiagnosisDetailsArray
                               .at(i)
                               .get('diagnosis_id')?.invalid &&
@@ -246,24 +377,39 @@
                               consultationDiagnosisDetailsArray
                                 .at(i)
                                 .get('diagnosis_id')?.touched)
-                          ">
+                          "
+                        >
                           <small>Please provide a valid Diagnosis.</small>
                         </div>
                       </td>
                       <td>
-                        <input type="text" class="form-control" formControlName="notes" />
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="notes"
+                        />
                       </td>
 
                       <td class="d-flex pb-3 justify-content-center">
-                        <i class="material-icons" (click)="addConsultationDiagnosis()" type="button">add</i><i
-                          class="material-icons ms-2" (click)="deleteConsultationDiagnosis(i)" type="button"
+                        <i
+                          class="material-icons"
+                          (click)="addConsultationDiagnosis()"
+                          type="button"
+                          >add</i
+                        ><i
+                          class="material-icons ms-2"
+                          (click)="deleteConsultationDiagnosis(i)"
+                          type="button"
                           [class.disabled]="
                             consultationDiagnosisDetailsArray.length === 1
-                          " [attr.aria-disabled]="
+                          "
+                          [attr.aria-disabled]="
                             consultationDiagnosisDetailsArray.length === 1
                               ? 'true'
                               : 'false'
-                          ">remove</i>
+                          "
+                          >remove</i
+                        >
                       </td>
                     </tr>
                   </tbody>
@@ -282,33 +428,52 @@
                     </tr>
                   </thead>
                   <tbody formArrayName="consultationTreatmentDetails">
-                    <tr *ngFor="
+                    <tr
+                      *ngFor="
                         let item of consultationTreatmentDetailsArray.controls;
                         let i = index
-                      " [formGroupName]="i">
+                      "
+                      [formGroupName]="i"
+                    >
                       <th>{{ i + 1 }}</th>
 
                       <td>
-                        <input cFormControl id="treatment_id" type="text" placeholder="Search Treatment"
-                          formControlName="treatment_id" [matAutocomplete]="auto" [ngClass]="{
-                            'is-invalid':
-                              consultationTreatmentDetailsArray
-                                .at(i)
-                                .get('treatment_id')?.invalid &&
-                              (consultationTreatmentDetailsArray
-                                .at(i)
-                                .get('treatment_id')?.dirty ||
-                                consultationTreatmentDetailsArray
-                                  .at(i)
-                                  .get('treatment_id')?.touched)
-                          }" />
-                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayTreatmentsName"
-                          (optionSelected)="onTreatmentSelected($event)">
-                          <mat-option *ngFor="let treatment of filteredTreatment | async" [value]="treatment">
-                            {{ treatment.treatment_name }}
+                        <div class="chief_complaints">
+                          <mat-select
+                          #singleSelect
+                          formControlName="treatment_id"
+                          class="form-control theme-input"
+                        >
+                          <mat-option>
+                            <ngx-mat-select-search
+                              [(ngModel)]="searchTreatmentValue"
+                              [ngModelOptions]="{ standalone: true }"
+                              (input)="filterTreatment()"
+                              placeholderLabel="Search Treatment"
+                              noEntriesFoundLabel="No result available"
+                            ></ngx-mat-select-search>
                           </mat-option>
-                        </mat-autocomplete>
-                        <div class="text-danger" *ngIf="
+                          <mat-option
+                            *ngFor="let item of filteredTreatmentArray"
+                            [value]="item.treatment_id"
+                          >
+                            {{ item?.treatment_name }}
+                          </mat-option>
+                        </mat-select>
+                        <button
+                        cButton
+                        class="ms-1 mb-1"
+                        color="primary"
+                        sizing="sm"
+                        (click)="openDialogTreatment()"
+                      >
+                        +
+                      </button>
+                        </div>
+                     
+                        <div
+                          class="text-danger"
+                          *ngIf="
                             consultationTreatmentDetailsArray
                               .at(i)
                               .get('treatment_id')?.invalid &&
@@ -318,24 +483,39 @@
                               consultationTreatmentDetailsArray
                                 .at(i)
                                 .get('treatment_id')?.touched)
-                          ">
+                          "
+                        >
                           <small>Please provide a valid Treatment.</small>
                         </div>
                       </td>
                       <td>
-                        <input type="text" class="form-control" formControlName="notes" />
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="notes"
+                        />
                       </td>
 
                       <td class="d-flex pb-3 justify-content-center">
-                        <i class="material-icons" (click)="addConsultationTreatment()" type="button">add</i><i
-                          class="material-icons ms-2" (click)="deleteConsultationTreatment(i)" type="button"
+                        <i
+                          class="material-icons"
+                          (click)="addConsultationTreatment()"
+                          type="button"
+                          >add</i
+                        ><i
+                          class="material-icons ms-2"
+                          (click)="deleteConsultationTreatment(i)"
+                          type="button"
                           [class.disabled]="
                             consultationTreatmentDetailsArray.length === 1
-                          " [attr.aria-disabled]="
+                          "
+                          [attr.aria-disabled]="
                             consultationTreatmentDetailsArray.length === 1
                               ? 'true'
                               : 'false'
-                          ">remove</i>
+                          "
+                          >remove</i
+                        >
                       </td>
                     </tr>
                   </tbody>
@@ -356,48 +536,111 @@
                     </tr>
                   </thead>
                   <tbody formArrayName="consultationMedicineDetails">
-                    <tr *ngFor="
+                    <tr
+                      *ngFor="
                         let item of consultationMedicineDetailsArray.controls;
                         let i = index
-                      " [formGroupName]="i">
+                      "
+                      [formGroupName]="i"
+                    >
                       <th>{{ i + 1 }}</th>
 
                       <td>
-                        <input cFormControl id="medicines_id" type="text" placeholder="Search Medicines"
-                          formControlName="medicines_id" [matAutocomplete]="auto" />
-                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayMedicinesName"
-                          (optionSelected)="onMedicineSelected($event)">
-                          <mat-option *ngFor="let medicines of filteredMedicines | async" [value]="medicines">
-                            {{ medicines.medicines_name }}
+                        <mat-select
+                          #singleSelect
+                          formControlName="medicines_id"
+                          class="form-control theme-input"
+                        >
+                          <mat-option>
+                            <ngx-mat-select-search
+                              [(ngModel)]="searchMedicinesValue"
+                              [ngModelOptions]="{ standalone: true }"
+                              (input)="filterMedicines()"
+                              placeholderLabel="Search Medicines"
+                              noEntriesFoundLabel="No result available"
+                            ></ngx-mat-select-search>
                           </mat-option>
-                        </mat-autocomplete>
-                      </td>
-                      <td>
-                        <input cFormControl id="dosages_id" type="text" placeholder="Search Dosages"
-                          formControlName="dosages_id" [matAutocomplete]="autoDosages" />
-                        <mat-autocomplete #autoDosages="matAutocomplete" [displayWith]="displayDosagesName"
-                          (optionSelected)="onDosagesSelected($event)">
-                          <mat-option *ngFor="let dosages of filteredDosages | async" [value]="dosages">
-                            {{ dosages.dosage_name }}
+                          <mat-option
+                            *ngFor="let item of filteredMedicinesArray"
+                            [value]="item.medicines_id"
+                          >
+                            {{ item?.medicines_name }}
                           </mat-option>
-                        </mat-autocomplete>
+                        </mat-select>
                       </td>
                       <td>
-                        <input type="text" class="form-control" formControlName="days" />
+                        <mat-select
+                          #singleSelect
+                          formControlName="dosages_id"
+                          class="form-control theme-input"
+                        >
+                          <mat-option>
+                            <ngx-mat-select-search
+                              [(ngModel)]="searchDosagesValue"
+                              [ngModelOptions]="{ standalone: true }"
+                              (input)="filterDosages()"
+                              placeholderLabel="Search Dosages"
+                              noEntriesFoundLabel="No result available"
+                            ></ngx-mat-select-search>
+                          </mat-option>
+                          <mat-option
+                            *ngFor="let item of filteredDosagesArray"
+                            [value]="item.dosage_id"
+                          >
+                            {{ item?.dosage_name }}
+                          </mat-option>
+                        </mat-select>
                       </td>
                       <td>
-                        <input type="text" class="form-control" formControlName="instructions_id" />
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="days"
+                        />
+                      </td>
+                      <td>
+                        <mat-select
+                          #singleSelect
+                          formControlName="instructions_id"
+                          class="form-control theme-input"
+                        >
+                          <mat-option>
+                            <ngx-mat-select-search
+                              [(ngModel)]="searchInstructionsValue"
+                              [ngModelOptions]="{ standalone: true }"
+                              (input)="filterInstructions()"
+                              placeholderLabel="Search Instructions"
+                              noEntriesFoundLabel="No result available"
+                            ></ngx-mat-select-search>
+                          </mat-option>
+                          <mat-option
+                            *ngFor="let item of filteredInstructionsArray"
+                            [value]="item.instructions_id"
+                          >
+                            {{ item?.instruction }}
+                          </mat-option>
+                        </mat-select>
                       </td>
                       <td class="d-flex pb-3 justify-content-center">
-                        <i class="material-icons" (click)="addConsultationMedicine()" type="button">add</i><i
-                          class="material-icons ms-2" (click)="deleteConsultationMedicine(i)" type="button"
+                        <i
+                          class="material-icons"
+                          (click)="addConsultationMedicine()"
+                          type="button"
+                          >add</i
+                        ><i
+                          class="material-icons ms-2"
+                          (click)="deleteConsultationMedicine(i)"
+                          type="button"
                           [class.disabled]="
                             consultationMedicineDetailsArray.length === 1
-                          " [attr.aria-disabled]="
+                          "
+                          [attr.aria-disabled]="
                             consultationMedicineDetailsArray.length === 1
                               ? 'true'
                               : 'false'
-                          ">remove</i>
+                          "
+                          >remove</i
+                        >
                       </td>
                     </tr>
                   </tbody>
@@ -416,30 +659,53 @@
                     </tr>
                   </thead>
                   <tbody formArrayName="consultationFileUploadDetails">
-                    <tr *ngFor="
+                    <tr
+                      *ngFor="
                         let item of consultationFileUploadDetailsArray.controls;
                         let i = index
-                      " [formGroupName]="i">
+                      "
+                      [formGroupName]="i"
+                    >
                       <th>{{ i + 1 }}</th>
                       <td>
                         <div class="d-flex">
-                          <input type="file" class="form-control" id="imageBase64" (change)="onImageChange($event)"
-                            accept=".jpeg, .jfif, .pjpeg, .pjp, .png, .jpg" formControlName="imageBase64" />
+                          <input
+                            type="file"
+                            class="form-control"
+                            id="imageBase64"
+                            (change)="onImageChange($event)"
+                            accept=".jpeg, .jfif, .pjpeg, .pjp, .png, .jpg"
+                            formControlName="imageBase64"
+                          />
                         </div>
                       </td>
                       <td>
-                        <input type="text" class="form-control" formControlName="notes" />
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="notes"
+                        />
                       </td>
                       <td class="d-flex pb-3 justify-content-center">
-                        <i class="material-icons" (click)="addConsultationFileUpload()" type="button">add</i><i
-                          class="material-icons ms-2" (click)="deleteConsultationFileUpload(i)" type="button"
+                        <i
+                          class="material-icons"
+                          (click)="addConsultationFileUpload()"
+                          type="button"
+                          >add</i
+                        ><i
+                          class="material-icons ms-2"
+                          (click)="deleteConsultationFileUpload(i)"
+                          type="button"
                           [class.disabled]="
                             consultationFileUploadDetailsArray.length === 1
-                          " [attr.aria-disabled]="
+                          "
+                          [attr.aria-disabled]="
                             consultationFileUploadDetailsArray.length === 1
                               ? 'true'
                               : 'false'
-                          ">remove</i>
+                          "
+                          >remove</i
+                        >
                       </td>
                     </tr>
                   </tbody>
@@ -458,17 +724,31 @@
           </div>
           <c-col md="4" class="p-2">
             <label cLabel for="appointment_date">Appointment Date </label>
-            <input cFormControl id="appointment_date" type="date" formControlName="appointment_date" />
+            <input
+              cFormControl
+              id="appointment_date"
+              type="date"
+              formControlName="appointment_date"
+            />
           </c-col>
           <c-col md="4" class="p-2">
             <label cLabel for="appointment_time">Appointment Time </label>
-            <input cFormControl id="appointment_time" type="time" formControlName="appointment_time" />
+            <input
+              cFormControl
+              id="appointment_time"
+              type="time"
+              formControlName="appointment_time"
+            />
           </c-col>
           <c-col xs="12">
             <button cButton class="me-1" color="primary" (click)="submit()">
               Submit
             </button>
-            <button cButton color="secondary" [routerLink]="['/doctor', { outlets: { doc_Menu: 'patient' } }]">
+            <button
+              cButton
+              color="secondary"
+              [routerLink]="['/doctor', { outlets: { doc_Menu: 'patient' } }]"
+            >
               Cancel
             </button>
           </c-col>

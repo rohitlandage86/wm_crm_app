@@ -270,19 +270,20 @@ export class AddUpdatePatientComponent implements OnInit {
     })
   }
 
-  //open dosages...
+  //open refered by...
   openDialog(data?: any) {
     const dialogRef = this.dialog.open(AddUpdateReferedByComponent, {
+      
       data: data,
       width: '50%',
       panelClass: 'mat-mdc-dialog-container'
     });
     dialogRef.afterClosed().subscribe((message: any) => {
-      // if (message == 'create' || message == 'update') {
-      //   this.getAllDosagesList();
-      // } else {
-      //   console.log('nothing happen');
-      // }
+      if (message == 'create' || message == 'update') {
+        this.getAllReferedByList();
+      } else {
+        console.log('nothing happen');
+      }
     });
   }
   getLeadById(id: any) {

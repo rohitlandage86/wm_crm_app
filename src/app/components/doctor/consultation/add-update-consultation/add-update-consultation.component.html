@@ -242,9 +242,7 @@
             <input cFormControl id="bp" type="number" formControlName="bp" />
           </c-col>
           <c-col md="3" class="p-2">
-            <label cLabel for="validationDefault01"
-              >Past History</label
-            >
+            <label cLabel for="validationDefault01">Past History</label>
             <input
               cFormControl
               id="past_history"
@@ -330,37 +328,37 @@
                       <td>
                         <div class="chief_complaints">
                           <mat-select
-                          #singleSelect
-                          formControlName="diagnosis_id"
-                          class="form-control theme-input"
-                        >
-                          <mat-option>
-                            <ngx-mat-select-search
-                              [(ngModel)]="searchDiagnosisValue"
-                              [ngModelOptions]="{ standalone: true }"
-                              (input)="filterDiagnosis()"
-                              placeholderLabel="Search Diagnosis"
-                              noEntriesFoundLabel="No result available"
-                            ></ngx-mat-select-search>
-                          </mat-option>
-                          <mat-option
-                            *ngFor="let item of filteredDiagnosisArray"
-                            [value]="item.diagnosis_id"
+                            #singleSelect
+                            formControlName="diagnosis_id"
+                            class="form-control theme-input"
                           >
-                            {{ item?.diagnosis_name }}
-                          </mat-option>
-                        </mat-select>
-                        <button
-                          cButton
-                          class="ms-1 mb-1"
-                          color="primary"
-                          sizing="sm"
-                          (click)="openDialogDiagnosis()"
-                        >
-                          +
-                        </button>
+                            <mat-option>
+                              <ngx-mat-select-search
+                                [(ngModel)]="searchDiagnosisValue"
+                                [ngModelOptions]="{ standalone: true }"
+                                (input)="filterDiagnosis()"
+                                placeholderLabel="Search Diagnosis"
+                                noEntriesFoundLabel="No result available"
+                              ></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option
+                              *ngFor="let item of filteredDiagnosisArray"
+                              [value]="item.diagnosis_id"
+                            >
+                              {{ item?.diagnosis_name }}
+                            </mat-option>
+                          </mat-select>
+                          <button
+                            cButton
+                            class="ms-1 mb-1"
+                            color="primary"
+                            sizing="sm"
+                            (click)="openDialogDiagnosis()"
+                          >
+                            +
+                          </button>
                         </div>
-                        
+
                         <div
                           class="text-danger"
                           *ngIf="
@@ -436,37 +434,37 @@
                       <td>
                         <div class="chief_complaints">
                           <mat-select
-                          #singleSelect
-                          formControlName="treatment_id"
-                          class="form-control theme-input"
-                        >
-                          <mat-option>
-                            <ngx-mat-select-search
-                              [(ngModel)]="searchTreatmentValue"
-                              [ngModelOptions]="{ standalone: true }"
-                              (input)="filterTreatment()"
-                              placeholderLabel="Search Treatment"
-                              noEntriesFoundLabel="No result available"
-                            ></ngx-mat-select-search>
-                          </mat-option>
-                          <mat-option
-                            *ngFor="let item of filteredTreatmentArray"
-                            [value]="item.treatment_id"
+                            #singleSelect
+                            formControlName="treatment_id"
+                            class="form-control theme-input"
                           >
-                            {{ item?.treatment_name }}
-                          </mat-option>
-                        </mat-select>
-                        <button
-                        cButton
-                        class="ms-1 mb-1"
-                        color="primary"
-                        sizing="sm"
-                        (click)="openDialogTreatment()"
-                      >
-                        +
-                      </button>
+                            <mat-option>
+                              <ngx-mat-select-search
+                                [(ngModel)]="searchTreatmentValue"
+                                [ngModelOptions]="{ standalone: true }"
+                                (input)="filterTreatment()"
+                                placeholderLabel="Search Treatment"
+                                noEntriesFoundLabel="No result available"
+                              ></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option
+                              *ngFor="let item of filteredTreatmentArray"
+                              [value]="item.treatment_id"
+                            >
+                              {{ item?.treatment_name }}
+                            </mat-option>
+                          </mat-select>
+                          <button
+                            cButton
+                            class="ms-1 mb-1"
+                            color="primary"
+                            sizing="sm"
+                            (click)="openDialogTreatment()"
+                          >
+                            +
+                          </button>
                         </div>
-                     
+
                         <div
                           class="text-danger"
                           *ngIf="
@@ -671,9 +669,7 @@
                             id="imageBase64"
                             (change)="onImageChange($event, i)"
                             accept=".jpeg, .jfif, .pjpeg, .pjp, .png, .jpg"
-                            
                           />
-                          
                         </div>
                       </td>
                       <td>
@@ -710,41 +706,272 @@
               </div>
             </mat-tab>
             <mat-tab label="History">
-              <div class="col-md-12 ">
+              <div class="col-md-12">
                 <div class="accordion" id="accordionExample">
-                  <div class="accordion-item" *ngFor="let item of allConsutlationHistoryList; let i = index">
+                  <div
+                    class="accordion-item"
+                    *ngFor="
+                      let item of allConsutlationHistoryList;
+                      let i = index
+                    "
+                  >
                     <h2 class="accordion-header">
-                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Accordion Item #1
+                      <button
+                        class="accordion-button"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne"
+                        aria-expanded="true"
+                        aria-controls="collapseOne"
+                      >
+                        <strong>Consultation Date:</strong>
+                        <label for="" class="mx-2">{{
+                          item.cts | date : "dd-MM-yyyy"
+                        }}</label>
                       </button>
                     </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                    <div
+                      id="collapseOne"
+                      class="accordion-collapse collapse show"
+                      data-bs-parent="#accordionExample"
+                    >
                       <div class="accordion-body">
-                        <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                        <div class="mb-4 d-flex justify-content-around">
+                          <div><strong>Pulse: </strong>{{ item.pluse }}</div>
+                          <div><strong>BP:</strong> {{ item.bp }}</div>
+                          <div>
+                            <strong>Past History: </strong
+                            >{{ item.past_history }}
+                          </div>
+                          <div>
+                            <strong>Chief Complaints:</strong>
+                            {{ item.chief_complaint }}
+                          </div>
+                        </div>
+
+                        <mat-tab-group class="mt-0">
+                          <mat-tab label="Diagnosis Details">
+                            <div class="col-md-12">
+                              <table class="table">
+                                <thead class="table-light">
+                                  <tr>
+                                    <th scope="col">Sr No</th>
+                                    <th scope="col">Diagnosis</th>
+                                    <th scope="col">Notes</th>
+                                  </tr>
+                                </thead>
+                                <tbody
+                                  formArrayName="consultationDiagnosisDetails"
+                                >
+                                  <ng-container
+                                    *ngFor="
+                                      let consultation of allConsutlationHistoryList
+                                    "
+                                  >
+                                    <!-- Consultation Diagnosis Details -->
+                                    <ng-container
+                                      *ngFor="
+                                        let diagnosis of consultation.consultationDiagnosisDetails
+                                      "
+                                    >
+                                      <tr>
+                                        <td>{{ i + 1 }}</td>
+                                        <td>{{ diagnosis.diagnosis_name }}</td>
+                                        <td>{{ diagnosis.notes }}</td>
+                                      </tr>
+                                    </ng-container>
+                                  </ng-container>
+                                </tbody>
+                              </table>
+                            </div>
+                          </mat-tab>
+                          <mat-tab label="Treatment Details">
+                            <div class="col-md-12">
+                              <table class="table">
+                                <thead class="table-light">
+                                  <tr>
+                                    <th scope="col">Sr No</th>
+                                    <th scope="col">Treatment</th>
+                                    <th scope="col">Notes</th>
+                                  </tr>
+                                </thead>
+                                <tbody
+                                  formArrayName="consultationTreatmentDetails"
+                                >
+                                  <ng-container
+                                    *ngFor="
+                                      let consultation of allConsutlationHistoryList
+                                    "
+                                  >
+                                    <!-- Consultation Treatment Details -->
+                                    <ng-container
+                                      *ngFor="
+                                        let treatment of consultation.consultationTreatmentDetails
+                                      "
+                                    >
+                                      <tr>
+                                        <td>{{ i + 1 }}</td>
+                                        <td>{{ treatment.treatment_name }}</td>
+                                        <td>{{ treatment.notes }}</td>
+                                      </tr>
+                                    </ng-container>
+                                  </ng-container>
+                                </tbody>
+                              </table>
+                            </div>
+                          </mat-tab>
+                          <mat-tab label="Medicine Details">
+                            <div class="col-md-12">
+                              <table class="table">
+                                <thead class="table-light">
+                                  <tr>
+                                    <th scope="col">Sr No</th>
+                                    <th scope="col">Medicines</th>
+                                    <th scope="col">Dosages</th>
+                                    <th scope="col">Days</th>
+                                    <th scope="col">Instructions</th>
+                                    
+                                  </tr>
+                                </thead>
+                                <tbody
+                                  formArrayName="consultationMedicineDetails"
+                                >
+                                  <ng-container
+                                    *ngFor="
+                                      let consultation of allConsutlationHistoryList
+                                    "
+                                  >
+                                    <!-- Consultation Medicine Details -->
+                                    <ng-container
+                                      *ngFor="
+                                        let medicine of consultation.consultationMedicineDetails
+                                      "
+                                    >
+                                      <tr>
+                                       <td>{{i+1}}</td>
+                                        <td>{{ medicine.medicines_name }}</td>
+                                        <td>{{ medicine.dosages_name}}</td>
+                                        <td>
+                                          {{
+                                            medicine.instructions_name
+                                          }}
+                                        </td>
+                                      </tr>
+                                    </ng-container>
+                                  </ng-container>
+                                </tbody>
+                              </table>
+                            </div>
+                          </mat-tab>
+                          <mat-tab label="File Upload Details">
+                            <div class="col-md-12">
+                              <table class="table">
+                                <thead class="table-light">
+                                  <tr>
+                                    <th scope="col">Sr No</th>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Notes</th>
+                                    <th scope="col" class="text-center">
+                                      Action
+                                    </th>
+                                  </tr>
+                                </thead>
+                                <tbody
+                                  formArrayName="consultationFileUploadDetails"
+                                >
+                                  <tr
+                                    *ngFor="
+                                      let item of consultationFileUploadDetailsArray.controls;
+                                      let i = index
+                                    "
+                                    [formGroupName]="i"
+                                  >
+                                    <th>{{ i + 1 }}</th>
+                                    <td>
+                                      <div class="d-flex">
+                                        <input
+                                          type="file"
+                                          class="form-control"
+                                          id="imageBase64"
+                                          (change)="onImageChange($event, i)"
+                                          accept=".jpeg, .jfif, .pjpeg, .pjp, .png, .jpg"
+                                        />
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <input
+                                        type="text"
+                                        class="form-control"
+                                        formControlName="notes"
+                                      />
+                                    </td>
+                                    <td
+                                      class="d-flex pb-3 justify-content-center"
+                                    >
+                                      <i
+                                        class="material-icons"
+                                        (click)="addConsultationFileUpload()"
+                                        type="button"
+                                        >add</i
+                                      ><i
+                                        class="material-icons ms-2"
+                                        (click)="
+                                          deleteConsultationFileUpload(i)
+                                        "
+                                        type="button"
+                                        [class.disabled]="
+                                          consultationFileUploadDetailsArray.length ===
+                                          1
+                                        "
+                                        [attr.aria-disabled]="
+                                          consultationFileUploadDetailsArray.length ===
+                                          1
+                                            ? 'true'
+                                            : 'false'
+                                        "
+                                        >remove</i
+                                      >
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </mat-tab>
+                        </mat-tab-group>
                       </div>
                     </div>
                   </div>
                   <div class="accordion-item">
                     <h2 class="accordion-header">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseTwo"
+                        aria-expanded="false"
+                        aria-controls="collapseTwo"
+                      >
                         Accordion Item #2
                       </button>
                     </h2>
-                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div
+                      id="collapseTwo"
+                      class="accordion-collapse collapse"
+                      data-bs-parent="#accordionExample"
+                    >
                       <div class="accordion-body">
-                        <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                      </div>
-                    </div>
-                  </div>
-                  <div class="accordion-item">
-                    <h2 class="accordion-header">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        Accordion Item #3
-                      </button>
-                    </h2>
-                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                      <div class="accordion-body">
-                        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                        <strong
+                          >This is the second item's accordion body.</strong
+                        >
+                        It is hidden by default, until the collapse plugin adds
+                        the appropriate classes that we use to style each
+                        element. These classes control the overall appearance,
+                        as well as the showing and hiding via CSS transitions.
+                        You can modify any of this with custom CSS or overriding
+                        our default variables. It's also worth noting that just
+                        about any HTML can go within the
+                        <code>.accordion-body</code>, though the transition does
+                        limit overflow.
                       </div>
                     </div>
                   </div>
@@ -772,8 +999,6 @@
               id="appointment_time"
               type="time"
               formControlName="appointment_time"
-              
-              
             />
           </c-col>
           <c-col xs="12">

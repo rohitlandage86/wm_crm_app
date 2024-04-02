@@ -114,9 +114,9 @@ export class AddUpdateConsultationComponent implements OnInit {
       console.log(this.mrno);
       this.isEdit = false;
     }
-    // this.form.patchValue({
-    //   mrno: this.url.snapshot.params['id'],
-    // });
+    this.form.patchValue({
+      mrno: this.url.snapshot.params['id'],
+    });
     // by defult cash pATCH dropdown
     this.form_patient.patchValue({
       payment_type: 'Cash',
@@ -351,7 +351,7 @@ export class AddUpdateConsultationComponent implements OnInit {
   newConsultationDiagnosis(): FormGroup {
     return this.fb.group({
       diagnosis_id: [null, Validators.required],
-      notes: [null, Validators.required],
+      notes: [null],
     });
   }
   addConsultationDiagnosis() {
@@ -369,7 +369,7 @@ export class AddUpdateConsultationComponent implements OnInit {
   newConsultationTreatment(): FormGroup {
     return this.fb.group({
       treatment_id: [null, Validators.required],
-      notes: [null, Validators.required],
+      notes: [null],
     });
   }
   addConsultationTreatment() {
@@ -509,6 +509,7 @@ export class AddUpdateConsultationComponent implements OnInit {
           if (res.data.length > 0) {
             this.allConsutlationHistoryList = res.data;
             console.log(res.data);
+            console.log(this.allConsutlationHistoryList);
     
           
           }
@@ -516,6 +517,7 @@ export class AddUpdateConsultationComponent implements OnInit {
       });
     }
 
+    
   //patient by id patch data
   getPatientById(id: any) {
     this._receptionistService.getPatientById(id).subscribe((result: any) => {
@@ -645,4 +647,5 @@ export class AddUpdateConsultationComponent implements OnInit {
       },
     });
   }
+  
 }

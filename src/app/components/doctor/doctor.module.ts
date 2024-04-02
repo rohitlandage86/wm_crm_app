@@ -40,7 +40,8 @@ import { DoctorAppointmentReportComponent } from './reports/doctor-appointment-r
   ],
   imports: [
     DoctorRoutingModule,
-    SharedModule
+    SharedModule,
+
   ]
 })
 export class DoctorModule { }

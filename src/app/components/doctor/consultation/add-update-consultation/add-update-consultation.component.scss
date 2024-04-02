@@ -11,17 +11,7 @@
     justify-content: space-between;
     align-items: center;
   }
-//   tr td:last-child{
-//     border: 1px solid red!important;
-//     background-color: red;
-//     width:150px;
-//     float: right;
-//   }
-//   tr th:last-child{
-//     width:150px;
-//     float: right;
-//   }
-//   tr td:nth-last-child(2){
-//     border: 1px solid red!important;
-//     width: 10%;
-//   }
+:host ::ng-deep .mdc-tab-indicator--active {
+  background: rgb(232, 232, 232) !important;
+  color: #040404!important;
+}

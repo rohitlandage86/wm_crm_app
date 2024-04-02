@@ -55,6 +55,28 @@ export class DoctorService {
  getConsultationById(id: any) {
     return this.http.get(this.baseUrl + 'api/consultation/' + id)
 }
-  
+  //get all consultation List...............................................................
+  getAllSearchConsultationList(page: any, perPage: any, key: any): Observable<any> {
+    let params: any = {
+        page: page,
+        perPage: perPage,
+        key: key  // Include the key parameter in the params object
+    };
+
+    // Check if page or perPage is empty and remove them from params if so
+    if (page === '' || perPage === '') {
+        delete params.page;
+        delete params.perPage;
+    }
+
+    // Make the HTTP GET request
+    return this.http.get(this.baseUrl + 'api/consultation', {
+        params: params
+    });
+}
+   // consultation get history ...
+ getConsultationHistory(id: any) {
+    return this.http.get(this.baseUrl + 'api/consultation/patient-consultation-by-mrno/' + id)
+}
 
 }

@@ -29,6 +29,7 @@ export class AddUpdateConsultationComponent implements OnInit {
   form_patient!: FormGroup;
   isEdit = true;
   mrno: any;
+  allConsutlationHistoryList: Array<any> = [];
   allStateList: Array<any> = [];
   allEntityList: Array<any> = [];
   allSourceOfPatientList: Array<any> = [];
@@ -66,6 +67,7 @@ export class AddUpdateConsultationComponent implements OnInit {
   searchInstructionsValue = '';
   filteredInstructionsArray: Array<any> = [];
   allInstructions: Array<any> = [];
+  formGroup: any;
 
   constructor(
     private fb: FormBuilder,
@@ -96,22 +98,25 @@ export class AddUpdateConsultationComponent implements OnInit {
     this.getAllDosagesList();
     this.getAllDiagnosisList();
     this.getAllInstructionsList();
-
+    this.formGroup = this.fb.group({
+      imageBase64: [''] // Initialize imageBase64 control
+    });
     this.form_patient.patchValue({
       registration_date: new Date().toISOString().split('T')[0],
     });
     //url id
     this.mrno = this.url.snapshot.params['id'];
     console.log(this.mrno);
-
+    
     if (this.mrno) {
       this.getPatientById(this.mrno);
+      this.getConsultationHistory(this.mrno);
       console.log(this.mrno);
       this.isEdit = false;
     }
-    this.form.patchValue({
-      mrno: this.url.snapshot.params['id'],
-    });
+    // this.form.patchValue({
+    //   mrno: this.url.snapshot.params['id'],
+    // });
     // by defult cash pATCH dropdown
     this.form_patient.patchValue({
       payment_type: 'Cash',
@@ -151,6 +156,7 @@ export class AddUpdateConsultationComponent implements OnInit {
       chief_complaints_id: ['', Validators.required], // Add this line to define chief_complaints_id
       appointment_date: [''],
       appointment_time: [''],
+      // imageBase64: [null],
       consultationDiagnosisDetails: this.fb.array([
         this.newConsultationDiagnosis(),
       ]),
@@ -327,58 +333,7 @@ export class AddUpdateConsultationComponent implements OnInit {
     }
   }
   //-------------------------------------------------------------------
-  // Utility function to convert file to base64 format
-  fileToBase64(file: File): Promise<string | ArrayBuffer | null> {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-  }
-  onImageChange(event: any) {
-    const file = event.target.files[0];
 
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        // Convert the file to Base64 string
-        const base64Image = e.target.result.split(',')[1];
-
-        // Patch the Base64 image data to the form control
-        const imageControl = this.form.get('imageBase64');
-        if (imageControl) {
-          imageControl.patchValue(base64Image);
-        }
-
-        // Preview the selected image
-        this.imagePreview.nativeElement.src = e.target.result;
-      };
-
-      // Read the file as a data URL
-      reader.readAsDataURL(file);
-    }
-  }
-
-  toggleImagePreview(index: number) {
-    this.showImagePreview[index] = !this.showImagePreview[index];
-    if (this.showImagePreview[index]) {
-      // If image preview is shown, update the image source
-      const fileInput = this.consultationFileUploadDetailsArray
-        .at(index)
-        .get('imageBase64');
-      if (fileInput) {
-        const file = fileInput.value;
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = (e: any) => {
-            this.imagePreview.nativeElement.src = e.target.result;
-          };
-          reader.readAsDataURL(file);
-        }
-      }
-    }
-  }
   // patientform all filed disable
   disableFormFields() {
     Object.keys(this.form_patient.controls).forEach((key) => {
@@ -464,6 +419,50 @@ export class AddUpdateConsultationComponent implements OnInit {
   }
   deleteConsultationFileUpload(i: any) {
     this.consultationFileUploadDetailsArray.removeAt(i);
+  }  // Utility function to convert file to base64 format
+  fileToBase64(file: File): Promise<string | ArrayBuffer | null> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  }
+  onImageChange(event: any, index: number) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const base64Image = reader.result as string;
+        this.consultationFileUploadDetailsArray.at(index).get('imageBase64')?.patchValue(base64Image.split(',')[1])
+        const fileName = file.name; // Get the file name
+        this.consultationFileUploadDetailsArray.at(index).get('image_name')?.patchValue(fileName);
+        this.showImagePreview[index] = true; // Assuming you want to toggle image preview automatically when a new image is selected
+      };
+    }
+  }
+
+
+
+  toggleImagePreview(index: number) {
+    this.showImagePreview[index] = !this.showImagePreview[index];
+    if (this.showImagePreview[index]) {
+      // If image preview is shown, update the image source
+      const fileInput = this.consultationFileUploadDetailsArray
+        .at(index)
+        .get('imageBase64');
+      if (fileInput) {
+        const file = fileInput.value;
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (e: any) => {
+            this.imagePreview.nativeElement.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+      }
+    }
   }
 
   submit() {
@@ -473,8 +472,6 @@ export class AddUpdateConsultationComponent implements OnInit {
   updateConsultation() { }
 
   addConsultation() {
-    console.log(this.form.value);
-
     if (this.form.valid) {
       this._doctorService.addConsultation(this.form.value).subscribe({
         next: (res: any) => {
@@ -501,6 +498,23 @@ export class AddUpdateConsultationComponent implements OnInit {
       this._toastrService.warning('Fill required fields');
     }
   }
+
+
+    //get all consutlation view by mrno (history)..
+    getConsultationHistory(id:any ) {
+      
+      this._doctorService.getConsultationHistory(id).subscribe({
+        next: (res: any) => {
+          console.log('res',res);
+          if (res.data.length > 0) {
+            this.allConsutlationHistoryList = res.data;
+            console.log(res.data);
+    
+          
+          }
+        }
+      });
+    }
 
   //patient by id patch data
   getPatientById(id: any) {
@@ -529,114 +543,56 @@ export class AddUpdateConsultationComponent implements OnInit {
       });
     });
   }
-  // getConsultationId(id: any) {
-  //   this._doctorService.getConsultationById(id).subscribe((result: any) => {
-  //     this.form.patchValue(result.data);
-  //     this.form.disable();
 
-  //     // Patch Diagnosis
-  //     let consultationDiagnosisDetails = result.data.consultationDiagnosisDetails;
-  //     if (consultationDiagnosisDetails && consultationDiagnosisDetails.length > 0) {
-  //       this.consultationDiagnosisDetailsArray.clear();
-  //       consultationDiagnosisDetails.forEach((element: any) => {
-  //         const diagnosisFormGroup = this.newConsultationDiagnosis();
-  //         diagnosisFormGroup.get('diagnosis_id')?.patchValue(element.diagnosis_id); // Assuming diagnosis_id is the correct field
-  //         diagnosisFormGroup.get('notes')?.patchValue(element.notes);
-  //         this.consultationDiagnosisDetailsArray.push(diagnosisFormGroup);
-  //       });
-  //     }
+  //open chief complaints by...
+  openDialog(data?: any) {
+    const dialogRef = this.dialog.open(AddUpdateChiefComplaintsComponent, {
+      data: data,
+      width: '50%',
+      panelClass: 'mat-mdc-dialog-container'
+    });
+    dialogRef.afterClosed().subscribe((message: any) => {
+      if (message == 'create' || message == 'update') {
+        this.getAllChiefComplaintsList();
+      } else {
+        console.log('nothing happen');
+      }
+    });
+  }
 
-  //     // Patch Treatment
-  //     let consultationTreatmentDetails = result.data.consultationTreatmentDetails;
-  //     if (consultationTreatmentDetails && consultationTreatmentDetails.length > 0) {
-  //       this.consultationTreatmentDetailsArray.clear();
-  //       consultationTreatmentDetails.forEach((element: any) => {
+  //open Diagnosis by...
+  openDialogDiagnosis(data?: any) {
+    const dialogRef = this.dialog.open(AddUpdateDiagnosisComponent, {
 
-  //         const treatmentFormGroup = this.newConsultationTreatment();
-  //         treatmentFormGroup.get('treatment_id')?.patchValue(element.treatment_id); // Assuming treatment_id is the correct field
-  //         treatmentFormGroup.get('notes')?.patchValue(element.notes);
-  //         this.consultationTreatmentDetailsArray.push(treatmentFormGroup);
-  //       });
-  //     }
+      data: data,
+      width: '50%',
+      panelClass: 'mat-mdc-dialog-container'
+    });
+    dialogRef.afterClosed().subscribe((message: any) => {
+      if (message == 'create' || message == 'update') {
+        this.getAllDiagnosisList();
+      } else {
+        console.log('nothing happen');
+      }
+    });
+  }
 
-  //     // Patch Medicine
-  //     let consultationMedicineDetails = result.data.consultationMedicineDetails;
-  //     if (consultationMedicineDetails && consultationMedicineDetails.length > 0) {
-  //       this.consultationMedicineDetailsArray.clear();
-  //       consultationMedicineDetails.forEach((element: any) => {
-  //         const medicineFormGroup = this.newConsultationMedicineDetails();
-  //         medicineFormGroup.get('medicines_id')?.patchValue(element.medicines_id); // Assuming medicines_id is the correct field
-  //         medicineFormGroup.get('dosages_id')?.patchValue(element.dosages_id); // Assuming dosages_id is the correct field
-  //         medicineFormGroup.get('days')?.patchValue(element.days);
-  //         medicineFormGroup.get('instructions_id')?.patchValue(element.instructions_id);
-  //         this.consultationMedicineDetailsArray.push(medicineFormGroup);
-  //       });
-  //     }
+  //open Treatment by...
+  openDialogTreatment(data?: any) {
+    const dialogRef = this.dialog.open(AddUpdateTreatmentComponent, {
 
-  //     // Patch File Upload
-  //     let consultationFileUploadDetails = result.data.consultationFileUploadDetails;
-  //     if (consultationFileUploadDetails && consultationFileUploadDetails.length > 0) {
-  //       this.consultationFileUploadDetailsArray.clear();
-  //       consultationFileUploadDetails.forEach((element: any) => {
-  //         const fileUploadFormGroup = this.newconsultationFileUploadDetails();
-  //         fileUploadFormGroup.get('imageBase64')?.patchValue(element.imageBase64);
-  //         fileUploadFormGroup.get('notes')?.patchValue(element.notes);
-  //         this.consultationFileUploadDetailsArray.push(fileUploadFormGroup);
-  //       });
-  //     }
-  //   });
-  // }
-
-    //open chief complaints by...
-    openDialog(data?: any) {
-      const dialogRef = this.dialog.open(AddUpdateChiefComplaintsComponent, {
-        
-        data: data,
-        width: '50%',
-        panelClass: 'mat-mdc-dialog-container'
-      });
-      dialogRef.afterClosed().subscribe((message: any) => {
-        if (message == 'create' || message == 'update') {
-          this.getAllChiefComplaintsList();
-        } else {
-          console.log('nothing happen');
-        }
-      });
-    }
-
-        //open Diagnosis by...
-        openDialogDiagnosis(data?: any) {
-          const dialogRef = this.dialog.open(AddUpdateDiagnosisComponent, {
-            
-            data: data,
-            width: '50%',
-            panelClass: 'mat-mdc-dialog-container'
-          });
-          dialogRef.afterClosed().subscribe((message: any) => {
-            if (message == 'create' || message == 'update') {
-              this.getAllDiagnosisList();
-            } else {
-              console.log('nothing happen');
-            }
-          });
-        }
-
-         //open Treatment by...
-         openDialogTreatment(data?: any) {
-          const dialogRef = this.dialog.open(AddUpdateTreatmentComponent, {
-            
-            data: data,
-            width: '50%',
-            panelClass: 'mat-mdc-dialog-container'
-          });
-          dialogRef.afterClosed().subscribe((message: any) => {
-            if (message == 'create' || message == 'update') {
-              this.getAllTreatmentList();
-            } else {
-              console.log('nothing happen');
-            }
-          });
-        }
+      data: data,
+      width: '50%',
+      panelClass: 'mat-mdc-dialog-container'
+    });
+    dialogRef.afterClosed().subscribe((message: any) => {
+      if (message == 'create' || message == 'update') {
+        this.getAllTreatmentList();
+      } else {
+        console.log('nothing happen');
+      }
+    });
+  }
   //get entity list...
   getAllEntityList() {
     this._adminService.getAllEntitiesListWma().subscribe({
@@ -663,7 +619,6 @@ export class AddUpdateConsultationComponent implements OnInit {
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allEmployeeList = res.data;
-          console.log(res.data);
         }
       },
     });

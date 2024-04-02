@@ -176,33 +176,6 @@ export class AddUpdateCustomersComponent implements OnInit {
       this._toastrService.warning("Fill required fields");
     }
   }
-  // prepopulateData(data: any) {
-  //   this.control['organization_name'].patchValue(data.organization_name);
-  //   this.control['customer_name'].patchValue(data.customer_name);
-  //   this.control['customer_email'].patchValue(data.customer_email);
-  //   this.control['customer_phone'].patchValue(data.customer_phone);
-  //   this.control['customer_type_id'].patchValue(data.customer_type_id);
-  //   this.control['branch'].patchValue(data.branch);
-  //   this.control['city'].patchValue(data.city);
-  //   this.control['state'].patchValue(data.state);
-  //   this.control['shortLogoName'].patchValue(data.base64image);
-  //   this.control['longLogoName'].patchValue(data.base64image);
-  //   this.control['description'].patchValue(data.description);
-  //   this.control['image_name'].patchValue(data.category_image);
-  //   this.image = this.apiUrl + data.imagePath;
-  //   if (data.deviceDetails.length > 0) {
-  //     this.customerModelDetailsArray.clear();
-  //     let customerModelDetailsArray = data.customerModelDetails
-  //     for (let index = 0; index < customerModelDetailsArray.length; index++) {
-  //       const element = customerModelDetailsArray[index];
-  //       this.customerModelDetailsArray.push(this.newCustomerModel());
-  //       this.customerModelDetailsArray.at(index).get('customer_module_id')?.patchValue(element.customer_module_id);
-  //       this.customerModelDetailsArray.at(index).get('module_id')?.patchValue(element.module_id);
-  //       this.customerModelDetailsArray.at(index).get('module_name')?.patchValue(element.module_name);
-
-  //     }
-  //   }
-  // }
   getCustomersById(id: any) {
     this._superAdminService.getCustomersById(id).subscribe({
       next: (result: any) => {

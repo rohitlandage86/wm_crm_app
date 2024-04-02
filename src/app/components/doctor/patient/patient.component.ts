@@ -38,7 +38,7 @@ export class PatientComponent implements OnInit{
       .toString()
       .padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
   }
-  //get all LeadFollowUp List...
+  //get all Patien tVisit List...
   getAllPatientVisitLists() {
     this._doctorService.getAllPatientVisitLists(this.page, this.perPage,).subscribe({
       next: (res: any) => {

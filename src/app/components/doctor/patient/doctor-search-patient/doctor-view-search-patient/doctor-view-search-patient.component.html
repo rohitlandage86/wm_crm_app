@@ -2,10 +2,10 @@
   <c-col xs="12 " class="p-0">
     <c-card class="">
       <c-card-header>
-        <strong>View Patient</strong>
+        <strong>View Consultation</strong>
       </c-card-header>
       <c-card-body>
-        <form cForm class="row g-3" [formGroup]="form_patient">
+        <form cForm class="row g-3" [formGroup]="form">
           <c-col md="2" class="p-2">
             <label for="entity_id" cLabel> Entity Name </label>
             <select
@@ -105,7 +105,7 @@
               sizing="sm"
               formControlName="state_id"
               type="text"
-              [(ngModel)]="defaultStateId"
+              
             >
               <option hidden value="null" disabled selected>State</option>
               <option [value]="item.state_id" *ngFor="let item of allStateList">
@@ -224,10 +224,10 @@
               type="number"
             />
           </c-col>
-        </form>
+        <!-- </form> -->
         <hr />
 
-        <form cForm class="row g-3" [formGroup]="form">
+        <!-- <form cForm class="row g-3" > -->
           <c-col md="3" class="p-2">
             <label cLabel for="validationDefault01">Pulse </label>
             <input
@@ -422,6 +422,7 @@
                           #singleSelect
                           formControlName="treatment_id"
                           class="form-control theme-input"
+                          [disabled]="true"
                         >
                           <mat-option>
                             <ngx-mat-select-search

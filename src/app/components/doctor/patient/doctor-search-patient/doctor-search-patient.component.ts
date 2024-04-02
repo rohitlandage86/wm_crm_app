@@ -7,6 +7,7 @@ import { AdminService } from 'src/app/components/admin/admin.service';
 import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReceptionistService } from 'src/app/components/receptionist/receptionist.service';
+import { DoctorService } from '../../doctor.service';
 
 @Component({
   selector: 'app-doctor-search-patient',
@@ -15,7 +16,7 @@ import { ReceptionistService } from 'src/app/components/receptionist/receptionis
 })
 export class DoctorSearchPatientComponent implements OnInit{
   form!: FormGroup;
-  allPatientVisitList: Array<any> = [];
+  allConsultationList: Array<any> = [];
   isEdit = false;
   mrno: any
   allStateList: Array<any> = [];
@@ -33,7 +34,7 @@ export class DoctorSearchPatientComponent implements OnInit{
    icons = freeSet;
   constructor(
     private fb: FormBuilder,
-    private _receptionistService: ReceptionistService, private _adminService: AdminService,
+    private _receptionistService: ReceptionistService, private _adminService: AdminService,private _doctorService: DoctorService,
     private _toastrService: ToastrService, private _superAdminService: SuperAdminService, private router: Router, private url: ActivatedRoute) { this.defaultStateId = 20, this.createForm() }
 
 
@@ -119,15 +120,15 @@ export class DoctorSearchPatientComponent implements OnInit{
  
 
  
-//get is Patient search data
-getSearchPatient(searchQuery: string): void {
+//get is Consultation search data
+getSearchConsultation(searchQuery: string): void {
   // Make API call with the search query
-  this._receptionistService.getAllSearchPatientRegistrationList(this.page, this.perPage, searchQuery).subscribe({
+  this._doctorService.getAllSearchConsultationList(this.page, this.perPage, searchQuery).subscribe({
     next: (res: any) => {
       console.log(res);
       
       if (res.data.length > 0) {
-        this.allPatientVisitList = res.data;
+        this.allConsultationList = res.data;
         this.total = res.pagination.total;
       }
     }

@@ -24,7 +24,6 @@ export class AddUpdateInstructionsComponent implements OnInit{
     this.createForm();
     if (this.data) {
       this.instructionsId = this.data.instructions_id
-      console.log('DATA', this.data);
       this.prepopulateData(this.data)
       this.isEdit = true
     }
@@ -41,7 +40,6 @@ export class AddUpdateInstructionsComponent implements OnInit{
 
   updateInstructions() {
     if (this.form.valid) {
-      console.log(this.form.value);
       this._adminService.editInstructions(this.form.value, this.instructionsId).subscribe({
         next: (res: any) => {
           if (res.status == 200) {
@@ -91,7 +89,6 @@ export class AddUpdateInstructionsComponent implements OnInit{
   }
   prepopulateData(data: any) {
     this.control['instruction'].patchValue(data.instruction);
-    
   }
   closeDialog(message?: any) {
     this.dialogRef.close(message);

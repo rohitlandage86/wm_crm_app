@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { freeSet } from '@coreui/icons';
 import { PageEvent } from '@angular/material/paginator';
 import { ToastrService } from 'ngx-toastr';
-import {  FormBuilder, FormControl, FormGroup,Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AdminService } from 'src/app/components/admin/admin.service';
 import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,7 +14,7 @@ import { DoctorService } from '../../doctor.service';
   templateUrl: './doctor-search-patient.component.html',
   styleUrl: './doctor-search-patient.component.scss'
 })
-export class DoctorSearchPatientComponent implements OnInit{
+export class DoctorSearchPatientComponent implements OnInit {
   form!: FormGroup;
   allConsultationList: Array<any> = [];
   isEdit = false;
@@ -31,31 +31,26 @@ export class DoctorSearchPatientComponent implements OnInit{
   page = 1;
   perPage = 10;
   total = 0;
-   icons = freeSet;
+  icons = freeSet;
   constructor(
     private fb: FormBuilder,
-    private _receptionistService: ReceptionistService, private _adminService: AdminService,private _doctorService: DoctorService,
+    private _receptionistService: ReceptionistService, private _adminService: AdminService, private _doctorService: DoctorService,
     private _toastrService: ToastrService, private _superAdminService: SuperAdminService, private router: Router, private url: ActivatedRoute) { this.defaultStateId = 20, this.createForm() }
 
-
   ngOnInit() {
-
     this.createForm();
     this.getAllStateList();
     this.getAllEntityList();
     this.getAllSourceOfPatientList();
     this.getAllEmployeeList();
     this.getAllReferedByList();
-
     this.form.patchValue({
       registration_date: new Date().toISOString().split('T')[0],
     });
     this.mrno = this.url.snapshot.params['id']
-
     if (this.mrno) {
       this.getPatientById(this.mrno)
       this.isEdit = true;
-
     }
     // Listen for changes in the entity_id field
     this.form.get('entity_id')?.valueChanges.subscribe(entityId => {
@@ -68,7 +63,6 @@ export class DoctorSearchPatientComponent implements OnInit{
         });
       }
     });
-
   }
 
   createForm() {
@@ -92,7 +86,6 @@ export class DoctorSearchPatientComponent implements OnInit{
       refered_by_id: [null,],
       payment_type: ['Cash', Validators.required],
     });
-
   }
 
   get control() {
@@ -104,58 +97,45 @@ export class DoctorSearchPatientComponent implements OnInit{
     if (entityId) {
       this._adminService.getGenerateMrnoEntitySeries(entityId).subscribe({
         next: (res: any) => {
-          console.log(res);
           this.mrnoEntitySeries = res.mrnoEntitySeries;
           this.control['mrno_entity_series'].patchValue(res.mrnoEntitySeries)
-
         },
         error: (err: any) => {
           console.error("Error fetching MR No Entity Series:", err);
-          // Handle the error here
         }
       });
     }
   }
 
- 
-
- 
-//get is Consultation search data
-getSearchConsultation(searchQuery: string): void {
-  // Make API call with the search query
-  this._doctorService.getAllSearchConsultationList(this.page, this.perPage, searchQuery).subscribe({
-    next: (res: any) => {
-      console.log(res);
-      
-      if (res.data.length > 0) {
-        this.allConsultationList = res.data;
-        this.total = res.pagination.total;
+  //get is Consultation search data
+  getSearchConsultation(searchQuery: string): void {
+    // Make API call with the search query
+    this._doctorService.getAllSearchConsultationList(this.page, this.perPage, searchQuery).subscribe({
+      next: (res: any) => {
+        if (res.data.length > 0) {
+          this.allConsultationList = res.data;
+          this.total = res.pagination.total;
+        }
       }
-    }
-  });
-}
+    });
+  }
   // Other properties and methods
   isValidName(inputValue: string): boolean {
-
     const namePattern = /^[A-Za-z\s]+$/;
     return namePattern.test(inputValue);
   }
   validateMobileNo(inputValue: string): boolean {
-
     const mobileNumberPattern = /^\d{10}$/;
     return mobileNumberPattern.test(inputValue);
   }
-
   isValidInput(inputValue: string): boolean {
     return this.validateMobileNo(inputValue) || this.isValidName(inputValue);
   }
-  
 
-  submit() {  this.updatePatient() }
+  submit() { this.updatePatient() }
 
   updatePatient() {
     if (this.form.valid) {
-      console.log(this.form.value);
       this._receptionistService.editPatient(this.form.value, this.mrno).subscribe({
         next: (res: any) => {
           if (res.status == 200) {
@@ -181,10 +161,8 @@ getSearchConsultation(searchQuery: string): void {
     }
   }
 
-
   getPatientById(id: any) {
     this._receptionistService.getPatientById(id).subscribe((result: any) => {
-      console.log(result);
       const patientData = result.data;
       this.form.patchValue({
         registration_date: new Date(patientData.registration_date).toISOString().split('T')[0],
@@ -212,7 +190,6 @@ getSearchConsultation(searchQuery: string): void {
 
   getLeadById(id: any) {
     this._receptionistService.getLeadById(id).subscribe((result: any) => {
-      console.log(result);
       this.form.patchValue(result.data)
       const leadDate = new Date(result.data.lead_date);
       this.form.get('lead_date')?.patchValue(
@@ -225,7 +202,6 @@ getSearchConsultation(searchQuery: string): void {
   getAllEntityList() {
     this._adminService.getAllEntitiesListWma().subscribe({
       next: (res: any) => {
-        console.log(res);
         if (res.data.length > 0) {
           this.allEntityList = res.data;
         }
@@ -237,7 +213,6 @@ getSearchConsultation(searchQuery: string): void {
   getAllSourceOfPatientList() {
     this._adminService.getAllSourceOfPatientListWma().subscribe({
       next: (res: any) => {
-        console.log(res);
         if (res.data.length > 0) {
           this.allSourceOfPatientList = res.data;
         }
@@ -249,11 +224,8 @@ getSearchConsultation(searchQuery: string): void {
   getAllEmployeeList() {
     this._adminService.getAllEmployeeListWma().subscribe({
       next: (res: any) => {
-        console.log(res);
         if (res.data.length > 0) {
           this.allEmployeeList = res.data;
-          console.log(res.data);
-
         }
       }
     });
@@ -263,7 +235,6 @@ getSearchConsultation(searchQuery: string): void {
   getAllReferedByList() {
     this._adminService.getAllReferedByListWma().subscribe({
       next: (res: any) => {
-        console.log(res);
         if (res.data.length > 0) {
           this.allReferedByList = res.data;
         }
@@ -284,6 +255,5 @@ getSearchConsultation(searchQuery: string): void {
   onPageChange(event: PageEvent): void {
     this.page = event.pageIndex + 1;
     this.perPage = event.pageSize;
-    // this.getAllLeadsList();
   }
 }

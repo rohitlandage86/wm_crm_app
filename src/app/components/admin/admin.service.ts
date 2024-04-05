@@ -475,6 +475,10 @@ export class AdminService {
     editDesignation(data: any, id: any) {
         return this.http.put(this.baseUrl + 'api/designation/' + id, data);
     }
+     // designation get by id ...
+     getDesignationById(id: any) {
+        return this.http.get(this.baseUrl + 'api/designation/' + id)
+    }
     // designation status change...
     onDesignationStatusChange(status: any, id: any): Observable<any> {
         const body = { status: status };
@@ -507,6 +511,10 @@ export class AdminService {
     //Edit employee...
     editEmployee(data: any, id: any) {
         return this.http.put(this.baseUrl + 'api/employee/' + id, data);
+    }
+     // employee get by id ...
+     getEmployeeById(id: any) {
+        return this.http.get(this.baseUrl + 'api/employee/' + id)
     }
     // employee status change...
     onEmployeeStatusChange(status: any, id: any): Observable<any> {

@@ -24,7 +24,6 @@ export class AddUpdateTitleComponent implements OnInit{
     this.createForm();
     if (this.data) {
       this.titleId = this.data.title_id
-      console.log('DATA', this.data);
       this.prepopulateData(this.data)
       this.isEdit = true
     }
@@ -42,7 +41,6 @@ export class AddUpdateTitleComponent implements OnInit{
 
   updateTitle() {
     if (this.form.valid) {
-      console.log(this.form.value);
       this._adminService.editTitle(this.form.value, this.titleId).subscribe({
         next: (res: any) => {
           if (res.status == 200) {

@@ -24,7 +24,6 @@ export class AddUpdateDosagesComponent implements OnInit{
     this.createForm();
     if (this.data) {
       this.dosagesId = this.data.dosage_id
-      console.log('DATA', this.data);
       this.prepopulateData(this.data)
       this.isEdit = true
     }
@@ -41,7 +40,6 @@ export class AddUpdateDosagesComponent implements OnInit{
 
   updateDosages() {
     if (this.form.valid) {
-      console.log(this.form.value);
       this._adminService.editDosages(this.form.value, this.dosagesId).subscribe({
         next: (res: any) => {
           if (res.status == 200) {

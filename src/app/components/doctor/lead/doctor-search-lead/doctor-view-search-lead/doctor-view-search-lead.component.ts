@@ -20,7 +20,7 @@ export class DoctorViewSearchLeadComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private _receptionistService: ReceptionistService, private _adminService: AdminService,
-     private _superAdminService: SuperAdminService, private url: ActivatedRoute) { }
+    private _superAdminService: SuperAdminService, private url: ActivatedRoute) { }
 
 
   ngOnInit() {
@@ -32,13 +32,10 @@ export class DoctorViewSearchLeadComponent implements OnInit {
       lead_date: new Date().toISOString().split('T')[0],
     });
     this.lead_hid = this.url.snapshot.params['id']
-
     if (this.lead_hid) {
       this.getLeadById(this.lead_hid)
-      // this.prepopulateData(this.lead_hid)
       this.leadStatusDetailAdded = true;
       this.isEdit = true;
-
     }
   }
   getCurrentDate(): string {
@@ -46,7 +43,6 @@ export class DoctorViewSearchLeadComponent implements OnInit {
     const year = today.getFullYear();
     const month = ('0' + (today.getMonth() + 1)).slice(-2); // Month is zero-based
     const day = ('0' + today.getDate()).slice(-2);
-
     return `${year}-${month}-${day}`;
   }
   createForm() {
@@ -87,8 +83,6 @@ export class DoctorViewSearchLeadComponent implements OnInit {
   deleteLeadFooter(i: any) {
     this.leadstatusDetailsArray.removeAt(i)
   }
-
-
   // patientform all filed disable
   disableFormFields() {
     Object.keys(this.form.controls).forEach(key => {
@@ -134,7 +128,6 @@ export class DoctorViewSearchLeadComponent implements OnInit {
 
     })
   }
-
 
   //get category list...
   getAllCategoryList() {

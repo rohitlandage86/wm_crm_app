@@ -24,7 +24,6 @@ export class AddUpdateServiceTypeComponent implements OnInit {
     this.createForm();
     if (this.data) {
       this.servicetypeId = this.data.service_type_id
-      console.log('DATA', this.data);
       this.prepopulateData(this.data)
       this.isEdit = true
     }
@@ -42,7 +41,6 @@ export class AddUpdateServiceTypeComponent implements OnInit {
 
   updateServiceType() {
     if (this.form.valid) {
-      console.log(this.form.value);
       this._adminService.editServiceType(this.form.value, this.servicetypeId).subscribe({
         next: (res: any) => {
           if (res.status == 200) {

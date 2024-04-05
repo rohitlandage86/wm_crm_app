@@ -28,10 +28,7 @@ color: string|undefined;
       this._adminService.getAllDiagnosisList(this.page, this.perPage).subscribe({
         next: (res: any) => {
           if (res.data.length>0) {
-         
             this.allDiagnosisList = res.data;
-            
-            
             this.total= res.pagination.total;
           }
         }
@@ -68,14 +65,12 @@ color: string|undefined;
       this._adminService.onDiagnosisStatusChange(status,id).subscribe({     
         next: (res: any) => {
           this._toastrService.success(res.message);
-        console.log(res);
         this.getAllDiagnosisList();
       },
       error: (error: any) => {
         console.log(error.error.message)
         if (error.status == 422) {
           this._toastrService.warning(error.message);
-          console.log(error.status);
           this.getAllDiagnosisList();
         }
       },})

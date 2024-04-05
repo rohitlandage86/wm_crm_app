@@ -25,6 +25,7 @@ import { AddUpdateTreatmentComponent } from 'src/app/components/admin/masters/tr
   styleUrl: './add-update-consultation.component.scss',
 })
 export class AddUpdateConsultationComponent implements OnInit {
+  baseUrl =environment.baseUrl
   isAccordionOpen: number | null = null;
   form!: FormGroup;
   form_patient!: FormGroup;
@@ -108,12 +109,10 @@ export class AddUpdateConsultationComponent implements OnInit {
     });
     //url id
     this.mrno = this.url.snapshot.params['id'];
-    console.log(this.mrno);
     
     if (this.mrno) {
       this.getPatientById(this.mrno);
       this.getConsultationHistory(this.mrno);
-      console.log(this.mrno);
       this.isEdit = false;
     }
     this.form.patchValue({
@@ -345,7 +344,6 @@ export class AddUpdateConsultationComponent implements OnInit {
       }
     });
   }
-
   //Diagnosis array controls
   get consultationDiagnosisDetailsArray() {
     return this.form.get('consultationDiagnosisDetails') as FormArray<any>;
@@ -444,9 +442,6 @@ export class AddUpdateConsultationComponent implements OnInit {
       };
     }
   }
-
-
-
   toggleImagePreview(index: number) {
     this.showImagePreview[index] = !this.showImagePreview[index];
     if (this.showImagePreview[index]) {
@@ -500,26 +495,18 @@ export class AddUpdateConsultationComponent implements OnInit {
       this._toastrService.warning('Fill required fields');
     }
   }
-
-
     //get all consutlation view by mrno (history)..
     getConsultationHistory(id:any ) {
       
       this._doctorService.getConsultationHistory(id).subscribe({
         next: (res: any) => {
-          console.log('res',res);
           if (res.data.length > 0) {
             this.allConsutlationHistoryList = res.data;
-            console.log(res.data);
-            console.log(this.allConsutlationHistoryList);
-    
-          
           }
         }
       });
     }
 
-    
   //patient by id patch data
   getPatientById(id: any) {
     this._receptionistService.getPatientById(id).subscribe((result: any) => {
@@ -567,7 +554,6 @@ export class AddUpdateConsultationComponent implements OnInit {
   //open Diagnosis by...
   openDialogDiagnosis(data?: any) {
     const dialogRef = this.dialog.open(AddUpdateDiagnosisComponent, {
-
       data: data,
       width: '50%',
       panelClass: 'mat-mdc-dialog-container'
@@ -584,7 +570,6 @@ export class AddUpdateConsultationComponent implements OnInit {
   //open Treatment by...
   openDialogTreatment(data?: any) {
     const dialogRef = this.dialog.open(AddUpdateTreatmentComponent, {
-
       data: data,
       width: '50%',
       panelClass: 'mat-mdc-dialog-container'

@@ -20,8 +20,6 @@ export class AddUpdateEntityComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _adminService:AdminService,
     private _toastrService:ToastrService){}
-
-
   ngOnInit(){
     this.createForm();
     if (this.data) {
@@ -45,7 +43,6 @@ export class AddUpdateEntityComponent implements OnInit {
 
   updateEntity(){
     if (this.form.valid) {
-      console.log(this.form.value);
       this._adminService.editEntity(this.form.value,this.entityId).subscribe({
         next:(res:any)=>{
           if (res.status==200) {

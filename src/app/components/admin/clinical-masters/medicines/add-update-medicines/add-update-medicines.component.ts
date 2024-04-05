@@ -42,7 +42,6 @@ export class AddUpdateMedicinesComponent implements OnInit{
 
   updateMedicines() {
     if (this.form.valid) {
-      console.log(this.form.value);
       this._adminService.editMedicines(this.form.value, this.medicinesId).subscribe({
         next: (res: any) => {
           if (res.status == 200) {

@@ -24,7 +24,6 @@ export class AddUpdateCategoryComponent implements OnInit{
     this.createForm();
     if (this.data) {
       this.categoryId = this.data.category_id
-      console.log('DATA', this.data);
       this.prepopulateData(this.data)
       this.isEdit = true
     }
@@ -42,7 +41,6 @@ export class AddUpdateCategoryComponent implements OnInit{
 
   updateCategory() {
     if (this.form.valid) {
-      console.log(this.form.value);
       this._adminService.editCategory(this.form.value, this.categoryId).subscribe({
         next: (res: any) => {
           if (res.status == 200) {

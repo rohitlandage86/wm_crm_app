@@ -20,8 +20,6 @@ export class AddUpdateModulesComponent  implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _superAdminService:SuperAdminService,
     private _toastrService:ToastrService){}
-
-
   ngOnInit(){
     this.createForm();
     if (this.data) {

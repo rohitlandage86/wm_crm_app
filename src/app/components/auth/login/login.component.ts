@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit {
   login() {
     this.isSubmitted = true;// Set isSubmitted to true when the login process starts.
     let data = this.form.value;
-    console.log(data);
     localStorage.clear();
     // localStorage.setItem('isLogin', 'true');
     // this._sharedService.setIsLogin(true);
@@ -44,7 +43,6 @@ export class LoginComponent implements OnInit {
     if (this.form.valid) {
       this._authSerivce.superadminLogin(data).subscribe({
         next: (res: any) => {
-          console.log(res);
           this._toastrService.clear();
           localStorage.setItem('accessToken', res.token);
           localStorage.setItem("customer_id", (res.data.customer_id));
@@ -112,7 +110,6 @@ export class LoginComponent implements OnInit {
   }
   submit() {
     let category = this.control['category'].value;
-    console.log(category);
     if (category == 1) {
       this.submitSuperAdmin();
     } else if (category == 2) {

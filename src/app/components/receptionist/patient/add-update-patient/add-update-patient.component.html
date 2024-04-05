@@ -522,7 +522,7 @@
               <ng-container *ngFor="let item of allEmployeeList">
                 <option
                   [value]="item.employee_id"
-                  *ngIf="item.designation_name.toLowerCase() === 'doctor'"
+                  *ngIf="item.designation_name.trim().toLowerCase() === 'doctor'"
                 >
                   {{ item.name }}
                 </option>

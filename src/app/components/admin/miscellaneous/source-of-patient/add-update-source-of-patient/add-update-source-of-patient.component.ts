@@ -24,7 +24,6 @@ export class AddUpdateSourceOfPatientComponent implements OnInit{
     this.createForm();
     if (this.data) {
       this.sourceofpatientId = this.data.source_of_patient_id
-      console.log('DATA', this.data);
       this.prepopulateData(this.data)
       this.isEdit = true
     }
@@ -42,7 +41,6 @@ export class AddUpdateSourceOfPatientComponent implements OnInit{
 
   updateSourceOfPatient() {
     if (this.form.valid) {
-      console.log(this.form.value);
       this._adminService.editSourceOfPatient(this.form.value, this.sourceofpatientId).subscribe({
         next: (res: any) => {
           if (res.status == 200) {

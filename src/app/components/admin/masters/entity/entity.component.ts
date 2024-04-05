@@ -28,8 +28,6 @@ export class EntityComponent implements OnInit {
     this._adminService.getAllEntitiesList(this.page, this.perPage).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
-          console.log(res.data);
-
           this.allEntitieslist = res.data;
           this.total = res.pagination.total;
         }
@@ -55,8 +53,6 @@ export class EntityComponent implements OnInit {
       } else {
         console.log('nothing happen');
       }
-      console.log(message);
-
     });
   }
   //slide-toggle change 
@@ -69,19 +65,14 @@ export class EntityComponent implements OnInit {
     this._adminService.onEntityStatusChange(status, id).subscribe({
       next: (res: any) => {
         this._toastrService.success(res.message);
-        console.log(res);
         this.getAllEntitiesList();
       },
       error: (error: any) => {
-        console.log(error.error.message)
         if (error.status == 422) {
           this._toastrService.warning(error.message);
-          console.log(error.status);
           this.getAllEntitiesList();
         }
       },
     })
-
-
   }
 }

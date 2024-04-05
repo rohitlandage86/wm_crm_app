@@ -19,7 +19,6 @@ export class EmployeeComponent implements OnInit{
   total = 0
 color: string|undefined;
   constructor(private dialog: MatDialog, private _adminService: AdminService,private _toastrService: ToastrService) { }
-
   ngOnInit() {
     this.getAllEmployeeList();
   }
@@ -28,10 +27,7 @@ color: string|undefined;
     this._adminService.getAllEmployeeList(this.page, this.perPage).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
-
           this.allEmployeeList = res.data;
-
-
           this.total = res.pagination.total;
         }
       }
@@ -42,7 +38,6 @@ color: string|undefined;
     this.perPage = event.pageSize;
     this.getAllEmployeeList();
   }
-
   //open employee...
   openDialog(data?: any) {
     const dialogRef = this.dialog.open(AddUpdateEmployeeComponent, {
@@ -68,19 +63,15 @@ color: string|undefined;
     this._adminService.onEmployeeStatusChange(status, id).subscribe({
       next: (res: any) => {
         this._toastrService.success(res.message);
-        console.log(res);
         this.getAllEmployeeList();
       },
       error: (error: any) => {
         console.log(error.error.message)
         if (error.status == 422) {
           this._toastrService.warning(error.message);
-          console.log(error.status);
           this.getAllEmployeeList();
         }
       },
     })
-
-
   }
 }

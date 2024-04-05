@@ -28,10 +28,7 @@ color: string|undefined;
       this._adminService.getAllCategoryList(this.page, this.perPage).subscribe({
         next: (res: any) => {
           if (res.data.length>0) {
-         
             this.allCategoryList = res.data;
-            
-            
             this.total= res.pagination.total;
           }
         }
@@ -80,8 +77,5 @@ color: string|undefined;
           this.getAllCategoryList();
         }
       },})
-  
-  
     }
-    
 }

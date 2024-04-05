@@ -12,13 +12,13 @@ import { environment } from 'src/environments/environment';
   styleUrl: './add-update-customers.component.scss'
 })
 export class AddUpdateCustomersComponent implements OnInit {
-  baseUrl= environment.baseUrl;
-[x: string]: any;
+  baseUrl = environment.baseUrl;
+  [x: string]: any;
   form!: FormGroup;
-  isEdit: boolean=false;
+  isEdit: boolean = false;
   image: any;
   shortlogoName: any;
-  longLogoName:any;
+  longLogoName: any;
   apiUrl = environment.baseUrl;
   customer_id: any;
   password: string = '';
@@ -29,7 +29,7 @@ export class AddUpdateCustomersComponent implements OnInit {
   allCustomerTypeList: Array<any> = [];
   allModuleList: Array<any> = [];
 
-  constructor(private fb: FormBuilder, private _superAdminService: SuperAdminService,private _toastrService: ToastrService, private router: Router, private url: ActivatedRoute) { }
+  constructor(private fb: FormBuilder, private _superAdminService: SuperAdminService, private _toastrService: ToastrService, private router: Router, private url: ActivatedRoute) { }
 
   ngOnInit() {
     this.createForm();
@@ -37,14 +37,12 @@ export class AddUpdateCustomersComponent implements OnInit {
     this.getAllModuleList();
     this.getAllStateList();
     this.customer_id = this.url.snapshot.params['id']
-  
     if (this.customer_id) {
       // this.prepopulateData(this.customer_id)
       this.getCustomersById(this.customer_id)
-      this.isEdit =true;
+      this.isEdit = true;
       this.disablePasswordValidation();
     }
-
   }
   createForm() {
     const passwordValidators = this.isEdit ? [] : [Validators.required];
@@ -61,7 +59,7 @@ export class AddUpdateCustomersComponent implements OnInit {
       longLogoBase64: [null],
       shortLogoName: [null],
       longLogoName: [null],
-      password:[this.isEdit ? [''] : null, passwordValidators],
+      password: [this.isEdit ? [''] : null, passwordValidators],
       customerModelDetails: this.fb.array([this.newCustomerModel()])
     });
   }
@@ -70,7 +68,6 @@ export class AddUpdateCustomersComponent implements OnInit {
   }
   get customerModelDetailsArray() {
     return this.form.get('customerModelDetails') as FormArray<any>;
-
   }
 
   newCustomerModel(): FormGroup {
@@ -78,7 +75,6 @@ export class AddUpdateCustomersComponent implements OnInit {
       customer_module_id: [null],
       module_id: [null, Validators.required],
       module_name: [null],
-
     })
   }
   addCustomerModel() {
@@ -99,13 +95,11 @@ export class AddUpdateCustomersComponent implements OnInit {
         this.control['longLogoBase64'].patchValue(base64Image); // Patch the base64 image to the form control
         this.imagePreview.nativeElement.src = longimage; // Preview the selected image
       };
-
       reader.readAsDataURL(file);
     }
   }
   onshortImageChange(event: any) {
     const file = event.target.files[0];
-
     if (file) {
       const reader = new FileReader();
       this.control['shortLogoName'].patchValue(file.name);
@@ -115,7 +109,6 @@ export class AddUpdateCustomersComponent implements OnInit {
         this.control['shortLogoBase64'].patchValue(base64Image); // Patch the base64 image to the form control
         this.shortimagePreview.nativeElement.src = shortimage; // Preview the selected image
       };
-
       reader.readAsDataURL(file);
     }
   }
@@ -154,23 +147,23 @@ export class AddUpdateCustomersComponent implements OnInit {
     let data = this.form.value;
     if (this.form.valid) {
       this._superAdminService.addCustomers(data).subscribe({
-        next:(res:any)=>{
-          if(res.status==201||res.status==200){
+        next: (res: any) => {
+          if (res.status == 201 || res.status == 200) {
             this._toastrService.success(res.message);
             this.router.navigate(['/super-admin', { outlets: { super_Menu: 'customers' } }])
-          }else{
+          } else {
             this._toastrService.warning(res.message);
           }
         },
-        error:(err:any)=>{
-          if(err.error.status== 422){
+        error: (err: any) => {
+          if (err.error.status == 422) {
             this._toastrService.warning(err.error.message);
-          }else{
+          } else {
             this._toastrService.error("Internal Server Error");
           }
         }
       })
-    } 
+    }
     else {
       this.form.markAllAsTouched();
       this._toastrService.warning("Fill required fields");
@@ -179,39 +172,34 @@ export class AddUpdateCustomersComponent implements OnInit {
   getCustomersById(id: any) {
     this._superAdminService.getCustomersById(id).subscribe({
       next: (result: any) => {
-        console.log(result);
         if (result && result.data && Array.isArray(result.data.customerModulesDetails)) {
           this.form.patchValue(result.data);
-          this.shortlogoName =result.data.short_logo
-          this.longLogoName =result.data.logo
-          
+          this.shortlogoName = result.data.short_logo
+          this.longLogoName = result.data.logo
+
           // Patch long logo
           if (result.data.longLogoBase64) {
             const reader1 = new FileReader();
             reader1.onload = (e: any) => {
-              console.log('Long logo file loaded:', e.target.result);
               this.control['longLogoName'].patchValue(result.data.longLogoName);
               this.control['longLogoBase64'].patchValue(result.data.longLogoBase64);
               this.imagePreview.nativeElement.src = 'data:image/png;base64,' + result.data.longLogoBase64;
             };
             reader1.readAsDataURL(result.data.longLogoBase64);
           }
-        
+
           // Patch short logo
           if (result.data.shortLogoBase64) {
             const reader2 = new FileReader();
             reader2.onload = (e: any) => {
-              console.log('Short logo file loaded:', e.target.result);
               this.control['shortLogoName'].patchValue(result.data.shortLogoName);
               this.control['shortLogoBase64'].patchValue(result.data.shortLogoBase64);
               this.shortimagePreview.nativeElement.src = 'data:image/png;base64,' + result.data.shortLogoBase64;
             };
             reader2.readAsDataURL(result.data.shortLogoBase64);
           }
-        
+
           let customerModulesDetails = result.data.customerModulesDetails;
-          console.log('Customer Model Details:', customerModulesDetails);
-        
           if (customerModulesDetails.length > 0) {
             this.customerModelDetailsArray.clear();
             for (let index = 0; index < customerModulesDetails.length; index++) {
@@ -222,60 +210,14 @@ export class AddUpdateCustomersComponent implements OnInit {
           }
         } else {
           console.error('Customer Model Details not found or not in the correct format in the response');
-          // Handle error condition here, e.g., show an error message to the user
         }
       },
       error: (error: any) => {
         console.error('Error fetching customer details:', error);
-        // Handle error condition here, e.g., show an error message to the user
       }
     });
   }
-  
-  
-  
-  // getCustomersById(id:any){
-  //   this._superAdminService.getCustomersById(id).subscribe((result: any) => {
-  //     console.log(result);
-  //     this.form.patchValue(result.data)
-      
-  //     // Patch long logo
-  //     // if (result.data.longLogoBase64) {
-  //     //   const reader1 = new FileReader();
-  //     //   reader1.onload = (e: any) => {
-  //     //     console.log('Long logo file loaded:', e.target.result);
-  //     //     this.control['longLogoName'].patchValue(result.data.longLogoName);
-  //     //     this.control['longLogoBase64'].patchValue(result.data.longLogoBase64);
-  //     //     this.imagePreview.nativeElement.src = 'data:image/png;base64,' + result.data.longLogoBase64;
-  //     //   };
-  //     //   reader1.readAsDataURL(result.data.longLogoBase64);
-  //     // }
-  
-  //     // Patch short logo
-  //     // if (result.data.shortLogoBase64) {
-  //     //   const reader2 = new FileReader();
-  //     //   reader2.onload = (e: any) => {
-  //     //     console.log('Short logo file loaded:', e.target.result);
-  //     //     this.control['shortLogoName'].patchValue(result.data.shortLogoName);
-  //     //     this.control['shortLogoBase64'].patchValue(result.data.shortLogoBase64);
-  //     //     this.shortimagePreview.nativeElement.src = 'data:image/png;base64,' + result.data.shortLogoBase64;
-  //     //   };
-  //     //   reader2.readAsDataURL(result.data.shortLogoBase64);
-  //     // }
-  //   let customerModelDetails = result.data.customerModelDetails;
-  //   console.log('Customer Model Details:', customerModelDetails);
 
-  //   if (customerModelDetails.length > 0) {
-  //     this.customerModelDetailsArray.clear();
-  //     for (let index = 0; index < customerModelDetails.length; index++) {
-  //       const element = customerModelDetails[index];
-  //       this.customerModelDetailsArray.push(this.newCustomerModel());
-  //       this.customerModelDetailsArray.at(index).get('module_id')?.patchValue(element.module_id);
-  //     }
-  //   }
-    
-  // });
-  // }
   //get Customer type list...
   getAllCustomerTypeList() {
     this._superAdminService.getAllCustomerTypeListWma().subscribe({
@@ -285,8 +227,7 @@ export class AddUpdateCustomersComponent implements OnInit {
         }
       }
     });
-
-  }  
+  }
   //get  Modul list...
   getAllModuleList() {
     this._superAdminService.getAllModuleListWma().subscribe({
@@ -296,7 +237,6 @@ export class AddUpdateCustomersComponent implements OnInit {
         }
       }
     });
-
   }
   getAllStateList() {
     this._superAdminService.allstateList().subscribe((res: any) => {
@@ -307,6 +247,4 @@ export class AddUpdateCustomersComponent implements OnInit {
     this.form.get('password')?.clearValidators();
     this.form.get('password')?.updateValueAndValidity();
   }
-
-
 }

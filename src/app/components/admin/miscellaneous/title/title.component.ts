@@ -28,7 +28,6 @@ export class TitleComponent implements OnInit{
     this._adminService.getAllTitleList(this.page, this.perPage).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
-          console.log(res.data);
           this.allTitleList = res.data;
           this.total = res.pagination.total;
         }
@@ -52,13 +51,11 @@ export class TitleComponent implements OnInit{
       if (message == 'create' || message == 'update') {
         this.getAllTitleList();
       } else {
-        console.log('nothing happen');
       }
     });
   }
   //slide-toggle change 
   changeEvent(event: any, id: any) {
-    console.log(event.checked, id);
     let status = 0;
     if (event.checked) {
       status = 1;
@@ -66,19 +63,14 @@ export class TitleComponent implements OnInit{
     this._adminService.onTitleStatusChange(status, id).subscribe({
       next: (res: any) => {
         this._toastrService.success(res.message);
-        console.log(res);
         this.getAllTitleList();
       },
       error: (error: any) => {
-        console.log(error.error.message)
         if (error.status == 422) {
           this._toastrService.warning(error.message);
-          console.log(error.status);
           this.getAllTitleList();
         }
       },
     })
-
-
   }
 }

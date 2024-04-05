@@ -42,7 +42,6 @@ export class AddUpdateDiagnosisComponent implements OnInit{
 
   updateDiagnosis() {
     if (this.form.valid) {
-      console.log(this.form.value);
       this._adminService.editDiagnosis(this.form.value, this.diagnosisId).subscribe({
         next: (res: any) => {
           if (res.status == 200) {

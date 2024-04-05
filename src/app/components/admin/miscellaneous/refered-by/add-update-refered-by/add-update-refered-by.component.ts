@@ -24,7 +24,6 @@ export class AddUpdateReferedByComponent implements OnInit {
     this.createForm();
     if (this.data) {
       this.referedbyId = this.data.refered_by_id
-      console.log('DATA', this.data);
       this.prepopulateData(this.data)
       this.isEdit = true
     }
@@ -41,7 +40,6 @@ export class AddUpdateReferedByComponent implements OnInit {
 
   updateReferedBy() {
     if (this.form.valid) {
-      console.log(this.form.value);
       this._adminService.editReferedBy(this.form.value, this.referedbyId).subscribe({
         next: (res: any) => {
           if (res.status == 200) {

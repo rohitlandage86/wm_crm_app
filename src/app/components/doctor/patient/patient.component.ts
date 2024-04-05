@@ -2,7 +2,6 @@ import { DoctorService } from './../doctor.service';
 import { Component, OnInit } from '@angular/core';
 import { freeSet } from '@coreui/icons';
 import { PageEvent } from '@angular/material/paginator';
-import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -22,13 +21,12 @@ export class PatientComponent implements OnInit{
   lead_date: string;
   color: string | undefined;
 
-  constructor( private _doctorService: DoctorService, private _toastrService: ToastrService) { this.lead_date = ''; }
+  constructor( private _doctorService: DoctorService) { this.lead_date = ''; }
 
   ngOnInit() {
     this.setTodayDate();
     this.getAllPatientVisitCheckedLists();
     this.getAllPatientVisitLists();
-   
   }
 
   setTodayDate() {
@@ -44,8 +42,6 @@ export class PatientComponent implements OnInit{
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allPatientVisitList = res.data;
-          console.log(res.data);
-  
           this.total = res.pagination.total;
         }
       }
@@ -56,8 +52,6 @@ export class PatientComponent implements OnInit{
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allPatientVisitCheckedList = res.data;
-          console.log('Checked',res.data);
-  
           this.total = res.pagination.total;
         }
       }

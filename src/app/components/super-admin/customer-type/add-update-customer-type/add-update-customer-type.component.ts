@@ -20,13 +20,10 @@ export class AddUpdateCustomerTypeComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _superAdminService:SuperAdminService,
     private _toastrService:ToastrService){}
-
-
   ngOnInit(){
     this.createForm();
     if (this.data) {
       this.customerTypeId = this.data.customer_type_id
-      console.log('DATA',this.data);
       this.prepopulateData(this.data)
       this.isEdit =true
     }

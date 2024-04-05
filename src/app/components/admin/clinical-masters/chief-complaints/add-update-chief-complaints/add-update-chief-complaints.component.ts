@@ -24,7 +24,6 @@ export class AddUpdateChiefComplaintsComponent implements OnInit{
     this.createForm();
     if (this.data) {
       this.chiefcomplaintsId = this.data.chief_complaint_id
-      console.log('DATA', this.data);
       this.prepopulateData(this.data)
       this.isEdit = true
     }
@@ -41,7 +40,6 @@ export class AddUpdateChiefComplaintsComponent implements OnInit{
 
   updateChiefComplaints() {
     if (this.form.valid) {
-      console.log(this.form.value);
       this._adminService.editChiefComplaints(this.form.value, this.chiefcomplaintsId).subscribe({
         next: (res: any) => {
           if (res.status == 200) {

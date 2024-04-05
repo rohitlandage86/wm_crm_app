@@ -36,6 +36,4 @@ export class CustomersComponent implements OnInit{
     this.perPage = event.pageSize;
     this.getAllCustomersList();
   }
-
-
 }

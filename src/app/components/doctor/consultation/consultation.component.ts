@@ -71,14 +71,12 @@ export class ConsultationComponent implements OnInit {
     return this.fb.group({
       diagnosis_id: [null, Validators.required],
       notes: [null, Validators.required],
-      
     })
   }
   newconsultationTreatment(): FormGroup {
     return this.fb.group({
       treatment_id: [null, Validators.required],
       notes: [null, Validators.required],
-      
     })
   }
   newconsultationMedicine(): FormGroup {
@@ -87,13 +85,10 @@ export class ConsultationComponent implements OnInit {
       days: [null, Validators.required],
       dosages_id: [null, Validators.required],
       instructions_id: [null, Validators.required],
-      
     })
   }
   newconsultationFileUpload(): FormGroup {
     return this.fb.group({
-    
-      
     })
   }
    // BMI calculation logic
@@ -164,56 +159,4 @@ export class ConsultationComponent implements OnInit {
 
     })
   }
-  // setTodayDate() {
-  //   const today = new Date();
-  //   // Format the date as per your backend requirement
-  //   this.lead_date = `${today.getFullYear()}-${(today.getMonth() + 1)
-  //     .toString()
-  //     .padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
-  // }
-  // //get all LeadFollowUp List...
-  // getAllLeadFollowUpList() {
-  //   this._receptionistService.getAllLeadFollowUpList(this.page, this.perPage, this.lead_date).subscribe({
-  //     next: (res: any) => {
-  //       if (res.data.length > 0) {
-  //         this.allLeadFollowUpList = res.data;
-  //         console.log(res.data);
-
-  //         this.total = res.pagination.total;
-  //       }
-  //     }
-  //   });
-  // }
-  // onPageChange(event: PageEvent): void {
-  //   this.page = event.pageIndex + 1;
-  //   this.perPage = event.pageSize;
-  //   this.getAllLeadFollowUpList();
-  // }
-
-
-  // //slide-toggle change Patient
-  // changeEvent(event: any, id: any) {
-  //   console.log(event.checked, id);
-  //   let status = 0;
-  //   if (event.checked) {
-  //     status = 1;
-  //   }
-  //   this._receptionistService.onPatientStatusChange(status, id).subscribe({
-  //     next: (res: any) => {
-  //       this._toastrService.success(res.message);
-  //       console.log(res);
-  //       this.getAllLeadFollowUpList();
-  //     },
-  //     error: (error: any) => {
-  //       console.log(error.error.message)
-  //       if (error.status == 422) {
-  //         this._toastrService.warning(error.message);
-  //         console.log(error.status);
-  //         this.getAllLeadFollowUpList();
-  //       }
-  //     },
-  //   })
-
-
-  // }
 }

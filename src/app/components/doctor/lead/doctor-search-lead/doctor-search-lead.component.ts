@@ -32,7 +32,6 @@ export class DoctorSearchLeadComponent implements OnInit{
     private _receptionistService: ReceptionistService,private _adminService: AdminService,
    private _superAdminService: SuperAdminService,private router: Router, private url: ActivatedRoute){}
 
-
   ngOnInit(){
     this.createForm();
     this.getAllCategoryList();
@@ -41,14 +40,10 @@ export class DoctorSearchLeadComponent implements OnInit{
       lead_date: new Date().toISOString().split('T')[0],
     });
     this.lead_hid = this.url.snapshot.params['id']
-    
     if (this.lead_hid) {
-      
       this.getLeadById(this.lead_hid)
-      // this.prepopulateData(this.lead_hid)
       this.leadStatusDetailAdded = true;
       this.isEdit =true;
-      
     }
   }
   getCurrentDate(): string {
@@ -56,7 +51,6 @@ export class DoctorSearchLeadComponent implements OnInit{
     const year = today.getFullYear();
     const month = ('0' + (today.getMonth() + 1)).slice(-2); // Month is zero-based
     const day = ('0' + today.getDate()).slice(-2);
-
     return `${year}-${month}-${day}`;
   }
   createForm(){
@@ -69,7 +63,6 @@ export class DoctorSearchLeadComponent implements OnInit{
       category_id: [null, Validators.required],
       leadFooterDetails: this.fb.array([this.newLeadFooter()])
     });
-    
   }
  
   get control(){
@@ -77,9 +70,7 @@ export class DoctorSearchLeadComponent implements OnInit{
   }
   get leadstatusDetailsArray() {
     return this.form.get('leadFooterDetails') as FormArray<any>;
-
   }
- 
 
   newLeadFooter(): FormGroup {
     return this.fb.group({
@@ -89,16 +80,11 @@ export class DoctorSearchLeadComponent implements OnInit{
       no_of_calls: [null, Validators.required],
       lead_status_id: [null, Validators.required],
       follow_up_date: [null, Validators.required],
-      
     })
   }
   addLeadFooter() {
     this.leadstatusDetailsArray.push(this.newLeadFooter());
       this.leadStatusDetailAdded = true;
-    // if (this.isEdit) {
-    //   this.leadstatusDetailsArray.push(this.newLeadFooter());
-    //   this.leadStatusDetailAdded = true;
-    // }
   }
   deleteLeadFooter(i: any) {
     this.leadstatusDetailsArray.removeAt(i)
@@ -117,16 +103,13 @@ getSearchLead(searchQuery: string): void {
 }
   // Other properties and methods
   isValidName(inputValue: string): boolean {
-
     const namePattern = /^[A-Za-z\s]+$/;
     return namePattern.test(inputValue);
   }
   validateMobileNo(inputValue: string): boolean {
-
     const mobileNumberPattern = /^\d{10}$/;
     return mobileNumberPattern.test(inputValue);
   }
-
   isValidInput(inputValue: string): boolean {
     return this.validateMobileNo(inputValue) || this.isValidName(inputValue);
   }
@@ -144,7 +127,6 @@ getSearchLead(searchQuery: string): void {
         this.leadstatusDetailsArray.clear();
         for (let index = 0; index < leadFooterDetails.length; index++) {
           const element = leadFooterDetails[index];
-
           this.leadstatusDetailsArray.push(this.newLeadFooter())
           this.leadstatusDetailsArray.at(index).get('lead_fid')?.patchValue(element.lead_fid)
         this.leadstatusDetailsArray.at(index).get('comments')?.patchValue(element.comments);
@@ -162,7 +144,6 @@ getSearchLead(searchQuery: string): void {
     
   }
 
-
   //get category list...
   getAllCategoryList(){
     this._adminService.getAllCategoryListWma().subscribe({
@@ -172,7 +153,6 @@ getSearchLead(searchQuery: string): void {
         }
       }
     });
-    
   }
    //get  Lead Status list...
    getAllLeadStatusList(){
@@ -187,6 +167,5 @@ getSearchLead(searchQuery: string): void {
   onPageChange(event: PageEvent): void {
     this.page = event.pageIndex + 1;
     this.perPage = event.pageSize;
-    // this.getAllLeadsList();
   }
 }

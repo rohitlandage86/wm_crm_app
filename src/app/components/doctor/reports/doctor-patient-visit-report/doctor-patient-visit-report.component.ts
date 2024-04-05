@@ -28,7 +28,6 @@ export class DoctorPatientVisitReportComponent implements OnInit{
   constructor(private _receptionistService: ReceptionistService, private _toastrService: ToastrService, private _adminService:AdminService, private fb:FormBuilder) { }
 
   ngOnInit() {
-    // this.getAllPatientVisitList();
     this.createForm()
   }
   createForm(){
@@ -61,7 +60,6 @@ export class DoctorPatientVisitReportComponent implements OnInit{
     this.getAllPatientVisitList();
   }
   submitFilter(){
-    console.log(this.form.value);
     this.fromDate = this.form.value.fromDate;
     this.toDate = this.form.value.toDate;
     this.visit_type = this.form.value.visit_type;
@@ -75,8 +73,5 @@ export class DoctorPatientVisitReportComponent implements OnInit{
         }
       }
     });
-    
   }
-
-
 }

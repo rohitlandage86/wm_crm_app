@@ -41,7 +41,6 @@ export class AddUpdateTreatmentComponent implements OnInit {
 
   updateTreatment() {
     if (this.form.valid) {
-      console.log(this.form.value);
       this._adminService.editTreatment(this.form.value, this.treatmentId).subscribe({
         next: (res: any) => {
           if (res.status == 200) {

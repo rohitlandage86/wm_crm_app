@@ -29,7 +29,6 @@ export class AddUpdateServiceComponent implements OnInit {
     this.createForm();
     this.getAllEntitiesList();
     this.getAllServiceTypeList();
-
     if (this.data) {
       this.serviceId = this.data.service_id
       console.log('DATA',this.data);
@@ -52,7 +51,6 @@ export class AddUpdateServiceComponent implements OnInit {
 
   updateService(){
     if (this.form.valid) {
-      console.log(this.form.value);
       this._adminService.editService(this.form.value,this.serviceId).subscribe({
         next:(res:any)=>{
           if (res.status==200) {
@@ -113,7 +111,6 @@ export class AddUpdateServiceComponent implements OnInit {
   getAllEntitiesList(){
     this._adminService.getAllEntitiesListWma().subscribe({
       next:(res:any)=>{
-        console.log(res);
         if (res.data.length>0) {
           this.allEntitiesList =res.data;
         }
@@ -129,6 +126,5 @@ export class AddUpdateServiceComponent implements OnInit {
         }
       }
     });
-
   }
 }

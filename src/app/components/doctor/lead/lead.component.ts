@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { freeSet } from '@coreui/icons';
 import { PageEvent } from '@angular/material/paginator';
-import { ToastrService } from 'ngx-toastr';
 import { ReceptionistService } from '../../receptionist/receptionist.service';
 
 @Component({
@@ -9,15 +8,15 @@ import { ReceptionistService } from '../../receptionist/receptionist.service';
   templateUrl: './lead.component.html',
   styleUrl: './lead.component.scss'
 })
-export class LeadComponent implements OnInit{
+export class LeadComponent implements OnInit {
   allLeadFollowUpList: Array<any> = [];
   icons = freeSet;
   page = 1;
   perPage = 10;
   total = 0;
-lead_date: string ;
-color: string|undefined;
-  constructor( private _receptionistService: ReceptionistService,private _toastrService: ToastrService) { this.lead_date = ''; }
+  lead_date: string;
+  color: string | undefined;
+  constructor(private _receptionistService: ReceptionistService) { this.lead_date = ''; }
 
   ngOnInit() {
     this.setTodayDate();
@@ -36,8 +35,6 @@ color: string|undefined;
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allLeadFollowUpList = res.data;
-          console.log(res.data);
-
           this.total = res.pagination.total;
         }
       }
@@ -48,5 +45,4 @@ color: string|undefined;
     this.perPage = event.pageSize;
     this.getAllLeadFollowUpList();
   }
-
- }
+}

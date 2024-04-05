@@ -28,7 +28,8 @@ export class AddUpdatePatientComponent implements OnInit {
   isValidMobileNo: boolean = false;
   page = 1;
   perPage = 10;
-  total = 0
+  total = 0;
+  isDoctor=false;
   constructor(
     private fb: FormBuilder,
     private _receptionistService: ReceptionistService, private _adminService: AdminService, private dialog: MatDialog,
@@ -120,25 +121,24 @@ export class AddUpdatePatientComponent implements OnInit {
     }
   }
   onEmployeeSelectionChange(event: any) {
-    const selectedEmployeeId = event.target.value;
-    const chargesControl = this.form.get('amount');
-
-    if (chargesControl) {
-      if (selectedEmployeeId === '2') { // Assuming '2' is the ID of Suhas doctor
-        chargesControl.setValue(500); // Set charges to 300 for Suhas doctor
-      } else if (selectedEmployeeId === '3') { // Assuming '3' is the ID of other type of doctor
-        chargesControl.setValue(300); // Set charges to 500 for other type of doctor
-      } else {
-        chargesControl.setValue(null); // Reset charges for other employees
-      }
+    const id = event.target.value;
+    this._adminService.getEmployeeById(id).subscribe((result: any) => {
+      const employeeData = result.data;
+    let designation_name = employeeData.designation_name;
+    if (designation_name.trim().toLowerCase() === 'doctor') {
+      this.isDoctor = true;
+      this.form.get('amount')?.patchValue(employeeData.charges);
+    } else {
+      this.isDoctor = false;
+      this.form.get('amount')?.patchValue(null);
     }
+    });
   }
   getCurrentDate(): string {
     const today = new Date();
     const year = today.getFullYear();
     const month = ('0' + (today.getMonth() + 1)).slice(-2); // Month is zero-based
     const day = ('0' + today.getDate()).slice(-2);
-
     return `${year}-${month}-${day}`;
   }
   futureDateValidator(): ValidatorFn {

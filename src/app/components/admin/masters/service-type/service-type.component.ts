@@ -66,20 +66,15 @@ export class ServiceTypeComponent implements OnInit {
     this._adminService.onServiceTypeStatusChange(status, id).subscribe({
       next: (res: any) => {
         this._toastrService.success(res.message);
-        console.log(res);
         this.getAllServiceTypeList();
       },
       error: (error: any) => {
         console.log(error.error.message)
         if (error.status == 422) {
           this._toastrService.warning(error.message);
-          console.log(error.status);
           this.getAllServiceTypeList();
         }
       },
     })
-
-
   }
-
 }

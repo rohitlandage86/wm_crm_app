@@ -50,8 +50,6 @@ export class CustomerTypeComponent implements OnInit {
       } else {
         console.log('nothing happen');
       }
-      console.log(message );
-      
     });
   }
 }

@@ -16,6 +16,7 @@ import { DoctorService } from '../../../doctor.service';
 })
 export class DoctorViewSearchPatientComponent implements OnInit {
   form!: FormGroup;
+  baseUrl =environment.baseUrl
   isEdit = true;
   mrno: any;
   consultation_id: any;
@@ -80,44 +81,27 @@ export class DoctorViewSearchPatientComponent implements OnInit {
     this.getAllDosagesList();
     this.getAllDiagnosisList();
     this.getAllInstructionsList();
-
-
     this.form.patchValue({
       registration_date: new Date().toISOString().split('T')[0],
-
     });
     // url id 
     this.consultation_id = this.url.snapshot.params['id']
-    console.log('consultation_id', this.consultation_id);
-
     if (this.consultation_id) {
       // Extract mrno from consultation_id
       this.mrno = this.consultation_id.split('_')[0];
-      console.log('mrno', this.mrno);
       // Retrieve consultation history using mrno
       this.getConsultationHistory(this.mrno);
-      // this.getPatientById(this.consultation_id);
       this.getConsultationId(this.consultation_id);
       this.isEdit = false;
-
-
     }
     this.form.patchValue({
       mrno: this.url.snapshot.params['id']
     })
-
     // by defult cash pATCH dropdown
     this.form.patchValue({
       payment_type: 'Cash'
     });
-
-
-
-
   }
-
-
-
   //consultation form
   createForm() {
     this.form = this.fb.group({
@@ -126,8 +110,6 @@ export class DoctorViewSearchPatientComponent implements OnInit {
       bp: [null],
       past_history: [''],
       chief_complaints_id: [''], // Add this line to define chief_complaints_id
-      appointment_date: [''],
-      appointment_time: [''],
       consultationDiagnosisDetails: this.fb.array([this.newConsultationDiagnosis()]),
       consultationTreatmentDetails: this.fb.array([this.newConsultationTreatment()]),
       consultationMedicineDetails: this.fb.array([this.newConsultationMedicineDetails()]),
@@ -152,14 +134,10 @@ export class DoctorViewSearchPatientComponent implements OnInit {
       payment_type: [null],
     });
   }
-
-
   //form controls
   get control() {
     return this.form.controls;
   }
-
-
   // ------------------------------------------------------------------
   //get Chief Complaints list...
   getAllChiefComplaintsList() {
@@ -168,7 +146,6 @@ export class DoctorViewSearchPatientComponent implements OnInit {
         if (res.data.length > 0) {
           this.allChiefComplaints = res.data;
           this.filteredChiefComplaintsArray = this.allChiefComplaints;
-          // this.control['chief_complaints_id'].patchValue(res.data.chief_complaints_id)
         }
       },
     });
@@ -187,7 +164,6 @@ export class DoctorViewSearchPatientComponent implements OnInit {
       this.filteredChiefComplaintsArray = this.allChiefComplaints;
     }
   }
-
   // --------------------------------------------------------------------------
   //-------------------------------------------------------------------
   //get diagnosis list...
@@ -325,20 +301,14 @@ export class DoctorViewSearchPatientComponent implements OnInit {
       }
     });
   }
-
-
-
-
   //Diagnosis array controls
   get consultationDiagnosisDetailsArray() {
     return this.form.get('consultationDiagnosisDetails') as FormArray<any>;
-
   }
   newConsultationDiagnosis(): FormGroup {
     return this.fb.group({
       diagnosis_id: [null],
       notes: [null],
-
     })
   }
   addConsultationDiagnosis() {
@@ -348,13 +318,11 @@ export class DoctorViewSearchPatientComponent implements OnInit {
   //Treatment array controls
   get consultationTreatmentDetailsArray() {
     return this.form.get('consultationTreatmentDetails') as FormArray<any>;
-
   }
   newConsultationTreatment(): FormGroup {
     return this.fb.group({
       treatment_id: [null],
       notes: [null],
-
     })
   }
   addConsultationTreatment() {
@@ -364,7 +332,6 @@ export class DoctorViewSearchPatientComponent implements OnInit {
   //Medicine array controls
   get consultationMedicineDetailsArray() {
     return this.form.get('consultationMedicineDetails') as FormArray<any>;
-
   }
   newConsultationMedicineDetails(): FormGroup {
     return this.fb.group({
@@ -372,7 +339,6 @@ export class DoctorViewSearchPatientComponent implements OnInit {
       dosages_id: [null],
       days: [null],
       instructions_id: [null],
-
     })
   }
   addConsultationMedicine() {
@@ -382,7 +348,6 @@ export class DoctorViewSearchPatientComponent implements OnInit {
   //FileUpload array controls
   get consultationFileUploadDetailsArray() {
     return this.form.get('consultationFileUploadDetails') as FormArray<any>;
-
   }
 
   newconsultationFileUploadDetails(): FormGroup {
@@ -390,7 +355,6 @@ export class DoctorViewSearchPatientComponent implements OnInit {
       imageBase64: [null],
       image_name: [null],
       notes: [null],
-
     })
   }
   addConsultationFileUpload() {
@@ -404,17 +368,14 @@ export class DoctorViewSearchPatientComponent implements OnInit {
       reader.onload = (e: any) => {
         // Convert the file to Base64 string
         const base64Image = e.target.result.split(',')[1];
-
         // Patch the Base64 image data to the form control
         const imageControl = this.form.get('imageBase64');
         if (imageControl) {
           imageControl.patchValue(base64Image);
         }
-
         // Preview the selected image
         this.imagePreview.nativeElement.src = e.target.result;
       };
-
       // Read the file as a data URL
       reader.readAsDataURL(file);
     }
@@ -422,7 +383,6 @@ export class DoctorViewSearchPatientComponent implements OnInit {
 
   getConsultationId(id: any) {
     this._doctorService.getConsultationById(id).subscribe((result: any) => {
-      console.log('consultation q', result);
       const patientData = result.data;
       this.control['entity_id'].patchValue(patientData.entity_id);
       this.control['registration_date'].patchValue(new Date(patientData.registration_date).toISOString().split('T')[0]);
@@ -445,8 +405,6 @@ export class DoctorViewSearchPatientComponent implements OnInit {
       this.control['bp'].patchValue(patientData.bp);
       this.control['past_history'].patchValue(patientData.past_history);
       this.control['chief_complaints_id'].patchValue(patientData.chief_complaints_id);
-      this.control['appointment_date'].patchValue(patientData.appointment_date);
-      this.control['appointment_time'].patchValue(patientData.appointment_time);
 
       // Patching diagnosis details
       let consultationDiagnosisDetails = result.data.consultationDiagnosisDetails;
@@ -517,8 +475,6 @@ export class DoctorViewSearchPatientComponent implements OnInit {
 
   }
 
-
-
   //get entity list...
   getAllEntityList() {
     this._adminService.getAllEntitiesListWma().subscribe({
@@ -528,7 +484,6 @@ export class DoctorViewSearchPatientComponent implements OnInit {
         }
       }
     });
-
   }
   //get source_of_patient list...
   getAllSourceOfPatientList() {
@@ -539,7 +494,6 @@ export class DoctorViewSearchPatientComponent implements OnInit {
         }
       }
     });
-
   }
   //get Employee list...
   getAllEmployeeList() {
@@ -547,12 +501,10 @@ export class DoctorViewSearchPatientComponent implements OnInit {
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allEmployeeList = res.data;
-
         }
       }
     });
   }
-
   //get ReferedBy list...
   getAllReferedByList() {
     this._adminService.getAllReferedByListWma().subscribe({
@@ -580,13 +532,8 @@ export class DoctorViewSearchPatientComponent implements OnInit {
 
     this._doctorService.getConsultationHistory(id).subscribe({
       next: (res: any) => {
-        console.log('res', res);
         if (res.data.length > 0) {
           this.allConsutlationHistoryList = res.data;
-          console.log(res.data);
-          console.log(this.allConsutlationHistoryList);
-
-
         }
       }
     });
@@ -599,5 +546,4 @@ export class DoctorViewSearchPatientComponent implements OnInit {
       this.isAccordionOpen = index; // Open the clicked accordion item
     }
   }
-
 }

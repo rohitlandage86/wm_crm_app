@@ -28,7 +28,6 @@ export class SourceOfPatientComponent implements OnInit{
     this._adminService.getAllSourceOfPatientList(this.page, this.perPage).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
-          console.log(res.data);
           this.allSourceOfPatientList = res.data;
           this.total = res.pagination.total;
         }
@@ -40,7 +39,6 @@ export class SourceOfPatientComponent implements OnInit{
     this.perPage = event.pageSize;
     this.getAllSourceOfPatientList();
   }
-
   //open SourceOfPatient...
   openDialog(data?: any) {
     const dialogRef = this.dialog.open(AddUpdateSourceOfPatientComponent, {
@@ -58,7 +56,6 @@ export class SourceOfPatientComponent implements OnInit{
   }
   //slide-toggle change 
   changeEvent(event: any, id: any) {
-    console.log(event.checked, id);
     let status = 0;
     if (event.checked) {
       status = 1;
@@ -66,19 +63,14 @@ export class SourceOfPatientComponent implements OnInit{
     this._adminService.onSourceOfPatientStatusChange(status, id).subscribe({
       next: (res: any) => {
         this._toastrService.success(res.message);
-        console.log(res);
         this.getAllSourceOfPatientList();
       },
       error: (error: any) => {
-        console.log(error.error.message)
         if (error.status == 422) {
           this._toastrService.warning(error.message);
-          console.log(error.status);
           this.getAllSourceOfPatientList();
         }
       },
     })
-
-
   }
 }

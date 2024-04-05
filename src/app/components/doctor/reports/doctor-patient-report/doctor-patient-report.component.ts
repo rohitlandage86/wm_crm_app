@@ -17,15 +17,12 @@ export class DoctorPatientReportComponent implements OnInit{
   total = 0;
   icons = freeSet;
   form!:FormGroup;
-
   allPatientRegistrationsList: Array<any> = [];
   allGenderList:Array<any>=[{gender:'FEMALE'},{gender:'MALE'},{gender:'OTHER'}];
   allEntityList:Array<any>=[];
   allSourceOfPatientList:Array<any>=[];
   allReferedByList:Array<any>=[];
   allEmployeeList:Array<any>=[];
-
-  
   fromDate='';
   toDate='';
   gender='';
@@ -37,7 +34,6 @@ export class DoctorPatientReportComponent implements OnInit{
   constructor(private _receptionistService: ReceptionistService, private _toastrService: ToastrService, private _adminService:AdminService, private fb:FormBuilder) { }
 
   ngOnInit() {
-    // this.getAllPatientRegistrationList();
     this.getAllEntityList();
     this.getAllSourceOfPatientList();
     this.getAllReferedByList();
@@ -129,7 +125,6 @@ export class DoctorPatientReportComponent implements OnInit{
     this.getAllPatientRegistrationList();
   }
   submitFilter(){
-    console.log(this.form.value);
     this.fromDate = this.form.value.fromDate;
     this.toDate = this.form.value.toDate;
     this.gender = this.form.value.gender;
@@ -148,6 +143,5 @@ export class DoctorPatientReportComponent implements OnInit{
         }
       }
     });
-    
   }
 }

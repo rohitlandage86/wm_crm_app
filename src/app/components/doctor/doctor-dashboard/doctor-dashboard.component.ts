@@ -15,24 +15,6 @@ export class DoctorDashboardComponent implements OnInit{
 
   ngOnInit() {
 
-  //   this.getReceptionistDashboardCount().subscribe((data: any) => {
-  //     this.firstCardContent = data;
-  //     console.log(data);
-  //     this.cdr.detectChanges(); // Trigger change detection
-  // });
-  }
- 
-//   getReceptionistDashboardCount(): Observable<any> {
-
-//     return this._receptionistService.getReceptionistDashboardCount();
-//  }
-
-
-
-
-
- 
-
-
+ }
 }
 

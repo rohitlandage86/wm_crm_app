@@ -105,7 +105,6 @@
               sizing="sm"
               formControlName="state_id"
               type="text"
-              
             >
               <option hidden value="null" disabled selected>State</option>
               <option [value]="item.state_id" *ngFor="let item of allStateList">
@@ -224,10 +223,10 @@
               type="number"
             />
           </c-col>
-        <!-- </form> -->
-        <hr />
+          <!-- </form> -->
+          <hr />
 
-        <!-- <form cForm class="row g-3" > -->
+          <!-- <form cForm class="row g-3" > -->
           <c-col md="3" class="p-2">
             <label cLabel for="validationDefault01">Pulse </label>
             <input
@@ -708,14 +707,12 @@
                                   formArrayName="consultationDiagnosisDetails"
                                 >
                                   <ng-container
-                                    *ngFor="
-                                      let consultation of allConsutlationHistoryList
-                                    "
+                                   
                                   >
                                     <!-- Consultation Diagnosis Details -->
                                     <ng-container
                                       *ngFor="
-                                        let diagnosis of consultation.consultationDiagnosisDetails
+                                        let diagnosis of item.consultationDiagnosisDetails
                                       "
                                     >
                                       <tr>
@@ -743,14 +740,12 @@
                                   formArrayName="consultationTreatmentDetails"
                                 >
                                   <ng-container
-                                    *ngFor="
-                                      let consultation of allConsutlationHistoryList
-                                    "
+                                   
                                   >
                                     <!-- Consultation Treatment Details -->
                                     <ng-container
                                       *ngFor="
-                                        let treatment of consultation.consultationTreatmentDetails
+                                        let treatment of item.consultationTreatmentDetails
                                       "
                                     >
                                       <tr>
@@ -780,14 +775,12 @@
                                   formArrayName="consultationMedicineDetails"
                                 >
                                   <ng-container
-                                    *ngFor="
-                                      let consultation of allConsutlationHistoryList
-                                    "
+                                   
                                   >
                                     <!-- Consultation Medicine Details -->
                                     <ng-container
                                       *ngFor="
-                                        let medicine of consultation.consultationMedicineDetails
+                                        let medicine of item.consultationMedicineDetails
                                       "
                                     >
                                       <tr>
@@ -816,24 +809,22 @@
                                   </tr>
                                 </thead>
                                 <tbody
-                                  formArrayName="consultationFileUploadDetails"
+                        
                                 >
                                   <ng-container
-                                    *ngFor="
-                                      let consultation of allConsutlationHistoryList
-                                    "
+                                   
                                   >
                                     <!-- Consultation File Upload Details -->
                                     <ng-container
                                       *ngFor="
-                                        let file of consultation.consultationFileUploadDetails
+                                        let file of item.consultationFileUploadDetails
                                       "
                                     >
                                       <tr>
                                         <td>
                                           {{ i + 1 }}
                                         </td>
-                                        <td>{{ file.image_name }}</td>
+                                        <td ><a href="{{baseUrl+'images/consultationfile/'+file.image_name }}" target="_blank" rel="noopener noreferrer">{{ file.image_name }}</a> </td>
                                         <td>{{ file.notes }}</td>
                                         <!-- Add more fields as needed -->
                                       </tr>
@@ -852,27 +843,6 @@
             </mat-tab>
           </mat-tab-group>
 
-          <div>
-            <strong>Book Appointment</strong>
-          </div>
-          <c-col md="4" class="p-2">
-            <label cLabel for="appointment_date">Appointment Date </label>
-            <input
-              cFormControl
-              id="appointment_date"
-              type="date"
-              formControlName="appointment_date"
-            />
-          </c-col>
-          <c-col md="4" class="p-2">
-            <label cLabel for="appointment_time">Appointment Time </label>
-            <input
-              cFormControl
-              id="appointment_time"
-              type="time"
-              formControlName="appointment_time"
-            />
-          </c-col>
           <c-col xs="12">
             <button
               cButton

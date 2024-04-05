@@ -24,7 +24,6 @@ export class AddUpdateDesignationComponent implements OnInit{
     this.createForm();
     if (this.data) {
       this.designationId = this.data.designation_id
-      console.log('DATA', this.data);
       this.prepopulateData(this.data)
       this.isEdit = true
     }
@@ -41,7 +40,6 @@ export class AddUpdateDesignationComponent implements OnInit{
 
   updateDesignation() {
     if (this.form.valid) {
-      console.log(this.form.value);
       this._adminService.editDesignation(this.form.value, this.designationId).subscribe({
         next: (res: any) => {
           if (res.status == 200) {
@@ -91,7 +89,6 @@ export class AddUpdateDesignationComponent implements OnInit{
   }
   prepopulateData(data: any) {
     this.control['designation_name'].patchValue(data.designation_name);
-    
   }
   closeDialog(message?: any) {
     this.dialogRef.close(message);

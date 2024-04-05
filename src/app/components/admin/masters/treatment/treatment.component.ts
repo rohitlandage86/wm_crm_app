@@ -28,7 +28,6 @@ color: string|undefined;
       this._adminService.getAllTreatmentList(this.page, this.perPage).subscribe({
         next: (res: any) => {
           if (res.data.length>0) {
-            console.log(res.data);
             this.allTreatmentList = res.data;
             this.total= res.pagination.total;
           }
@@ -58,7 +57,6 @@ color: string|undefined;
     }
      //slide-toggle change 
   changeEvent(event: any, id: any) {
-    console.log(event.checked, id);
     let status = 0;
     if (event.checked) {
       status = 1;
@@ -70,16 +68,11 @@ color: string|undefined;
         this.getAllTreatmentList();
       },
       error: (error: any) => {
-        console.log(error.error.message)
         if (error.status == 422) {
           this._toastrService.warning(error.message);
-          console.log(error.status);
           this.getAllTreatmentList();
         }
       },
     })
-
-
   }
- 
 }

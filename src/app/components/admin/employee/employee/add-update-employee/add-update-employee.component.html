@@ -16,9 +16,9 @@
 
                     <c-col md="10">
                         <label for="designation_id" cLabel>Designation Name</label>
-                        <select aria-label="select designation" cSelect sizing="sm" type="select" [(ngModel)]="selectedDesignation" [ngModelOptions]="{standalone: true}" [ngClass]="{ 'is-invalid': control['designation_id'].invalid &&(control['designation_id'].dirty ||control['designation_id'].touched)}"   (change)="onDesignationChange($event)">
-                            <option hidden [ngValue]=null disabled selected>Select Designation Name</option>
-                            <option [ngValue]=item *ngFor="let item of allDesignationList">{{item.designation_name}}</option>
+                        <select aria-label="select designation" cSelect sizing="sm" type="select"  formControlName="designation_id" [ngClass]="{ 'is-invalid': control['designation_id'].invalid &&(control['designation_id'].dirty ||control['designation_id'].touched)}"   (change)="onDesignationChange($event)">
+                            <option hidden [value]=null disabled selected>Select Designation Name</option>
+                            <option [value]=item.designation_id *ngFor="let item of allDesignationList">{{item.designation_name}}</option>
                           </select>
                         <div class="text-danger" *ngIf="control['designation_id'].invalid && (control['designation_id'].dirty || control['designation_id'].touched)">
                             <small>Please provide a valid Designation Name.</small>

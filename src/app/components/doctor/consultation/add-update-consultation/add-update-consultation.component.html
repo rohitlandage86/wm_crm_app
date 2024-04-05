@@ -765,17 +765,13 @@
                                   </tr>
                                 </thead>
                                 <tbody
-                                  formArrayName="consultationDiagnosisDetails"
                                 >
                                   <ng-container
-                                    *ngFor="
-                                      let consultation of allConsutlationHistoryList
-                                    "
                                   >
                                     <!-- Consultation Diagnosis Details -->
                                     <ng-container
                                       *ngFor="
-                                        let diagnosis of consultation.consultationDiagnosisDetails
+                                        let diagnosis of item.consultationDiagnosisDetails
                                       "
                                     >
                                       <tr>
@@ -800,17 +796,13 @@
                                   </tr>
                                 </thead>
                                 <tbody
-                                  formArrayName="consultationTreatmentDetails"
                                 >
                                   <ng-container
-                                    *ngFor="
-                                      let consultation of allConsutlationHistoryList
-                                    "
                                   >
                                     <!-- Consultation Treatment Details -->
                                     <ng-container
                                       *ngFor="
-                                        let treatment of consultation.consultationTreatmentDetails
+                                        let treatment of item.consultationTreatmentDetails
                                       "
                                     >
                                       <tr>
@@ -837,17 +829,13 @@
                                   </tr>
                                 </thead>
                                 <tbody
-                                  formArrayName="consultationMedicineDetails"
                                 >
                                   <ng-container
-                                    *ngFor="
-                                      let consultation of allConsutlationHistoryList
-                                    "
                                   >
                                     <!-- Consultation Medicine Details -->
                                     <ng-container
                                       *ngFor="
-                                        let medicine of consultation.consultationMedicineDetails
+                                        let medicine of item.consultationMedicineDetails
                                       "
                                     >
                                       <tr>
@@ -876,24 +864,21 @@
                                   </tr>
                                 </thead>
                                 <tbody
-                                  formArrayName="consultationFileUploadDetails"
                                 >
                                   <ng-container
-                                    *ngFor="
-                                      let consultation of allConsutlationHistoryList
-                                    "
+                                   
                                   >
                                     <!-- Consultation File Upload Details -->
                                     <ng-container
                                       *ngFor="
-                                        let file of consultation.consultationFileUploadDetails
+                                        let file of item.consultationFileUploadDetails
                                       "
                                     >
                                       <tr>
                                         <td>
                                           {{ i + 1 }}
                                         </td>
-                                        <td>{{ file.image_name }}</td>
+                                        <td ><a href="{{baseUrl+'images/consultationfile/'+file.image_name }}" target="_blank" rel="noopener noreferrer">{{ file.image_name }}</a> </td>
                                         <td>{{ file.notes }}</td>
                                         <!-- Add more fields as needed -->
                                       </tr>

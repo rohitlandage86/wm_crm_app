@@ -345,23 +345,6 @@
                             {{ item?.diagnosis_name }}
                           </mat-option>
                         </mat-select>
-
-                        <div
-                          class="text-danger"
-                          *ngIf="
-                            consultationDiagnosisDetailsArray
-                              .at(i)
-                              .get('diagnosis_id')?.invalid &&
-                            (consultationDiagnosisDetailsArray
-                              .at(i)
-                              .get('diagnosis_id')?.dirty ||
-                              consultationDiagnosisDetailsArray
-                                .at(i)
-                                .get('diagnosis_id')?.touched)
-                          "
-                        >
-                          <small>Please provide a valid Diagnosis.</small>
-                        </div>
                       </td>
                       <td>
                         <input
@@ -440,22 +423,6 @@
                             {{ item?.treatment_name }}
                           </mat-option>
                         </mat-select>
-                        <div
-                          class="text-danger"
-                          *ngIf="
-                            consultationTreatmentDetailsArray
-                              .at(i)
-                              .get('treatment_id')?.invalid &&
-                            (consultationTreatmentDetailsArray
-                              .at(i)
-                              .get('treatment_id')?.dirty ||
-                              consultationTreatmentDetailsArray
-                                .at(i)
-                                .get('treatment_id')?.touched)
-                          "
-                        >
-                          <small>Please provide a valid Treatment.</small>
-                        </div>
                       </td>
                       <td>
                         <input
@@ -680,7 +647,207 @@
             </mat-tab>
             <mat-tab label="History">
               <div class="col-md-12">
-                <h1>All History</h1>
+                <div class="accordion" id="accordionFlushExample">
+                  <div
+                    class="accordion-item"
+                    *ngFor="
+                      let item of allConsutlationHistoryList;
+                      let i = index
+                    "
+                  >
+                    <h2 class="accordion-header">
+                      <button
+                        class="accordion-button"
+                        type="button"
+                        [attr.data-bs-toggle]="'collapse_' + i"
+                        [attr.data-bs-target]="'#collapse_' + i"
+                        [attr.aria-expanded]="isAccordionOpen === i ? 'true' : 'false'"
+                        [attr.aria-controls]="'collapse_' + i"
+                        (click)="toggleAccordion(i)"
+                      >
+                        <strong> Date:</strong>
+                        <label for="" class="mx-2">{{
+                          item.cts | date : "dd-MM-yyyy"
+                        }}</label>
+                      </button>
+                    </h2>
+                    <div
+                    [id]="'collapse_' + i"
+                    class="accordion-collapse collapse"
+                    [ngClass]="{'show': isAccordionOpen === i}"
+                    aria-labelledby="headingOne"
+                    data-bs-parent="#accordionExample"
+                    >
+                      <div class="accordion-body">
+                        <div class="mb-4 d-flex justify-content-around">
+                          <div><strong>Pulse: </strong>{{ item.pluse }}</div>
+                          <div><strong>BP:</strong> {{ item.bp }}</div>
+                          <div>
+                            <strong>Past History: </strong
+                            >{{ item.past_history }}
+                          </div>
+                          <div>
+                            <strong>Chief Complaints:</strong>
+                            {{ item.chief_complaint }}
+                          </div>
+                        </div>
+                        <hr class="mb-0" />
+
+                        <mat-tab-group class="mt-0">
+                          <mat-tab label="Diagnosis Details">
+                            <div class="col-md-12">
+                              <table class="table">
+                                <thead class="table-light">
+                                  <tr>
+                                    <th scope="col">Sr No</th>
+                                    <th scope="col">Diagnosis</th>
+                                    <th scope="col">Notes</th>
+                                  </tr>
+                                </thead>
+                                <tbody
+                                  formArrayName="consultationDiagnosisDetails"
+                                >
+                                  <ng-container
+                                    *ngFor="
+                                      let consultation of allConsutlationHistoryList
+                                    "
+                                  >
+                                    <!-- Consultation Diagnosis Details -->
+                                    <ng-container
+                                      *ngFor="
+                                        let diagnosis of consultation.consultationDiagnosisDetails
+                                      "
+                                    >
+                                      <tr>
+                                        <td>{{ i + 1 }}</td>
+                                        <td>{{ diagnosis.diagnosis_name }}</td>
+                                        <td>{{ diagnosis.notes }}</td>
+                                      </tr>
+                                    </ng-container>
+                                  </ng-container>
+                                </tbody>
+                              </table>
+                            </div>
+                          </mat-tab>
+                          <mat-tab label="Treatment Details">
+                            <div class="col-md-12">
+                              <table class="table">
+                                <thead class="table-light">
+                                  <tr>
+                                    <th scope="col">Sr No</th>
+                                    <th scope="col">Treatment</th>
+                                    <th scope="col">Notes</th>
+                                  </tr>
+                                </thead>
+                                <tbody
+                                  formArrayName="consultationTreatmentDetails"
+                                >
+                                  <ng-container
+                                    *ngFor="
+                                      let consultation of allConsutlationHistoryList
+                                    "
+                                  >
+                                    <!-- Consultation Treatment Details -->
+                                    <ng-container
+                                      *ngFor="
+                                        let treatment of consultation.consultationTreatmentDetails
+                                      "
+                                    >
+                                      <tr>
+                                        <td>{{ i + 1 }}</td>
+                                        <td>{{ treatment.treatment_name }}</td>
+                                        <td>{{ treatment.notes }}</td>
+                                      </tr>
+                                    </ng-container>
+                                  </ng-container>
+                                </tbody>
+                              </table>
+                            </div>
+                          </mat-tab>
+                          <mat-tab label="Medicine Details">
+                            <div class="col-md-12">
+                              <table class="table">
+                                <thead class="table-light">
+                                  <tr>
+                                    <th scope="col">Sr No</th>
+                                    <th scope="col">Medicines</th>
+                                    <th scope="col">Dosages</th>
+                                    <th scope="col">Days</th>
+                                    <th scope="col">Instructions</th>
+                                  </tr>
+                                </thead>
+                                <tbody
+                                  formArrayName="consultationMedicineDetails"
+                                >
+                                  <ng-container
+                                    *ngFor="
+                                      let consultation of allConsutlationHistoryList
+                                    "
+                                  >
+                                    <!-- Consultation Medicine Details -->
+                                    <ng-container
+                                      *ngFor="
+                                        let medicine of consultation.consultationMedicineDetails
+                                      "
+                                    >
+                                      <tr>
+                                        <td>{{ i + 1 }}</td>
+                                        <td>{{ medicine.medicines_name }}</td>
+                                        <td>{{ medicine.dosages_name }}</td>
+                                        <td>{{ medicine.days }}</td>
+                                        <td>
+                                          {{ medicine.instructions_name }}
+                                        </td>
+                                      </tr>
+                                    </ng-container>
+                                  </ng-container>
+                                </tbody>
+                              </table>
+                            </div>
+                          </mat-tab>
+                          <mat-tab label="File Upload Details">
+                            <div class="col-md-12">
+                              <table class="table">
+                                <thead class="table-light">
+                                  <tr>
+                                    <th scope="col">Sr No</th>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Notes</th>
+                                  </tr>
+                                </thead>
+                                <tbody
+                                  formArrayName="consultationFileUploadDetails"
+                                >
+                                  <ng-container
+                                    *ngFor="
+                                      let consultation of allConsutlationHistoryList
+                                    "
+                                  >
+                                    <!-- Consultation File Upload Details -->
+                                    <ng-container
+                                      *ngFor="
+                                        let file of consultation.consultationFileUploadDetails
+                                      "
+                                    >
+                                      <tr>
+                                        <td>
+                                          {{ i + 1 }}
+                                        </td>
+                                        <td>{{ file.image_name }}</td>
+                                        <td>{{ file.notes }}</td>
+                                        <!-- Add more fields as needed -->
+                                      </tr>
+                                    </ng-container>
+                                  </ng-container>
+                                </tbody>
+                              </table>
+                            </div>
+                          </mat-tab>
+                        </mat-tab-group>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </mat-tab>
           </mat-tab-group>

@@ -25,6 +25,7 @@ import { AddUpdateTreatmentComponent } from 'src/app/components/admin/masters/tr
   styleUrl: './add-update-consultation.component.scss',
 })
 export class AddUpdateConsultationComponent implements OnInit {
+  isAccordionOpen: number | null = null;
   form!: FormGroup;
   form_patient!: FormGroup;
   isEdit = true;
@@ -68,6 +69,7 @@ export class AddUpdateConsultationComponent implements OnInit {
   filteredInstructionsArray: Array<any> = [];
   allInstructions: Array<any> = [];
   formGroup: any;
+
 
   constructor(
     private fb: FormBuilder,
@@ -646,6 +648,14 @@ export class AddUpdateConsultationComponent implements OnInit {
         }
       },
     });
+  }
+  //history
+   toggleAccordion(index: number): void {
+    if (this.isAccordionOpen === index) {
+      this.isAccordionOpen = null; // Close the currently open accordion item
+    } else {
+      this.isAccordionOpen = index; // Open the clicked accordion item
+    }
   }
   
 }

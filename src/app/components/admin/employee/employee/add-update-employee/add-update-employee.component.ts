@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, RequiredValidator, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { AdminService } from '../../../admin.service';
@@ -18,7 +18,8 @@ export class AddUpdateEmployeeComponent implements OnInit{
   allDesignationList:Array<any>=[];
   password: string = '';
   passwordVisible: boolean = false;
-
+  selectedDesignation:any= null
+  isDoctor=false;
   constructor (
     private dialogRef:MatDialogRef<EmployeeComponent>,
     private fb:FormBuilder,
@@ -45,9 +46,9 @@ export class AddUpdateEmployeeComponent implements OnInit{
     const passwordValidators = this.isEdit ? [] : [Validators.required];
     this.form = this.fb.group({
       name :[null,Validators.required],
-      charges :[null,Validators.required],
+      charges :[null],
       designation_id:[null, Validators.required],
-      email_id:[null, Validators.required],
+      email_id:['',[Validators.required, Validators.email]],
       customer_id:[this.customer_id, Validators.required],
       password:[this.isEdit ? [''] : null, passwordValidators],
      
@@ -85,10 +86,9 @@ export class AddUpdateEmployeeComponent implements OnInit{
   }
 
   addEmployee(){
-    console.log(this.form.value);
-
+    
     if (this.form.valid){
-      
+      console.log(this.form.value);
       this._adminService.addEmployee(this.form.value).subscribe({
         next:(res:any)=>{
           if(res.status==201||res.status==200){
@@ -113,10 +113,17 @@ export class AddUpdateEmployeeComponent implements OnInit{
   }
   prepopulateData(data:any){
     this.control['name'].patchValue(data.name);
-    this.control['designation_id'].patchValue(data.designation_id);
-    this.control['email_id'].patchValue(data.email_id);
-    this.control['customer_id'].patchValue(this.customer_id);
+    let designationObject ={
+      "designation_id": 7,
+      "designation_name": "doctor",
   }
+  
+  this.control['designation_id'].patchValue(data.designation_id);
+  this.control['email_id'].patchValue(data.email_id);
+  this.control['customer_id'].patchValue(this.customer_id);
+  this.selectedDesignation =  designationObject;  
+  console.log(this.selectedDesignation);
+}
   closeDialog(message?:any) {
     this.dialogRef.close(message);
   }
@@ -125,7 +132,8 @@ export class AddUpdateEmployeeComponent implements OnInit{
     this._adminService.getAllDesignationListWma().subscribe({
       next:(res:any)=>{
         if (res.data.length>0) {
-          this.allDesignationList= res.data;
+          const filteredData = res.data.map(({ designation_id, designation_name }:any) => ({ designation_id, designation_name }));
+          this.allDesignationList= filteredData
         }
       }
     });
@@ -137,6 +145,25 @@ export class AddUpdateEmployeeComponent implements OnInit{
   disablePasswordValidation() {
     this.form.get('password')?.clearValidators();
     this.form.get('password')?.updateValueAndValidity();
+  }
+  onDesignationChange(event: any) {
+    const selectedDesignation= event.target.value;
+    console.log(this.selectedDesignation);
+    
+    this.control['designation_id'].patchValue(this.selectedDesignation.designation_id);
+    let designation_name= this.selectedDesignation.designation_name
+     if (designation_name.trim().toLowerCase()=='doctor') {
+      console.log('is doctor');
+      this.isDoctor =true;
+      this.form.addControl('charges', new FormControl('', Validators.required));
+     }else{
+      this.isDoctor =false;
+      this.control['charges'].removeValidators([Validators.required]);
+      this.control['charges'].updateValueAndValidity();
+      this.form.removeControl('charges')
+
+     }
+    
   }
 
 }

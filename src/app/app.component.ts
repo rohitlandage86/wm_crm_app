@@ -273,6 +273,11 @@ export class AppComponent implements OnInit, AfterContentChecked {
       iconComponent: { name: 'cilList' },
       children: [
         {
+          name: 'Diagnosis',
+          url: ['/doctor', { outlets: { doc_Menu: 'diagnosis-reports' } }],
+
+        },
+        {
           name: 'Registrations',
           url: ['/doctor', { outlets: { doc_Menu: 'patient-reports' } }],
 
@@ -280,6 +285,11 @@ export class AppComponent implements OnInit, AfterContentChecked {
         {
           name: 'Visits',
           url: ['/doctor', { outlets: { doc_Menu: 'patient-visit-reports' } }],
+
+        },
+        {
+          name: 'Treatment',
+          url: ['/doctor', { outlets: { doc_Menu: 'treatment-reports' } }],
 
         }
       ]

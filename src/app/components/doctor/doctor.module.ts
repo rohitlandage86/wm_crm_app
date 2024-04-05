@@ -17,7 +17,8 @@ import { DoctorPatientReportComponent } from './reports/doctor-patient-report/do
 import { DoctorLeadReportComponent } from './reports/doctor-lead-report/doctor-lead-report.component';
 import { DoctorPatientVisitReportComponent } from './reports/doctor-patient-visit-report/doctor-patient-visit-report.component';
 import { DoctorAppointmentReportComponent } from './reports/doctor-appointment-report/doctor-appointment-report.component';
-
+import { DoctorDiagnosisReportComponent } from './reports/doctor-diagnosis-report/doctor-diagnosis-report.component';
+import { DoctorTreatmentReportComponent} from './reports/doctor-treatment-report/doctor-treatment-report.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,9 @@ import { DoctorAppointmentReportComponent } from './reports/doctor-appointment-r
     DoctorFollowUpReportComponent,
     DoctorPatientReportComponent,
     DoctorPatientVisitReportComponent,
-    DoctorAppointmentReportComponent
+    DoctorAppointmentReportComponent,
+    DoctorDiagnosisReportComponent,
+    DoctorTreatmentReportComponent
 
   ],
   imports: [

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { freeSet } from '@coreui/icons';
 import { PageEvent } from '@angular/material/paginator';
 import { ToastrService } from 'ngx-toastr';
@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 })
 export class ReceptionistDashboardComponent implements OnInit {
   allLeadFollowUpList: Array<any> = [];
+  allReceptionistDashboardCount: Array<any> = [];
   firstCardContent: any;
   icons = freeSet;
   page = 1;
@@ -19,18 +20,23 @@ export class ReceptionistDashboardComponent implements OnInit {
   total = 0;
   lead_date: string;
   color: string | undefined;
-  constructor(private _receptionistService: ReceptionistService, private _toastrService: ToastrService) { this.lead_date = ''; }
+  constructor(private _receptionistService: ReceptionistService, private _toastrService: ToastrService,private cdr: ChangeDetectorRef) { this.lead_date = ''; }
 
   ngOnInit() {
     this.setTodayDate();
     this.getAllLeadFollowUpList();
-    this.getFirstCardData().subscribe((data: any) => {
+    this.getReceptionistDashboardCount();
+    this.getReceptionistDashboardCount().subscribe((data: any) => {
       this.firstCardContent = data;
-    });
+      console.log(data);
+      this.cdr.detectChanges(); // Trigger change detection
+  });
   }
-  getFirstCardData(): Observable<any> {
-    return this._receptionistService.getAllReceptionistDashboard(); // Make sure this returns an Observable
-  }
+ 
+  getReceptionistDashboardCount(): Observable<any> {
+
+    return this._receptionistService.getReceptionistDashboardCount();
+ }
 
   setTodayDate() {
     const today = new Date();

@@ -79,4 +79,5 @@ export class DoctorService {
     return this.http.get(this.baseUrl + 'api/consultation/patient-consultation-by-mrno/' + id)
 }
 
+
 }

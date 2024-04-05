@@ -16,17 +16,17 @@
 
                     <c-col md="10">
                         <label for="designation_id" cLabel>Designation Name</label>
-                        <select aria-label="select designation" cSelect sizing="sm" formControlName="designation_id" type="text"[ngClass]="{ 'is-invalid': control['designation_id'].invalid &&(control['designation_id'].dirty ||control['designation_id'].touched)}">
-                            <option >Select Designation Name</option>
-                            <option [value]=item.designation_id *ngFor="let item of allDesignationList">{{item.designation_name}}</option>
+                        <select aria-label="select designation" cSelect sizing="sm" type="select" [(ngModel)]="selectedDesignation" [ngModelOptions]="{standalone: true}" [ngClass]="{ 'is-invalid': control['designation_id'].invalid &&(control['designation_id'].dirty ||control['designation_id'].touched)}"   (change)="onDesignationChange($event)">
+                            <option hidden [ngValue]=null disabled selected>Select Designation Name</option>
+                            <option [ngValue]=item *ngFor="let item of allDesignationList">{{item.designation_name}}</option>
                           </select>
                         <div class="text-danger" *ngIf="control['designation_id'].invalid && (control['designation_id'].dirty || control['designation_id'].touched)">
                             <small>Please provide a valid Designation Name.</small>
                         </div>
                     </c-col>
-                    <c-col md="10">
+                    <c-col md="10" *ngIf="isDoctor">
                         <label cLabel for="charges">Charges</label>
-                        <input cFormControl id="charges" formControlName="charges" type="charges"[ngClass]="{ 'is-invalid': control['charges'].invalid &&(control['charges'].dirty ||control['charges'].touched)}"/>
+                        <input cFormControl id="charges" formControlName="charges" type="number"[ngClass]="{ 'is-invalid': control['charges'].invalid &&(control['charges'].dirty ||control['charges'].touched)}"/>
                         <div class="text-danger" *ngIf="control['charges'].invalid &&(control['charges'].dirty ||control['charges'].touched)">
                             <small >Please provide a valid Charges.</small>
                         </div>
@@ -34,10 +34,23 @@
                     <c-col md="10">
                         <label cLabel for="email_id">Email Id</label>
                         <input cFormControl id="email_id" formControlName="email_id" type="text"[ngClass]="{ 'is-invalid': control['email_id'].invalid &&(control['email_id'].dirty ||control['email_id'].touched)}"/>
-                        <div class="text-danger" *ngIf="control['email_id'].invalid &&(control['email_id'].dirty ||control['email_id'].touched)">
-                            <small >Please provide a valid Email Id.</small>
+                        <span
+                        class="text-danger"
+                        *ngIf="
+                          control['email_id'].invalid &&
+                          (control['email_id'].dirty ||
+                            control['email_id'].touched)
+                        "
+                      >
+                        <div *ngIf="control['email_id'].errors?.['required']">
+                          <small>Email Address is required</small>
                         </div>
+                        <div *ngIf="control['email_id'].errors?.['email']">
+                         <small> Email must be a valid email address</small>
+                        </div>
+                      </span>
                     </c-col>
+              
                     <c-col md="10" *ngIf="!isEdit">
                         <label cLabel for="validationDefault01">Password</label>
                         <c-input-group>

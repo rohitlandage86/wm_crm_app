@@ -24,6 +24,8 @@ export class DoctorViewSearchPatientComponent implements OnInit {
   allSourceOfPatientList: Array<any> = [];
   allEmployeeList: Array<any> = [];
   allReferedByList: Array<any> = [];
+  allConsutlationHistoryList: Array<any> = [];
+  isAccordionOpen: number | null = null;
   defaultStateId: any;
   //for cheif compliant
   searchChiefComplaintsValue = '';
@@ -59,7 +61,7 @@ export class DoctorViewSearchPatientComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-   private _adminService: AdminService, private _doctorService: DoctorService,
+    private _adminService: AdminService, private _doctorService: DoctorService,
     private _superAdminService: SuperAdminService, private url: ActivatedRoute) {
     this.defaultStateId = 20;
   }
@@ -82,16 +84,22 @@ export class DoctorViewSearchPatientComponent implements OnInit {
 
     this.form.patchValue({
       registration_date: new Date().toISOString().split('T')[0],
-      
+
     });
     // url id 
     this.consultation_id = this.url.snapshot.params['id']
     console.log('consultation_id', this.consultation_id);
 
     if (this.consultation_id) {
+      // Extract mrno from consultation_id
+      this.mrno = this.consultation_id.split('_')[0];
+      console.log('mrno', this.mrno);
+      // Retrieve consultation history using mrno
+      this.getConsultationHistory(this.mrno);
       // this.getPatientById(this.consultation_id);
       this.getConsultationId(this.consultation_id);
       this.isEdit = false;
+
 
     }
     this.form.patchValue({
@@ -102,8 +110,8 @@ export class DoctorViewSearchPatientComponent implements OnInit {
     this.form.patchValue({
       payment_type: 'Cash'
     });
-  
-  
+
+
 
 
   }
@@ -310,7 +318,7 @@ export class DoctorViewSearchPatientComponent implements OnInit {
 
   // patientform all filed disable
   disableConsultationFormFields() {
-    Object.keys(this.form.controls).forEach(key => {  
+    Object.keys(this.form.controls).forEach(key => {
       const control = this.form.get(key);
       if (control) {
         control.disable();
@@ -439,7 +447,7 @@ export class DoctorViewSearchPatientComponent implements OnInit {
       this.control['chief_complaints_id'].patchValue(patientData.chief_complaints_id);
       this.control['appointment_date'].patchValue(patientData.appointment_date);
       this.control['appointment_time'].patchValue(patientData.appointment_time);
-   
+
       // Patching diagnosis details
       let consultationDiagnosisDetails = result.data.consultationDiagnosisDetails;
       if (consultationDiagnosisDetails.length > 0) {
@@ -506,7 +514,7 @@ export class DoctorViewSearchPatientComponent implements OnInit {
       }
       this.consultationFileUploadDetailsArray.disable();
     });
-    
+
   }
 
 
@@ -567,5 +575,29 @@ export class DoctorViewSearchPatientComponent implements OnInit {
     });
   }
 
+  //get all consutlation view by mrno (history)..
+  getConsultationHistory(id: any) {
+
+    this._doctorService.getConsultationHistory(id).subscribe({
+      next: (res: any) => {
+        console.log('res', res);
+        if (res.data.length > 0) {
+          this.allConsutlationHistoryList = res.data;
+          console.log(res.data);
+          console.log(this.allConsutlationHistoryList);
+
+
+        }
+      }
+    });
+  }
+  //history
+  toggleAccordion(index: number): void {
+    if (this.isAccordionOpen === index) {
+      this.isAccordionOpen = null; // Close the currently open accordion item
+    } else {
+      this.isAccordionOpen = index; // Open the clicked accordion item
+    }
+  }
 
 }

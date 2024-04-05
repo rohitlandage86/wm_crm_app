@@ -256,5 +256,8 @@ getAllConsultationAppointmentReportList(page:any, perPage:any, fromDate:any, toD
     return this.http.get(this.baseUrl+'api/consultation/appointment',{
         params:params
     });
+} //  get  receptionist-dashboard count ...
+getReceptionistDashboardCount() {
+   return this.http.get(this.baseUrl + 'api/receptionist-dashboard')
 }
 }

@@ -15,3 +15,7 @@
   background: rgb(232, 232, 232) !important;
   color: #040404!important;
 }
+:host ::ng-deep .accordion-button.active {
+  background-color: #007bff; /* Blue color as an example */
+  color: #fff; /* White text color */
+}

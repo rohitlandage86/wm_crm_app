@@ -11,13 +11,13 @@ export class ReceptionistService {
     constructor(private http: HttpClient) { }
     //Receptionist..........................
     // get all leads............................................................
-    getAllLeadsList(page: any, perPage: any, fromDate:any, toDate:any, category_id:any): Observable<any> {
+    getAllLeadsList(page: any, perPage: any, fromDate: any, toDate: any, category_id: any): Observable<any> {
         let params = {
             'page': page,
             'perPage': perPage,
-            'fromDate':fromDate,
-            'toDate':toDate,
-            'category_id':category_id
+            'fromDate': fromDate,
+            'toDate': toDate,
+            'category_id': category_id
         };
         if (page == '' || perPage == '') {
             delete params['page'];
@@ -27,7 +27,7 @@ export class ReceptionistService {
             delete params['fromDate'];
             delete params['toDate'];
         }
-        if (category_id =='' || category_id =='null') {
+        if (category_id == '' || category_id == 'null') {
             delete params['category_id'];
         }
         return this.http.get(this.baseUrl + 'api/lead_header/', { params: params });
@@ -76,17 +76,17 @@ export class ReceptionistService {
         });
     }
     //get all Patient list............................................................... 
-    getAllPatientList(page: any, perPage: any, fromDate:any, toDate:any ,gender:any, entity_id:any,  source_of_patient_id:any, refered_by_id:any, employee_id:any): Observable<any> {
+    getAllPatientList(page: any, perPage: any, fromDate: any, toDate: any, gender: any, entity_id: any, source_of_patient_id: any, refered_by_id: any, employee_id: any): Observable<any> {
         let params = {
             page: page,
             perPage: perPage,
-            fromDate:fromDate,
-            toDate:toDate,
-            gender:gender,
-            entity_id:entity_id,
-            source_of_patient_id:source_of_patient_id,
-            employee_id:employee_id,
-            refered_by_id:refered_by_id
+            fromDate: fromDate,
+            toDate: toDate,
+            gender: gender,
+            entity_id: entity_id,
+            source_of_patient_id: source_of_patient_id,
+            employee_id: employee_id,
+            refered_by_id: refered_by_id
         };
         if (page == '' || perPage == '') {
             delete params['page'];
@@ -96,32 +96,32 @@ export class ReceptionistService {
             delete params['fromDate'];
             delete params['toDate'];
         }
-        if (entity_id =='' || entity_id =='null') {
+        if (entity_id == '' || entity_id == 'null') {
             delete params['entity_id'];
         }
-        if (gender =='' || gender =='null') {
+        if (gender == '' || gender == 'null') {
             delete params['gender'];
         }
-        if (source_of_patient_id =='' || source_of_patient_id =='null') {
+        if (source_of_patient_id == '' || source_of_patient_id == 'null') {
             delete params['source_of_patient_id'];
         }
-        if (employee_id =='' || employee_id =='null') {
+        if (employee_id == '' || employee_id == 'null') {
             delete params['employee_id'];
         }
-        if (refered_by_id =='' || refered_by_id =='null') {
+        if (refered_by_id == '' || refered_by_id == 'null') {
             delete params['refered_by_id'];
         }
         return this.http.get(this.baseUrl + 'api/patient_registration', {
             params: params
         });
     }
-    getAllPatientVisitList(page: any, perPage: any, fromDate:any, toDate:any, visit_type:any): Observable<any> {
+    getAllPatientVisitList(page: any, perPage: any, fromDate: any, toDate: any, visit_type: any): Observable<any> {
         let params = {
             'page': page,
             'perPage': perPage,
-            'fromDate':fromDate,
-            'toDate':toDate,
-            'visit_type':visit_type
+            'fromDate': fromDate,
+            'toDate': toDate,
+            'visit_type': visit_type
         };
         if (page == '' || perPage == '') {
             delete params['page'];
@@ -131,7 +131,7 @@ export class ReceptionistService {
             delete params['fromDate'];
             delete params['toDate'];
         }
-        if (visit_type =='' || visit_type =='null') {
+        if (visit_type == '' || visit_type == 'null') {
             delete params['visit_type'];
         }
         return this.http.get(this.baseUrl + 'api/patient_registration/get-all-patient-visit-list', { params: params });
@@ -207,57 +207,102 @@ export class ReceptionistService {
             params: params
         });
     }
- // patient revist ...
- editPatientRevist(id: any,data: any) {
-    return this.http.put(this.baseUrl + 'api/patient_registration/patient-revisit/' + id, data);
-}
+    // patient revist ...
+    editPatientRevist(id: any, data: any) {
+        return this.http.put(this.baseUrl + 'api/patient_registration/patient-revisit/' + id, data);
+    }
 
-//report lead follow up list
-getAllLeadFollowUpReportList(page:any, perPage:any,fromDate:any, toDate:any, lead_status_id:any):Observable<any>{
-    let params = {
-        page:page,
-        perPage:perPage,
-        lead_status_id:lead_status_id,
-        fromDate:fromDate,
-        toDate:toDate
+    //report lead follow up list
+    getAllLeadFollowUpReportList(page: any, perPage: any, fromDate: any, toDate: any, lead_status_id: any): Observable<any> {
+        let params = {
+            page: page,
+            perPage: perPage,
+            lead_status_id: lead_status_id,
+            fromDate: fromDate,
+            toDate: toDate
+        }
+        if (page == '' || perPage == '') {
+            delete params['page'];
+            delete params['perPage'];
+        }
+        if (fromDate == '' || toDate == '') {
+            delete params['fromDate'];
+            delete params['toDate'];
+        }
+        if (lead_status_id == '' || lead_status_id == 'null') {
+            delete params['lead_status_id'];
+        }
+        return this.http.get(this.baseUrl + 'api/lead_header/lead-follow-up', {
+            params: params
+        });
     }
-    if (page == '' || perPage == '') {
-        delete params['page'];
-        delete params['perPage'];
+    //report consultation appointment  list
+    getAllConsultationAppointmentReportList(page: any, perPage: any, fromDate: any, toDate: any): Observable<any> {
+        let params = {
+            page: page,
+            perPage: perPage,
+            fromDate: fromDate,
+            toDate: toDate
+        }
+        if (page == '' || perPage == '') {
+            delete params['page'];
+            delete params['perPage'];
+        }
+        if (fromDate == '' || toDate == '') {
+            delete params['fromDate'];
+            delete params['toDate'];
+        }
+
+        return this.http.get(this.baseUrl + 'api/consultation/appointment', {
+            params: params
+        });
+    } //  get  receptionist-dashboard count ...
+    getReceptionistDashboardCount() {
+        return this.http.get(this.baseUrl + 'api/receptionist-dashboard')
     }
-    if (fromDate == '' || toDate == '') {
-        delete params['fromDate'];
-        delete params['toDate'];
+    //get all diagnosis report list ..............................................................................
+    getAllDiagnosisReportList(page: any, perPage: any, fromDate: any, toDate: any, diagnosis_id: any): Observable<any> {
+        let params = {
+            'page': page,
+            'perPage': perPage,
+            'fromDate': fromDate,
+            'toDate': toDate,
+            'diagnosis_id': diagnosis_id
+        };
+        if (page == '' || perPage == '') {
+            delete params['page'];
+            delete params['perPage'];
+        }
+        if (fromDate == '' || toDate == '') {
+            delete params['fromDate'];
+            delete params['toDate'];
+        }
+        if (diagnosis_id == '' || diagnosis_id == 'null') {
+            delete params['diagnosis_id'];
+        }
+        return this.http.get(this.baseUrl + 'api/consultation/consultation_diagnosis', { params: params });
     }
-       if (lead_status_id =='' || lead_status_id =='null') {
-        delete params['lead_status_id'];
+    
+       //get all Treatment report list ..............................................................................
+       getAllTreatmentReportList(page: any, perPage: any, fromDate: any, toDate: any, treatment_id: any): Observable<any> {
+        let params = {
+            'page': page,
+            'perPage': perPage,
+            'fromDate': fromDate,
+            'toDate': toDate,
+            'treatment_id': treatment_id
+        };
+        if (page == '' || perPage == '') {
+            delete params['page'];
+            delete params['perPage'];
+        }
+        if (fromDate == '' || toDate == '') {
+            delete params['fromDate'];
+            delete params['toDate'];
+        }
+        if (treatment_id == '' || treatment_id == 'null') {
+            delete params['treatment_id'];
+        }
+        return this.http.get(this.baseUrl + 'api/consultation/consultation_treatment', { params: params });
     }
-    return this.http.get(this.baseUrl+'api/lead_header/lead-follow-up',{
-        params:params
-    });
-}
-//report consultation appointment  list
-getAllConsultationAppointmentReportList(page:any, perPage:any, fromDate:any, toDate:any):Observable<any>{
-    let params = {
-        page:page,
-        perPage:perPage,
-        fromDate:fromDate,
-        toDate:toDate
-    }
-    if (page == '' || perPage == '') {
-        delete params['page'];
-        delete params['perPage'];
-    }
-    if (fromDate == '' || toDate == '') {
-        delete params['fromDate'];
-        delete params['toDate'];
-    }
-     
-    return this.http.get(this.baseUrl+'api/consultation/appointment',{
-        params:params
-    });
-} //  get  receptionist-dashboard count ...
-getReceptionistDashboardCount() {
-   return this.http.get(this.baseUrl + 'api/receptionist-dashboard')
-}
 }

@@ -12,20 +12,19 @@ import { SuperAdminService } from 'src/app/components/super-admin/super-admin.se
   templateUrl: './add-update-leads.component.html',
   styleUrl: './add-update-leads.component.scss'
 })
-export class AddUpdateLeadsComponent implements OnInit{
-  form!:FormGroup;
-  isEdit=false;
-  lead_hid:any
-  allCategoryList:Array<any>=[];
-  allLeadStatusList:Array<any>=[];
+export class AddUpdateLeadsComponent implements OnInit {
+  form!: FormGroup;
+  isEdit = false;
+  lead_hid: any
+  allCategoryList: Array<any> = [];
+  allLeadStatusList: Array<any> = [];
   leadStatusDetailAdded: boolean = false;
-  constructor (
-    private fb:FormBuilder,
-    private _receptionistService: ReceptionistService,private _adminService: AdminService,
-    private _toastrService:ToastrService,private _superAdminService: SuperAdminService,private router: Router, private url: ActivatedRoute){}
+  constructor(
+    private fb: FormBuilder,
+    private _receptionistService: ReceptionistService, private _adminService: AdminService,
+    private _toastrService: ToastrService, private _superAdminService: SuperAdminService, private router: Router, private url: ActivatedRoute) { }
 
-
-  ngOnInit(){
+  ngOnInit() {
     this.createForm();
     this.getAllCategoryList();
     this.getAllLeadStatusList();
@@ -33,13 +32,12 @@ export class AddUpdateLeadsComponent implements OnInit{
       lead_date: new Date().toISOString().split('T')[0],
     });
     this.lead_hid = this.url.snapshot.params['id']
-
     if (this.lead_hid) {
       this.getLeadById(this.lead_hid)
       // this.prepopulateData(this.lead_hid)
       this.leadStatusDetailAdded = true;
-      this.isEdit =true;
-      
+      this.isEdit = true;
+
     }
   }
   getCurrentDate(): string {
@@ -50,7 +48,7 @@ export class AddUpdateLeadsComponent implements OnInit{
 
     return `${year}-${month}-${day}`;
   }
-  createForm(){
+  createForm() {
     this.form = this.fb.group({
       name: ['', Validators.required],
       lead_date: ['', Validators.required],
@@ -61,7 +59,7 @@ export class AddUpdateLeadsComponent implements OnInit{
       leadFooterDetails: this.fb.array([this.newLeadFooter()])
     });
   }
-  get control(){
+  get control() {
     return this.form.controls;
   }
   get leadstatusDetailsArray() {
@@ -77,12 +75,12 @@ export class AddUpdateLeadsComponent implements OnInit{
       no_of_calls: [null, Validators.required],
       lead_status_id: [null, Validators.required],
       follow_up_date: [null, Validators.required],
-      
+
     })
   }
   addLeadFooter() {
     this.leadstatusDetailsArray.push(this.newLeadFooter());
-      this.leadStatusDetailAdded = true;
+    this.leadStatusDetailAdded = true;
     // if (this.isEdit) {
     //   this.leadstatusDetailsArray.push(this.newLeadFooter());
     //   this.leadStatusDetailAdded = true;
@@ -91,22 +89,22 @@ export class AddUpdateLeadsComponent implements OnInit{
   deleteLeadFooter(i: any) {
     this.leadstatusDetailsArray.removeAt(i)
   }
-  submit(){ this.isEdit? this.updateLead():this.addLead();}
+  submit() { this.isEdit ? this.updateLead() : this.addLead(); }
 
-  updateLead(){
+  updateLead() {
     if (this.form.valid) {
       console.log(this.form.value);
-      this._receptionistService.editLead(this.form.value,this.lead_hid).subscribe({
-        next:(res:any)=>{
-          if (res.status==200) {
+      this._receptionistService.editLead(this.form.value, this.lead_hid).subscribe({
+        next: (res: any) => {
+          if (res.status == 200) {
             this._toastrService.success(res.message);
             this.router.navigate(['/receptionist', { outlets: { receptionist_Menu: 'leads' } }])
-          }else{
+          } else {
             this._toastrService.warning(res.message);
           }
         },
-        error:(err:any)=>{
-          if (err.error.status==401 || err.error.status==422) {
+        error: (err: any) => {
+          if (err.error.status == 401 || err.error.status == 422) {
             this._toastrService.warning(err.error.message);
           } else {
             this._toastrService.error("Internal Server Error");
@@ -122,35 +120,35 @@ export class AddUpdateLeadsComponent implements OnInit{
   addLead(){
     if (this.form.valid){
       this._receptionistService.addLead(this.form.value).subscribe({
-        next:(res:any)=>{
-          if(res.status==201||res.status==200){
+        next: (res: any) => {
+          if (res.status == 201 || res.status == 200) {
             this._toastrService.success(res.message);
             this.router.navigate(['/receptionist', { outlets: { receptionist_Menu: 'leads' } }])
-          }else{
+          } else {
             this._toastrService.warning(res.message);
           }
         },
-        error:(err:any)=>{
-          if(err.error.status== 422){
+        error: (err: any) => {
+          if (err.error.status == 422) {
             this._toastrService.warning(err.error.message);
-          }else{
+          } else {
             this._toastrService.error("Internal Server Error");
           }
         }
       });
-    }else{
+    } else {
       this.form.markAllAsTouched();
       this._toastrService.warning("Fill required fields");
     }
   }
 
-  getLeadById(id:any){
+  getLeadById(id: any) {
     this._receptionistService.getLeadById(id).subscribe((result: any) => {
       this.form.patchValue(result.data)
       const leadDate = new Date(result.data.lead_date);
-    this.form.get('lead_date')?.patchValue(
-      `${leadDate.getFullYear()}-${('0' + (leadDate.getMonth() + 1)).slice(-2)}-${('0' + leadDate.getDate()).slice(-2)}`
-    );
+      this.form.get('lead_date')?.patchValue(
+        `${leadDate.getFullYear()}-${('0' + (leadDate.getMonth() + 1)).slice(-2)}-${('0' + leadDate.getDate()).slice(-2)}`
+      );
       let leadFooterDetails = result.data.leadFooterDetails;
       if (leadFooterDetails.length > 0) {
         this.leadstatusDetailsArray.clear();
@@ -159,14 +157,14 @@ export class AddUpdateLeadsComponent implements OnInit{
 
           this.leadstatusDetailsArray.push(this.newLeadFooter())
           this.leadstatusDetailsArray.at(index).get('lead_fid')?.patchValue(element.lead_fid)
-        this.leadstatusDetailsArray.at(index).get('comments')?.patchValue(element.comments);
-        this.leadstatusDetailsArray.at(index).get('calling_time')?.patchValue(element.calling_time);
-        this.leadstatusDetailsArray.at(index).get('no_of_calls')?.patchValue(element.no_of_calls);
-        this.leadstatusDetailsArray.at(index).get('lead_status_id')?.patchValue(element.lead_status_id);
-        const followUpDate = new Date(element.follow_up_date);
-        this.leadstatusDetailsArray.at(index).get('follow_up_date')?.patchValue(
-          `${followUpDate.getFullYear()}-${('0' + (followUpDate.getMonth() + 1)).slice(-2)}-${('0' + followUpDate.getDate()).slice(-2)}`
-        );
+          this.leadstatusDetailsArray.at(index).get('comments')?.patchValue(element.comments);
+          this.leadstatusDetailsArray.at(index).get('calling_time')?.patchValue(element.calling_time);
+          this.leadstatusDetailsArray.at(index).get('no_of_calls')?.patchValue(element.no_of_calls);
+          this.leadstatusDetailsArray.at(index).get('lead_status_id')?.patchValue(element.lead_status_id);
+          const followUpDate = new Date(element.follow_up_date);
+          this.leadstatusDetailsArray.at(index).get('follow_up_date')?.patchValue(
+            `${followUpDate.getFullYear()}-${('0' + (followUpDate.getMonth() + 1)).slice(-2)}-${('0' + followUpDate.getDate()).slice(-2)}`
+          );
         }
       }
 
@@ -175,22 +173,22 @@ export class AddUpdateLeadsComponent implements OnInit{
 
 
   //get category list...
-  getAllCategoryList(){
+  getAllCategoryList() {
     this._adminService.getAllCategoryListWma().subscribe({
-      next:(res:any)=>{
-        if (res.data.length>0) {
-          this.allCategoryList =res.data;
+      next: (res: any) => {
+        if (res.data.length > 0) {
+          this.allCategoryList = res.data;
         }
       }
     });
-    
+
   }
-   //get  Lead Status list...
-   getAllLeadStatusList(){
+  //get  Lead Status list...
+  getAllLeadStatusList() {
     this._superAdminService.allLeadStatusList().subscribe({
-      next:(res:any)=>{
-        if (res.data.length>0) {
-          this.allLeadStatusList =res.data;
+      next: (res: any) => {
+        if (res.data.length > 0) {
+          this.allLeadStatusList = res.data;
         }
       }
     });

@@ -1,77 +1,104 @@
 <c-container breakpoint="lg">
-    <c-card class="mb-4">
-        <c-card-header class="d-flex justify-content-between">
-            <strong>Treatment</strong>
-        </c-card-header>
-        <c-card-body>
-            <div class="row h-100" [formGroup]="form">
-                <div class="col-md-2 mb-3">
-                    <div class="form-group">
-                        <label cLabel for="">From Date</label>
-                        <input cFormControl id="" sizing="sm" type="date" formControlName="fromDate" />
-                    </div>
-                    <!-- <div *ngIf="form.get('fromDate')?.hasError('futureDate')&&form.get('fromDate')?.dirty" class="text-danger">Invalid date.</div> -->
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label cLabel for="">To Date</label>
-                        <input cFormControl id="" sizing="sm" type="date" formControlName="toDate" />
-                        <!-- [max]="minDate.toISOString().split('T')[0]" -->
-                    </div>
-                    <!-- <div *ngIf="form.get('toDate')?.hasError('futureDate')&&form.get('toDate')?.dirty" class="text-danger">Invalid date.</div> -->
-                </div>      
-                <div class="col-md-3">
-                    <label cLabel for="">Treatment</label>
-                    <select aria-label="select " cSelect sizing="sm"  formControlName="treatment_id">
-                        <option  value="null" selected>All</option>
-                        <ng-container *ngFor="let item of allTreatmentList">
-                            <option [value]="item.treatment_id" >
-                                {{ item.treatment_name }}
-                            </option>
-                        </ng-container>
-                    </select>
-                </div>
+  <c-card class="mb-4">
+    <c-card-header class="d-flex justify-content-between">
+      <strong>Treatment</strong>
+    </c-card-header>
+    <c-card-body>
+      <div class="row h-100" [formGroup]="form">
+        <div class="col-md-2 mb-3">
+          <div class="form-group">
+            <label cLabel for="">From Date</label>
+            <input
+              cFormControl
+              id=""
+              sizing="sm"
+              type="date"
+              formControlName="fromDate"
+            />
+          </div>
+          <!-- <div *ngIf="form.get('fromDate')?.hasError('futureDate')&&form.get('fromDate')?.dirty" class="text-danger">Invalid date.</div> -->
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <label cLabel for="">To Date</label>
+            <input
+              cFormControl
+              id=""
+              sizing="sm"
+              type="date"
+              formControlName="toDate"
+            />
+            <!-- [max]="minDate.toISOString().split('T')[0]" -->
+          </div>
+          <!-- <div *ngIf="form.get('toDate')?.hasError('futureDate')&&form.get('toDate')?.dirty" class="text-danger">Invalid date.</div> -->
+        </div>
+        <div class="col-md-3">
+          <label cLabel for="">Treatment</label>
+          <select
+            aria-label="select "
+            cSelect
+            sizing="sm"
+            formControlName="treatment_id"
+          >
+            <option value="null" selected>All</option>
+            <ng-container *ngFor="let item of allTreatmentList">
+              <option [value]="item.treatment_id">
+                {{ item.treatment_name }}
+              </option>
+            </ng-container>
+          </select>
+        </div>
 
-                <div class="col-md-3 h-100 d-flex align-self-center pt-2">
-                    <button cButton class="me-1" color="primary" (click)="submitFilter()">
-                        Submit
-                      </button>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <table class="table table-striped" cTable>
-                    <thead cTableColor="light">
-                         <tr>
-                            <th>Sr. No</th>
-                            <th>Date</th>
-                            <th>Treatment</th>
-                            <th>Name</th>
-                            <th>Mobile Number</th>
-                            <th>City</th>
-                            <th>Doctor</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of allConsultationTreatmentList; let i = index">
-                            <td>{{ i + 1 }}</td>
-                            <td>{{ item.cts | date:'dd-MM-yyyy' }}</td>
-                            <td>{{ item.treatment_name }}</td>
-                            <td>{{ item.patient_name }}</td>
-                            <td>{{ item.mobile_no }}</td>
-                            <td>{{ item.city }}</td>
-                            <td>{{ item.employee_name }}</td>
-                        </tr>
-                        <tr class=" fw-bold text-center" *ngIf="allConsultationTreatmentList.length===0">
-                            <td colspan="10" class="text-danger">No Data Available</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-md-12">
-                <mat-paginator [length]="total" [pageSize]="perPage" [pageSizeOptions]="[5, 10, 25, 100]"
-                    aria-label="Select page" [showFirstLastButtons]="true" (page)="onPageChange($event)">
-                </mat-paginator>
-            </div>
-        </c-card-body>
-    </c-card>
+        <div class="col-md-3 h-100 d-flex align-self-center pt-2">
+          <button cButton class="me-1" color="primary" (click)="submitFilter()">
+            Submit
+          </button>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <table class="table table-striped" cTable>
+          <thead cTableColor="light">
+            <tr>
+              <th>Sr. No</th>
+              <th>Date</th>
+              <th>Name</th>
+              <th>Treatment</th>
+              <th>Mobile Number</th>
+              <th>City</th>
+              <th>Doctor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let item of allConsultationTreatmentList; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ item.cts | date : "dd-MM-yyyy" }}</td>
+              <td>{{ item.patient_name }}</td>
+              <td>{{ item.treatment_name }}</td>
+              <td>{{ item.mobile_no }}</td>
+              <td>{{ item.city }}</td>
+              <td>{{ item.employee_name }}</td>
+            </tr>
+            <tr
+              class="fw-bold text-center"
+              *ngIf="allConsultationTreatmentList.length === 0"
+            >
+              <td colspan="10" class="text-danger">No Data Available</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-12">
+        <mat-paginator
+          [length]="total"
+          [pageSize]="perPage"
+          [pageSizeOptions]="[5, 10, 25, 100]"
+          aria-label="Select page"
+          [showFirstLastButtons]="true"
+          (page)="onPageChange($event)"
+        >
+        </mat-paginator>
+      </div>
+    </c-card-body>
+  </c-card>
 </c-container>

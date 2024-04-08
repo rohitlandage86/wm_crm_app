@@ -153,7 +153,7 @@ export class AddUpdateConsultationComponent implements OnInit {
       mrno: ['', Validators.required],
       pluse: [null],
       bp: [null],
-      past_history: [null],
+      past_history: [''],
       chief_complaints_id: ['', Validators.required], // Add this line to define chief_complaints_id
       appointment_date: [''],
       appointment_time: [''],

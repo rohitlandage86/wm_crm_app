@@ -4,6 +4,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { ToastrService } from 'ngx-toastr';
 import { ReceptionistService } from './../receptionist.service';
 import { Observable } from 'rxjs';
+import { CanvasJS } from '@canvasjs/angular-charts';
 
 @Component({
   selector: 'app-receptionist-dashboard',
@@ -81,7 +82,38 @@ export class ReceptionistDashboardComponent implements OnInit {
         }
       },
     })
-
-
   }
+  chartOptions = {
+    title:{
+      text: "Angular Column Chart"  
+    },
+    animationEnabled: true,
+    data: [{        
+      type: "column",
+      dataPoints: [
+        { x: 10, y: 71 },
+        { x: 20, y: 55 },
+        { x: 30, y: 50 },
+        { x: 40, y: 65 },
+        { x: 50, y: 95 },
+        { x: 60, y: 68 },
+        { x: 70, y: 28 },
+        { x: 80, y: 34 },
+        { x: 90, y: 14 }
+      ]
+    }]
+  }
+
+  addSymbols(e: { value: string | number; }) {
+    const suffixes = ["", "K", "M", "B"];
+  
+    let order = Math.max(Math.floor(Math.log(Math.abs(Number(e.value))) / Math.log(1000)), 0);
+    if (order > suffixes.length - 1)
+      order = suffixes.length - 1;
+  
+    const suffix = suffixes[order];
+    // Ensure e.value is properly converted to a number
+    return CanvasJS.formatNumber(Number(e.value) / Math.pow(1000, order)) + suffix;
+  }
+
 }

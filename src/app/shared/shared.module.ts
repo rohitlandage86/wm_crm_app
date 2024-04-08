@@ -15,7 +15,6 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 @NgModule({
   declarations: [],
   imports: [
@@ -53,7 +52,7 @@ import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
     FormsModule,
     MatInputModule,
     MatFormFieldModule,
-    CanvasJSAngularChartsModule
+    
   
 
   ],
@@ -92,7 +91,6 @@ import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
     FormsModule,
     MatInputModule,
     MatFormFieldModule,
-    CanvasJSAngularChartsModule
   
 
     

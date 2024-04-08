@@ -159,14 +159,14 @@ export class ReceptionistService {
         return this.http.get(this.baseUrl + 'api/patient_registration/wma');
     }
     //get all lead-follow-up list...............................................................
-    getAllLeadFollowUpList(page: any, perPage: any, lead_date: any): Observable<any> {
+    getAllLeadFollowUpList(page: any, perPage: any, follow_up_date: any): Observable<any> {
         let params: any = {
             page: page,
             perPage: perPage,
         };
 
-        if (lead_date) {
-            params.lead_date = lead_date;
+        if (follow_up_date) {
+            params.follow_up_date = follow_up_date;
         }
 
         if (page == '' || perPage == '') {
@@ -178,6 +178,26 @@ export class ReceptionistService {
             params: params
         });
     }
+        //get all lead-Date list...............................................................
+        getAllLeadDateList(page: any, perPage: any, lead_date: any): Observable<any> {
+            let params: any = {
+                page: page,
+                perPage: perPage,
+            };
+    
+            if (lead_date) {
+                params.lead_date = lead_date;
+            }
+    
+            if (page == '' || perPage == '') {
+                delete params.page;
+                delete params.perPage;
+            }
+    
+            return this.http.get(this.baseUrl + 'api/lead_header/lead-follow-up', {
+                params: params
+            });
+        }
 
     //Edit lead-follow-up...
     editLeadFollowUp(data: any, id: any) {

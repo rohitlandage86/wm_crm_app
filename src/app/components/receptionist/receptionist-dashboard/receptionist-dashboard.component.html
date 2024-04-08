@@ -51,11 +51,7 @@
       </c-col>
       
     </c-row>
-  
-  
-      <div class="mb-4 card ">
-        <canvasjs-chart [options]="chartOptions" [styles]="{width: '100%', height:'360px'}"></canvasjs-chart>    
-    </div>  
+    <c-chart type="bar" [data]="chartBarData"></c-chart>
     <c-card class="mb-4">
         <c-card-header class="d-flex justify-content-between">
             <strong> Lead Follow Up List</strong>

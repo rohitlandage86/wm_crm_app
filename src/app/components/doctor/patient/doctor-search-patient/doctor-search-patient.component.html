@@ -38,7 +38,7 @@
                     <tbody>
                         <tr *ngFor="let item of allConsultationList; let i = index">
                             <td>{{ i + 1 }}</td>
-                            <td>{{ item.registration_date | date:'dd-MM-yyyy'}}</td>
+                            <td>{{ item.cts | date:'dd-MM-yyyy'}}</td>
                             <td>{{ item.patient_name  }}</td>
                             <td>{{ item.gender }}</td>
                             <td>{{ item.age }}</td>

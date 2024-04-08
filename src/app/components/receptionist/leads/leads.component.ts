@@ -22,15 +22,8 @@ export class LeadsComponent implements OnInit{
 
   ngOnInit() {
     this.setTodayDate();
-    this.getAllLeadFollowUpList();
-    this.getFirstCardData().subscribe((data: any) => {
-      this.firstCardContent = data;
-    });
+    this.getAllLeadDateList();
   }
-  getFirstCardData(): Observable<any> {
-    return this._receptionistService.getAllReceptionistDashboard(); // Make sure this returns an Observable
-  }
-
   setTodayDate() {
     const today = new Date();
     // Format the date as per your backend requirement
@@ -38,9 +31,9 @@ export class LeadsComponent implements OnInit{
       .toString()
       .padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
   }
-  //get all LeadFollowUp List...
-  getAllLeadFollowUpList() {
-    this._receptionistService.getAllLeadFollowUpList(this.page, this.perPage, this.lead_date).subscribe({
+  //get all Lead Date List...
+  getAllLeadDateList() {
+    this._receptionistService.getAllLeadDateList(this.page, this.perPage, this.lead_date).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
           console.log(res);
@@ -54,6 +47,6 @@ export class LeadsComponent implements OnInit{
   onPageChange(event: PageEvent): void {
     this.page = event.pageIndex + 1;
     this.perPage = event.pageSize;
-    this.getAllLeadFollowUpList();
+    this.getAllLeadDateList();
   }
 }

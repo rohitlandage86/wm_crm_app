@@ -87,10 +87,6 @@ export class DoctorViewSearchPatientComponent implements OnInit {
     // url id 
     this.consultation_id = this.url.snapshot.params['id']
     if (this.consultation_id) {
-      // Extract mrno from consultation_id
-      this.mrno = this.consultation_id.split('_')[0];
-      // Retrieve consultation history using mrno
-      this.getConsultationHistory(this.mrno);
       this.getConsultationId(this.consultation_id);
       this.isEdit = false;
     }
@@ -383,6 +379,7 @@ export class DoctorViewSearchPatientComponent implements OnInit {
 
   getConsultationId(id: any) {
     this._doctorService.getConsultationById(id).subscribe((result: any) => {
+      this.getConsultationHistory(result.data.mrno);
       const patientData = result.data;
       this.control['entity_id'].patchValue(patientData.entity_id);
       this.control['registration_date'].patchValue(new Date(patientData.registration_date).toISOString().split('T')[0]);

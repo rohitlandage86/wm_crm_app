@@ -1,0 +1,35 @@
+.count {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .count div {
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .chart-style {
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  /* Custom CSS for styling the c-chart */
+.chart-style {
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Styling the bars in the column chart */
+  .chart-style .bar {
+    fill: #007bff; /* Change the bar color */
+    transition: fill 0.3s ease; /* Smooth transition effect */
+  }
+  
+  /* Hover effect for the bars */
+  .chart-style .bar:hover {
+    fill: #0056b3; /* Change the color on hover */
+  }

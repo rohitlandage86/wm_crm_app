@@ -169,9 +169,7 @@
           <c-col md="12" class="p-2">
             <label cLabel for="validationDefault01"
               >Note
-              <span style="color: red" *ngIf="!control['note'].value"
-                >*</span
-              ></label
+            </label
             >
             <textarea
               cFormControl
@@ -180,15 +178,6 @@
               rows="3"
               [ngClass]="{'is-invalid':control['note'].errors?.['maxlength']}"
             ></textarea>
-            <div
-              class="text-danger"
-              *ngIf="
-                control['note'].invalid &&
-                (control['note'].dirty || control['note'].touched)
-              "
-            >
-              <small>Please provide a valid Note.</small>
-            </div>
           </c-col>
 
           <c-card-header>

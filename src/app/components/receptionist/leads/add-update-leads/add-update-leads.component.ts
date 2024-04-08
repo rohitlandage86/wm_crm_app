@@ -56,7 +56,7 @@ export class AddUpdateLeadsComponent implements OnInit{
       lead_date: ['', Validators.required],
       city: ['', [Validators.required]],
       mobile_number: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
-      note: [null, Validators.required],
+      note: [null],
       category_id: [null, Validators.required],
       leadFooterDetails: this.fb.array([this.newLeadFooter()])
     });
@@ -121,6 +121,8 @@ export class AddUpdateLeadsComponent implements OnInit{
 
   addLead(){
     if (this.form.valid){
+      console.log(this.form.value);
+      
       this._receptionistService.addLead(this.form.value).subscribe({
         next:(res:any)=>{
           if(res.status==201||res.status==200){

@@ -1,49 +1,58 @@
 <c-container breakpoint="lg">
-    <c-row>
-        <c-col md="4">
-            <c-card class="mb-4 count">
-                <c-card-body>
-                    <div *ngIf="firstCardContent ">
-                        <strong>First Visit: </strong>{{ firstCardContent.first_visit_count}}
-                    </div>
-                    
-                </c-card-body>
-              </c-card>
-        </c-col>
-        <c-col md="4">
+  <c-row>
+    <c-col md="4">
+      <c-card class="mb-4 count">
+        <c-card-body>
+          <div *ngIf="firstCardContent">
+            <strong>First Visit: </strong
+            >{{ firstCardContent.first_visit_count }}
+          </div>
+        </c-card-body>
+      </c-card>
+    </c-col>
+    <c-col md="4">
+      <c-card class="mb-4 count">
+        <c-card-body>
+          <div *ngIf="firstCardContent">
+            <strong>Checked: </strong>{{ firstCardContent.is_checked_count }}
+          </div>
+        </c-card-body>
+      </c-card>
+    </c-col>
+    <c-col md="4">
+      <c-card class="mb-4 count">
+        <c-card-body>
+          <div *ngIf="firstCardContent">
+            <strong>Not Checked: </strong
+            >{{ firstCardContent.is_not_checked_count }}
+          </div>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
 
-            <c-card class="mb-4 count">
-                <c-card-body>
-                    <div *ngIf="firstCardContent">
-                        <strong>Checked: </strong>{{ firstCardContent.is_checked_count}}
-                      </div>
-                </c-card-body>
-              </c-card>
-        </c-col>
-        <c-col md="4">
-            <c-card class="mb-4 count">
-                <c-card-body>
-                    <div *ngIf="firstCardContent">
-                        <strong>Not Checked: </strong>{{ firstCardContent.is_not_checked_count}}
-                      </div>
-                </c-card-body>
-              </c-card>
-        </c-col>
-       
-    </c-row>
-  
+  <c-row>
+    <c-col md="12">
       <c-card class="mb-4 count">
         <c-card-body>
-            <div *ngIf="firstCardContent">
-                <strong>Re-Visit: </strong>{{ firstCardContent.re_visit_count}}
-              </div>
+          <div *ngIf="firstCardContent">
+            <strong>Re-Visit: </strong>{{ firstCardContent.re_visit_count }}
+          </div>
         </c-card-body>
       </c-card>
+    </c-col>
+  </c-row>
+
+  <c-row>
+    <c-col md="12">
       <c-card class="mb-4 count">
         <c-card-body>
-            <div *ngIf="firstCardContent">
-                <strong>Today Total Patient: </strong>{{ firstCardContent.today_total_patient_count}}
-              </div>
+          <div *ngIf="firstCardContent">
+            <strong>Today Total Patient: </strong
+            >{{ firstCardContent.today_total_patient_count }}
+          </div>
         </c-card-body>
       </c-card>
+    </c-col>
+  </c-row>
 </c-container>

@@ -31,7 +31,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
     private titleService: Title,
     private iconSetService: IconSetService,
     private _sharedService: SharedService,
-    private _toastrService:ToastrService
+    private _toastrService: ToastrService
   ) {
     titleService.setTitle(this.title);
     // iconSet singleton
@@ -57,7 +57,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
       this.isAdminDashboard = false;
       this.isReceptionistDashboard = false;
       this.isSuperAdminDashboard = false;
-    } 
+    }
     else if (currentRoute?.split('/')[1] == 'receptionist') {
       this.isAdminDashboard = false;
       this.isDoctorDashboard = false;
@@ -131,14 +131,14 @@ export class AppComponent implements OnInit, AfterContentChecked {
         {
           name: 'Diagnosis',
           url: ['/admin', { outlets: { sub_Menu: 'diagnosis' } }]
-        }, 
+        },
         {
           name: 'Category',
           url: ['/admin', { outlets: { sub_Menu: 'category' } }]
-        },     
+        },
       ]
     },
-    
+
     {
       name: 'Clinical Masters',
       url: '/masters',
@@ -160,7 +160,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
           name: 'Chief Complaint',
           url: ['/admin', { outlets: { sub_Menu: 'chief_complaints' } }]
         },
-             
+
       ]
     },
     {
@@ -168,7 +168,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
       url: '/masters',
       iconComponent: { name: 'cil-puzzle' },
       children: [
-       
+
         {
           name: 'Title',
           url: ['/admin', { outlets: { sub_Menu: 'title' } }]
@@ -177,12 +177,12 @@ export class AppComponent implements OnInit, AfterContentChecked {
           name: 'Source Of Patient',
           url: ['/admin', { outlets: { sub_Menu: 'source_of_patient' } }]
         },
-      
+
         {
           name: 'Refered By',
           url: ['/admin', { outlets: { sub_Menu: 'refered_by' } }]
         },
-           
+
       ]
     },
     {
@@ -196,8 +196,8 @@ export class AppComponent implements OnInit, AfterContentChecked {
         },
         {
           name: 'Employee',
-          url:['/admin', { outlets: { sub_Menu: 'employee' } }]
-        },        
+          url: ['/admin', { outlets: { sub_Menu: 'employee' } }]
+        },
       ]
     },
     {
@@ -219,14 +219,14 @@ export class AppComponent implements OnInit, AfterContentChecked {
         {
           name: 'Patients',
           url: ['/doctor', { outlets: { doc_Menu: 'patient' } }],
-          
+
         },
         {
           name: 'Search',
           url: ['/doctor', { outlets: { doc_Menu: 'doctor-search-patient' } }],
 
         }
-           
+
       ]
     },
     {
@@ -236,20 +236,39 @@ export class AppComponent implements OnInit, AfterContentChecked {
         {
           name: 'Lead',
           url: ['/doctor', { outlets: { doc_Menu: 'lead' } }],
-          
+
         },
         {
           name: 'Search',
           url: ['/doctor', { outlets: { doc_Menu: 'doctor-search-lead' } }],
 
         }
-           
+
       ]
     },
     {
       name: 'Reports',
-     
+
       iconComponent: { name: 'cil-description' }
+    },
+
+    {
+      name: 'OPD',
+      iconComponent: { name: 'cilList' },
+      children: [
+
+        {
+          name: 'Registrations',
+          url: ['/doctor', { outlets: { doc_Menu: 'patient-reports' } }],
+
+        },
+        {
+          name: 'Visits',
+          url: ['/doctor', { outlets: { doc_Menu: 'patient-visit-reports' } }],
+
+        },
+
+      ]
     },
     {
       name: 'Lead',
@@ -269,22 +288,12 @@ export class AppComponent implements OnInit, AfterContentChecked {
       ]
     },
     {
-      name: 'OPD',
+      name: 'Clinical', 
       iconComponent: { name: 'cilList' },
-      children: [
+      children: [ 
         {
           name: 'Diagnosis',
           url: ['/doctor', { outlets: { doc_Menu: 'diagnosis-reports' } }],
-
-        },
-        {
-          name: 'Registrations',
-          url: ['/doctor', { outlets: { doc_Menu: 'patient-reports' } }],
-
-        },
-        {
-          name: 'Visits',
-          url: ['/doctor', { outlets: { doc_Menu: 'patient-visit-reports' } }],
 
         },
         {
@@ -299,7 +308,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
       url: ['/doctor', { outlets: { doc_Menu: 'appointments' } }],
       iconComponent: { name: 'cilList' },
     },
-   
+
     {
       name: 'Logout',
       url: '/auth',
@@ -313,7 +322,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
       url: ['/receptionist', { outlets: { receptionist_Menu: 'receptionist' } }],
       iconComponent: { name: 'cil-speedometer' },
     },
-   
+
     {
       name: 'Patients',
       iconComponent: { name: 'cilList' },
@@ -321,37 +330,37 @@ export class AppComponent implements OnInit, AfterContentChecked {
         {
           name: 'Create',
           url: ['/receptionist', { outlets: { receptionist_Menu: 'patient' } }],
-          
+
         },
         {
           name: 'Search',
           url: ['/receptionist', { outlets: { receptionist_Menu: 'search-patient' } }],
 
         }
-           
+
       ]
     },
- 
+
     {
-      name: 'Leads', 
+      name: 'Leads',
       iconComponent: { name: 'cilList' },
       children: [
         {
           name: 'Create',
           url: ['/receptionist', { outlets: { receptionist_Menu: 'leads' } }],
-          
+
         },
         {
           name: 'Search',
           url: ['/receptionist', { outlets: { receptionist_Menu: 'search-leads' } }],
 
         }
-           
+
       ]
     },
     {
       name: 'Reports',
-     
+
       iconComponent: { name: 'cil-description' }
     },
     {
@@ -371,7 +380,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
 
       ]
     },
-    
+
     {
       name: 'OPD',
       iconComponent: { name: 'cilList' },
@@ -393,7 +402,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
       url: ['/receptionist', { outlets: { receptionist_Menu: 'appointment' } }],
       iconComponent: { name: 'cilList' },
     },
-    
+
     {
       name: 'Logout',
       url: '/auth',

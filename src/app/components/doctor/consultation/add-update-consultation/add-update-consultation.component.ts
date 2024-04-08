@@ -25,7 +25,7 @@ import { AddUpdateTreatmentComponent } from 'src/app/components/admin/masters/tr
   styleUrl: './add-update-consultation.component.scss',
 })
 export class AddUpdateConsultationComponent implements OnInit {
-  baseUrl =environment.baseUrl
+  baseUrl = environment.baseUrl
   isAccordionOpen: number | null = null;
   form!: FormGroup;
   form_patient!: FormGroup;
@@ -71,7 +71,6 @@ export class AddUpdateConsultationComponent implements OnInit {
   allInstructions: Array<any> = [];
   formGroup: any;
 
-
   constructor(
     private fb: FormBuilder,
     private _receptionistService: ReceptionistService,
@@ -109,7 +108,7 @@ export class AddUpdateConsultationComponent implements OnInit {
     });
     //url id
     this.mrno = this.url.snapshot.params['id'];
-    
+
     if (this.mrno) {
       this.getPatientById(this.mrno);
       this.getConsultationHistory(this.mrno);
@@ -153,7 +152,7 @@ export class AddUpdateConsultationComponent implements OnInit {
       mrno: ['', Validators.required],
       pluse: [null],
       bp: [null],
-      past_history: [''],
+      past_history: [''], 
       chief_complaints_id: ['', Validators.required], // Add this line to define chief_complaints_id
       appointment_date: [''],
       appointment_time: [''],
@@ -495,17 +494,19 @@ export class AddUpdateConsultationComponent implements OnInit {
       this._toastrService.warning('Fill required fields');
     }
   }
-    //get all consutlation view by mrno (history)..
-    getConsultationHistory(id:any ) {
-      
-      this._doctorService.getConsultationHistory(id).subscribe({
-        next: (res: any) => {
-          if (res.data.length > 0) {
-            this.allConsutlationHistoryList = res.data;
-          }
+  //get all consutlation view by mrno (history)..
+  getConsultationHistory(id: any) {
+
+    this._doctorService.getConsultationHistory(id).subscribe({
+      next: (res: any) => {
+        if (res.data.length > 0) {
+          this.allConsutlationHistoryList = res.data;
+          console.log(res);
+
         }
-      });
-    }
+      }
+    });
+  }
 
   //patient by id patch data
   getPatientById(id: any) {
@@ -635,12 +636,12 @@ export class AddUpdateConsultationComponent implements OnInit {
     });
   }
   //history
-   toggleAccordion(index: number): void {
+  toggleAccordion(index: number): void {
     if (this.isAccordionOpen === index) {
       this.isAccordionOpen = null; // Close the currently open accordion item
     } else {
       this.isAccordionOpen = index; // Open the clicked accordion item
     }
   }
-  
+
 }

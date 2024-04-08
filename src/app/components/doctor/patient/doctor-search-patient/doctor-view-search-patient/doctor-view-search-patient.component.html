@@ -660,7 +660,9 @@
                         type="button"
                         [attr.data-bs-toggle]="'collapse_' + i"
                         [attr.data-bs-target]="'#collapse_' + i"
-                        [attr.aria-expanded]="isAccordionOpen === i ? 'true' : 'false'"
+                        [attr.aria-expanded]="
+                          isAccordionOpen === i ? 'true' : 'false'
+                        "
                         [attr.aria-controls]="'collapse_' + i"
                         (click)="toggleAccordion(i)"
                       >
@@ -671,11 +673,11 @@
                       </button>
                     </h2>
                     <div
-                    [id]="'collapse_' + i"
-                    class="accordion-collapse collapse"
-                    [ngClass]="{'show': isAccordionOpen === i}"
-                    aria-labelledby="headingOne"
-                    data-bs-parent="#accordionExample"
+                      [id]="'collapse_' + i"
+                      class="accordion-collapse collapse"
+                      [ngClass]="{ show: isAccordionOpen === i }"
+                      aria-labelledby="headingOne"
+                      data-bs-parent="#accordionExample"
                     >
                       <div class="accordion-body">
                         <div class="mb-4 d-flex justify-content-around">
@@ -706,9 +708,7 @@
                                 <tbody
                                   formArrayName="consultationDiagnosisDetails"
                                 >
-                                  <ng-container
-                                   
-                                  >
+                                  <ng-container>
                                     <!-- Consultation Diagnosis Details -->
                                     <ng-container
                                       *ngFor="
@@ -739,9 +739,7 @@
                                 <tbody
                                   formArrayName="consultationTreatmentDetails"
                                 >
-                                  <ng-container
-                                   
-                                  >
+                                  <ng-container>
                                     <!-- Consultation Treatment Details -->
                                     <ng-container
                                       *ngFor="
@@ -774,9 +772,7 @@
                                 <tbody
                                   formArrayName="consultationMedicineDetails"
                                 >
-                                  <ng-container
-                                   
-                                  >
+                                  <ng-container>
                                     <!-- Consultation Medicine Details -->
                                     <ng-container
                                       *ngFor="
@@ -808,12 +804,8 @@
                                     <th scope="col">Notes</th>
                                   </tr>
                                 </thead>
-                                <tbody
-                        
-                                >
-                                  <ng-container
-                                   
-                                  >
+                                <tbody>
+                                  <ng-container>
                                     <!-- Consultation File Upload Details -->
                                     <ng-container
                                       *ngFor="
@@ -824,7 +816,18 @@
                                         <td>
                                           {{ i + 1 }}
                                         </td>
-                                        <td ><a href="{{baseUrl+'images/consultationfile/'+file.image_name }}" target="_blank" rel="noopener noreferrer">{{ file.image_name }}</a> </td>
+                                        <td>
+                                          <a
+                                            href="{{
+                                              baseUrl +
+                                                'images/consultationfile/' +
+                                                file.image_name
+                                            }}"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >{{ file.image_name }}</a
+                                          >
+                                        </td>
                                         <td>{{ file.notes }}</td>
                                         <!-- Add more fields as needed -->
                                       </tr>
@@ -842,7 +845,6 @@
               </div>
             </mat-tab>
           </mat-tab-group>
-
           <c-col xs="12">
             <button
               cButton

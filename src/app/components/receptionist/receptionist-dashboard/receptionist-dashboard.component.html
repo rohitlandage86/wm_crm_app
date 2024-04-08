@@ -49,7 +49,13 @@
       </c-card>
     </c-col>
   </c-row>
-  <c-chart type="bar" [data]="chartBarData"></c-chart>
+  <c-col md="12">
+    <c-card class="mb-4 count">
+      <c-card-body>
+        <c-chart class="chart-style" type="bar" [data]="chartBarData"></c-chart>
+      </c-card-body>
+    </c-card>
+  </c-col>
   <c-card class="mb-4">
     <c-card-header class="d-flex justify-content-between">
       <strong> Lead Follow Up List</strong>

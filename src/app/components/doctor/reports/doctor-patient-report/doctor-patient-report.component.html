@@ -1,134 +1,181 @@
 <c-container breakpoint="lg">
-    <c-card class="mb-4">
-        <c-card-header class="d-flex justify-content-between">
-            <strong>Registrations</strong>
-        </c-card-header>
-        <c-card-body>
-            <div class="row h-100 my-3" [formGroup]="form">
-                <div class="col-md-2 ">
-                    <div class="form-group">
-                        <label cLabel for="">From Date</label>
-                        <input cFormControl id="" sizing="sm" type="date" formControlName="fromDate"
-                            [max]="minDate.toISOString().split('T')[0]" />
-                    </div>
-                    <!-- <div *ngIf="form.get('fromDate')?.hasError('futureDate')&&form.get('fromDate')?.dirty" class="text-danger">Invalid date.</div> -->
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label cLabel for="">To Date</label>
-                        <input cFormControl id="" sizing="sm" type="date" formControlName="toDate"
-                            [max]="minDate.toISOString().split('T')[0]" />
-                        <!-- [max]="minDate.toISOString().split('T')[0]" -->
-                    </div>
-                    <!-- <div *ngIf="form.get('toDate')?.hasError('futureDate')&&form.get('toDate')?.dirty" class="text-danger">Invalid date.</div> -->
-                </div>
-                <div class="col-md-2">
-                    <label cLabel for="">Gender </label>
-                    <select aria-label="select gender" cSelect sizing="sm" formControlName="gender">
-                        <option value="null" selected>All</option>
-                        <ng-container *ngFor="let item of allGenderList">
-                            <option [value]="item.gender">
-                                {{ item.gender|titlecase }}
-                            </option>
-                        </ng-container>
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <label cLabel for="">Entity </label>
-                    <select aria-label="select entity" cSelect sizing="sm" formControlName="entity_id">
-                        <option value="null" selected>All</option>
-                        <ng-container *ngFor="let item of allEntityList">
-                            <option [value]="item.entity_id">
-                                {{ item.abbrivation }}
-                            </option>
-                        </ng-container>
-                    </select>
-                </div>
-                <div class="col-md-3"></div>
-                <div class="col-md-2 my-1">
-                    <label cLabel for="">Source Of Patient </label>
-                    <select aria-label="select source of patient" cSelect sizing="sm"
-                        formControlName="source_of_patient_id">
-                        <option value="null" selected>All</option>
-                        <ng-container *ngFor="let item of allSourceOfPatientList">
-                            <option [value]="item.source_of_patient_id">
-                                {{ item.source_of_patient_name }}
-                            </option>
-                        </ng-container>
-                    </select>
-                </div>
-                <div class="col-md-2 my-1">
-                    <label cLabel for="">Refered By </label>
-                    <select aria-label="select refered by" cSelect sizing="sm" formControlName="refered_by_id">
-                        <option value="null" selected>All</option>
-                        <ng-container *ngFor="let item of allReferedByList">
-                            <option [value]="item.refered_by_id">
-                                {{ item.refered_by_name }}
-                            </option>
-                        </ng-container>
-                    </select>
-                </div>
-                <div class="col-md-2 my-1">
-                    <label cLabel for="">Doctors </label>
-                    <select aria-label="select doctors" cSelect sizing="sm" formControlName="employee_id">
-                        <option value="null" selected>All</option>
-                        <ng-container *ngFor="let item of allEmployeeList">
-                            <option [value]="item.employee_id" *ngIf="item.designation_name.toLowerCase() === 'doctor'">
-                                {{ item.name }}
-                            </option>
-                        </ng-container>
-                    </select>
-                </div>
+  <c-card class="mb-4">
+    <c-card-header class="d-flex justify-content-between">
+      <strong>Registrations</strong>
+    </c-card-header>
+    <c-card-body>
+      <div class="row h-100 my-3" [formGroup]="form">
+        <div class="col-md-2">
+          <div class="form-group">
+            <label cLabel for="">From Date</label>
+            <input
+              cFormControl
+              id=""
+              sizing="sm"
+              type="date"
+              formControlName="fromDate"
+              [max]="minDate.toISOString().split('T')[0]"
+            />
+          </div>
+          <!-- <div *ngIf="form.get('fromDate')?.hasError('futureDate')&&form.get('fromDate')?.dirty" class="text-danger">Invalid date.</div> -->
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <label cLabel for="">To Date</label>
+            <input
+              cFormControl
+              id=""
+              sizing="sm"
+              type="date"
+              formControlName="toDate"
+              [max]="minDate.toISOString().split('T')[0]"
+            />
+            <!-- [max]="minDate.toISOString().split('T')[0]" -->
+          </div>
+          <!-- <div *ngIf="form.get('toDate')?.hasError('futureDate')&&form.get('toDate')?.dirty" class="text-danger">Invalid date.</div> -->
+        </div>
+        <div class="col-md-2">
+          <label cLabel for="">Gender </label>
+          <select
+            aria-label="select gender"
+            cSelect
+            sizing="sm"
+            formControlName="gender"
+          >
+            <option value="null" selected>All</option>
+            <ng-container *ngFor="let item of allGenderList">
+              <option [value]="item.gender">
+                {{ item.gender | titlecase }}
+              </option>
+            </ng-container>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label cLabel for="">Entity </label>
+          <select
+            aria-label="select entity"
+            cSelect
+            sizing="sm"
+            formControlName="entity_id"
+          >
+            <option value="null" selected>All</option>
+            <ng-container *ngFor="let item of allEntityList">
+              <option [value]="item.entity_id">
+                {{ item.abbrivation }}
+              </option>
+            </ng-container>
+          </select>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-2 my-1">
+          <label cLabel for="">Source Of Patient </label>
+          <select
+            aria-label="select source of patient"
+            cSelect
+            sizing="sm"
+            formControlName="source_of_patient_id"
+          >
+            <option value="null" selected>All</option>
+            <ng-container *ngFor="let item of allSourceOfPatientList">
+              <option [value]="item.source_of_patient_id">
+                {{ item.source_of_patient_name }}
+              </option>
+            </ng-container>
+          </select>
+        </div>
+        <div class="col-md-2 my-1">
+          <label cLabel for="">Refered By </label>
+          <select
+            aria-label="select refered by"
+            cSelect
+            sizing="sm"
+            formControlName="refered_by_id"
+          >
+            <option value="null" selected>All</option>
+            <ng-container *ngFor="let item of allReferedByList">
+              <option [value]="item.refered_by_id">
+                {{ item.refered_by_name }}
+              </option>
+            </ng-container>
+          </select>
+        </div>
+        <div class="col-md-2 my-1">
+          <label cLabel for="">Doctors </label>
+          <select
+            aria-label="select doctors"
+            cSelect
+            sizing="sm"
+            formControlName="employee_id"
+          >
+            <option value="null" selected>All</option>
+            <ng-container *ngFor="let item of allEmployeeList">
+              <option
+                [value]="item.employee_id"
+                *ngIf="item.designation_name.toLowerCase() === 'doctor'"
+              >
+                {{ item.name }}
+              </option>
+            </ng-container>
+          </select>
+        </div>
 
-                <div class="col-md-3 h-100 d-flex align-self-center pt-4">
-                    <button cButton class="me-1" color="primary" (click)="submitFilter()">
-                        Submit
-                    </button>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <table class="table table-striped" cTable>
-                    <thead cTableColor="light">
-                        <tr>
-                            <th>Sr. No</th>
-                            <th>Registration</th>
-                            <th>Name</th>
-                            <th>Number</th>
-                            <th>Gender</th>
-                            <th>Entity</th>
-                            <th>Source</th>
-                            <th>Refered By</th>
-                            <th>Doctor</th>  
-
-                            <!-- <th>Edit</th> -->
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of allPatientRegistrationsList; let i = index">
-                            <td>{{ i + 1 }}</td>
-                            <td>{{ item.registration_date | date:'dd-MM-yyyy' }}</td>
-                            <td>{{ item.patient_name }}</td>
-                            <td>{{ item.mobile_no}}</td>
-                            <td>{{ item.gender }}</td>
-                            <td>{{ item.abbrivation}}</td>
-                            <td>{{ item.source_of_patient_name }}</td>
-                            <td>{{ item.refered_by_name }}</td>
-                            <td>{{ item.employee_name }}</td>
-                            <!-- <td>{{ item.employee_name }}</td> -->
-                            <!-- <td> <a [routerLink]="['/receptionist', { outlets: { receptionist_Menu: ['edit-leads',item.lead_hid]}}]" class="pointer"><svg [cIcon]="icons.cilPencil"  size="xl"
+        <div class="col-md-3 h-100 d-flex align-self-center pt-4">
+          <button cButton class="me-1" color="primary" (click)="submitFilter()">
+            Submit
+          </button>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <table class="table table-striped" cTable>
+          <thead cTableColor="light">
+            <tr>
+              <th>Sr. No</th>
+              <th>Registration</th>
+              <th>Name</th>
+              <th>Number</th>
+              <th>Gender</th>
+              <th>Entity</th>
+              <th>Source</th>
+              <th>Refered By</th>
+              <th>Doctor</th>
+              <!-- <th>Edit</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of allPatientRegistrationsList; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ item.registration_date | date : "dd-MM-yyyy" }}</td>
+              <td>{{ item.patient_name }}</td>
+              <td>{{ item.mobile_no }}</td>
+              <td>{{ item.gender }}</td>
+              <td>{{ item.abbrivation }}</td>
+              <td>{{ item.source_of_patient_name }}</td>
+              <td>{{ item.refered_by_name }}</td>
+              <td>{{ item.employee_name }}</td>
+              <!-- <td>{{ item.employee_name }}</td> -->
+              <!-- <td> <a [routerLink]="['/receptionist', { outlets: { receptionist_Menu: ['edit-leads',item.lead_hid]}}]" class="pointer"><svg [cIcon]="icons.cilPencil"  size="xl"
                                 title="List Icon" ></svg></a></td> -->
-                        </tr>
-                        <tr class=" fw-bold text-center" *ngIf="allPatientRegistrationsList.length===0">
-                            <td colspan="10" class="text-danger">No Data Available</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-md-12">
-                <mat-paginator [length]="total" [pageSize]="perPage" [pageSizeOptions]="[5, 10, 25, 100]"
-                    aria-label="Select page" [showFirstLastButtons]="true" (page)="onPageChange($event)">
-                </mat-paginator>
-            </div>
-        </c-card-body>
-    </c-card>
+            </tr>
+            <tr
+              class="fw-bold text-center"
+              *ngIf="allPatientRegistrationsList.length === 0"
+            >
+              <td colspan="10" class="text-danger">No Data Available</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-12">
+        <mat-paginator
+          [length]="total"
+          [pageSize]="perPage"
+          [pageSizeOptions]="[5, 10, 25, 100]"
+          aria-label="Select page"
+          [showFirstLastButtons]="true"
+          (page)="onPageChange($event)"
+        >
+        </mat-paginator>
+      </div>
+    </c-card-body>
+  </c-card>
 </c-container>

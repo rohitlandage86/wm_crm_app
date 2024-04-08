@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   templateUrl: './leads.component.html',
   styleUrl: './leads.component.scss'
 })
-export class LeadsComponent implements OnInit{
+export class LeadsComponent implements OnInit {
   allLeadFollowUpList: Array<any> = [];
   firstCardContent: any;
   icons = freeSet;
@@ -37,7 +37,6 @@ export class LeadsComponent implements OnInit{
       next: (res: any) => {
         if (res.data.length > 0) {
           console.log(res);
-          
           this.allLeadFollowUpList = res.data;
           this.total = res.pagination.total;
         }

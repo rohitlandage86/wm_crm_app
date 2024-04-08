@@ -24,7 +24,7 @@ export class ReceptionistDashboardComponent implements OnInit {
   chartBarData: any
   month_array: Array<any> = [];
   patientCount_array: Array<any> = [];
-  constructor(private _receptionistService: ReceptionistService, private _toastrService: ToastrService,private cdr: ChangeDetectorRef) { this.follow_up_date = ''; }
+  constructor(private _receptionistService: ReceptionistService, private _toastrService: ToastrService, private cdr: ChangeDetectorRef) { this.follow_up_date = ''; }
 
   ngOnInit() {
     this.setTodayDate();
@@ -41,8 +41,6 @@ export class ReceptionistDashboardComponent implements OnInit {
 
 
       });
-
-
       this.chartBarData = {
         labels: this.month_array,
         datasets: [
@@ -53,13 +51,13 @@ export class ReceptionistDashboardComponent implements OnInit {
           }
         ]
       };
-  });
+    });
   }
- 
+
   getReceptionistDashboardCount(): Observable<any> {
 
     return this._receptionistService.getReceptionistDashboardCount();
- }
+  }
 
   setTodayDate() {
     const today = new Date();
@@ -73,7 +71,7 @@ export class ReceptionistDashboardComponent implements OnInit {
     this._receptionistService.getAllLeadFollowUpList(this.page, this.perPage, this.follow_up_date).subscribe({
       next: (res: any) => {
         console.log(res);
-        
+
         if (res.data.length > 0) {
           this.allLeadFollowUpList = res.data;
           this.total = res.pagination.total;

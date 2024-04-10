@@ -14,8 +14,8 @@ import { ToastrService } from 'ngx-toastr'
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, AfterContentChecked {
-  title: any = 'OPD'
-
+  title: any = 'Nirmiti'
+  data:any={}
   isSuperAdminDashboard = false;
   isAdminDashboard = false;
   isDoctorDashboard = false;
@@ -68,6 +68,10 @@ export class AppComponent implements OnInit, AfterContentChecked {
       this.isDoctorDashboard = false;
       this.isReceptionistDashboard = false;
       this.isSuperAdminDashboard = true;
+    }
+    let userData:any=localStorage.getItem('data');
+    if (JSON.parse(userData)) {
+      this.data=JSON.parse(userData);
     }
 
     // currentRoute.split('/')[1] == 'admin' ? this.route = ['/admin', { outlets: { sub_Menu: 'admin' } }] : this.route = ['/org', { outlets: { org_Menu: 'admin' } }];

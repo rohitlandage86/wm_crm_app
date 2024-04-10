@@ -2,6 +2,7 @@
 <div class="" *ngIf="isSuperAdminDashboard&&!isDoctorDashboard&&!isAdminDashboard&&!isReceptionistDashboard">
   <c-sidebar #sidebar="cSidebar" class="d-print-none sidebar sidebar-fixed" id="sidebar" visible>
     <c-sidebar-brand>Super Admin</c-sidebar-brand>
+    
     <ng-scrollbar pointerEventsMethod="scrollbar">
       <c-sidebar-nav [navItems]="navSuperAdminItems" dropdownMode="close" />
     </ng-scrollbar>
@@ -19,7 +20,22 @@
 <!-- Admin Customer Sidebar-->
 <div class="" *ngIf="isAdminDashboard&&!isDoctorDashboard&&!isReceptionistDashboard&&!isSuperAdminDashboard">
   <c-sidebar #sidebar="cSidebar" class="d-print-none sidebar sidebar-fixed" id="sidebar" visible>
-    <c-sidebar-brand>Admin</c-sidebar-brand>
+    <!-- <c-sidebar-brand>Admin</c-sidebar-brand> -->
+    <c-sidebar-brand
+    [brandFull]="{
+      src: 'http://localhost:3000/images/logo/'+data.logo,
+      width: 142,
+      height: 42,
+      alt: 'CoreUI Logo'
+    }"
+    [brandNarrow]="{
+      src: 'http://localhost:3000/images/short_logo/'+data.short_logo,
+      width: 46,
+      height: 46,
+      alt: 'CoreUI Logo'
+    }"
+  
+  />
     <ng-scrollbar pointerEventsMethod="scrollbar">
       <c-sidebar-nav [navItems]="navAdminItems" dropdownMode="close" />
     </ng-scrollbar>
@@ -37,7 +53,21 @@
 <!-- Doctor Sidebar -->
 <div class="" *ngIf="isDoctorDashboard&&!isAdminDashboard&&!isReceptionistDashboard&&!isSuperAdminDashboard">
   <c-sidebar #sidebar="cSidebar" class="d-print-none sidebar sidebar-fixed" id="sidebar" visible>
-    <c-sidebar-brand>Doctor</c-sidebar-brand>
+    <c-sidebar-brand
+    [brandFull]="{
+      src: 'http://localhost:3000/images/logo/'+data.logo,
+      width: 142,
+      height: 42,
+      alt: 'CoreUI Logo'
+    }"
+    [brandNarrow]="{
+      src: 'http://localhost:3000/images/short_logo/'+data.short_logo,
+      width: 46,
+      height: 46,
+      alt: 'CoreUI Logo'
+    }"
+  
+  />
     <ng-scrollbar pointerEventsMethod="scrollbar">
       <c-sidebar-nav [navItems]="navDoctorItems" dropdownMode="close" />
     </ng-scrollbar>
@@ -55,7 +85,21 @@
 <!-- Receptionist  Sidebar  -->
 <div class="" *ngIf="isReceptionistDashboard&&!isAdminDashboard&&!isSuperAdminDashboard&&!isDoctorDashboard">
   <c-sidebar #sidebar="cSidebar" class="d-print-none sidebar sidebar-fixed" id="sidebar" visible>
-    <c-sidebar-brand>Receptionist</c-sidebar-brand>
+    <c-sidebar-brand
+    [brandFull]="{
+      src: 'http://localhost:3000/images/logo/'+data.logo,
+      width: 142,
+      height: 42,
+      alt: 'CoreUI Logo'
+    }"
+    [brandNarrow]="{
+      src: 'http://localhost:3000/images/short_logo/'+data.short_logo,
+      width: 46,
+      height: 46,
+      alt: 'CoreUI Logo'
+    }"
+  
+  />
     <ng-scrollbar pointerEventsMethod="scrollbar">
       <c-sidebar-nav [navItems]="navReceptionistItems" dropdownMode="close" />
     </ng-scrollbar>

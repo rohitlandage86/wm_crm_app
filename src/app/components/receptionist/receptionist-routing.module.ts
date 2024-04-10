@@ -15,31 +15,39 @@ import { ReceptionistPatientVisitReportComponent } from './reports/receptionist-
 import { ReceptionistLeadReportComponent } from './reports/receptionist-lead-report/receptionist-lead-report.component';
 import { ReceptionistFollowUpReportComponent } from './reports/receptionist-follow-up-report/receptionist-follow-up-report.component';
 import { ReceptionistAppointmentReportComponent } from './reports/receptionist-appointment-report/receptionist-appointment-report.component';
+import { AuthGuard } from 'src/app/shared/auth-guard.service';
 
 const routes: Routes = [
   { path: "", redirectTo: "receptionist", pathMatch: "full" },
-  { path: "", component: ReceptionistDashboardComponent },
+  { path: "", 
+    component: ReceptionistDashboardComponent,
+    canActivate:[AuthGuard]
+  },
   {
     path: "receptionist",
     component: ReceptionistDashboardComponent,
     pathMatch: "full",
     outlet: "receptionist_Menu",
+    canActivate:[AuthGuard]
   },
  {
    path: "add-receptionist/:id",  
    component: AddUpdateReceptionistDashboardComponent,
    pathMatch: "full",
    outlet: "receptionist_Menu",
+   canActivate:[AuthGuard]
  },
   {
     path: "patient",  
     component: PatientComponent,
     pathMatch: "full",
     outlet: "receptionist_Menu",
+    canActivate:[AuthGuard]
   },
   { path: 'add-patient',
   component: AddUpdatePatientComponent,
   outlet: "receptionist_Menu",
+  canActivate:[AuthGuard]
 
  },
  {
@@ -47,16 +55,19 @@ const routes: Routes = [
    component: AddUpdatePatientComponent,
    pathMatch: "full",
    outlet: "receptionist_Menu",
+   canActivate:[AuthGuard]
  },
   {
     path: "leads",  
     component: LeadsComponent,
     pathMatch: "full",
     outlet: "receptionist_Menu",
+    canActivate:[AuthGuard]
   },
   { path: 'add-leads',
   component: AddUpdateLeadsComponent,
   outlet: "receptionist_Menu",
+  canActivate:[AuthGuard]
 
  },
  {
@@ -64,30 +75,35 @@ const routes: Routes = [
    component: AddUpdateLeadsComponent,
    pathMatch: "full",
    outlet: "receptionist_Menu",
+   canActivate:[AuthGuard]
  },
  {
   path: "search-leads",  
   component: SearchLeadsComponent,
   pathMatch: "full",
   outlet: "receptionist_Menu",
+  canActivate:[AuthGuard]
 },
 {
   path: "search-patient",  
   component: SearchPatientComponent,
   pathMatch: "full",
   outlet: "receptionist_Menu",
+  canActivate:[AuthGuard]
 },
 {
   path: "view-search-patient/:id",  
   component: ViewSearchPatientComponent,
   pathMatch: "full",
   outlet: "receptionist_Menu",
+  canActivate:[AuthGuard]
 },
 {
   path: "view-search-leads/:id",  
   component: ViewSearchLeadsComponent,
   pathMatch: "full",
   outlet: "receptionist_Menu",
+  canActivate:[AuthGuard]
 },
 
 {
@@ -95,30 +111,35 @@ const routes: Routes = [
   component:  ReceptionistLeadReportComponent,
   pathMatch: "full",
   outlet: "receptionist_Menu",
+  canActivate:[AuthGuard]
 },
 {
   path: "lead-follow-up-report",  
   component:  ReceptionistFollowUpReportComponent,
   pathMatch: "full",
   outlet: "receptionist_Menu",
+  canActivate:[AuthGuard]
 },
 {
   path: "patient-report",  
   component: ReceptionistPatientReportComponent,
   pathMatch: "full",
   outlet: "receptionist_Menu",
+  canActivate:[AuthGuard]
 },
 {
   path: "patient-visit-report",  
   component: ReceptionistPatientVisitReportComponent,
   pathMatch: "full",
   outlet: "receptionist_Menu",
+  canActivate:[AuthGuard]
 },
 {
   path: "appointment",  
   component: ReceptionistAppointmentReportComponent,
   pathMatch: "full",
   outlet: "receptionist_Menu",
+  canActivate:[AuthGuard]
 },
 ];
 

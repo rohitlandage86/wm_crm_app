@@ -16,34 +16,42 @@ import { DoctorPatientVisitReportComponent } from './reports/doctor-patient-visi
 import { DoctorAppointmentReportComponent } from './reports/doctor-appointment-report/doctor-appointment-report.component';
 import { DoctorDiagnosisReportComponent } from './reports/doctor-diagnosis-report/doctor-diagnosis-report.component';
 import { DoctorTreatmentReportComponent } from './reports/doctor-treatment-report/doctor-treatment-report.component';
+import { AuthGuard } from 'src/app/shared/auth-guard.service';
 
 
 const routes: Routes = [
   { path: "", redirectTo: "admin", pathMatch: "full" },
-  { path: "", component: DoctorDashboardComponent },
+  { path: "", 
+    component: DoctorDashboardComponent,
+    canActivate:[AuthGuard]
+  },
   {
     path: "admin",
     component: DoctorDashboardComponent,
     pathMatch: "full",
     outlet: "doc_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path: "patient",
     component: PatientComponent,
     pathMatch: "full",
     outlet: "doc_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path: "consultation",
     component: ConsultationComponent,
     pathMatch: "full",
     outlet: "doc_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path: "add-consultation/:id",
     component: AddUpdateConsultationComponent,
     pathMatch: "full",
     outlet: "doc_Menu",
+    canActivate:[AuthGuard]
 
   }, 
   {
@@ -51,78 +59,91 @@ const routes: Routes = [
     component: AddUpdateConsultationComponent,
     pathMatch: "full",
     outlet: "doc_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path: "lead",
     component: LeadComponent,
     pathMatch: "full",
     outlet: "doc_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path: "doctor-search-lead",
     component: DoctorSearchLeadComponent,
     pathMatch: "full",
     outlet: "doc_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path: "doctor-view-search-lead/:id",
     component: DoctorViewSearchLeadComponent,
     pathMatch: "full",
     outlet: "doc_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path: "doctor-search-patient",
     component: DoctorSearchPatientComponent,
     pathMatch: "full",
     outlet: "doc_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path: "doctor-view-search-patient/:id",
     component: DoctorViewSearchPatientComponent,
     pathMatch: "full",
     outlet: "doc_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path: "lead-reports",  
     component:  DoctorLeadReportComponent,
     pathMatch: "full",
     outlet: "doc_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path: "lead-follow-up-reports",  
     component:  DoctorFollowUpReportComponent,
     pathMatch: "full",
     outlet: "doc_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path: "patient-reports",  
     component: DoctorPatientReportComponent,
     pathMatch: "full",
     outlet: "doc_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path: "patient-visit-reports",  
     component: DoctorPatientVisitReportComponent,
     pathMatch: "full",
     outlet: "doc_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path: "appointments",  
     component: DoctorAppointmentReportComponent,
     pathMatch: "full",
     outlet: "doc_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path: "diagnosis-reports",  
     component: DoctorDiagnosisReportComponent,
     pathMatch: "full",
     outlet: "doc_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path: "treatment-reports",  
     component: DoctorTreatmentReportComponent,
     pathMatch: "full",
     outlet: "doc_Menu",
+    canActivate:[AuthGuard]
   },
 
 ];

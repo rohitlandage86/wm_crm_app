@@ -16,6 +16,7 @@ import { ToastrModule, provideToastr } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { AuthInterceptor } from './shared/auth-interceptor.service';
+import { AuthGuard } from './../app/shared/auth-guard.service'
 const APP_CONTAINERS = [
   DefaultFooterComponent,
   DefaultHeaderComponent,
@@ -40,6 +41,7 @@ const APP_CONTAINERS = [
   
   ],
   providers: [
+    AuthGuard,
     IconSetService,
     Title
     ,provideAnimations(), // required animations providers

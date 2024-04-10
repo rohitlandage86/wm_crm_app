@@ -21,6 +21,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
+    localStorage.clear();
+    console.log("Login Page");
+    
   }
   createForm() {
     this.form = this.fb.group({

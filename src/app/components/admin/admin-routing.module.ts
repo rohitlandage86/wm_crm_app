@@ -17,111 +17,132 @@ import { TitleComponent } from './miscellaneous/title/title.component';
 import { ReferedByComponent } from './miscellaneous/refered-by/refered-by.component';
 import { DesignationComponent } from './employee/designation/designation.component';
 import { EmployeeComponent } from './employee/employee/employee.component';
+import { AuthGuard } from 'src/app/shared/auth-guard.service';
 
 const routes: Routes = [
   { path: "", redirectTo: "admin", pathMatch: "full" },
-  { path: "", component: AdminDashboardComponent },
+  { path: "", 
+    component: AdminDashboardComponent,
+    canActivate:[AuthGuard]
+  },
   {
     path: "admin",
     component: AdminDashboardComponent,
     pathMatch: "full",
     outlet: "sub_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path: "entity",  
     component: EntityComponent,
     pathMatch: "full",
     outlet: "sub_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path: "add-entity",  
     component: AddUpdateEntityComponent,
     pathMatch: "full",
     outlet: "sub_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path:'service-type',
     component:ServiceTypeComponent,
     pathMatch:"full",
-    outlet:"sub_Menu"
+    outlet:"sub_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path:'services',
     component:ServiceComponent,
     pathMatch:"full",
-    outlet:"sub_Menu"
+    outlet:"sub_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path:'treatment',
     component:TreatmentComponent,
     pathMatch:"full",
-    outlet:"sub_Menu"
+    outlet:"sub_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path:'diagnosis',
     component:DiagnosisComponent,
     pathMatch:"full",
-    outlet:"sub_Menu"
+    outlet:"sub_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path:'category',
     component:CategoryComponent,
     pathMatch:"full",
-    outlet:"sub_Menu"
+    outlet:"sub_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path:'medicines',
     component:MedicinesComponent,
     pathMatch:"full",
-    outlet:"sub_Menu"
+    outlet:"sub_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path:'dosages',
     component:DosagesComponent,
     pathMatch:"full",
-    outlet:"sub_Menu"
+    outlet:"sub_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path:'instructions',
     component:InstructionsComponent,
     pathMatch:"full",
-    outlet:"sub_Menu"
+    outlet:"sub_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path:'chief_complaints',
     component:ChiefComplaintsComponent,
     pathMatch:"full",
-    outlet:"sub_Menu"
+    outlet:"sub_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path:'title',
     component:TitleComponent,
     pathMatch:"full",
-    outlet:"sub_Menu"
+    outlet:"sub_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path:'source_of_patient',
     component:SourceOfPatientComponent,
     pathMatch:"full",
-    outlet:"sub_Menu"
+    outlet:"sub_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path:'refered_by',
     component:ReferedByComponent,
     pathMatch:"full",
-    outlet:"sub_Menu"
+    outlet:"sub_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path:'designation',
     component:DesignationComponent,
     pathMatch:"full",
-    outlet:"sub_Menu"
+    outlet:"sub_Menu",
+    canActivate:[AuthGuard]
   },
   {
     path:'employee',
     component:EmployeeComponent,
     pathMatch:"full",
-    outlet:"sub_Menu"
+    outlet:"sub_Menu",
+    canActivate:[AuthGuard]
   },
 
 ];

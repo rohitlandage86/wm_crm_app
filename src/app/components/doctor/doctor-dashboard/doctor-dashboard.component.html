@@ -1,58 +1,56 @@
 <c-container breakpoint="lg">
-  <c-row>
-    <c-col md="4">
-      <c-card class="mb-4 count">
-        <c-card-body>
-          <div *ngIf="firstCardContent">
-            <strong>First Visit: </strong
-            >{{ firstCardContent.first_visit_count }}
-          </div>
-        </c-card-body>
-      </c-card>
-    </c-col>
-    <c-col md="4">
-      <c-card class="mb-4 count">
-        <c-card-body>
-          <div *ngIf="firstCardContent">
-            <strong>Checked: </strong>{{ firstCardContent.is_checked_count }}
-          </div>
-        </c-card-body>
-      </c-card>
-    </c-col>
-    <c-col md="4">
-      <c-card class="mb-4 count">
-        <c-card-body>
-          <div *ngIf="firstCardContent">
-            <strong>Not Checked: </strong
-            >{{ firstCardContent.is_not_checked_count }}
-          </div>
-        </c-card-body>
-      </c-card>
-    </c-col>
-  </c-row>
-
-  <c-row>
-    <c-col md="12">
-      <c-card class="mb-4 count">
-        <c-card-body>
-          <div *ngIf="firstCardContent">
-            <strong>Re-Visit: </strong>{{ firstCardContent.re_visit_count }}
-          </div>
-        </c-card-body>
-      </c-card>
-    </c-col>
-  </c-row>
-
-  <c-row>
-    <c-col md="12">
-      <c-card class="mb-4 count">
-        <c-card-body>
-          <div *ngIf="firstCardContent">
-            <strong>Today Total Patient: </strong
-            >{{ firstCardContent.today_total_patient_count }}
-          </div>
-        </c-card-body>
-      </c-card>
+  <c-row >
+    <c-col md="12" class="d-flex justify-content-between">
+      <c-col md="2">
+        <c-card class="mb-4 count-card ">
+          <c-card-body class="card-value" >
+            <div *ngIf="firstCardContent" >
+              <strong><div class="fs-1 ps-5 mb-3 ">{{ firstCardContent.first_visit_count }}</div></strong><br>
+              <div class="fs-2">First Visit</div>
+            </div>
+          </c-card-body>
+        </c-card>
+      </c-col>
+      <c-col md="2">
+        <c-card class="mb-4 count-card">
+          <c-card-body class="card-value"> 
+            <div *ngIf="firstCardContent" >
+              <strong><div class="fs-1 ps-5 mb-3">{{ firstCardContent.is_checked_count }}</div></strong><br>
+              <div class="fs-2">Checked</div>
+            </div>
+          </c-card-body>
+        </c-card>
+      </c-col>
+      <c-col md="2">
+        <c-card class="mb-4 count-card">
+          <c-card-body class="card-value">
+            <div *ngIf="firstCardContent" >
+              <strong><div class=" value fs-1  mb-3">{{ firstCardContent.is_not_checked_count }}</div></strong><br>
+              <div class="fs-2">Not Checked</div>
+            </div>
+          </c-card-body>
+        </c-card>
+      </c-col>
+      <c-col md="2" >
+        <c-card class="mb-4 count-card">
+          <c-card-body class="card-value">
+            <div *ngIf="firstCardContent" >
+              <strong><div class=" fs-1 ps-5 mb-3 "> {{ firstCardContent.re_visit_count }}</div></strong><br>
+              <div class="fs-2">Re-Visit</div>
+            </div>
+          </c-card-body>
+        </c-card>
+      </c-col>
+      <c-col md="2" class="me-4">
+        <c-card class="mb-4 count-card">
+          <c-card-body class="card-value">
+            <div *ngIf="firstCardContent" >
+              <strong><div class="value fs-1  mb-3"> {{ firstCardContent.today_total_patient_count }}</div></strong><br>
+              <div class="fs-2">Todays Total</div>
+            </div>
+          </c-card-body>
+        </c-card>
+      </c-col>
     </c-col>
   </c-row>
   <c-col md="12">
@@ -64,7 +62,7 @@
   </c-col>
   <c-card class="mb-4">
     <c-card-header class="d-flex justify-content-between">
-      <strong> Today Appointment List</strong>
+      <strong> Todays Appointment </strong>
     </c-card-header>
     <c-card-body>
       <div class="col-md-12">
@@ -72,45 +70,21 @@
           <thead cTableColor="light">
             <tr>
               <th>Sr. No</th>
-              <th>Registration Date</th>
-              <th>Follow Up Date</th>
+              <th>Appointment Date</th>
               <th>Patient Name</th>
-              <th>No Of Calls</th>
-              <th>Comments</th>
               <th>Mobile Number</th>
-              <th>Add</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of allLeadFollowUpList; let i = index">
+            <tr *ngFor="let item of allAppointmentList; let i = index">
               <td>{{ i + 1 }}</td>
-              <td>{{ item.lead_date | date : "dd-MM-yyyy" }}</td>
-              <td>{{ item.follow_up_date | date : "dd-MM-yyyy" }}</td>
-              <!-- Adjusted date format -->
-              <td>{{ item.name }}</td>
-              <td>{{ item.no_of_calls }}</td>
-              <td>{{ item.comments }}</td>
-              <td>{{ item.mobile_number }}</td>
-              <td>
-                <a
-                  [routerLink]="[
-                    '/receptionist',
-                    {
-                      outlets: {
-                        receptionist_Menu: ['add-receptionist', item.lead_hid]
-                      }
-                    }
-                  ]"
-                  class="pointer"
-                  ><svg
-                    [cIcon]="icons.cilPlus"
-                    size="xl"
-                    title="List Icon" ></svg></a>
-              </td>
+              <td>{{ item.appointment_date | date : "dd-MM-yyyy" }}</td>
+              <td>{{ item.patient_name }}</td>
+              <td>{{ item.mobile_no }}</td>
             </tr>
             <tr
               class="fw-bold text-center"
-              *ngIf="allLeadFollowUpList.length === 0"
+              *ngIf="allAppointmentList.length === 0"
             >
               <td colspan="10" class="text-danger">No Data Available</td>
             </tr>

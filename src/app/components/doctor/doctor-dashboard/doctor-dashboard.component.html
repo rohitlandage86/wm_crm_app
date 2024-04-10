@@ -73,7 +73,6 @@
               <th>Appointment Date</th>
               <th>Patient Name</th>
               <th>Mobile Number</th>
-              <th>Add</th>
             </tr>
           </thead>
           <tbody>
@@ -82,22 +81,6 @@
               <td>{{ item.appointment_date | date : "dd-MM-yyyy" }}</td>
               <td>{{ item.patient_name }}</td>
               <td>{{ item.mobile_no }}</td>
-              <td>
-                <a
-                  [routerLink]="[
-                    '/receptionist',
-                    {
-                      outlets: {
-                        receptionist_Menu: ['add-receptionist', item.lead_hid]
-                      }
-                    }
-                  ]"
-                  class="pointer"
-                  ><svg
-                    [cIcon]="icons.cilPlus"
-                    size="xl"
-                    title="List Icon" ></svg></a>
-              </td>
             </tr>
             <tr
               class="fw-bold text-center"

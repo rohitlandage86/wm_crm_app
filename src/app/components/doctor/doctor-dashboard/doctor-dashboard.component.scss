@@ -5,6 +5,25 @@
     padding: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
+  .count-card {
+    background-color: #C2258E;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    height: 164px;
+    width: 225px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
+  }
+  .card-value{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+
+  }
+  .value{
+padding-left:80PX ;
+  }
   
   .count div {
     font-size: 18px;
@@ -32,4 +51,8 @@
   /* Hover effect for the bars */
   .chart-style .bar:hover {
     fill: #0056b3; /* Change the color on hover */
+  }
+  :host ::ng-deep  canvas{
+    height: 400px!important;
+    // border: 1px solid red!important;
   }

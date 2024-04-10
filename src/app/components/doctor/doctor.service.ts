@@ -79,5 +79,24 @@ export class DoctorService {
     return this.http.get(this.baseUrl + 'api/consultation/patient-consultation-by-mrno/' + id)
 }
 
+    //get all current day appointment list...............................................................
+    getAllAppointmentList(page: any, perPage: any, appointment_date: any): Observable<any> {
+        let params: any = {
+            page: page,
+            perPage: perPage,
+        };
 
+        if (appointment_date) {
+            params.appointment_date = appointment_date;
+        }
+
+        if (page == '' || perPage == '') {
+            delete params.page;
+            delete params.perPage;
+        }
+
+        return this.http.get(this.baseUrl + 'api/consultation/appointment', {
+            params: params
+        });
+    }
 }

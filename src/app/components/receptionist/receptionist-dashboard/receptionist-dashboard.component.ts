@@ -4,6 +4,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { ToastrService } from 'ngx-toastr';
 import { ReceptionistService } from './../receptionist.service';
 import { Observable } from 'rxjs';
+import { DoctorService } from '../../doctor/doctor.service';
 
 @Component({
   selector: 'app-receptionist-dashboard',
@@ -13,22 +14,25 @@ import { Observable } from 'rxjs';
 export class ReceptionistDashboardComponent implements OnInit {
   allLeadFollowUpList: Array<any> = [];
   allReceptionistDashboardCount: Array<any> = [];
+  allAppointmentList: Array<any> = [];
   firstCardContent: any;
   icons = freeSet;
   page = 1;
   perPage = 10;
   total = 0;
   follow_up_date: string;
+  appointment_date: string;
   color: string | undefined;
   monthly_datewise_patient_registration: any
   chartBarData: any
   month_array: Array<any> = [];
   patientCount_array: Array<any> = [];
-  constructor(private _receptionistService: ReceptionistService, private _toastrService: ToastrService, private cdr: ChangeDetectorRef) { this.follow_up_date = ''; }
+  constructor(private _doctorService: DoctorService, private _receptionistService: ReceptionistService, private _toastrService: ToastrService, private cdr: ChangeDetectorRef) { this.follow_up_date = ''; this.appointment_date = ''; }
 
   ngOnInit() {
     this.setTodayDate();
     this.getAllLeadFollowUpList();
+    this.getAllAppointmentList();
     this.getReceptionistDashboardCount();
     this.getReceptionistDashboardCount().subscribe((data: any) => {
       this.firstCardContent = data;
@@ -42,11 +46,12 @@ export class ReceptionistDashboardComponent implements OnInit {
 
       });
       this.chartBarData = {
+
         labels: this.month_array,
         datasets: [
           {
             label: 'Monthly Patients Registration',
-            backgroundColor: '#f87979',
+            backgroundColor: ['#b9e2b6', '#bca0dd', '#414572', '#f7ad0d', '#ffe4e1', '#512467', '#83d4ba'],
             data: this.patientCount_array
           }
         ]
@@ -63,6 +68,9 @@ export class ReceptionistDashboardComponent implements OnInit {
     const today = new Date();
     // Format the date as per your backend requirement
     this.follow_up_date = `${today.getFullYear()}-${(today.getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
+    this.appointment_date = `${today.getFullYear()}-${(today.getMonth() + 1)
       .toString()
       .padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
   }
@@ -83,8 +91,21 @@ export class ReceptionistDashboardComponent implements OnInit {
     this.page = event.pageIndex + 1;
     this.perPage = event.pageSize;
     this.getAllLeadFollowUpList();
+    this.getAllAppointmentList();
   }
+  //get all Appointment List...
+  getAllAppointmentList() {
+    this._doctorService.getAllAppointmentList(this.page, this.perPage, this.appointment_date).subscribe({
+      next: (res: any) => {
+        console.log('appointment', res);
 
+        if (res.data.length > 0) {
+          this.allAppointmentList = res.data;
+          this.total = res.pagination.total;
+        }
+      }
+    });
+  }
 
   //slide-toggle change Patient
   changeEvent(event: any, id: any) {

@@ -3,6 +3,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ReceptionistService } from '../../receptionist/receptionist.service';
 import { freeSet } from '@coreui/icons';
 import { PageEvent } from '@angular/material/paginator';
+import { DoctorService } from '../doctor.service';
 
 @Component({
   selector: 'app-doctor-dashboard',
@@ -16,17 +17,19 @@ export class DoctorDashboardComponent implements OnInit {
   chartBarData: any
   month_array: Array<any> = [];
   patientCount_array: Array<any> = [];
-  allLeadFollowUpList: Array<any> = [];
+  allAppointmentList: Array<any> = [];
 
   icons = freeSet;
   page = 1;
   perPage = 10;
   total = 0;
-  follow_up_date: string;
+  appointment_date: string;
   color: string | undefined;
-  constructor(private _receptionistService: ReceptionistService, private cdr: ChangeDetectorRef) { this.follow_up_date = '';}
+  constructor(private _doctorService:DoctorService,private _receptionistService: ReceptionistService, private cdr: ChangeDetectorRef) { this.appointment_date = '';}
 
   ngOnInit() {
+    this.setTodayDate();
+    this.getAllAppointmentList();
     this.getReceptionistDashboardCount()
   }
   getReceptionistDashboardCount() {
@@ -45,7 +48,7 @@ export class DoctorDashboardComponent implements OnInit {
         datasets: [
           {
             label: 'Patients Registration Count',
-            backgroundColor: '#f87979',
+            backgroundColor: ['#b9e2b6', '#bca0dd', '#414572', '#f7ad0d', '#ffe4e1', '#512467', '#83d4ba'],
             data: this.patientCount_array
           }
         ]
@@ -57,18 +60,18 @@ export class DoctorDashboardComponent implements OnInit {
   setTodayDate() {
     const today = new Date();
     // Format the date as per your backend requirement
-    this.follow_up_date = `${today.getFullYear()}-${(today.getMonth() + 1)
+    this.appointment_date = `${today.getFullYear()}-${(today.getMonth() + 1)
       .toString()
       .padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
   }
-  //get all LeadFollowUp List...
-  getAllLeadFollowUpList() {
-    this._receptionistService.getAllLeadFollowUpList(this.page, this.perPage, this.follow_up_date).subscribe({
+  //get all Appointment List...
+  getAllAppointmentList() {
+    this._doctorService.getAllAppointmentList(this.page, this.perPage, this.appointment_date).subscribe({
       next: (res: any) => {
-        console.log(res);
+        console.log('appointment',res);
 
         if (res.data.length > 0) {
-          this.allLeadFollowUpList = res.data;
+          this.allAppointmentList = res.data;
           this.total = res.pagination.total;
         }
       }
@@ -77,7 +80,7 @@ export class DoctorDashboardComponent implements OnInit {
   onPageChange(event: PageEvent): void {
     this.page = event.pageIndex + 1;
     this.perPage = event.pageSize;
-    this.getAllLeadFollowUpList();
+    this.getAllAppointmentList();
   }
 
 }

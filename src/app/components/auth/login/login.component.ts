@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit {
             //   this.router.navigate([''])
             //   this._toastrService.warning('Unautherization');
             //   }
-
+            localStorage.setItem("data", JSON.stringify(res.data));
             
             
             

@@ -1,24 +1,29 @@
-.passbtn{
-    background-color: #d8dbe0;
-    border: #b1b7c1;
-    color: #47474e;
+.passbtn {
+  background-color: #d8dbe0;
+  border: #b1b7c1;
+  color: #47474e;
 }
 .card-img-top {
-    background-size: cover;
-    background-repeat: no-repeat;
-    padding-bottom:0 ;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding-bottom: 0;
+  height: fit-content;
 }
-.card-img-top-logo{
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 200px;
+.card-img-top-logo {
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  width: 200px;
 }
-.login_btn{
-    background-color: #EA278F;
-    border: #EA278F;
+.login_btn {
+  background-color: #ea278f;
+  border: #ea278f;
 }
-.login-card{
-    position: relative;
-    bottom: 50px;
+.login-card {
+  padding-top: 130px;
 }
-
+.custom-img {
+  display: block;
+  width: 100%;
+  height: fit-content;
+}

@@ -6,6 +6,7 @@ import { AddUpdatePatientComponent } from './patient/add-update-patient/add-upda
 import { LeadsComponent } from './leads/leads.component';
 import { AddUpdateLeadsComponent } from './leads/add-update-leads/add-update-leads.component';
 import { AddUpdateReceptionistDashboardComponent } from './receptionist-dashboard/add-update-receptionist-dashboard/add-update-receptionist-dashboard.component';
+import { FollowUpComponent } from './leads/follow-up/follow-up.component';
 import { SearchLeadsComponent } from './leads/search-leads/search-leads.component';
 import { SearchPatientComponent } from './patient/search-patient/search-patient.component';
 import { ViewSearchPatientComponent } from './patient/search-patient/view-search-patient/view-search-patient.component';
@@ -116,6 +117,13 @@ const routes: Routes = [
 {
   path: "lead-follow-up-report",  
   component:  ReceptionistFollowUpReportComponent,
+  pathMatch: "full",
+  outlet: "receptionist_Menu",
+  canActivate:[AuthGuard]
+},
+{
+  path: "follow-up",  
+  component: FollowUpComponent,
   pathMatch: "full",
   outlet: "receptionist_Menu",
   canActivate:[AuthGuard]

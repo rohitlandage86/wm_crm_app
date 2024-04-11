@@ -6,6 +6,11 @@
 
 //     margin-top: 80px;
 // }
+.reports-item {
+  background-color:red !important;
+  border: #000!important;
+  color: #000;
+}
 .logo{
     position: fixed;
     top: 15px;
@@ -162,4 +167,10 @@
     display: block;
     background: #222222;
   }
+  
+//   :host ::ng-deep .nav-link {
+//   background-color: #000;
+// }
+
+
   

@@ -243,6 +243,11 @@ export class AppComponent implements OnInit, AfterContentChecked {
 
         },
         {
+          name: 'Follow up',
+          url: ['/doctor', { outlets: { doc_Menu: 'follow-up' } }],
+
+        },
+        {
           name: 'Search',
           url: ['/doctor', { outlets: { doc_Menu: 'doctor-search-lead' } }],
 
@@ -252,7 +257,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
     },
     {
       name: 'Reports',
-
+      class: 'reports-item',
       iconComponent: { name: 'cil-description' }
     },
 
@@ -352,6 +357,11 @@ export class AppComponent implements OnInit, AfterContentChecked {
         {
           name: 'Create',
           url: ['/receptionist', { outlets: { receptionist_Menu: 'leads' } }],
+
+        },
+        {
+          name: 'Follow up',
+          url: ['/receptionist', { outlets: { receptionist_Menu: 'follow-up' } }],
 
         },
         {

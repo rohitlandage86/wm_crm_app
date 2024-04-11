@@ -18,17 +18,19 @@ export class DoctorDashboardComponent implements OnInit {
   month_array: Array<any> = [];
   patientCount_array: Array<any> = [];
   allAppointmentList: Array<any> = [];
-
+  allLeadFollowUpList: Array<any> = [];
   icons = freeSet;
   page = 1;
   perPage = 10;
   total = 0;
+  follow_up_date: string;
   appointment_date: string;
   color: string | undefined;
-  constructor(private _doctorService:DoctorService,private _receptionistService: ReceptionistService, private cdr: ChangeDetectorRef) { this.appointment_date = '';}
+  constructor(private _doctorService:DoctorService,private _receptionistService: ReceptionistService, private cdr: ChangeDetectorRef) { this.follow_up_date = '';  this.appointment_date = '';}
 
   ngOnInit() {
     this.setTodayDate();
+    this.getAllLeadFollowUpList();
     this.getAllAppointmentList();
     this.getReceptionistDashboardCount()
   }
@@ -60,6 +62,9 @@ export class DoctorDashboardComponent implements OnInit {
   setTodayDate() {
     const today = new Date();
     // Format the date as per your backend requirement
+    this.follow_up_date = `${today.getFullYear()}-${(today.getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
     this.appointment_date = `${today.getFullYear()}-${(today.getMonth() + 1)
       .toString()
       .padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
@@ -77,9 +82,23 @@ export class DoctorDashboardComponent implements OnInit {
       }
     });
   }
+  //get all LeadFollowUp List...
+  getAllLeadFollowUpList() {
+    this._receptionistService.getAllLeadFollowUpList(this.page, this.perPage, this.follow_up_date).subscribe({
+      next: (res: any) => {
+        console.log(res);
+
+        if (res.data.length > 0) {
+          this.allLeadFollowUpList = res.data;
+          this.total = res.pagination.total;
+        }
+      }
+    });
+  }
   onPageChange(event: PageEvent): void {
     this.page = event.pageIndex + 1;
     this.perPage = event.pageSize;
+    this.getAllLeadFollowUpList();
     this.getAllAppointmentList();
   }
 

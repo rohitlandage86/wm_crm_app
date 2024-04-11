@@ -1,3 +1,4 @@
+import { DoctorFollowUpListComponent } from './lead/doctor-follow-up-list/doctor-follow-up-list.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DoctorDashboardComponent } from './doctor-dashboard/doctor-dashboard.component';
@@ -106,6 +107,13 @@ const routes: Routes = [
   {
     path: "lead-follow-up-reports",  
     component:  DoctorFollowUpReportComponent,
+    pathMatch: "full",
+    outlet: "doc_Menu",
+    canActivate:[AuthGuard]
+  },
+  {
+    path: "follow-up",  
+    component: DoctorFollowUpListComponent,
     pathMatch: "full",
     outlet: "doc_Menu",
     canActivate:[AuthGuard]

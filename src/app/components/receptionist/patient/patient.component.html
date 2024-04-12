@@ -21,6 +21,7 @@
                                 <tr>
                                     <th>Sr. No</th>
                                     <th>Visit Date</th>
+                                    <th>Entity</th>
                                     <th>Patient Name</th>
                                     <th>Gender</th>
                                     <th>Age</th>
@@ -33,6 +34,7 @@
                                 <tr *ngFor="let item of allPatientVisitList; let i = index">
                                     <td>{{ i + 1 }}</td>
                                     <td>{{ item.visit_date| date:'dd-MM-yyyy'}}</td>
+                                    <td>{{ item.abbrivation||'--'  }}</td>
                                     <td>{{ item.patient_name  }}</td>
                                     <td>{{ item.gender }}</td>
                                     <td>{{ item.age }}</td>
@@ -61,6 +63,7 @@
                                         <th>Gender</th>
                                         <th>Age</th>
                                         <th>City</th>
+                                        <th>Edit</th>
                                        
                                     </tr>
                                 </thead>
@@ -74,7 +77,8 @@
                                         <td>{{ item.gender }}</td>
                                         <td>{{ item.age }}</td>
                                         <td>{{ item.city }}</td>
-                                        
+                                        <td> <a  class="pointer"><svg [cIcon]="icons.cilPencil"  size="xl"
+                                            title="List Icon" ></svg></a></td>
                                     <tr class=" fw-bold text-center" *ngIf="allPatientVisitCheckedList.length===0">
                                         <td colspan="10" class="text-danger">No Data Available</td>
                                     </tr>

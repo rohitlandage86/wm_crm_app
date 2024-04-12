@@ -15,34 +15,36 @@ export class DoctorService {
         let params: any = {
             page: page,
             perPage: perPage,
-            
+
         };
-    
+
         // Remove page and perPage parameters if they are empty
         if (page === '' || perPage === '') {
             delete params.page;
             delete params.perPage;
         }
-    
+
         return this.http.get(this.baseUrl + 'api/patient_registration/patient-visit-list/', {
             params: params
         });
     }
-     //get all patient_visit_Checked-lists...............................................................
-     getAllPatientVisitCheckedLists(page: any, perPage: any): Observable<any> {
+    //get all patient_visit_Checked-lists...............................................................
+    getAllPatientVisitCheckedLists(page: any, perPage: any,current_day: any): Observable<any> {
         let params: any = {
             page: page,
             perPage: perPage,
-           
+
         };
-    
+        if (current_day) {
+            params.current_day = current_day;
+        }
         // Remove page and perPage parameters if they are empty
         if (page === '' || perPage === '') {
             delete params.page;
             delete params.perPage;
         }
-    
-        return this.http.get(this.baseUrl + 'api/patient_registration/patient-visit-checked-list/', {
+
+        return this.http.get(this.baseUrl + 'api/consultation', {
             params: params
         });
     }
@@ -51,33 +53,37 @@ export class DoctorService {
     addConsultation(data: any): Observable<any> {
         return this.http.post(this.baseUrl + 'api/consultation', data);
     }
- // consultation get by id ...
- getConsultationById(id: any) {
-    return this.http.get(this.baseUrl + 'api/consultation/' + id)
-}
-  //get all consultation List...............................................................
-  getAllSearchConsultationList(page: any, perPage: any, key: any): Observable<any> {
-    let params: any = {
-        page: page,
-        perPage: perPage,
-        key: key  // Include the key parameter in the params object
-    };
-
-    // Check if page or perPage is empty and remove them from params if so
-    if (page === '' || perPage === '') {
-        delete params.page;
-        delete params.perPage;
+    //Edit consultation...
+    editConsultation(data: any, id: any) {
+        return this.http.put(this.baseUrl + 'api/consultation/' + id, data);
     }
+    // consultation get by id ...
+    getConsultationById(id: any) {
+        return this.http.get(this.baseUrl + 'api/consultation/' + id)
+    }
+    //get all consultation List...............................................................
+    getAllSearchConsultationList(page: any, perPage: any, key: any): Observable<any> {
+        let params: any = {
+            page: page,
+            perPage: perPage,
+            key: key  // Include the key parameter in the params object
+        };
 
-    // Make the HTTP GET request
-    return this.http.get(this.baseUrl + 'api/consultation', {
-        params: params
-    });
-}
-   // consultation get history ...
- getConsultationHistory(id: any) {
-    return this.http.get(this.baseUrl + 'api/consultation/patient-consultation-by-mrno/' + id)
-}
+        // Check if page or perPage is empty and remove them from params if so
+        if (page === '' || perPage === '') {
+            delete params.page;
+            delete params.perPage;
+        }
+
+        // Make the HTTP GET request
+        return this.http.get(this.baseUrl + 'api/consultation', {
+            params: params
+        });
+    }
+    // consultation get history ...
+    getConsultationHistory(id: any) {
+        return this.http.get(this.baseUrl + 'api/consultation/patient-consultation-by-mrno/' + id)
+    }
 
     //get all current day appointment list...............................................................
     getAllAppointmentList(page: any, perPage: any, appointment_date: any): Observable<any> {

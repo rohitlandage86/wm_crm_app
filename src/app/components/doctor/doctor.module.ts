@@ -20,6 +20,7 @@ import { DoctorAppointmentReportComponent } from './reports/doctor-appointment-r
 import { DoctorDiagnosisReportComponent } from './reports/doctor-diagnosis-report/doctor-diagnosis-report.component';
 import { DoctorTreatmentReportComponent} from './reports/doctor-treatment-report/doctor-treatment-report.component';
 import { DoctorFollowUpListComponent } from './lead/doctor-follow-up-list/doctor-follow-up-list.component';
+import { EditConsultationComponent } from './consultation/edit-consultation/edit-consultation.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { DoctorFollowUpListComponent } from './lead/doctor-follow-up-list/doctor
     DoctorAppointmentReportComponent,
     DoctorDiagnosisReportComponent,
     DoctorTreatmentReportComponent,
-    DoctorFollowUpListComponent
+    DoctorFollowUpListComponent,
+    EditConsultationComponent
 
   ],
   imports: [

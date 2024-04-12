@@ -1,3 +1,4 @@
+import { EditConsultationComponent } from './consultation/edit-consultation/edit-consultation.component';
 import { DoctorFollowUpListComponent } from './lead/doctor-follow-up-list/doctor-follow-up-list.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -57,7 +58,7 @@ const routes: Routes = [
   }, 
   {
     path: "edit-consultation/:id",
-    component: AddUpdateConsultationComponent,
+    component: EditConsultationComponent,
     pathMatch: "full",
     outlet: "doc_Menu",
     canActivate:[AuthGuard]

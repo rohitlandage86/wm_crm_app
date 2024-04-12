@@ -45,16 +45,16 @@ export class PatientComponent implements OnInit {
     });
   }
   getAllPatientVisitCheckedLists() {
-    this._doctorService.getAllPatientVisitCheckedLists(this.page, this.perPage).subscribe({
-      next: (res: any) => {
-        if (res.data.length > 0) {
-          this.allPatientVisitCheckedList = res.data;
-          console.log('Checked',res.data);
+    // this._doctorService.getAllPatientVisitCheckedLists(this.page, this.perPage).subscribe({
+    //   next: (res: any) => {
+    //     if (res.data.length > 0) {
+    //       this.allPatientVisitCheckedList = res.data;
+    //       console.log('Checked',res.data);
   
-          this.total = res.pagination.total;
-        }
-      }
-    });
+    //       this.total = res.pagination.total;
+    //     }
+    //   }
+    // });
   }
   onPageChange(event: PageEvent): void {
     this.page = event.pageIndex + 1;

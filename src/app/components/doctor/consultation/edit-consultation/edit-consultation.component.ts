@@ -7,30 +7,34 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ReceptionistService } from 'src/app/components/receptionist/receptionist.service';
-import { AdminService } from 'src/app/components/admin/admin.service';
-import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DoctorService } from '../../doctor.service';
 import { environment } from 'src/environments/environment';
 import { MatSelect } from '@angular/material/select';
-import { AddUpdateChiefComplaintsComponent } from 'src/app/components/admin/clinical-masters/chief-complaints/add-update-chief-complaints/add-update-chief-complaints.component';
 import { MatDialog } from '@angular/material/dialog';
+import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
+import { DoctorService } from '../../doctor.service';
+import { AdminService } from 'src/app/components/admin/admin.service';
+import { ReceptionistService } from 'src/app/components/receptionist/receptionist.service';
+import { AddUpdateChiefComplaintsComponent } from 'src/app/components/admin/clinical-masters/chief-complaints/add-update-chief-complaints/add-update-chief-complaints.component';
 import { AddUpdateDiagnosisComponent } from 'src/app/components/admin/masters/diagnosis/add-update-diagnosis/add-update-diagnosis.component';
 import { AddUpdateTreatmentComponent } from 'src/app/components/admin/masters/treatment/add-update-treatment/add-update-treatment.component';
 
+
+
+
 @Component({
-  selector: 'app-add-update-consultation',
-  templateUrl: './add-update-consultation.component.html',
-  styleUrl: './add-update-consultation.component.scss',
+  selector: 'app-edit-consultation',
+  templateUrl: './edit-consultation.component.html',
+  styleUrl: './edit-consultation.component.scss'
 })
-export class AddUpdateConsultationComponent implements OnInit {
+export class EditConsultationComponent implements OnInit {
   baseUrl = environment.baseUrl
   isAccordionOpen: number | null = null;
   form!: FormGroup;
   form_patient!: FormGroup;
   isEdit = false;
   mrno: any;
+  consultation_id:any;
   allConsutlationHistoryList: Array<any> = [];
   allStateList: Array<any> = [];
   allEntityList: Array<any> = [];
@@ -107,12 +111,11 @@ export class AddUpdateConsultationComponent implements OnInit {
       registration_date: new Date().toISOString().split('T')[0],
     });
     //url id
-    this.mrno = this.url.snapshot.params['id'];
-
-    if (this.mrno) {
-      this.getPatientById(this.mrno);
-      this.getConsultationHistory(this.mrno);
-      this.isEdit = true
+    this.consultation_id = this.url.snapshot.params['id']
+    if (this.consultation_id) {
+    
+      this.getConsultationId(this.consultation_id);
+      this.isEdit = false;
     }
     this.form.patchValue({
       mrno: this.url.snapshot.params['id'],
@@ -462,37 +465,40 @@ export class AddUpdateConsultationComponent implements OnInit {
   }
 
   submit() {
-    this.addConsultation();
+    this.updateConsultation() ;
   }
 
-
-  addConsultation() {
+  updateConsultation() {
     if (this.form.valid) {
-      this._doctorService.addConsultation(this.form.value).subscribe({
-        next: (res: any) => {
-          if (res.status == 201 || res.status == 200) {
-            this._toastrService.success(res.message);
-            this.router.navigate([
-              '/doctor',
-              { outlets: { doc_Menu: 'patient' } },
-            ]);
-          } else {
-            this._toastrService.warning(res.message);
-          }
-        },
-        error: (err: any) => {
-          if (err.error.status == 422) {
-            this._toastrService.warning(err.error.message);
-          } else {
-            this._toastrService.error('Internal Server Error');
-          }
-        },
-      });
+      console.log(this.form.value);
+      
+      // this._doctorService.editConsultation(this.form.value, this.mrno).subscribe({
+      //   next: (res: any) => {
+      //     if (res.status == 200) {
+      //       this._toastrService.success(res.message);
+      //       this.router.navigate([
+      //         '/doctor',
+      //         { outlets: { doc_Menu: 'patient' } },
+      //       ]);
+      //     } else {
+      //       this._toastrService.warning(res.message);
+      //     }
+      //   },
+      //   error: (err: any) => {
+      //     if (err.error.status == 401 || err.error.status == 422) {
+      //       this._toastrService.warning(err.error.message);
+      //     } else {
+      //       this._toastrService.error("Internal Server Error");
+      //     }
+      //   }
+      // });
     } else {
       this.form.markAllAsTouched();
-      this._toastrService.warning('Fill required fields');
+      this._toastrService.warning("Fill required fields");
     }
-  }
+   }
+
+
   //get all consutlation view by mrno (history)..
   getConsultationHistory(id: any) {
 
@@ -511,6 +517,7 @@ export class AddUpdateConsultationComponent implements OnInit {
   getPatientById(id: any) {
     this._receptionistService.getPatientById(id).subscribe((result: any) => {
       const patientData = result.data;
+
       this.form_patient.patchValue({
         registration_date: new Date(patientData.registration_date)
           .toISOString()
@@ -534,6 +541,88 @@ export class AddUpdateConsultationComponent implements OnInit {
       });
     });
   }
+    //consutlation by id patch data
+    getConsultationId(id: any) {
+      this._doctorService.getConsultationById(id).subscribe((result: any) => {
+        this.getPatientById(result.data.mrno);
+        this.getConsultationHistory(result.data.mrno);
+        const consutlationData = result.data;
+        console.log('consutlation  data',result.data);
+        
+        this.control['pluse'].patchValue(consutlationData.pluse);
+        this.control['bp'].patchValue(consutlationData.bp);
+        this.control['past_history'].patchValue(consutlationData.past_history);
+        this.control['chief_complaints_id'].patchValue(consutlationData.chief_complaints_id);
+  
+        // Patching diagnosis details
+        let consultationDiagnosisDetails = result.data.consultationDiagnosisDetails;
+        if (consultationDiagnosisDetails.length > 0) {
+          this.consultationDiagnosisDetailsArray.clear();
+          for (let index = 0; index < consultationDiagnosisDetails.length; index++) {
+            const element = consultationDiagnosisDetails[index];
+            const diagnosisFormGroup = this.newConsultationDiagnosis();
+            this.consultationDiagnosisDetailsArray.push(diagnosisFormGroup);
+            this.consultationDiagnosisDetailsArray.at(index).patchValue({
+              diagnosis_id: element.diagnosis_id,
+              notes: element.notes
+            });
+          }
+        }
+      
+  
+        // Patching treatment details
+        let consultationTreatmentDetails = result.data.consultationTreatmentDetails;
+        if (consultationTreatmentDetails.length > 0) {
+          this.consultationTreatmentDetailsArray.clear();
+          for (let index = 0; index < consultationTreatmentDetails.length; index++) {
+            const element = consultationTreatmentDetails[index];
+            const treatmentFormGroup = this.newConsultationTreatment();
+            this.consultationTreatmentDetailsArray.push(treatmentFormGroup);
+            this.consultationTreatmentDetailsArray.at(index).patchValue({
+              treatment_id: element.treatment_id,
+              notes: element.notes
+            });
+          }
+        }
+ 
+  
+        // Patching medicine details
+        let consultationMedicineDetails = result.data.consultationMedicineDetails;
+        if (consultationMedicineDetails.length > 0) {
+          this.consultationMedicineDetailsArray.clear();
+          for (let index = 0; index < consultationMedicineDetails.length; index++) {
+            const element = consultationMedicineDetails[index];
+            const medicineFormGroup = this.newConsultationMedicineDetails();
+            this.consultationMedicineDetailsArray.push(medicineFormGroup);
+            this.consultationMedicineDetailsArray.at(index).patchValue({
+              medicines_id: element.medicines_id,
+              dosages_id: element.dosages_id,
+              days: element.days,
+              instructions_id: element.instructions_id
+            });
+          }
+        }
+   
+  
+        // Patching file upload details
+        let consultationFileUploadDetails = result.data.consultationFileUploadDetails;
+        if (consultationFileUploadDetails.length > 0) {
+          this.consultationFileUploadDetailsArray.clear();
+          for (let index = 0; index < consultationFileUploadDetails.length; index++) {
+            const element = consultationFileUploadDetails[index];
+            const fileUploadFormGroup = this.newconsultationFileUploadDetails();
+            this.consultationFileUploadDetailsArray.push(fileUploadFormGroup);
+            this.consultationFileUploadDetailsArray.at(index).patchValue({
+              imageBase64: element.imageBase64,
+              image_name: element.image_name,
+              notes: element.notes
+            });
+          }
+        }
+        
+      });
+  
+    }
 
   //open chief complaints by...
   openDialog(data?: any) {
@@ -644,3 +733,6 @@ export class AddUpdateConsultationComponent implements OnInit {
   }
 
 }
+
+
+

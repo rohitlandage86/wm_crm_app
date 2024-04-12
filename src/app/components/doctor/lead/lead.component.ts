@@ -31,7 +31,7 @@ export class LeadComponent implements OnInit {
   }
   //get all LeadFollowUp List...
   getAllLeadFollowUpList() {
-    this._receptionistService.getAllLeadFollowUpList(this.page, this.perPage, this.lead_date).subscribe({
+    this._receptionistService.getAllLeadDateList(this.page, this.perPage, this.lead_date).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allLeadFollowUpList = res.data;

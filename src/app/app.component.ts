@@ -238,7 +238,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
       iconComponent: { name: 'cilList' },
       children: [
         {
-          name: 'Lead',
+          name: 'Registered',
           url: ['/doctor', { outlets: { doc_Menu: 'lead' } }],
 
         },

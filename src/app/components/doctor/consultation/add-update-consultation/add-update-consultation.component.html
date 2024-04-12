@@ -2,7 +2,7 @@
   <c-col xs="12 " class="p-0">
     <c-card class="">
       <c-card-header>
-        <strong>{{ isEdit ? "Edit" : "Add " }} Consultation</strong>
+        <strong>Add Consultation</strong>
       </c-card-header>
       <c-card-body>
         <form cForm class="row g-3" [formGroup]="form_patient">
@@ -331,6 +331,7 @@
                             #singleSelect
                             formControlName="diagnosis_id"
                             class="form-control theme-input"
+                            style="width:300px"
                           >
                             <mat-option>
                               <ngx-mat-select-search
@@ -437,6 +438,7 @@
                             #singleSelect
                             formControlName="treatment_id"
                             class="form-control theme-input"
+                            style="width:300px"
                           >
                             <mat-option>
                               <ngx-mat-select-search
@@ -544,7 +546,7 @@
                           #singleSelect
                           formControlName="medicines_id"
                           class="form-control theme-input"
-                          style="width: 100%"
+                          style="width:250px"
                         >
                           <mat-option>
                             <ngx-mat-select-search
@@ -567,7 +569,7 @@
                         <mat-select
                           #singleSelect
                           formControlName="dosages_id"
-                          style="width: 100%"
+                          style="width:250px"
                           class="form-control theme-input"
                         >
                           <mat-option>
@@ -599,6 +601,7 @@
                           #singleSelect
                           formControlName="instructions_id"
                           class="form-control theme-input"
+                          style="width:250px"
                         >
                           <mat-option>
                             <ngx-mat-select-search
@@ -778,7 +781,7 @@
                                     >
                                       <tr>
                                         <td>{{ i + 1 }}</td>
-                                        <td>{{ diagnosis.diagnosis_name }}</td>
+                                        <td >{{ diagnosis.diagnosis_name }}</td>
                                         <td>{{ diagnosis.notes }}</td>
                                       </tr>
                                     </ng-container>
@@ -823,11 +826,11 @@
                               <table class="table">
                                 <thead class="table-light">
                                   <tr>
-                                    <th scope="col">Sr No</th>
-                                    <th scope="col">Medicines</th>
-                                    <th scope="col">Dosages</th>
-                                    <th scope="col">Days</th>
-                                    <th scope="col">Instructions</th>
+                                    <th scope="col-md-1">Sr No</th>
+                                    <th scope="col-md-3">Medicines</th>
+                                    <th scope="col-md-2">Dosages</th>
+                                    <th scope="col-md-3">Days</th>
+                                    <th scope="col-md-3">Instructions</th>
                                   </tr>
                                 </thead>
                                 <tbody
@@ -845,7 +848,7 @@
                                         <td>{{ medicine.medicines_name }}</td>
                                         <td>{{ medicine.dosage_name}}</td>
                                         <td>{{ medicine.days }}</td>
-                                        <td>
+                                        <td scope="col-md-3">
                                           {{ medicine.instruction }}
                                         </td>
                                       </tr>

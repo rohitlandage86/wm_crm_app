@@ -28,6 +28,7 @@
                                         <td>{{ item.gender }}</td>
                                         <td>{{ item.age }}</td>
                                         <td>{{ item.city }}</td>
+
                                         <td> <a [routerLink]="['/doctor', { outlets: { doc_Menu: ['add-consultation',item.mrno]}}]" class="pointer"><svg [cIcon]="icons.cilPlus"  size="xl"
                                             title="List Icon" ></svg></a></td>
                                            
@@ -46,12 +47,13 @@
                                     <tr>
                                         <th>Sr. No</th>
                                         <th>Patient Name</th>
-                                        <th>Visit Date</th>
-                                        <th>Visit Type</th>
+                                        <th>Consultation Date</th>
+                                        <th>Entity</th>
                                         <th>Mobile Number</th>
                                         <th>Gender</th>
                                         <th>Age</th>
                                         <th>City</th>
+                                        <th>Edit</th>
                                        
                                     </tr>
                                 </thead>
@@ -59,13 +61,14 @@
                                     <tr *ngFor="let item of allPatientVisitCheckedList; let i = index">
                                         <td>{{ i + 1 }}</td>
                                         <td>{{ item.patient_name  }}</td>
-                                        <td>{{ item.visit_date| date:'dd-MM-yyyy'}}</td>
-                                        <td>{{ item.visit_type}}</td>
+                                        <td>{{ item.cts| date:'dd-MM-yyyy'}}</td>
+                                        <td>{{ item.abbrivation}}</td>
                                         <td>{{ item.mobile_no }}</td>
                                         <td>{{ item.gender }}</td>
                                         <td>{{ item.age }}</td>
                                         <td>{{ item.city }}</td>
-                                        
+                                        <td> <a  [routerLink]="['/doctor', { outlets: { doc_Menu: ['edit-consultation',item.consultation_id]}}]" class="pointer"><svg [cIcon]="icons.cilPencil"  size="xl"
+                                            title="List Icon" ></svg></a></td>
                                     <tr class=" fw-bold text-center" *ngIf="allPatientVisitCheckedList.length===0">
                                         <td colspan="10" class="text-danger">No Data Available</td>
                                     </tr>

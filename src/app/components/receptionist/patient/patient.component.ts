@@ -89,7 +89,7 @@ export class PatientComponent implements OnInit {
           Swal.fire({
             title: "Patient Not Found!",
             text: "No patient found with the provided details.",
-            icon: "error"
+            icon: "warning"
           });
         }
       },

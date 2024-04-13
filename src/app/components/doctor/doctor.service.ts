@@ -29,7 +29,7 @@ export class DoctorService {
         });
     }
     //get all patient_visit_Checked-lists...............................................................
-    getAllPatientVisitCheckedLists(page: any, perPage: any,current_day: any): Observable<any> {
+    getAllPatientVisitCheckedLists(page: any, perPage: any, current_day: any): Observable<any> {
         let params: any = {
             page: page,
             perPage: perPage,
@@ -60,6 +60,41 @@ export class DoctorService {
     // consultation get by id ...
     getConsultationById(id: any) {
         return this.http.get(this.baseUrl + 'api/consultation/' + id)
+    }
+    //delete consultation  diagnosis  ...
+    deleteConsultationDiagnosis(id: any, consultation_id: any): Observable<any> {
+        let params: any = {
+            consultation_id: consultation_id
+        };
+        return this.http.delete(this.baseUrl + 'api/consultation/diagnosis/' + id, {
+            params: params
+        })
+    }
+    //delete consultation  treatment  ...
+    deleteConsultationTreatment(id: any, consultation_id: any): Observable<any> {
+        let params: any = {
+            consultation_id: consultation_id
+        };
+        return this.http.delete(this.baseUrl + 'api/consultation/treatment/' + id, {
+            params: params
+        })
+    }
+    //delete consultation  medicine  ...
+    deleteConsultationMedicine(id: any, consultation_id: any): Observable<any> {
+        let params: any = {
+            consultation_id: consultation_id
+        };
+        return this.http.delete(this.baseUrl + 'api/consultation/medicine/' + id, {
+            params: params
+        })
+    }    //delete consultation  FileUpload  ...
+    deleteConsultationFileUpload(id: any, consultation_id: any): Observable<any> {
+        let params: any = {
+            consultation_id: consultation_id
+        };
+        return this.http.delete(this.baseUrl + 'api/consultation/fileUpload/' + id, {
+            params: params
+        })
     }
     //get all consultation List...............................................................
     getAllSearchConsultationList(page: any, perPage: any, key: any): Observable<any> {

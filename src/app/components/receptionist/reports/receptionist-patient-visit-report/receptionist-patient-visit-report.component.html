@@ -58,7 +58,7 @@
                             <td>{{ item.visit_date | date:'dd-MM-yyyy' }}</td>
                             <td>{{ item.patient_name }}</td>
                             <td>{{ item.age }}</td>
-                            <td>{{ item.visit_type| titlecase}}</td>
+                            <td>{{ transformVisitType(item.visit_type) }}</td>
                             <td>{{ item.mobile_no }}</td>
                             <td>{{ item.city }}</td>
                             <!-- <td> <a [routerLink]="['/receptionist', { outlets: { receptionist_Menu: ['edit-leads',item.lead_hid]}}]" class="pointer"><svg [cIcon]="icons.cilPencil"  size="xl"

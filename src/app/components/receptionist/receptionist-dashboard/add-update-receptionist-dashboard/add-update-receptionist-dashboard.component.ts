@@ -104,7 +104,7 @@ export class AddUpdateReceptionistDashboardComponent implements OnInit{
         next:(res:any)=>{
           if (res.status==200) {
             this._toastrService.success(res.message);
-            this.router.navigate(['/receptionist', { outlets: { receptionist_Menu: 'receptionist' } }])
+            this.router.navigate(['/receptionist', { outlets: { receptionist_Menu: 'follow-up' } }])
           }else{
             this._toastrService.warning(res.message);
           }

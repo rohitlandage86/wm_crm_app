@@ -77,5 +77,18 @@ export class ReceptionistPatientVisitReportComponent  implements OnInit{
     
   }
 
-
+  //table column visit type name show changes 
+  transformVisitType(visitType: string): string {
+    switch (visitType) {
+        case 'FIRST_VISIT':
+            return 'First Visit';
+        case 'Follow_UP':
+            return 'Follow Up';
+        case 'RE_VISIT':
+            return 'Re Visit';
+        
+        default:
+            return visitType;
+    }
+  }
 }

@@ -192,24 +192,24 @@ export class AddUpdatePatientComponent implements OnInit {
   updatePatient() {
     if (this.form.valid) {
       console.log(this.form.value);
-      this._receptionistService.editPatient(this.form.value, this.mrno).subscribe({
-        next: (res: any) => {
-          if (res.status == 200) {
+      // this._receptionistService.editPatient(this.form.value, this.mrno).subscribe({
+      //   next: (res: any) => {
+      //     if (res.status == 200) {
 
-            this._toastrService.success(res.message);
-            this.router.navigate(['/receptionist', { outlets: { receptionist_Menu: 'patient' } }])
-          } else {
-            this._toastrService.warning(res.message);
-          }
-        },
-        error: (err: any) => {
-          if (err.error.status == 401 || err.error.status == 422) {
-            this._toastrService.warning(err.error.message);
-          } else {
-            this._toastrService.error("Internal Server Error");
-          }
-        },
-      });
+      //       this._toastrService.success(res.message);
+      //       this.router.navigate(['/receptionist', { outlets: { receptionist_Menu: 'patient' } }])
+      //     } else {
+      //       this._toastrService.warning(res.message);
+      //     }
+      //   },
+      //   error: (err: any) => {
+      //     if (err.error.status == 401 || err.error.status == 422) {
+      //       this._toastrService.warning(err.error.message);
+      //     } else {
+      //       this._toastrService.error("Internal Server Error");
+      //     }
+      //   },
+      // });
 
     } else {
       this.form.markAllAsTouched();

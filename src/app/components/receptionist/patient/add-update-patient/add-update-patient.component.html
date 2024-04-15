@@ -104,13 +104,14 @@
                 formControlName="mrno_entity_series"
                 type="text"
                 [ngModel]="mrnoEntitySeries"
+                
                 [ngClass]="{
                   'is-invalid':
                     control['mrno_entity_series'].invalid &&
                     (control['mrno_entity_series'].dirty ||
                       control['mrno_entity_series'].touched)
                 }"
-                [disabled]="form.get('mrno_entity_series')?.disabled ?? false"
+             
               />
               <div
                 class="text-danger"
@@ -376,9 +377,7 @@
           <c-col md="2" class="p-2">
             <label cLabel for="validationDefault01"
               >Height (cm)
-              <span style="color: red" *ngIf="!form.get('height')?.value"
-                >*</span
-              ></label
+            </label
             >
             <input
               cFormControl
@@ -391,9 +390,7 @@
           <c-col md="2" class="p-2">
             <label cLabel for="validationDefault01"
               >Weight (kg)
-              <span style="color: red" *ngIf="!form.get('weight')?.value"
-                >*</span
-              ></label
+              </label
             >
             <input
               cFormControl
@@ -406,9 +403,7 @@
           <c-col md="2" class="p-2">
             <label cLabel for="bmi"
               >BMI (kg/m²)
-              <span style="color: red" *ngIf="!form.get('bmi')?.value"
-                >*</span
-              ></label
+              </label
             >
             <input cFormControl id="bmi" formControlName="bmi" type="text" />
           </c-col>

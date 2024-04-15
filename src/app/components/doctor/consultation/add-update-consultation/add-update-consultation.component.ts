@@ -100,12 +100,6 @@ export class AddUpdateConsultationComponent implements OnInit {
     this.getAllDosagesList();
     this.getAllDiagnosisList();
     this.getAllInstructionsList();
-    this.formGroup = this.fb.group({
-      imageBase64: [''] // Initialize imageBase64 control
-    });
-    this.form_patient.patchValue({
-      registration_date: new Date().toISOString().split('T')[0],
-    });
     //url id
     this.mrno = this.url.snapshot.params['id'];
 

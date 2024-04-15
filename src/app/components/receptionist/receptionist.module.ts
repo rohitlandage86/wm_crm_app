@@ -34,7 +34,7 @@ import { FollowUpComponent } from './leads/follow-up/follow-up.component';
     ReceptionistPatientVisitReportComponent,
     ReceptionistFollowUpReportComponent,
     ReceptionistAppointmentReportComponent,
-    FollowUpComponent
+    FollowUpComponent,
     
     
   ],

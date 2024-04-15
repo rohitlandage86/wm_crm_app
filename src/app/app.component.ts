@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr'
 })
 export class AppComponent implements OnInit, AfterContentChecked {
   title: any = 'Nirmiti'
-  data:any={}
+  data: any = {}
   isSuperAdminDashboard = false;
   isAdminDashboard = false;
   isDoctorDashboard = false;
@@ -69,9 +69,9 @@ export class AppComponent implements OnInit, AfterContentChecked {
       this.isReceptionistDashboard = false;
       this.isSuperAdminDashboard = true;
     }
-    let userData:any=localStorage.getItem('data');
+    let userData: any = localStorage.getItem('data');
     if (JSON.parse(userData)) {
-      this.data=JSON.parse(userData);
+      this.data = JSON.parse(userData);
     }
 
     // currentRoute.split('/')[1] == 'admin' ? this.route = ['/admin', { outlets: { sub_Menu: 'admin' } }] : this.route = ['/org', { outlets: { org_Menu: 'admin' } }];
@@ -215,6 +215,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
       name: 'Dashboard',
       url: ['/doctor', { outlets: { doc_Menu: 'admin' } }],
       iconComponent: { name: 'cil-speedometer' },
+      class: 'bg-dark'
     },
     {
       name: 'Consultation',
@@ -257,8 +258,8 @@ export class AppComponent implements OnInit, AfterContentChecked {
     },
     {
       name: 'Reports',
-      class: 'reports-item',
-      iconComponent: { name: 'cil-description' }
+      iconComponent: { name: 'cil-description' },
+      class: 'bg-dark'
     },
 
     {
@@ -297,9 +298,9 @@ export class AppComponent implements OnInit, AfterContentChecked {
       ]
     },
     {
-      name: 'Clinical', 
+      name: 'Clinical',
       iconComponent: { name: 'cilList' },
-      children: [ 
+      children: [
         {
           name: 'Diagnosis',
           url: ['/doctor', { outlets: { doc_Menu: 'diagnosis-reports' } }],
@@ -321,7 +322,8 @@ export class AppComponent implements OnInit, AfterContentChecked {
     {
       name: 'Logout',
       url: '/auth',
-      iconComponent: { name: 'cil-account-logout' }
+      iconComponent: { name: 'cil-account-logout' },
+      class: 'bg-dark'
     },
 
     ];
@@ -330,6 +332,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
       name: 'Dashboard',
       url: ['/receptionist', { outlets: { receptionist_Menu: 'receptionist' } }],
       iconComponent: { name: 'cil-speedometer' },
+      class: 'bg-dark'
     },
 
     {
@@ -374,8 +377,8 @@ export class AppComponent implements OnInit, AfterContentChecked {
     },
     {
       name: 'Reports',
-
-      iconComponent: { name: 'cil-description' }
+      iconComponent: { name: 'cil-description' },
+      class: 'bg-dark'
     },
     {
       name: 'Lead',
@@ -420,7 +423,8 @@ export class AppComponent implements OnInit, AfterContentChecked {
     {
       name: 'Logout',
       url: '/auth',
-      iconComponent: { name: 'cil-account-logout' }
+      iconComponent: { name: 'cil-account-logout' },
+      class: 'bg-dark'
     },
     ];
   }

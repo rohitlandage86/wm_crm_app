@@ -178,26 +178,46 @@ export class ReceptionistService {
             params: params
         });
     }
-        //get all lead-Date list...............................................................
-        getAllLeadDateList(page: any, perPage: any, lead_date: any): Observable<any> {
-            let params: any = {
-                page: page,
-                perPage: perPage,
-            };
-    
-            if (lead_date) {
-                params.lead_date = lead_date;
-            }
-    
-            if (page == '' || perPage == '') {
-                delete params.page;
-                delete params.perPage;
-            }
-    
-            return this.http.get(this.baseUrl + 'api/lead_header/lead-follow-up', {
-                params: params
-            });
+    //get all pending lead-follow-up list...............................................................
+    getAllPendingLeadFollowUpList(page: any, perPage: any, current_date: any): Observable<any> {
+        let params: any = {
+            page: page,
+            perPage: perPage,
+        };
+
+        if (current_date) {
+            params.current_date = current_date;
         }
+
+        if (page == '' || perPage == '') {
+            delete params.page;
+            delete params.perPage;
+        }
+
+        return this.http.get(this.baseUrl + 'api/lead_header/pending-lead-follow-up', {
+            params: params
+        });
+    }
+    //get all lead-Date list...............................................................
+    getAllLeadDateList(page: any, perPage: any, lead_date: any): Observable<any> {
+        let params: any = {
+            page: page,
+            perPage: perPage,
+        };
+
+        if (lead_date) {
+            params.lead_date = lead_date;
+        }
+
+        if (page == '' || perPage == '') {
+            delete params.page;
+            delete params.perPage;
+        }
+
+        return this.http.get(this.baseUrl + 'api/lead_header/lead-follow-up', {
+            params: params
+        });
+    }
 
     //Edit lead-follow-up...
     editLeadFollowUp(data: any, id: any) {
@@ -302,9 +322,9 @@ export class ReceptionistService {
         }
         return this.http.get(this.baseUrl + 'api/consultation/consultation_diagnosis', { params: params });
     }
-    
-       //get all Treatment report list ..............................................................................
-       getAllTreatmentReportList(page: any, perPage: any, fromDate: any, toDate: any, treatment_id: any): Observable<any> {
+
+    //get all Treatment report list ..............................................................................
+    getAllTreatmentReportList(page: any, perPage: any, fromDate: any, toDate: any, treatment_id: any): Observable<any> {
         let params = {
             'page': page,
             'perPage': perPage,

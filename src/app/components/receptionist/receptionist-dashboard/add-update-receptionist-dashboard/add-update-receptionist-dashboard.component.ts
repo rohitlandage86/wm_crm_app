@@ -100,25 +100,23 @@ export class AddUpdateReceptionistDashboardComponent implements OnInit{
 
   addLeadFollowUp(){
     if (this.form.valid) {
-      console.log(this.form.value);
-      
-      // this._receptionistService.editLeadFollowUp(this.form.value,this.lead_hid).subscribe({
-      //   next:(res:any)=>{
-      //     if (res.status==200) {
-      //       this._toastrService.success(res.message);
-      //       this.router.navigate(['/receptionist', { outlets: { receptionist_Menu: 'receptionist' } }])
-      //     }else{
-      //       this._toastrService.warning(res.message);
-      //     }
-      //   },
-      //   error:(err:any)=>{
-      //     if (err.error.status==401 || err.error.status==422) {
-      //       this._toastrService.warning(err.error.message);
-      //     } else {
-      //       this._toastrService.error("Internal Server Error");
-      //     }
-      //   }
-      // });
+      this._receptionistService.editLeadFollowUp(this.form.value,this.lead_hid).subscribe({
+        next:(res:any)=>{
+          if (res.status==200) {
+            this._toastrService.success(res.message);
+            this.router.navigate(['/receptionist', { outlets: { receptionist_Menu: 'receptionist' } }])
+          }else{
+            this._toastrService.warning(res.message);
+          }
+        },
+        error:(err:any)=>{
+          if (err.error.status==401 || err.error.status==422) {
+            this._toastrService.warning(err.error.message);
+          } else {
+            this._toastrService.error("Internal Server Error");
+          }
+        }
+      });
     } else {
       this.form.markAllAsTouched();
       this._toastrService.warning("Fill required fields");

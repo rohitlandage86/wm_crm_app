@@ -51,7 +51,8 @@ export class EditConsultationComponent implements OnInit {
   streetControl = new FormControl();
   @ViewChild('imagePreview') imagePreview!: ElementRef<HTMLImageElement>;
   showImagePreview: boolean[] = [];
-
+  selectedImage: any;
+  
   @ViewChild('singleSelect') singleSelect: MatSelect | undefined;
   //for cheif compliant
   searchChiefComplaintsValue = '';
@@ -370,6 +371,9 @@ export class EditConsultationComponent implements OnInit {
         if (consultation_diagnosis_id) {
           this.deleteConsultationsDiagnosis(consultation_diagnosis_id);
         }
+        if (this.consultationDiagnosisDetailsArray.length === 0) {
+          this.addConsultationDiagnosis();
+        }
         Swal.fire(
           'Deleted!',
           'Your item has been deleted.',
@@ -412,12 +416,16 @@ export class EditConsultationComponent implements OnInit {
         if (consultation_treatment_id) {
           this.deleteConsultationsTreatments(consultation_treatment_id);
         }
+        if (this.consultationTreatmentDetailsArray.length === 0) {
+          this.addConsultationTreatment();
+        }
         Swal.fire(
           'Deleted!',
           'Your item has been deleted.',
           'success'
         );
       }
+
     });
   }
   //Medicine array controls
@@ -457,12 +465,16 @@ export class EditConsultationComponent implements OnInit {
         if (consultation_medicine_id) {
           this.deleteConsultationMedicines(consultation_medicine_id);
         }
+        if (this.consultationMedicineDetailsArray.length === 0) {
+          this.addConsultationMedicine();
+        }
         Swal.fire(
           'Deleted!',
           'Your item has been deleted.',
           'success'
         );
       }
+     
     });
   }
   //FileUpload array controls
@@ -502,12 +514,16 @@ export class EditConsultationComponent implements OnInit {
         if (consultation_file_upload_id) {
           this.deleteConsultationFileUploads(consultation_file_upload_id);
         }
+        if (this.consultationFileUploadDetailsArray.length === 0) {
+          this.addConsultationFileUpload();
+        }
         Swal.fire(
           'Deleted!',
           'Your item has been deleted.',
           'success'
         );
       }
+      this.getConsultationId(this.consultation_id);
     });
   }
   // Utility function to convert file to base64 format
@@ -520,6 +536,7 @@ export class EditConsultationComponent implements OnInit {
     });
   }
   onImageChange(event: any, index: number) {
+    this.previewImage(event)
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
@@ -561,26 +578,26 @@ export class EditConsultationComponent implements OnInit {
     console.log(this.form.value);
     if (this.form.valid) {
 
-      // this._doctorService.editConsultation(this.form.value, this.mrno).subscribe({
-      //   next: (res: any) => {
-      //     if (res.status == 200) {
-      //       this._toastrService.success(res.message);
-      //       this.router.navigate([
-      //         '/doctor',
-      //         { outlets: { doc_Menu: 'patient' } },
-      //       ]);
-      //     } else {
-      //       this._toastrService.warning(res.message);
-      //     }
-      //   },
-      //   error: (err: any) => {
-      //     if (err.error.status == 401 || err.error.status == 422) {
-      //       this._toastrService.warning(err.error.message);
-      //     } else {
-      //       this._toastrService.error("Internal Server Error");
-      //     }
-      //   }
-      // });
+      this._doctorService.editConsultation(this.form.value, this.consultation_id).subscribe({
+        next: (res: any) => {
+          if (res.status == 200) {
+            this._toastrService.success(res.message);
+            this.router.navigate([
+              '/doctor',
+              { outlets: { doc_Menu: 'patient' } },
+            ]);
+          } else {
+            this._toastrService.warning(res.message);
+          }
+        },
+        error: (err: any) => {
+          if (err.error.status == 401 || err.error.status == 422) {
+            this._toastrService.warning(err.error.message);
+          } else {
+            this._toastrService.error("Internal Server Error");
+          }
+        }
+      });
     } else {
       this.form.markAllAsTouched();
       this._toastrService.warning("Fill required fields");
@@ -863,6 +880,21 @@ export class EditConsultationComponent implements OnInit {
       },
     });
   }
+  previewImage(event: any) {
+    const index = event.target.getAttribute('data-index');
+    const file = event.target.files[0];
+    if (file && index !== null) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.selectedImage = {
+          index: parseInt(index),
+          src: e.target.result
+        };
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+  
 }
 
 

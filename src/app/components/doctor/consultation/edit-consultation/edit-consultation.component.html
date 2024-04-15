@@ -200,22 +200,6 @@
             </select>
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="validationDefault01">Payment Type </label>
-            <select
-              aria-label="select lead payment_type"
-              cSelect
-              sizing="sm"
-              formControlName="payment_type"
-              type="text"
-            >
-              <option hidden value="null" disabled selected>
-                Payment Type
-              </option>
-              <option>Cash</option>
-              <option>Online Payment</option>
-            </select>
-          </c-col>
-          <c-col md="2" class="p-2">
             <label cLabel for="amount">Amount </label>
             <input
               cFormControl
@@ -401,7 +385,7 @@
                           "
                           type="button"
                           [class.disabled]="
-                            consultationDiagnosisDetailsArray.length === 1
+                            consultationDiagnosisDetailsArray.length === 0
                           "
                           [attr.aria-disabled]="
                             consultationDiagnosisDetailsArray.length === 1
@@ -513,7 +497,7 @@
                           "
                           type="button"
                           [class.disabled]="
-                            consultationTreatmentDetailsArray.length === 1
+                            consultationTreatmentDetailsArray.length === 0
                           "
                           [attr.aria-disabled]="
                             consultationTreatmentDetailsArray.length === 1
@@ -558,7 +542,7 @@
                           class="form-control theme-input"
                           style="width: 250px"
                         >
-                          <mat-option>
+                          <mat-option >
                             <ngx-mat-select-search
                               [(ngModel)]="searchMedicinesValue"
                               [ngModelOptions]="{ standalone: true }"
@@ -646,7 +630,7 @@
                           "
                           type="button"
                           [class.disabled]="
-                            consultationMedicineDetailsArray.length === 1
+                            consultationMedicineDetailsArray.length === 0
                           "
                           [attr.aria-disabled]="
                             consultationMedicineDetailsArray.length === 1
@@ -661,7 +645,7 @@
                 </table>
               </div>
             </mat-tab>
-            <mat-tab label="File Upload Details">
+            <mat-tab label="File Upload Details" disabled="true">
               <div class="col-md-12">
                 <table class="table">
                   <thead class="table-light">
@@ -684,12 +668,15 @@
                       <td>
                         <div class="d-flex">
                           <input
-                            type="file"
-                            class="form-control"
-                            id="imageBase64"
-                            (change)="onImageChange($event, i)"
-                            accept=".jpeg, .jfif, .pjpeg, .pjp, .png, .jpg"
-                          />
+                          type="file"
+                          class="form-control"
+                          (change)="onImageChange($event,i)"
+                          accept=".jpeg, .jfif, .pjpeg, .pjp, .png, .jpg"
+                          [attr.data-index]="i"
+                        />
+                        <button (click)="previewImage(i)" >Preview</button>
+                          <!-- Image preview -->
+                          <img *ngIf="selectedImage && selectedImage.index === i" [src]="selectedImage.src" alt="Preview" style="max-width: 100px; max-height: 100px;">
                         </div>
                       </td>
 
@@ -698,7 +685,8 @@
                           type="text"
                           class="form-control"
                           formControlName="notes"
-                        />
+                        /> 
+
                       </td>
                       <td class="d-flex pb-3 justify-content-center">
                         <i
@@ -716,7 +704,7 @@
                           "
                           type="button"
                           [class.disabled]="
-                            consultationFileUploadDetailsArray.length === 1
+                            consultationFileUploadDetailsArray.length === 0
                           "
                           [attr.aria-disabled]="
                             consultationFileUploadDetailsArray.length === 1

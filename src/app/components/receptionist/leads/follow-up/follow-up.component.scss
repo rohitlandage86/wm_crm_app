@@ -1,0 +1,15 @@
+:host ::ng-deep .mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs>.mat-mdc-tab-header .mat-mdc-tab {
+     flex-grow: unset; 
+}
+:host ::ng-deep .mdc-tab-indicator--active {
+    background: rgb(232, 232, 232) !important;
+    color: #040404!important;
+}
+:host ::ng-deep .mat-mdc-select-disabled {
+    color: rgb(53 64 81);
+    background: #d8dbe0;
+}
+:host ::ng-deep .form-control[type=file]:not(:disabled):not([readonly]) {
+    cursor: pointer;
+    background-color: #d8dbe0;
+}

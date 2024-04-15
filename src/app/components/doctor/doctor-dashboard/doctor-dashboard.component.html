@@ -1,56 +1,97 @@
 <c-container breakpoint="lg">
-  <c-row >
-    <c-col md="12" class="d-flex justify-content-between">
-      <c-col md="2">
-        <c-card class="mb-4 count-card ">
-          <c-card-body class="card-value" >
-            <div *ngIf="firstCardContent" >
-              <strong><div class="fs-1 ps-5 mb-3 ">{{ firstCardContent.first_visit_count }}</div></strong><br>
-              <div class="fs-2">First Visit</div>
+  <c-row>
+    <c-col md="12" class="d-flex justify-content-between mb-3">
+      <c-col md="2" class="h-100">
+        <c-card class="mb-4 count-card h-100">
+          <c-card-body class="card-value ">
+            <div class="col-12 ">
+              <div *ngIf="firstCardContent">
+                <strong>
+                  <div class="fs-1 mb-3  d-flex justify-content-center">
+                    {{ firstCardContent.first_visit_count }}
+                  </div>
+                </strong>
+              </div>
+            </div>
+            <div class="col-12 ">
+              <div class="fs-5 d-= count-label d-flex justify-content-center">First Visit</div>
             </div>
           </c-card-body>
         </c-card>
       </c-col>
-      <c-col md="2">
-        <c-card class="mb-4 count-card">
-          <c-card-body class="card-value"> 
-            <div *ngIf="firstCardContent" >
-              <strong><div class="fs-1 ps-5 mb-3">{{ firstCardContent.is_checked_count }}</div></strong><br>
-              <div class="fs-2">Checked</div>
+      <c-col md="2" class="h-100">
+        <c-card class="mb-4 count-card h-100">
+          <c-card-body class="card-value ">
+            <div class="col-12 ">
+              <div *ngIf="firstCardContent">
+                <strong>
+                  <div class="fs-1 mb-3  d-flex justify-content-center">
+                    {{ firstCardContent.is_checked_count }}
+                  </div>
+                </strong>
+              </div>
+            </div>
+            <div class="col-12 ">
+              <div class="fs-5 d-ruby count-label d-flex justify-content-center">Checked</div>
             </div>
           </c-card-body>
         </c-card>
       </c-col>
-      <c-col md="2">
-        <c-card class="mb-4 count-card">
-          <c-card-body class="card-value">
-            <div *ngIf="firstCardContent" >
-              <strong><div class=" value fs-1  mb-3">{{ firstCardContent.is_not_checked_count }}</div></strong><br>
-              <div class="fs-2">Not Checked</div>
+      <c-col md="2" class="h-100">
+        <c-card class="mb-4 count-card h-100">
+          <c-card-body class="card-value ">
+            <div class="col-12 ">
+              <div *ngIf="firstCardContent">
+                <strong>
+                  <div class="fs-1 mb-3  d-flex justify-content-center">
+                    {{ firstCardContent.is_not_checked_count }}
+                  </div>
+                </strong>
+              </div>
+            </div>
+            <div class="col-12 ">
+              <div class="fs-5 d-ruby count-label d-flex justify-content-center">Not Checked</div>
             </div>
           </c-card-body>
         </c-card>
       </c-col>
-      <c-col md="2" >
-        <c-card class="mb-4 count-card">
-          <c-card-body class="card-value">
-            <div *ngIf="firstCardContent" >
-              <strong><div class=" fs-1 ps-5 mb-3 "> {{ firstCardContent.re_visit_count }}</div></strong><br>
-              <div class="fs-2">Re-Visit</div>
+      <c-col md="2" class="h-100">
+        <c-card class="mb-4 count-card h-100">
+          <c-card-body class="card-value ">
+            <div class="col-12 ">
+              <div *ngIf="firstCardContent">
+                <strong>
+                  <div class="fs-1 mb-3  d-flex justify-content-center">
+                    {{ firstCardContent.re_visit_count }}
+                  </div>
+                </strong>
+              </div>
+            </div>
+            <div class="col-12 ">
+              <div class="fs-5 d-ruby count-label d-flex justify-content-center">Re-Visit</div>
             </div>
           </c-card-body>
         </c-card>
       </c-col>
-      <c-col md="2" class="me-4">
-        <c-card class="mb-4 count-card">
-          <c-card-body class="card-value">
-            <div *ngIf="firstCardContent" >
-              <strong><div class="value fs-1  mb-3"> {{ firstCardContent.today_total_patient_count }}</div></strong><br>
-              <div class="fs-2">Todays Total</div>
+      <c-col md="2" class="h-100">
+        <c-card class="mb-4 count-card h-100">
+          <c-card-body class="card-value ">
+            <div class="col-12 ">
+              <div *ngIf="firstCardContent">
+                <strong>
+                  <div class="fs-1 mb-3  d-flex justify-content-center">
+                    {{ firstCardContent.today_total_patient_count }}
+                  </div>
+                </strong>
+              </div>
+            </div>
+            <div class="col-12 ">
+              <div class="fs-5 d-ruby count-label d-flex justify-content-center">Todays Total</div>
             </div>
           </c-card-body>
         </c-card>
       </c-col>
+
     </c-col>
   </c-row>
   <c-col md="12">

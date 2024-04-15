@@ -7,20 +7,32 @@ import { ReceptionistService } from '../../receptionist.service';
 @Component({
   selector: 'app-follow-up',
   templateUrl: './follow-up.component.html',
-  styleUrl: './follow-up.component.scss'
+  styleUrl: './follow-up.component.scss',
 })
-export class FollowUpComponent implements OnInit{
+export class FollowUpComponent implements OnInit {
   allLeadFollowUpList: Array<any> = [];
   icons = freeSet;
   page = 1;
   perPage = 10;
   total = 0;
   follow_up_date: string;
-  constructor( private _receptionistService: ReceptionistService, private _toastrService: ToastrService) { this.follow_up_date = ''; }
+  // pending follow up list
+  allPendingFollowUpList: Array<any> = [];
+  pendingPage = 1;
+  pendingPerPage = 10;
+  pendingTotal = 0;
+
+  constructor(
+    private _receptionistService: ReceptionistService,
+    private _toastrService: ToastrService
+  ) {
+    this.follow_up_date = '';
+  }
 
   ngOnInit() {
     this.setTodayDate();
     this.getAllLeadFollowUpList();
+    this.getAllPendingFollowUpList();
   }
   setTodayDate() {
     const today = new Date();
@@ -31,16 +43,16 @@ export class FollowUpComponent implements OnInit{
   }
   //get all LeadFollowUp List...
   getAllLeadFollowUpList() {
-    this._receptionistService.getAllLeadFollowUpList(this.page, this.perPage, this.follow_up_date).subscribe({
-      next: (res: any) => {
-        console.log(res);
-
-        if (res.data.length > 0) {
-          this.allLeadFollowUpList = res.data;
-          this.total = res.pagination.total;
-        }
-      }
-    });
+    this._receptionistService
+      .getAllLeadFollowUpList(this.page, this.perPage, this.follow_up_date)
+      .subscribe({
+        next: (res: any) => {
+          if (res.data.length > 0) {
+            this.allLeadFollowUpList = res.data;
+            this.total = res.pagination.total;
+          }
+        },
+      });
   }
   onPageChange(event: PageEvent): void {
     this.page = event.pageIndex + 1;
@@ -65,6 +77,23 @@ export class FollowUpComponent implements OnInit{
           this.getAllLeadFollowUpList();
         }
       },
+    });
+  }
+  //pending follow up list
+  getAllPendingFollowUpList(){
+    this._receptionistService.getAllPendingLeadFollowUpList(this.pendingPage, this.pendingPerPage, this.follow_up_date).subscribe({
+      next:(res:any)=>{
+        if (res.data.length > 0) {
+          this.allPendingFollowUpList = res.data;
+          this.pendingTotal = res.pagination.total;
+        }
+      }
     })
   }
+  onPendingPageChange(event: PageEvent): void {
+    this.pendingPage = event.pageIndex + 1;
+    this.pendingPerPage = event.pageSize;
+    this.getAllPendingFollowUpList();
+  }
+
 }

@@ -209,21 +209,27 @@ export class AddUpdateConsultationComponent implements OnInit {
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allDiagnosis = res.data;
-          this.filteredDiagnosisArray = this.allDiagnosis;
+          // this.filteredDiagnosisArray = this.allDiagnosis;
+          for (let index = 0; index < this.consultationDiagnosisDetailsArray.value.length; index++) {
+            this.filteredDiagnosisArray[index] = this.allDiagnosis;
+          }
         }
+       
       },
     });
   }
   //Filter diagnosis array
-  filterDiagnosis() {
-    if (this.searchDiagnosisValue != '') {
-      this.filteredDiagnosisArray = [];
-      const filteredArr = this.allDiagnosis.filter((obj: any) =>
+  filterDiagnosis(i:any) {
+    if (this.searchDiagnosisValue != "") {
+      this.filteredDiagnosisArray[i] = [];
+      const filteredArr = this.allDiagnosis.filter((obj) =>
         obj.diagnosis_name.toLowerCase().includes(this.searchDiagnosisValue)
       );
-      this.filteredDiagnosisArray = filteredArr;
+      this.filteredDiagnosisArray[i] = filteredArr;
+      let indexPlusOne = i + 1;
+      this.filteredDiagnosisArray[indexPlusOne] = this.allDiagnosis;
     } else {
-      this.filteredDiagnosisArray = this.allDiagnosis;
+      this.filteredDiagnosisArray[i] = this.allDiagnosis;
     }
   }
   //-------------------------------------------------------------------
@@ -234,21 +240,25 @@ export class AddUpdateConsultationComponent implements OnInit {
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allTreatment = res.data;
-          this.filteredTreatmentArray = this.allTreatment;
+          for (let index = 0; index < this.consultationTreatmentDetailsArray.value.length; index++) {
+            this.filteredTreatmentArray[index] = this.allTreatment;
+          }
         }
       },
     });
   }
   //Filter Treatment array
-  filterTreatment() {
+  filterTreatment(i:any) {
     if (this.searchTreatmentValue != '') {
-      this.filteredTreatmentArray = [];
+      this.filteredTreatmentArray[i] = [];
       const filteredArr = this.allTreatment.filter((obj: any) =>
         obj.treatment_name.toLowerCase().includes(this.searchTreatmentValue)
       );
-      this.filteredTreatmentArray = filteredArr;
+      this.filteredTreatmentArray[i] = filteredArr;
+      let indexPlusOne = i + 1;
+      this.filteredTreatmentArray[indexPlusOne] = this.allTreatment;
     } else {
-      this.filteredTreatmentArray = this.allTreatment;
+      this.filteredTreatmentArray[i] = this.allTreatment;
     }
   }
   //-------------------------------------------------------------------
@@ -259,24 +269,28 @@ export class AddUpdateConsultationComponent implements OnInit {
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allMedicines = res.data;
-          this.filteredMedicinesArray = this.allMedicines;
+          // this.filteredMedicinesArray = this.allMedicines;
+          for (let index = 0; index < this.consultationMedicineDetailsArray.value.length; index++) {
+            this.filteredMedicinesArray[index] = this.allMedicines;
+          }
         }
       },
     });
   }
   //Filter Medicines array
-  filterMedicines() {
+  filterMedicines(i:any) {
     if (this.searchMedicinesValue != '') {
-      this.filteredMedicinesArray = [];
+      this.filteredMedicinesArray[i] = [];
       const filteredArr = this.allMedicines.filter((obj: any) =>
         obj.medicines_name.toLowerCase().includes(this.searchMedicinesValue)
       );
-      this.filteredMedicinesArray = filteredArr;
+      this.filteredMedicinesArray[i] = filteredArr;
+      let indexPlusOne = i + 1;
+      this.filteredMedicinesArray[indexPlusOne] = this.allMedicines;
     } else {
-      this.filteredMedicinesArray = this.allMedicines;
+      this.filteredMedicinesArray[i] = this.allMedicines;
     }
   }
-  //-------------------------------------------------------------------
   //-------------------------------------------------------------------
   //get dosages list...
   getAllDosagesList() {
@@ -284,21 +298,25 @@ export class AddUpdateConsultationComponent implements OnInit {
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allDosages = res.data;
-          this.filteredDosagesArray = this.allDosages;
+          for (let index = 0; index < this.consultationMedicineDetailsArray.value.length; index++) {
+            this.filteredDosagesArray[index] = this.allDosages;
+          }
         }
       },
     });
   }
   //Filter Dosages array
-  filterDosages() {
+  filterDosages(i:any) {
     if (this.searchDosagesValue != '') {
-      this.filteredDosagesArray = [];
+      this.filteredDosagesArray[i] = [];
       const filteredArr = this.allDosages.filter((obj: any) =>
         obj.dosage_name.toLowerCase().includes(this.searchDosagesValue)
       );
-      this.filteredDosagesArray = filteredArr;
+      this.filteredDosagesArray[i] = filteredArr;
+      let indexPlusOne = i + 1;
+      this.filteredDosagesArray[indexPlusOne] = this.allDosages;
     } else {
-      this.filteredDosagesArray = this.allDosages;
+      this.filteredDosagesArray[i] = this.allDosages;
     }
   }
   //-------------------------------------------------------------------
@@ -309,21 +327,25 @@ export class AddUpdateConsultationComponent implements OnInit {
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allInstructions = res.data;
-          this.filteredInstructionsArray = this.allInstructions;
+          for (let index = 0; index < this.consultationMedicineDetailsArray.value.length; index++) {
+            this.filteredInstructionsArray[index] = this.allInstructions;
+          }
         }
       },
     });
   }
   //Filter Instructions array
-  filterInstructions() {
+  filterInstructions(i:any) {
     if (this.searchInstructionsValue != '') {
-      this.filteredInstructionsArray = [];
+      this.filteredInstructionsArray[i] = [];
       const filteredArr = this.allInstructions.filter((obj: any) =>
         obj.instruction.toLowerCase().includes(this.searchInstructionsValue)
       );
-      this.filteredInstructionsArray = filteredArr;
+      this.filteredInstructionsArray[i] = filteredArr;
+      let indexPlusOne = i + 1;
+      this.filteredInstructionsArray[indexPlusOne] = this.allInstructions;
     } else {
-      this.filteredInstructionsArray = this.allInstructions;
+      this.filteredInstructionsArray[i] = this.allInstructions;
     }
   }
   //-------------------------------------------------------------------
@@ -351,9 +373,15 @@ export class AddUpdateConsultationComponent implements OnInit {
     this.consultationDiagnosisDetailsArray.push(
       this.newConsultationDiagnosis()
     );
+    for (let index = 0; index < this.consultationDiagnosisDetailsArray.value.length; index++) {
+      this.filteredDiagnosisArray[index] = this.allDiagnosis;
+    }
   }
   deleteConsultationDiagnosis(i: any) {
     this.consultationDiagnosisDetailsArray.removeAt(i);
+    for (let index = 0; index < this.consultationDiagnosisDetailsArray.value.length; index++) {
+      this.filteredDiagnosisArray[index] = this.allDiagnosis;
+    }
   }
   //Treatment array controls
   get consultationTreatmentDetailsArray() {
@@ -369,9 +397,15 @@ export class AddUpdateConsultationComponent implements OnInit {
     this.consultationTreatmentDetailsArray.push(
       this.newConsultationTreatment()
     );
+    for (let index = 0; index < this.consultationTreatmentDetailsArray.value.length; index++) {
+      this.filteredTreatmentArray[index] = this.allTreatment;
+    }
   }
   deleteConsultationTreatment(i: any) {
     this.consultationTreatmentDetailsArray.removeAt(i);
+    for (let index = 0; index < this.consultationTreatmentDetailsArray.value.length; index++) {
+      this.filteredTreatmentArray[index] = this.allTreatment;
+    }
   }
   //Medicine array controls
   get consultationMedicineDetailsArray() {
@@ -389,9 +423,21 @@ export class AddUpdateConsultationComponent implements OnInit {
     this.consultationMedicineDetailsArray.push(
       this.newConsultationMedicineDetails()
     );
+    for (let index = 0; index < this.consultationMedicineDetailsArray.value.length; index++) {
+      this.filteredMedicinesArray[index] = this.allMedicines;
+      this.filteredDosagesArray[index]=this.allDosages;
+      this.filteredInstructionsArray[index]=this.allInstructions;
+  
+    }
   }
   deleteConsultationMedicine(i: any) {
     this.consultationMedicineDetailsArray.removeAt(i);
+    for (let index = 0; index < this.consultationMedicineDetailsArray.value.length; index++) {
+      this.filteredMedicinesArray[index] = this.allMedicines;
+      this.filteredDosagesArray[index]=this.allDosages;
+      this.filteredInstructionsArray[index]=this.allInstructions;
+  
+    }
   }
   //FileUpload array controls
   get consultationFileUploadDetailsArray() {

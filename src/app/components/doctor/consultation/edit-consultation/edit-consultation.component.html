@@ -321,13 +321,13 @@
                               <ngx-mat-select-search
                                 [(ngModel)]="searchDiagnosisValue"
                                 [ngModelOptions]="{ standalone: true }"
-                                (input)="filterDiagnosis()"
+                                (input)="filterDiagnosis(i)"
                                 placeholderLabel="Search Diagnosis"
                                 noEntriesFoundLabel="No result available"
                               ></ngx-mat-select-search>
                             </mat-option>
                             <mat-option
-                              *ngFor="let item of filteredDiagnosisArray"
+                              *ngFor="let item of filteredDiagnosisArray[i]"
                               [value]="item.diagnosis_id"
                             >
                               {{ item?.diagnosis_name }}
@@ -433,13 +433,13 @@
                               <ngx-mat-select-search
                                 [(ngModel)]="searchTreatmentValue"
                                 [ngModelOptions]="{ standalone: true }"
-                                (input)="filterTreatment()"
+                                (input)="filterTreatment(i)"
                                 placeholderLabel="Search Treatment"
                                 noEntriesFoundLabel="No result available"
                               ></ngx-mat-select-search>
                             </mat-option>
                             <mat-option
-                              *ngFor="let item of filteredTreatmentArray"
+                              *ngFor="let item of filteredTreatmentArray[i]"
                               [value]="item.treatment_id"
                             >
                               {{ item?.treatment_name }}
@@ -546,13 +546,13 @@
                             <ngx-mat-select-search
                               [(ngModel)]="searchMedicinesValue"
                               [ngModelOptions]="{ standalone: true }"
-                              (input)="filterMedicines()"
+                              (input)="filterMedicines(i)"
                               placeholderLabel="Search Medicines"
                               noEntriesFoundLabel="No result available"
                             ></ngx-mat-select-search>
                           </mat-option>
                           <mat-option
-                            *ngFor="let item of filteredMedicinesArray"
+                            *ngFor="let item of filteredMedicinesArray[i]"
                             [value]="item.medicines_id"
                           >
                             {{ item?.medicines_name }}
@@ -570,13 +570,13 @@
                             <ngx-mat-select-search
                               [(ngModel)]="searchDosagesValue"
                               [ngModelOptions]="{ standalone: true }"
-                              (input)="filterDosages()"
+                              (input)="filterDosages(i)"
                               placeholderLabel="Search Dosages"
                               noEntriesFoundLabel="No result available"
                             ></ngx-mat-select-search>
                           </mat-option>
                           <mat-option
-                            *ngFor="let item of filteredDosagesArray"
+                            *ngFor="let item of filteredDosagesArray[i]"
                             [value]="item.dosage_id"
                           >
                             {{ item?.dosage_name }}
@@ -601,13 +601,13 @@
                             <ngx-mat-select-search
                               [(ngModel)]="searchInstructionsValue"
                               [ngModelOptions]="{ standalone: true }"
-                              (input)="filterInstructions()"
+                              (input)="filterInstructions(i)"
                               placeholderLabel="Search Instructions"
                               noEntriesFoundLabel="No result available"
                             ></ngx-mat-select-search>
                           </mat-option>
                           <mat-option
-                            *ngFor="let item of filteredInstructionsArray"
+                            *ngFor="let item of filteredInstructionsArray[i]"
                             [value]="item.instructions_id"
                           >
                             {{ item?.instruction }}

@@ -103,8 +103,8 @@
                 id="mrno_entity_series"
                 formControlName="mrno_entity_series"
                 type="text"
-                [ngModel]="mrnoEntitySeries"
-                
+                [readonly] = true
+                class="diabled"
                 [ngClass]="{
                   'is-invalid':
                     control['mrno_entity_series'].invalid &&
@@ -357,7 +357,7 @@
                   control['state_id'].invalid &&
                   (control['state_id'].dirty || control['state_id'].touched)
               }"
-              [(ngModel)]="defaultStateId"
+              
             >
               <option hidden value="null" disabled selected>State</option>
               <option [value]="item.state_id" *ngFor="let item of allStateList">

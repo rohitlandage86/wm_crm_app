@@ -100,7 +100,7 @@ export class AddUpdateReceptionistDashboardComponent implements OnInit{
 
   addLeadFollowUp(){
     if (this.form.valid) {
-      this._receptionistService.editLeadFollowUp(this.form.value,this.lead_hid).subscribe({
+      this._receptionistService.editLeadFollowUp(this.form.getRawValue(),this.lead_hid).subscribe({
         next:(res:any)=>{
           if (res.status==200) {
             this._toastrService.success(res.message);
@@ -146,13 +146,14 @@ export class AddUpdateReceptionistDashboardComponent implements OnInit{
           this.leadstatusDetailsArray.at(index).get('follow_up_date')?.patchValue(
             `${followUpDate.getFullYear()}-${('0' + (followUpDate.getMonth() + 1)).slice(-2)}-${('0' + followUpDate.getDate()).slice(-2)}`
           );
-      
-          // Enable controls for all elements including the last one
-          // this.leadstatusDetailsArray.at(index).get('comments')?.disable();
-          // this.leadstatusDetailsArray.at(index).get('calling_time')?.enable();
-          // this.leadstatusDetailsArray.at(index).get('no_of_calls')?.enable();
-          // this.leadstatusDetailsArray.at(index).get('lead_status_id')?.enable();
-          // this.leadstatusDetailsArray.at(index).get('follow_up_date')?.enable();
+        }
+        for (let index = 0; index < leadFooterDetails.length; index++) {
+           // Enable controls for all elements including the last one
+           this.leadstatusDetailsArray.at(index).get('comments')?.disable();
+           this.leadstatusDetailsArray.at(index).get('calling_time')?.disable();
+           this.leadstatusDetailsArray.at(index).get('no_of_calls')?.disable();
+           this.leadstatusDetailsArray.at(index).get('lead_status_id')?.disable();
+           this.leadstatusDetailsArray.at(index).get('follow_up_date')?.disable();
         }
      
       }

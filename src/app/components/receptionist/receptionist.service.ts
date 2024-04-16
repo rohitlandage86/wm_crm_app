@@ -272,7 +272,7 @@ export class ReceptionistService {
         if (lead_status_id == '' || lead_status_id == 'null') {
             delete params['lead_status_id'];
         }
-        return this.http.get(this.baseUrl + 'api/lead_header/lead-follow-up', {
+        return this.http.get(this.baseUrl + 'api/lead_header/lead-follow-up-report', {
             params: params
         });
     }

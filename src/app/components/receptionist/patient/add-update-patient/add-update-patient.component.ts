@@ -22,7 +22,6 @@ export class AddUpdatePatientComponent implements OnInit {
   allSourceOfPatientList: Array<any> = [];
   allEmployeeList: Array<any> = [];
   allReferedByList: Array<any> = [];
-  defaultStateId: any;
   mrnoEntitySeries: any;
   isInputVisible: boolean = false;
   isValidMobileNo: boolean = false;
@@ -33,7 +32,7 @@ export class AddUpdatePatientComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private _receptionistService: ReceptionistService, private _adminService: AdminService, private dialog: MatDialog,
-    private _toastrService: ToastrService, private _superAdminService: SuperAdminService, private router: Router, private url: ActivatedRoute) { this.defaultStateId = 20, this.createForm() }
+    private _toastrService: ToastrService, private _superAdminService: SuperAdminService, private router: Router, private url: ActivatedRoute) {  this.createForm() }
 
 
   ngOnInit() {
@@ -45,9 +44,8 @@ export class AddUpdatePatientComponent implements OnInit {
     this.getAllEmployeeList();
     this.getAllReferedByList();
 
-    this.form.patchValue({
-      registration_date: new Date().toISOString().split('T')[0],
-    });
+    this.form.patchValue({ registration_date: new Date().toISOString().split('T')[0]});
+    this.control['state_id'].patchValue(20);
     this.mrno = this.url.snapshot.params['id']
 
     if (this.mrno) {
@@ -90,7 +88,7 @@ export class AddUpdatePatientComponent implements OnInit {
       bmi: [null],
       amount: [null, Validators.required],
       entity_id: [null, Validators.required],
-      mrno_entity_series: new FormControl({ value: '', disabled: true }, [Validators.required]),
+      mrno_entity_series: new FormControl('', [Validators.required]),
       source_of_patient_id: [null, Validators.required],
       employee_id: [null, Validators.required],
       refered_by_id: [null,],
@@ -108,8 +106,7 @@ export class AddUpdatePatientComponent implements OnInit {
     if (entityId) {
       this._adminService.getGenerateMrnoEntitySeries(entityId).subscribe({
         next: (res: any) => {
-          console.log(res);
-          this.mrnoEntitySeries = res.mrnoEntitySeries;
+          // this.mrnoEntitySeries = res.mrnoEntitySeries;
           this.control['mrno_entity_series'].patchValue(res.mrnoEntitySeries)
 
         },
@@ -191,25 +188,25 @@ export class AddUpdatePatientComponent implements OnInit {
 
   updatePatient() {
     if (this.form.valid) {
-      console.log(this.form.value);
-      // this._receptionistService.editPatient(this.form.value, this.mrno).subscribe({
-      //   next: (res: any) => {
-      //     if (res.status == 200) {
+      // console.log(this.form.value);
+      this._receptionistService.editPatient(this.form.value, this.mrno).subscribe({
+        next: (res: any) => {
+          if (res.status == 200) {
 
-      //       this._toastrService.success(res.message);
-      //       this.router.navigate(['/receptionist', { outlets: { receptionist_Menu: 'patient' } }])
-      //     } else {
-      //       this._toastrService.warning(res.message);
-      //     }
-      //   },
-      //   error: (err: any) => {
-      //     if (err.error.status == 401 || err.error.status == 422) {
-      //       this._toastrService.warning(err.error.message);
-      //     } else {
-      //       this._toastrService.error("Internal Server Error");
-      //     }
-      //   },
-      // });
+            this._toastrService.success(res.message);
+            this.router.navigate(['/receptionist', { outlets: { receptionist_Menu: 'patient' } }])
+          } else {
+            this._toastrService.warning(res.message);
+          }
+        },
+        error: (err: any) => {
+          if (err.error.status == 401 || err.error.status == 422) {
+            this._toastrService.warning(err.error.message);
+          } else {
+            this._toastrService.error("Internal Server Error");
+          }
+        },
+      });
 
     } else {
       this.form.markAllAsTouched();
@@ -245,7 +242,6 @@ export class AddUpdatePatientComponent implements OnInit {
 
   getPatientById(id: any) {
     this._receptionistService.getPatientById(id).subscribe((result: any) => {
-      console.log(result);
       const patientData = result.data;
       this.form.patchValue({
         registration_date: new Date(patientData.registration_date).toISOString().split('T')[0],
@@ -288,7 +284,6 @@ export class AddUpdatePatientComponent implements OnInit {
   }
   getLeadById(id: any) {
     this._receptionistService.getLeadById(id).subscribe((result: any) => {
-      console.log(result);
       this.form.patchValue(result.data)
       const leadDate = new Date(result.data.lead_date);
       this.form.get('lead_date')?.patchValue(
@@ -301,7 +296,6 @@ export class AddUpdatePatientComponent implements OnInit {
   getAllEntityList() {
     this._adminService.getAllEntitiesListWma().subscribe({
       next: (res: any) => {
-        console.log(res);
         if (res.data.length > 0) {
           this.allEntityList = res.data;
         }
@@ -313,7 +307,6 @@ export class AddUpdatePatientComponent implements OnInit {
   getAllSourceOfPatientList() {
     this._adminService.getAllSourceOfPatientListWma().subscribe({
       next: (res: any) => {
-        console.log(res);
         if (res.data.length > 0) {
           this.allSourceOfPatientList = res.data;
         }
@@ -325,7 +318,6 @@ export class AddUpdatePatientComponent implements OnInit {
   getAllEmployeeList() {
     this._adminService.getAllEmployeeListWma().subscribe({
       next: (res: any) => {
-        console.log(res);
         if (res.data.length > 0) {
           this.allEmployeeList = res.data;
           console.log(res.data);
@@ -341,7 +333,6 @@ export class AddUpdatePatientComponent implements OnInit {
   getAllReferedByList() {
     this._adminService.getAllReferedByListWma().subscribe({
       next: (res: any) => {
-        console.log(res);
         if (res.data.length > 0) {
           this.allReferedByList = res.data;
         }

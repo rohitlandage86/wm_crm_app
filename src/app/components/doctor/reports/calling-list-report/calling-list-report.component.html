@@ -23,15 +23,13 @@
                     <thead cTableColor="light">
                         <tr>
                             <th>Sr. No</th>
-                            <th>Calling Date</th>
+                            <th>Follow Up </th>
                             <th>Name</th>
-                            <th>Lead Date</th>
                             <th>Category</th>
                             <th>Mobile Number</th>
                             <th>Comments</th>
                             <th>Status</th>
-                            <th>No.Call</th>
-                            <th>Call Time</th>
+                            <th>Calling Date</th>
                             <th>CTS</th>
                         </tr>
                     </thead>
@@ -40,13 +38,11 @@
                             <td>{{ i + 1 }}</td>
                             <td>{{ item.follow_up_date | date:'dd-MM-yyyy' }}</td>
                             <td>{{ item.name }}</td>
-                            <td>{{ item.lead_date | date:'dd-MM-yyyy' }}</td>
                             <td>{{ item.category_name }}</td>
                             <td>{{ item.mobile_number }}</td>
                             <td>{{ item.comments }}</td>
                             <td>{{item.lead_status}}</td>
-                            <td>{{ item.no_of_calls }}</td>
-                            <td>{{item.calling_time}}</td>
+                            <td>{{ item.cts | date:'dd-MM-yyyy' }}</td>
                             <td>{{ item.cts | date:'hh:mm a':'en-IN' }}</td>
                         </tr>
                         <tr class=" fw-bold text-center" *ngIf="allcallList.length===0">

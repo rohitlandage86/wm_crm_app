@@ -19,6 +19,7 @@ import { DoctorAppointmentReportComponent } from './reports/doctor-appointment-r
 import { DoctorDiagnosisReportComponent } from './reports/doctor-diagnosis-report/doctor-diagnosis-report.component';
 import { DoctorTreatmentReportComponent } from './reports/doctor-treatment-report/doctor-treatment-report.component';
 import { AuthGuard } from 'src/app/shared/auth-guard.service';
+import { CallingListReportComponent } from './reports/calling-list-report/calling-list-report.component';
 
 
 const routes: Routes = [
@@ -154,6 +155,14 @@ const routes: Routes = [
     outlet: "doc_Menu",
     canActivate:[AuthGuard]
   },
+  {
+    path: "todays-call",  
+    component: CallingListReportComponent,
+    pathMatch: "full",
+    outlet: "doc_Menu",
+    canActivate:[AuthGuard]
+  },
+
 
 ];
 

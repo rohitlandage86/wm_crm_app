@@ -293,8 +293,12 @@ export class AppComponent implements OnInit, AfterContentChecked {
           name: 'Follow up',
           url: ['/doctor', { outlets: { doc_Menu: 'lead-follow-up-reports' } }],
 
-        }
+        },
+        {
+          name: 'Call Logs',
+          url: ['/doctor', { outlets: { doc_Menu: 'todays-call' } }],
 
+        }
       ]
     },
     {

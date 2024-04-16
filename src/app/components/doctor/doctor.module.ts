@@ -21,6 +21,7 @@ import { DoctorDiagnosisReportComponent } from './reports/doctor-diagnosis-repor
 import { DoctorTreatmentReportComponent} from './reports/doctor-treatment-report/doctor-treatment-report.component';
 import { DoctorFollowUpListComponent } from './lead/doctor-follow-up-list/doctor-follow-up-list.component';
 import { EditConsultationComponent } from './consultation/edit-consultation/edit-consultation.component';
+import { CallingListReportComponent } from './reports/calling-list-report/calling-list-report.component';
 
 @NgModule({
   declarations: [
@@ -42,8 +43,8 @@ import { EditConsultationComponent } from './consultation/edit-consultation/edit
     DoctorDiagnosisReportComponent,
     DoctorTreatmentReportComponent,
     DoctorFollowUpListComponent,
-    EditConsultationComponent
-
+    EditConsultationComponent,
+    CallingListReportComponent
   ],
   imports: [
     DoctorRoutingModule,

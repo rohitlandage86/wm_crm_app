@@ -47,8 +47,7 @@
                             <td>{{item.lead_status}}</td>
                             <td>{{ item.no_of_calls }}</td>
                             <td>{{item.calling_time}}</td>
-                            <td>{{ item.cts }}</td>
-                            
+                            <td>{{ item.cts | date:'hh:mm a':'en-IN' }}</td>
                         </tr>
                         <tr class=" fw-bold text-center" *ngIf="allcallList.length===0">
                             <td colspan="10" class="text-danger">No Data Available</td>

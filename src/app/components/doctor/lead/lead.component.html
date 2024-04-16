@@ -6,16 +6,14 @@
         </c-card-header>
         <c-card-body>
             <div class="col-md-12">
-                <table class="table table-striped" cTable>
+                <table class="table table-striped">
                     <thead cTableColor="light">
                         <tr>
                             <th>Sr. No</th>
                             <th>Lead Date</th>
                             <th>Name</th>
-                          
                             <th>Mobile Number</th>
-                          
-                            <th>Edit</th>
+                            <th>Employee Name</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -24,8 +22,7 @@
                             <td>{{ item.follow_up_date | date:'dd-MM-yyyy'  }}</td>
                             <td>{{ item.name }}</td>
                             <td>{{ item.mobile_number }}</td>
-                            <td> <a [routerLink]="['/receptionist', { outlets: { receptionist_Menu: ['edit-leads',item.lead_hid]}}]" class="pointer"><svg [cIcon]="icons.cilPencil"  size="xl"
-                                title="List Icon" ></svg></a></td>
+                            <td>{{ item.employee_name}}</td>
                         </tr>
                         <tr class=" fw-bold text-center" *ngIf="allLeadFollowUpList.length===0">
                             <td colspan="10" class="text-danger">No Data Available</td>

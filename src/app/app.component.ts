@@ -261,27 +261,8 @@ export class AppComponent implements OnInit, AfterContentChecked {
       iconComponent: { name: 'cil-description' },
       class: 'bg-dark'
     },
-
     {
-      name: 'OPD',
-      iconComponent: { name: 'cilList' },
-      children: [
-
-        {
-          name: 'Registrations',
-          url: ['/doctor', { outlets: { doc_Menu: 'patient-reports' } }],
-
-        },
-        {
-          name: 'Visits',
-          url: ['/doctor', { outlets: { doc_Menu: 'patient-visit-reports' } }],
-
-        },
-
-      ]
-    },
-    {
-      name: 'Lead',
+      name: 'CRM',
       iconComponent: { name: 'cilList' },
       children: [
         {
@@ -301,6 +282,25 @@ export class AppComponent implements OnInit, AfterContentChecked {
         }
       ]
     },
+    {
+      name: 'OPD',
+      iconComponent: { name: 'cilList' },
+      children: [
+
+        {
+          name: 'Registrations',
+          url: ['/doctor', { outlets: { doc_Menu: 'patient-reports' } }],
+
+        },
+        {
+          name: 'Visits',
+          url: ['/doctor', { outlets: { doc_Menu: 'patient-visit-reports' } }],
+
+        },
+
+      ]
+    },
+  
     {
       name: 'Clinical',
       iconComponent: { name: 'cilList' },
@@ -385,7 +385,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
       class: 'bg-dark'
     },
     {
-      name: 'Lead',
+      name: 'CRM',
       iconComponent: { name: 'cilList' },
       children: [
         {

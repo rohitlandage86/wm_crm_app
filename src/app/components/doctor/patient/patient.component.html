@@ -4,7 +4,7 @@
             <mat-tab-group>
                 <mat-tab label="Patient List">
                         <div class="col-md-12 pt-3"  >
-                            <table class="table table-striped" cTable >
+                            <table class="table table-striped"  >
                                 <thead cTableColor="light">
                                     <tr>
                                         <th>Sr. No</th>
@@ -23,7 +23,7 @@
                                         <td>{{ i + 1 }}</td>
                                         <td>{{ item.patient_name  }}</td>
                                         <td>{{ item.visit_date| date:'dd-MM-yyyy'}}</td>
-                                        <td>{{ item.visit_type}}</td>
+                                        <td>{{ transformVisitType(item.visit_type) }}</td>
                                         <td>{{ item.mobile_no }}</td>
                                         <td>{{ item.gender }}</td>
                                         <td>{{ item.age }}</td>

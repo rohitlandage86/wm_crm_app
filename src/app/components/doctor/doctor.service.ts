@@ -140,4 +140,23 @@ export class DoctorService {
             params: params
         });
     }
+        //report to get call logs  list
+        getCallLogsList(page: any, perPage: any, today_date: any): Observable<any> {
+            let params = {
+                page: page,
+                perPage: perPage,
+                today_date: today_date,
+            }
+            if (page == '' || perPage == '') {
+                delete params['page'];
+                delete params['perPage'];
+            }
+            if (today_date == '') {
+                delete params['today_date'];
+            }
+          
+            return this.http.get(this.baseUrl + 'api/lead_header/today-calls-lead-list', {
+                params: params
+            });
+        }
 }

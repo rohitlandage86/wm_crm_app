@@ -193,7 +193,7 @@ export class AddUpdateConsultationComponent implements OnInit {
       const filteredArr = this.allChiefComplaints.filter((obj: any) =>
         obj.chief_complaint
           .toLowerCase()
-          .includes(this.searchChiefComplaintsValue)
+          .includes(this.searchChiefComplaintsValue.toLowerCase())
       );
       this.filteredChiefComplaintsArray = filteredArr;
     } else {
@@ -223,7 +223,7 @@ export class AddUpdateConsultationComponent implements OnInit {
     if (this.searchDiagnosisValue != "") {
       this.filteredDiagnosisArray[i] = [];
       const filteredArr = this.allDiagnosis.filter((obj) =>
-        obj.diagnosis_name.toLowerCase().includes(this.searchDiagnosisValue)
+        obj.diagnosis_name.toLowerCase().includes(this.searchDiagnosisValue.toLowerCase())
       );
       this.filteredDiagnosisArray[i] = filteredArr;
       let indexPlusOne = i + 1;
@@ -252,7 +252,7 @@ export class AddUpdateConsultationComponent implements OnInit {
     if (this.searchTreatmentValue != '') {
       this.filteredTreatmentArray[i] = [];
       const filteredArr = this.allTreatment.filter((obj: any) =>
-        obj.treatment_name.toLowerCase().includes(this.searchTreatmentValue)
+        obj.treatment_name.toLowerCase().includes(this.searchTreatmentValue.toLowerCase())
       );
       this.filteredTreatmentArray[i] = filteredArr;
       let indexPlusOne = i + 1;
@@ -282,7 +282,7 @@ export class AddUpdateConsultationComponent implements OnInit {
     if (this.searchMedicinesValue != '') {
       this.filteredMedicinesArray[i] = [];
       const filteredArr = this.allMedicines.filter((obj: any) =>
-        obj.medicines_name.toLowerCase().includes(this.searchMedicinesValue)
+        obj.medicines_name.toLowerCase().includes(this.searchMedicinesValue.toLowerCase())
       );
       this.filteredMedicinesArray[i] = filteredArr;
       let indexPlusOne = i + 1;
@@ -310,7 +310,7 @@ export class AddUpdateConsultationComponent implements OnInit {
     if (this.searchDosagesValue != '') {
       this.filteredDosagesArray[i] = [];
       const filteredArr = this.allDosages.filter((obj: any) =>
-        obj.dosage_name.toLowerCase().includes(this.searchDosagesValue)
+        obj.dosage_name.toLowerCase().includes(this.searchDosagesValue.toLowerCase())
       );
       this.filteredDosagesArray[i] = filteredArr;
       let indexPlusOne = i + 1;
@@ -339,7 +339,7 @@ export class AddUpdateConsultationComponent implements OnInit {
     if (this.searchInstructionsValue != '') {
       this.filteredInstructionsArray[i] = [];
       const filteredArr = this.allInstructions.filter((obj: any) =>
-        obj.instruction.toLowerCase().includes(this.searchInstructionsValue)
+        obj.instruction.toLowerCase().includes(this.searchInstructionsValue.toLowerCase())
       );
       this.filteredInstructionsArray[i] = filteredArr;
       let indexPlusOne = i + 1;

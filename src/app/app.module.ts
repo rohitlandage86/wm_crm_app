@@ -13,7 +13,7 @@ import {  IconSetService } from '@coreui/icons-angular';
 import { SharedModule } from './shared/shared.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ToastrModule, provideToastr } from 'ngx-toastr';
-import { CommonModule } from '@angular/common';
+import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { AuthInterceptor } from './shared/auth-interceptor.service';
 import { AuthGuard } from './../app/shared/auth-guard.service'
@@ -50,7 +50,8 @@ const APP_CONTAINERS = [
     provide: HTTP_INTERCEPTORS,  
     useClass: AuthInterceptor,  
     multi: true  
-  }  ],
+  },
+  { provide: LocationStrategy, useClass: HashLocationStrategy }  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

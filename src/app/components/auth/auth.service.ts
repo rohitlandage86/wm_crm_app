@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -8,7 +9,7 @@ import { Observable } from 'rxjs';
   })
   export class AuthService {
     //api
-    url = "http://localhost:3000/"  
+    url = environment.baseUrl;
     httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json'
     });

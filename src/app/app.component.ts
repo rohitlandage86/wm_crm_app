@@ -8,12 +8,14 @@ import { SharedService } from './shared/shared.service';
 import { INavData } from '@coreui/angular';
 import { Title } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr'
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, AfterContentChecked {
+  baseUrl = environment.baseUrl;
   title: any = 'Nirmiti'
   data: any = {}
   isSuperAdminDashboard = false;

@@ -1,4 +1,4 @@
-<div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+<!-- <div class="bg-light min-vh-100 d-flex flex-row align-items-center">
   <c-container>
     <c-row class="justify-content-center">
       <c-col md="12" lg="8">
@@ -126,4 +126,198 @@
       </c-col>
     </c-row>
   </c-container>
+</div> -->
+<!-- <div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+  <div class="container">
+    <div class="col-md-8 col-sm-12 h-100">
+      <div class="row h-100">
+        <div class="col-md-6 p-0 h-100">
+          <c-card>
+            <c-card-body class="p-0">
+              <img src="../../../../assets/images/login/Logo_login_page_top.svg" class="card-img-top-logo" />
+              <div class="login-card">
+                <form cForm [formGroup]="form" class="p-3">
+                  <div class="d-flex justify-content-center">
+                    <strong>
+                      <h1 class="fw-bold">LOGIN</h1>
+                    </strong>
+                  </div>
+                  <p class="text-medium-emphasis fw-medium">
+                    Sign In to your account
+                  </p>
+                  <div class="mb-3">
+                    <c-input-group>
+                      <span cInputGroupText>
+                        <svg cIcon name="cilUser"></svg>
+                      </span>
+                      <input autoComplete="username" cFormControl placeholder="Username" formControlName="email_id"
+                        [ngClass]="{
+                          'is-invalid':
+                            control['email_id'].invalid &&
+                            (control['email_id'].dirty ||
+                              control['email_id'].touched)
+                        }" />
+                    </c-input-group>
+                    <span class="text-danger" *ngIf="
+                        control['email_id'].invalid &&
+                        (control['email_id'].dirty ||
+                          control['email_id'].touched)
+                      ">
+                      <div *ngIf="control['email_id'].errors?.['required']">
+                        <small>Email Address is required</small>
+                      </div>
+                      <div *ngIf="control['email_id'].errors?.['email']">
+                        <small> Email must be a valid email address</small>
+                      </div>
+                    </span>
+                  </div>
+
+                  <div class="mb-3">
+                    <c-input-group>
+                      <span cInputGroupText>
+                        <svg cIcon name="cilLockLocked"></svg>
+                      </span>
+                      <input autoComplete="current-password" cFormControl placeholder="Password"
+                        formControlName="password" type="{{ passwordVisible ? 'text' : 'password' }}" [ngClass]="{
+                          'is-invalid':
+                            control['password'].invalid &&
+                            (control['password'].dirty ||
+                              control['password'].touched)
+                        }" />
+                      <button class="passbtn" cButton cAppend type="button" cButtonType="outline-secondary"
+                        (click)="togglePasswordVisibility()">
+                        <span>{{ passwordVisible ? "Hide" : "Show" }}</span>
+                      </button>
+                    </c-input-group>
+
+                    <span class="text-danger">
+                      <div *ngIf="
+                          control['password'].invalid &&
+                          (control['password'].dirty ||
+                            control['password'].touched)
+                        ">
+                        <small>Password is required</small>
+                      </div>
+                    </span>
+                  </div>
+                  <c-row>
+                    <c-col xs="6">
+                      <button cButton class="px-4 login_btn" color="primary" EA278F (click)="login()">
+                        Login
+                      </button>
+                    </c-col>
+                    <c-col class="text-right">
+                      <button cButton class="px-0" color="link">
+                        Forgot password
+                      </button>
+                    </c-col>
+                  </c-row>
+                </form>
+              </div>
+            </c-card-body>
+          </c-card>
+        </div>
+        <div class="col-md-6 p-0 h-100">
+          <div class="card h-100">
+            sdfsd
+            <img src="../../../../assets/images/login/login_side_card.svg" class=" " />
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div> -->
+<div class="container-fluid bg-light min-vh-100 d-flex flex-row align-items-center p-0 m-0">
+  <!--  -->
+  <div class="row fit-to-screen d-flex justify-content-center w-100 p-4 m-0">
+    <div class="col-md-8 row d-flex justify-content-center pt-5 m-0">
+      <div class="col-sm-12 col-md-6 col-lg-6 card form-card pt-5 m-0">
+        <div class="sign-box d-flex justify-content-center text-center py-5">
+          <!-- <img src="" class="card-img-top-logo" /> -->
+          <form cForm [formGroup]="form" class="py-3">
+            <div class="d-flex justify-content-center">
+              <strong>
+                <h1 class="fw-bold">LOGIN</h1>
+              </strong>
+            </div>
+            <p class="text-medium-emphasis fw-medium">
+              Sign In to your account
+            </p>
+            <div class="mb-3">
+              <c-input-group>
+                <span cInputGroupText>
+                  <svg cIcon name="cilUser"></svg>
+                </span>
+                <input autoComplete="username" cFormControl placeholder="Username" formControlName="email_id" [ngClass]="{
+                'is-invalid':
+                  control['email_id'].invalid &&
+                  (control['email_id'].dirty ||
+                    control['email_id'].touched)
+              }" />
+              </c-input-group>
+              <span class="text-danger" *ngIf="
+              control['email_id'].invalid &&
+              (control['email_id'].dirty ||
+                control['email_id'].touched)
+            ">
+                <div *ngIf="control['email_id'].errors?.['required']">
+                  <small>Email Address is required</small>
+                </div>
+                <div *ngIf="control['email_id'].errors?.['email']">
+                  <small> Email must be a valid email address</small>
+                </div>
+              </span>
+            </div>
+
+            <div class="mb-3">
+              <c-input-group>
+                <span cInputGroupText>
+                  <svg cIcon name="cilLockLocked"></svg>
+                </span>
+                <input autoComplete="current-password" cFormControl placeholder="Password" formControlName="password"
+                  type="{{ passwordVisible ? 'text' : 'password' }}" [ngClass]="{
+                'is-invalid':
+                  control['password'].invalid &&
+                  (control['password'].dirty ||
+                    control['password'].touched)
+              }" />
+                <button class="passbtn" cButton cAppend type="button" cButtonType="outline-secondary"
+                  (click)="togglePasswordVisibility()">
+                  <span>{{ passwordVisible ? "Hide" : "Show" }}</span>
+                </button>
+              </c-input-group>
+
+              <span class="text-danger">
+                <div *ngIf="
+                control['password'].invalid &&
+                (control['password'].dirty ||
+                  control['password'].touched)
+              ">
+                  <small>Password is required</small>
+                </div>
+              </span>
+            </div>
+            <div class="row " >
+              <div class=" d-flex justify-content-between mt-3">
+                <button cButton class="px-4 login_btn" color="primary" EA278F (click)="login()">
+                  Login
+                </button>
+                <button cButton class="px-0" color="link">
+                  Forgot password
+                </button>
+              </div>
+              
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-6 card  m-0 p-0 right-card d-flex justify-content-center "> 
+        <!-- <img class="right-image" src="../../../../assets/images/login/right-side.svg" alt=""> -->
+        <img class="nirmiti-login-image" src="../../../../assets/images/login/nirmiti-login.svg" alt="">
+
+      </div>
+    </div>
+  </div>
 </div>

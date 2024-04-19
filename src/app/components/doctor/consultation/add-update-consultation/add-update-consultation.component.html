@@ -6,7 +6,7 @@
       </c-card-header>
       <c-card-body>
         <form cForm class="row g-3" [formGroup]="form_patient">
-          <c-col md="2" class="p-2">
+          <c-col md="2" class="p-2" hidden>
             <label for="entity_id" cLabel> Entity Name </label>
             <select
               aria-label="select entity_id"
@@ -42,7 +42,7 @@
               type="date"
             />
           </c-col>
-          <c-col md="2" class="p-2">
+          <c-col md="4" class="p-2">
             <label cLabel for="patient_name">Patient Name </label>
             <input
               cFormControl
@@ -228,7 +228,7 @@
         <hr />
 
         <form cForm class="row g-3" [formGroup]="form">
-          <c-col md="3" class="p-2">
+          <c-col md="3" class="p-2" hidden>
             <label cLabel for="validationDefault01">Pulse </label>
             <input
               cFormControl
@@ -237,7 +237,7 @@
               formControlName="pluse"
             />
           </c-col>
-          <c-col md="3" class="p-2">
+          <c-col md="3" class="p-2" hidden>
             <label cLabel for="validationDefault01">BP</label>
             <input cFormControl id="bp" type="number" formControlName="bp" />
           </c-col>

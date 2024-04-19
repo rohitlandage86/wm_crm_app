@@ -52,3 +52,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   .diabled.form-control:focus{
     box-shadow: unset!important;
   }
+  .table-container {
+
+    width: 100% !important;
+    display: block;
+    overflow: auto;
+}

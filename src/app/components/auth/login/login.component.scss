@@ -13,17 +13,57 @@
   background-repeat: no-repeat;
   background-size: cover;
   position: absolute;
-  width: 200px;
+  // width: 200px;
 }
 .login_btn {
   background-color: #ea278f;
   border: #ea278f;
 }
-.login-card {
-  padding-top: 130px;
+// .login-card {
+//   padding-top: 130px;
+// }
+// .custom-img {
+//   display: block;
+//   width: 100%;
+//   height: fit-content;
+// }
+.form-card{
+  background-image: url(../../../../assets/images/login/Logo_login_page_top.svg);
+  background-repeat: no-repeat;
+  background-size: 200px;
+  border-bottom-right-radius: 0px;
+  border-top-right-radius: 0px;
+  border-right: none;
 }
-.custom-img {
-  display: block;
-  width: 100%;
-  height: fit-content;
+
+.right-image {
+  // position: relative;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+  border-left: none;
+  height: 500px;
+  width: 444px;
+
 }
+.right-card{
+  background-image: url(../../../../assets/images/login/right-side.svg);
+  background-repeat: no-repeat;
+  background-size: 550px;
+  display: flex !important;
+  align-items: center;
+}
+.nirmiti-login-image{
+ height: 250px;
+ width: 250px;
+}
+@media  (max-width: 650px) {
+  .right-card{
+    display: none!important;
+  }
+}
+// @media only screen and (min-width: 700px) {
+//   .right-image{
+//     border: 2px solid red;
+//     position: relative;
+//   }
+// }

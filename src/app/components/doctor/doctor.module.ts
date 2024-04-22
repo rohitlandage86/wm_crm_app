@@ -1,3 +1,4 @@
+import { DoctorViewBillComponent } from './bill-list/doctor-search-bill/doctor-view-bill/doctor-view-bill.component';
 import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 
@@ -22,6 +23,8 @@ import { DoctorTreatmentReportComponent} from './reports/doctor-treatment-report
 import { DoctorFollowUpListComponent } from './lead/doctor-follow-up-list/doctor-follow-up-list.component';
 import { EditConsultationComponent } from './consultation/edit-consultation/edit-consultation.component';
 import { CallingListReportComponent } from './reports/calling-list-report/calling-list-report.component';
+import { BillListComponent } from './bill-list/bill-list.component';
+import { DoctorSearchBillComponent } from './bill-list/doctor-search-bill/doctor-search-bill.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,10 @@ import { CallingListReportComponent } from './reports/calling-list-report/callin
     DoctorTreatmentReportComponent,
     DoctorFollowUpListComponent,
     EditConsultationComponent,
-    CallingListReportComponent
+    CallingListReportComponent,
+    BillListComponent,
+    DoctorSearchBillComponent,
+    DoctorViewBillComponent
   ],
   imports: [
     DoctorRoutingModule,

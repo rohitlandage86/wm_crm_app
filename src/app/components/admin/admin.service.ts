@@ -105,7 +105,11 @@ export class AdminService {
         return this.http.patch(this.baseUrl + 'api/services/' + id, body, {
             params: params
         });
+    }    //get All Services  wma...
+    getAllServiceListWma(): Observable<any> {
+        return this.http.get(this.baseUrl + 'api/services/wma/');
     }
+
 
     //get all treatment list...............................................................
     getAllTreatmentList(page: any, perPage: any): Observable<any> {

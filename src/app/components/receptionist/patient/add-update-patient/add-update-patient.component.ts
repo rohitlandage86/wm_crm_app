@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, FormC
 import { ToastrService } from 'ngx-toastr';
 import { ReceptionistService } from '../../receptionist.service';
 import { AdminService } from 'src/app/components/admin/admin.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  ActivatedRoute, Router } from '@angular/router';
 import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddUpdateReferedByComponent } from 'src/app/components/admin/miscellaneous/refered-by/add-update-refered-by/add-update-refered-by.component';
@@ -170,6 +170,7 @@ export class AddUpdatePatientComponent implements OnInit {
     // Make API call with the mobile number
     this._receptionistService.getAllSearchLeadHeaderList(this.page, this.perPage, mobileNumber).subscribe({
       next: (res: any) => {
+        
         this.control['patient_name'].patchValue(res.data[0].name);
         this.control['mobile_no'].patchValue(res.data[0].mobile_number);
         this.control['city'].patchValue(res.data[0].city);

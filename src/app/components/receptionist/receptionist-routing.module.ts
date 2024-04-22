@@ -1,3 +1,4 @@
+import { ViewSearchBillComponent } from './bill/search-bill/view-search-bill/view-search-bill.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {ReceptionistDashboardComponent} from './receptionist-dashboard/receptionist-dashboard.component';
@@ -17,6 +18,9 @@ import { ReceptionistLeadReportComponent } from './reports/receptionist-lead-rep
 import { ReceptionistFollowUpReportComponent } from './reports/receptionist-follow-up-report/receptionist-follow-up-report.component';
 import { ReceptionistAppointmentReportComponent } from './reports/receptionist-appointment-report/receptionist-appointment-report.component';
 import { AuthGuard } from 'src/app/shared/auth-guard.service';
+import { BillComponent } from './bill/bill.component';
+import { AddUpdateBillComponent } from './bill/add-update-bill/add-update-bill.component';
+import { SearchBillComponent } from './bill/search-bill/search-bill.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "receptionist", pathMatch: "full" },
@@ -145,6 +149,33 @@ const routes: Routes = [
 {
   path: "appointment",  
   component: ReceptionistAppointmentReportComponent,
+  pathMatch: "full",
+  outlet: "receptionist_Menu",
+  canActivate:[AuthGuard]
+},
+{
+  path: "bill",  
+  component: BillComponent,
+  pathMatch: "full",
+  outlet: "receptionist_Menu",
+  canActivate:[AuthGuard]
+},
+{ path: 'add-bill',
+component: AddUpdateBillComponent,
+outlet: "receptionist_Menu",
+canActivate:[AuthGuard]
+
+},
+{
+  path: "search-bill",  
+  component: SearchBillComponent,
+  pathMatch: "full",
+  outlet: "receptionist_Menu",
+  canActivate:[AuthGuard]
+},
+{
+  path: "view-search-bill/:id",  
+  component: ViewSearchBillComponent,
   pathMatch: "full",
   outlet: "receptionist_Menu",
   canActivate:[AuthGuard]

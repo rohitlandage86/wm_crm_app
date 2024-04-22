@@ -1,7 +1,7 @@
 <c-container breakpoint="lg">
     <c-card class="mb-4">
         <c-card-header class="d-flex justify-content-between">
-            <strong>Search Consultation</strong>
+            <strong>Search Bill</strong>
             <div class=" d-flex align-items-center">
                 <ng-container>
                     <div class="d-flex flex-column pe-2">
@@ -9,9 +9,10 @@
                       <small class="text-danger" *ngIf="searchInput.value && !validateMobileNo(searchInput.value) && !isValidName(searchInput.value)">
                         Please enter a valid 10-digit number.
                       </small>
+
                     </div>
                     <!-- Submit button -->
-                    <button cButton color="primary" class="fw-bold btn-sm ms-2" [disabled]="!isValidInput(searchInput.value)" (click)="getSearchConsultation(searchInput.value)">Submit</button>
+                    <button cButton color="primary" class="fw-bold btn-sm ms-2" [disabled]="!isValidInput(searchInput.value)" (click)="getConsultationHistory(searchInput.value)">Submit</button>
                   </ng-container>
                   
               </div>
@@ -22,28 +23,28 @@
                     <thead cTableColor="light">
                         <tr>
                             <th>Sr. No</th>
-                            <th>Consultation Date</th>
+                            <th>Bill Date</th>
                             <th>Patient Name</th>
-                            <th>Gender</th>
-                            <th>Age</th>
-                            <th>Address</th>
                             <th>Mobile Number</th>
+                            <th>Bill Amount</th>
+                            <th>Discount Amount</th>
+                            <th>Total Amount</th>
                             <th>View</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of allConsultationList; let i = index">
+                        <tr *ngFor="let item of allBillList; let i = index">
                             <td>{{ i + 1 }}</td>
                             <td>{{ item.cts | date:'dd-MM-yyyy'}}</td>
                             <td>{{ item.patient_name  }}</td>
-                            <td>{{ item.gender }}</td>
-                            <td>{{ item.age }}</td>
-                            <td>{{ item.address }}</td>
                             <td>{{ item.mobile_no }}</td>
-                            <td> <a  [routerLink]="['/doctor', { outlets: { doc_Menu: ['doctor-view-search-patient',item.consultation_id]}}]"><svg [cIcon]="icons.cilDescription"  size="xl"
+                            <td>{{ item.bill_amount }}</td>
+                            <td>{{ item.discount_amount }}</td>
+                            <td>{{ item.total_amount }}</td>
+                            <td> <a [routerLink]="['/doctor', { outlets: { doc_Menu: ['doctor-view-bill',item.bill_id]}}]" class="pointer"><svg [cIcon]="icons.cilDescription"  size="xl"
                                 title="List Icon" ></svg></a></td>
                         </tr>
-                        <tr class=" fw-bold text-center" *ngIf="allConsultationList.length===0">
+                        <tr class=" fw-bold text-center" *ngIf="allBillList.length===0">
                             <td colspan="10" class="text-danger">No Data Available</td>
                         </tr>
                     </tbody>

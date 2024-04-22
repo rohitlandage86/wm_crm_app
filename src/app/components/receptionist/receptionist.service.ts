@@ -345,4 +345,52 @@ export class ReceptionistService {
         }
         return this.http.get(this.baseUrl + 'api/consultation/consultation_treatment', { params: params });
     }
+
+      //add new Bill...
+      addBill(data: any): Observable<any> {
+        return this.http.post(this.baseUrl + 'api/bill', data);
+    }
+        // Bill get by id ...
+        getBillById(id: any) {
+            return this.http.get(this.baseUrl + 'api/bill/' + id)
+        }
+      //get all Bill-Date list...............................................................
+      getBillDateList(page: any, perPage: any, Bill_date: any): Observable<any> {
+        let params: any = {
+            page: page,
+            perPage: perPage,
+        };
+
+        if (Bill_date) {
+            params.Bill_date = Bill_date;
+        }
+
+        if (page == '' || perPage == '') {
+            delete params.page;
+            delete params.perPage;
+        }
+
+        return this.http.get(this.baseUrl + 'api/bill', {
+            params: params
+        });
+    }
+       //get all Patient Registration List...............................................................
+       getAllSearchBillList(page: any, perPage: any, key: any): Observable<any> {
+        let params: any = {
+            page: page,
+            perPage: perPage,
+            key: key  // Include the key parameter in the params object
+        };
+
+        // Check if page or perPage is empty and remove them from params if so
+        if (page === '' || perPage === '') {
+            delete params.page;
+            delete params.perPage;
+        }
+
+        // Make the HTTP GET request
+        return this.http.get(this.baseUrl + 'api/bill', {
+            params: params
+        });
+    }
 }

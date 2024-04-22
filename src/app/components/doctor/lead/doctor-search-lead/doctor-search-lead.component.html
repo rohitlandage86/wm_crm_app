@@ -24,16 +24,6 @@
               >
                 Please enter a valid 10-digit number.
               </small>
-              <small
-                class="text-danger"
-                *ngIf="
-                  searchInput.value &&
-                  !validateMobileNo(searchInput.value) &&
-                  isValidName(searchInput.value)
-                "
-              >
-                Please enter a valid name.
-              </small>
             </div>
             <!-- Submit button -->
             <button

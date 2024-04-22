@@ -20,6 +20,9 @@ import { DoctorDiagnosisReportComponent } from './reports/doctor-diagnosis-repor
 import { DoctorTreatmentReportComponent } from './reports/doctor-treatment-report/doctor-treatment-report.component';
 import { AuthGuard } from 'src/app/shared/auth-guard.service';
 import { CallingListReportComponent } from './reports/calling-list-report/calling-list-report.component';
+import { BillListComponent } from './bill-list/bill-list.component';
+import { DoctorSearchBillComponent } from './bill-list/doctor-search-bill/doctor-search-bill.component';
+import { DoctorViewBillComponent } from './bill-list/doctor-search-bill/doctor-view-bill/doctor-view-bill.component';
 
 
 const routes: Routes = [
@@ -162,8 +165,28 @@ const routes: Routes = [
     outlet: "doc_Menu",
     canActivate:[AuthGuard]
   },
-
-
+  {
+    path: "bills",  
+    component: BillListComponent,
+    pathMatch: "full",
+    outlet: "doc_Menu",
+    canActivate:[AuthGuard]
+  },
+  {
+    path: "doctor-search-bill",
+    component: DoctorSearchBillComponent,
+    pathMatch: "full",
+    outlet: "doc_Menu",
+    canActivate:[AuthGuard]
+  },
+  {
+    path: "doctor-view-bill/:id",
+    component: DoctorViewBillComponent,
+    pathMatch: "full",
+    outlet: "doc_Menu",
+    canActivate:[AuthGuard]
+  },
+  
 ];
 
 @NgModule({

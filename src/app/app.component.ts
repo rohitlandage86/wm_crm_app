@@ -259,6 +259,23 @@ export class AppComponent implements OnInit, AfterContentChecked {
       ]
     },
     {
+      name: 'Bill',
+      iconComponent: { name: 'cilList' },
+      children: [
+        {
+          name: 'Bills',
+          url: ['/doctor', { outlets: { doc_Menu: 'bills' } }],
+
+        },
+        {
+          name: 'Search',
+          url: ['/doctor', { outlets: { doc_Menu: 'doctor-search-bill' } }],
+
+        }
+
+      ]
+    },
+    {
       name: 'Reports',
       iconComponent: { name: 'cil-description' },
       class: 'bg-dark'
@@ -376,6 +393,23 @@ export class AppComponent implements OnInit, AfterContentChecked {
         {
           name: 'Search',
           url: ['/receptionist', { outlets: { receptionist_Menu: 'search-leads' } }],
+
+        }
+
+      ]
+    },
+    {
+      name: 'Bill',
+      iconComponent: { name: 'cilList' },
+      children: [
+        {
+          name: 'Generate',
+          url: ['/receptionist', { outlets: { receptionist_Menu: 'bill' } }],
+
+        },
+        {
+          name: 'Search',
+          url: ['/receptionist', { outlets: { receptionist_Menu: 'search-bill' } }],
 
         }
 

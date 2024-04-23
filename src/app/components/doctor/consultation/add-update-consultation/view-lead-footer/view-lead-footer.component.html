@@ -16,7 +16,7 @@
                 <div *ngFor="let lead of allLeadList">
                   <div class="d-flex">
                     <div><strong>Date : </strong>{{ lead.lead_date | date : 'dd-MM-yyyy' }}</div>
-                    <div class="ms-5"><strong>Category : </strong>{{ lead.category_id }}</div>
+                    <div class="ms-5"><strong>Category : </strong>{{ lead.category_name }}</div>
                     <div class="ms-5"><strong>Note : </strong> {{ lead.note ? lead.note : 'No note available' }}</div>
                   </div>
                 </div>

@@ -374,7 +374,7 @@ export class ReceptionistService {
             params: params
         });
     }
-       //get all Patient Registration List...............................................................
+       //get bill search List...............................................................
        getAllSearchBillList(page: any, perPage: any, key: any): Observable<any> {
         let params: any = {
             page: page,
@@ -389,6 +389,42 @@ export class ReceptionistService {
         }
 
         // Make the HTTP GET request
+        return this.http.get(this.baseUrl + 'api/bill', {
+            params: params
+        });
+    }
+     //get all bill report list............................................................... 
+     getAllBillList(page: any, perPage: any, fromDate: any, toDate: any,entity_id:any,  service_id: any, service_type_id: any): Observable<any> {
+        let params = {
+            page: page,
+            perPage: perPage,
+            fromDate: fromDate,
+            toDate: toDate,
+            entity_id:entity_id,
+            service_id: service_id,
+            service_type_id: service_type_id,
+
+         
+        };
+        if (page == '' || perPage == '') {
+            delete params['page'];
+            delete params['perPage'];
+        }
+        if (fromDate == '' || toDate == '') {
+            delete params['fromDate'];
+            delete params['toDate'];
+        }
+        if (entity_id == '' || entity_id == 'null') {
+            delete params['entity_id'];
+        }
+        if (service_id == '' || service_id == 'null') {
+            delete params['service_id'];
+        }
+      
+        if (service_type_id == '' || service_type_id == 'null') {
+            delete params['service_type_id'];
+        }
+      
         return this.http.get(this.baseUrl + 'api/bill', {
             params: params
         });

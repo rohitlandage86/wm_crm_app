@@ -23,6 +23,7 @@ import { CallingListReportComponent } from './reports/calling-list-report/callin
 import { BillListComponent } from './bill-list/bill-list.component';
 import { DoctorSearchBillComponent } from './bill-list/doctor-search-bill/doctor-search-bill.component';
 import { DoctorViewBillComponent } from './bill-list/doctor-search-bill/doctor-view-bill/doctor-view-bill.component';
+import { DoctorBillReportComponent } from './reports/doctor-bill-report/doctor-bill-report.component';
 
 
 const routes: Routes = [
@@ -182,6 +183,13 @@ const routes: Routes = [
   {
     path: "doctor-view-bill/:id",
     component: DoctorViewBillComponent,
+    pathMatch: "full",
+    outlet: "doc_Menu",
+    canActivate:[AuthGuard]
+  },
+  {
+    path: "doctor-bill-reports",  
+    component: DoctorBillReportComponent,
     pathMatch: "full",
     outlet: "doc_Menu",
     canActivate:[AuthGuard]

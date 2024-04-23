@@ -30,11 +30,9 @@ export class ConsultationComponent implements OnInit {
   allEmployeeList: Array<any> = [];
   allReferedByList: Array<any> = [];
   defaultStateId: any;
-  constructor( private fb: FormBuilder,private _adminService: AdminService,private _receptionistService: ReceptionistService, private _doctorService:DoctorService, private _toastrService: ToastrService) { this.lead_date = ''; }
+  constructor( private fb: FormBuilder,private _receptionistService: ReceptionistService, private _doctorService:DoctorService, private _toastrService: ToastrService) { this.lead_date = ''; }
 
   ngOnInit() {
-    // this.setTodayDate();
-    // this.getAllLeadFollowUpList();
    this.createForm();
   }
   getFirstCardData(): Observable<any> {
@@ -97,10 +95,10 @@ export class ConsultationComponent implements OnInit {
   const weight = this.form.value.weight;
 
   if (height && weight) {
-    const heightInMeters = height / 100; // Convert height to meters
+    const heightInMeters = height / 100;
     const bmi = weight / (heightInMeters * heightInMeters);
     this.form.patchValue({
-      bmi: bmi.toFixed(2) // Round BMI to two decimal places
+      bmi: bmi.toFixed(2) 
     });
   }
 }
@@ -108,8 +106,6 @@ export class ConsultationComponent implements OnInit {
   addPatient(){
     console.log(this.form.value);
     if (this.form.valid){
-      console.log(JSON.stringify(this.form.value));
-      
       this._doctorService.addConsultation(this.form.value).subscribe({
         next:(res:any)=>{
           if(res.status==201||res.status==200){
@@ -134,7 +130,6 @@ export class ConsultationComponent implements OnInit {
   }
   getPatientById(id:any){
     this._receptionistService.getPatientById(id).subscribe((result: any) => {
-      console.log(result);
       const patientData = result.data; 
       this.form.patchValue({
         registration_date: new Date(patientData.registration_date).toISOString().split('T')[0],

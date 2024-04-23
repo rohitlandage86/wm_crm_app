@@ -45,13 +45,13 @@ const routes: Routes = [
     outlet: "doc_Menu",
     canActivate:[AuthGuard]
   },
-  {
-    path: "consultation",
-    component: ConsultationComponent,
-    pathMatch: "full",
-    outlet: "doc_Menu",
-    canActivate:[AuthGuard]
-  },
+  // {
+  //   path: "consultation",
+  //   component: ConsultationComponent,
+  //   pathMatch: "full",
+  //   outlet: "doc_Menu",
+  //   canActivate:[AuthGuard]
+  // },
   {
     path: "add-consultation/:id",
     component: AddUpdateConsultationComponent,

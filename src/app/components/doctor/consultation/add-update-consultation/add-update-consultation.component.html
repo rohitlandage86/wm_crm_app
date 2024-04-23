@@ -228,80 +228,73 @@
         <hr />
 
         <form cForm class="row g-3" [formGroup]="form">
-          <c-col md="3" class="p-2" hidden>
-            <label cLabel for="validationDefault01">Pulse </label>
-            <input
-              cFormControl
-              id="pluse"
-              type="number"
-              formControlName="pluse"
-            />
-          </c-col>
-          <c-col md="3" class="p-2" hidden>
-            <label cLabel for="validationDefault01">BP</label>
-            <input cFormControl id="bp" type="number" formControlName="bp" />
-          </c-col>
-          <c-col md="3" class="p-2">
-            <label cLabel for="validationDefault01">Past History</label>
-            <input
-              cFormControl
-              id="past_history"
-              type="text"
-              formControlName="past_history"
-            />
-          </c-col>
-          <c-col md="3" class="p-2">
-            <label for="chief_complaints_id" cLabel>
-              Chief Complaints<span
-                style="color: red"
-                *ngIf="!form.get('chief_complaints_id')?.value"
-                >*</span
-              ></label
-            >
-            <div class="chief_complaints">
-              <mat-select
-                #singleSelect
-                formControlName="chief_complaints_id"
-                class="form-control theme-input"
+            <c-col md="3" class="p-2">
+              <label cLabel for="validationDefault01">Past History</label>
+              <input
+                cFormControl
+                id="past_history"
+                type="text"
+                formControlName="past_history"
+              />
+            </c-col>
+            <c-col md="3" class="p-2">
+              <label for="chief_complaints_id" cLabel>
+                Chief Complaints<span
+                  style="color: red"
+                  *ngIf="!form.get('chief_complaints_id')?.value"
+                  >*</span
+                ></label
               >
-                <mat-option>
-                  <ngx-mat-select-search
-                    [(ngModel)]="searchChiefComplaintsValue"
-                    [ngModelOptions]="{ standalone: true }"
-                    (input)="filterChiefComplaints()"
-                    placeholderLabel="Search chief complaint"
-                    noEntriesFoundLabel="No result available"
-                  ></ngx-mat-select-search>
-                </mat-option>
-                <mat-option
-                  *ngFor="let item of filteredChiefComplaintsArray"
-                  [value]="item.chief_complaint_id"
+              <div class="chief_complaints">
+                <mat-select
+                  #singleSelect
+                  formControlName="chief_complaints_id"
+                  class="form-control theme-input"
                 >
-                  {{ item?.chief_complaint }}
-                </mat-option>
-              </mat-select>
-              <button
-                cButton
-                class="ms-1 mb-1"
-                color="primary"
-                sizing="sm"
-                (click)="openDialog()"
+                  <mat-option>
+                    <ngx-mat-select-search
+                      [(ngModel)]="searchChiefComplaintsValue"
+                      [ngModelOptions]="{ standalone: true }"
+                      (input)="filterChiefComplaints()"
+                      placeholderLabel="Search chief complaint"
+                      noEntriesFoundLabel="No result available"
+                    ></ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option
+                    *ngFor="let item of filteredChiefComplaintsArray"
+                    [value]="item.chief_complaint_id"
+                  >
+                    {{ item?.chief_complaint }}
+                  </mat-option>
+                </mat-select>
+                <button
+                  cButton
+                  class="ms-1 mb-1"
+                  color="primary"
+                  sizing="sm"
+                  (click)="openDialog()"
+                >
+                  +
+                </button>
+              </div>
+  
+              <div
+                class="text-danger"
+                *ngIf="
+                  control['chief_complaints_id'].invalid &&
+                  (control['chief_complaints_id'].dirty ||
+                    control['chief_complaints_id'].touched)
+                "
               >
-                +
+                <small>Please provide a valid Chief Complaints.</small>
+              </div>
+            </c-col>
+            <c-col md="3" class="lead-info p-4">
+              <button cButton class="me-1" color="primary"[disabled]="disableButton" (click)="openDialogLeadInfo(leadHid)" >
+                Lead Info
               </button>
-            </div>
-
-            <div
-              class="text-danger"
-              *ngIf="
-                control['chief_complaints_id'].invalid &&
-                (control['chief_complaints_id'].dirty ||
-                  control['chief_complaints_id'].touched)
-              "
-            >
-              <small>Please provide a valid Chief Complaints.</small>
-            </div>
-          </c-col>
+            </c-col>
+         
           <hr class="mb-0" />
           <mat-tab-group class="mt-0">
             <mat-tab label="Diagnosis Details">

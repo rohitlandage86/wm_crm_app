@@ -682,5 +682,19 @@ export class AddUpdateConsultationComponent implements OnInit {
       this.isAccordionOpen = index; // Open the clicked accordion item
     }
   }
+  onMedicineChange(i:any,event:any){
+    let medicines_id = event.value;
+    if(medicines_id){
+      this._adminService.getMedicineById(medicines_id).subscribe({
+        next:(res:any)=>{
+          this.consultationMedicineDetailsArray.at(i).patchValue({
+            dosages_id: res.data.dosage_id,
+            instructions_id: res.data.instructions_id,
+          });
+        }
+      })
+    }
+    
+  }
 
 }

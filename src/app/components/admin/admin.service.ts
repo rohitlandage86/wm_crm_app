@@ -254,6 +254,10 @@ export class AdminService {
     getAllMedicinesListWma(): Observable<any> {
         return this.http.get(this.baseUrl + 'api/medicines/wma/');
     }
+    //get medicine by id...
+    getMedicineById(id: any): Observable<any> {
+        return this.http.get(this.baseUrl + 'api/medicines/'+id);
+    }
     //get all dosages  list...............................................................
 
     getAllDosagesList(page: any, perPage: any): Observable<any> {

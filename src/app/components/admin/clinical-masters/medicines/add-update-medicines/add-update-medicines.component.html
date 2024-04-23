@@ -1,39 +1,68 @@
 <c-row class="m-0">
-    <c-col xs="12 "  class="p-0 " >
+    <c-col xs="12 " class="p-0 ">
         <c-card class="">
-            <c-card-header >
+            <c-card-header>
                 <strong>{{isEdit?'Edit':'Add'}} Medicines</strong>
             </c-card-header>
             <c-card-body>
-                <form cForm class="row g-3"  [formGroup]="form"> 
+                <form cForm class="row g-3" [formGroup]="form">
                     <c-col md="8">
                         <label cLabel for="medicines_name">Medicines Name</label>
-                        <input cFormControl id="medicines_name" formControlName="medicines_name" type="text"[ngClass]="{ 'is-invalid': control['medicines_name'].invalid &&(control['medicines_name'].dirty ||control['medicines_name'].touched)}"/>
-                        <div class="text-danger" *ngIf="control['medicines_name'].invalid &&(control['medicines_name'].dirty ||control['medicines_name'].touched)">
-                            <small >Please provide a valid medicines name.</small>
+                        <input cFormControl id="medicines_name" formControlName="medicines_name" type="text"
+                            [ngClass]="{ 'is-invalid': control['medicines_name'].invalid &&(control['medicines_name'].dirty ||control['medicines_name'].touched)}" />
+                        <div class="text-danger"
+                            *ngIf="control['medicines_name'].invalid &&(control['medicines_name'].dirty ||control['medicines_name'].touched)">
+                            <small>Please provide a valid medicines name.</small>
                         </div>
                     </c-col>
+                    <c-col md="6">
+                        <mat-select #singleSelect formControlName="dosage_id" class="form-control theme-input">
+                            <mat-option>
+                                <ngx-mat-select-search [(ngModel)]="searchDosagesValue"
+                                    [ngModelOptions]="{ standalone: true }" (input)="filterDosages()"
+                                    placeholderLabel="Search dosage"
+                                    noEntriesFoundLabel="No result available"></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option *ngFor="let item of filteredDosagesArray" [value]="item.dosage_id">
+                                {{ item?.dosage_name }}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <button cButton class="ms-1 mb-1" color="primary" sizing="sm" (click)="openDialog()">
+                            +
+                        </button> -->
+                    </c-col>
+                    <c-col md="6">
+                        <mat-select #singleSelect formControlName="instructions_id" class="form-control theme-input">
+                            <mat-option>
+                                <ngx-mat-select-search [(ngModel)]="searchInstructionsValue"
+                                    [ngModelOptions]="{ standalone: true }" (input)="filterInstructions()"
+                                    placeholderLabel="Search Instructions"
+                                    noEntriesFoundLabel="No result available"></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option *ngFor="let item of filteredInstructionsArray" [value]="item.instructions_id">
+                                {{ item?.instruction }}
+                            </mat-option>
+                        </mat-select>
+                    </c-col>
                     <c-col xs="12">
-                        <label cLabel for="content" >Content</label>
-                        <textarea cFormControl id="content" formControlName="content" rows="3" [ngClass]="{'is-invalid':control['content'].errors?.['maxlength']}"></textarea>
-                        <span
-                        *ngIf="
+                        <label cLabel for="content">Content</label>
+                        <textarea cFormControl id="content" formControlName="content" rows="3"
+                            [ngClass]="{'is-invalid':control['content'].errors?.['maxlength']}"></textarea>
+                        <span *ngIf="
                           control['content'].invalid &&
                           (control['content'].dirty ||
                             control['content'].touched)
-                        "
-                        class="text-danger p-1"
-                      >
-                        <small *ngIf="control['content'].errors?.['maxlength']">
-                            Content should have at most
-                          {{
-                              control['content'].errors?.['maxlength'].requiredLength }}
-                          characters.
-                        </small>
-                      </span>
-                      </c-col>
+                        " class="text-danger p-1">
+                            <small *ngIf="control['content'].errors?.['maxlength']">
+                                Content should have at most
+                                {{
+                                control['content'].errors?.['maxlength'].requiredLength }}
+                                characters.
+                            </small>
+                        </span>
+                    </c-col>
                     <c-col xs="12">
-                        <button cButton class="me-1" color="primary"  (click)="submit()">
+                        <button cButton class="me-1" color="primary" (click)="submit()">
                             Submit
                         </button>
                         <button cButton color="secondary" (click)="closeDialog()">
@@ -46,4 +75,3 @@
     </c-col>
 
 </c-row>
-

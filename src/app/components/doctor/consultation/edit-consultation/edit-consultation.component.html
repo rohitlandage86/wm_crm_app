@@ -541,6 +541,7 @@
                           formControlName="medicines_id"
                           class="form-control theme-input"
                           style="width: 250px"
+                          (selectionChange)="onMedicineChange(i,$event)"
                         >
                           <mat-option >
                             <ngx-mat-select-search

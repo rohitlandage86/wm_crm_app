@@ -10,7 +10,9 @@
                         <tr>
                             <th>Sr. No</th>
                             <th>Created at</th>
-                            <th>Medicines Name</th>
+                            <th>Medicine</th>
+                            <th>Dosage</th>
+                            <th>Intruction</th>
                             <th>Status</th>
                             <th>Status</th>
                             <th>Edit</th>
@@ -21,6 +23,8 @@
                             <td>{{ i + 1 }}</td>
                             <td>{{ item.cts|date:'dd' }}/{{ item.cts|date:'MM' }}/{{ item.cts|date:'YYYY' }}</td>
                             <td>{{ item.medicines_name }}</td>
+                            <td>{{ item.dosage_name || '--' }}</td>
+                            <td>{{ item.instruction || '--'}}</td>
                             <td>{{ item.status == 1 ? "Activated" : "Deactivated" }}</td>
                             <td><mat-slide-toggle 
                                 (change)="changeEvent($event,item.medicines_id)"

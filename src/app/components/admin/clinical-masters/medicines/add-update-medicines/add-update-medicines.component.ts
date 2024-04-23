@@ -10,10 +10,18 @@ import { MedicinesComponent } from '../medicines.component';
   templateUrl: './add-update-medicines.component.html',
   styleUrl: './add-update-medicines.component.scss'
 })
-export class AddUpdateMedicinesComponent implements OnInit{
+export class AddUpdateMedicinesComponent implements OnInit {
   form!: FormGroup;
   isEdit = false;
-  medicinesId: any
+  medicinesId: any;
+  //for Dosages
+  searchDosagesValue = '';
+  filteredDosagesArray: Array<any> = [];
+  allDosages: Array<any> = [];
+  //for Instructions
+  searchInstructionsValue = '';
+  filteredInstructionsArray: Array<any> = [];
+  allInstructions: Array<any> = [];
   constructor(
     private dialogRef: MatDialogRef<MedicinesComponent>,
     private fb: FormBuilder,
@@ -22,6 +30,8 @@ export class AddUpdateMedicinesComponent implements OnInit{
     private _toastrService: ToastrService) { }
   ngOnInit() {
     this.createForm();
+    this.getAllDosagesList();
+    this.getAllInstructionsList();
     if (this.data) {
       this.medicinesId = this.data.medicines_id
       console.log('DATA', this.data);
@@ -32,7 +42,9 @@ export class AddUpdateMedicinesComponent implements OnInit{
   createForm() {
     this.form = this.fb.group({
       medicines_name: [null, Validators.required],
-      content: [null, Validators.maxLength(250)]
+      content: [null, Validators.maxLength(250)],
+      dosage_id: [null],
+      instructions_id: [null],
     });
   }
   get control() {
@@ -91,9 +103,59 @@ export class AddUpdateMedicinesComponent implements OnInit{
   }
   prepopulateData(data: any) {
     this.control['medicines_name'].patchValue(data.medicines_name);
+    this.control['dosage_id'].patchValue(data.dosage_id);
+    this.control['instructions_id'].patchValue(data.instructions_id);
     this.control['content'].patchValue(data.content);
   }
   closeDialog(message?: any) {
     this.dialogRef.close(message);
+  }
+  //get dosages list...
+  getAllDosagesList() {
+    this._adminService.getAllDosagesListWma().subscribe({
+      next: (res: any) => {
+        if (res.data.length > 0) {
+          this.allDosages = res.data;
+            this.filteredDosagesArray = this.allDosages;
+        }
+      },
+    });
+  }
+  //Filter Dosages array
+  filterDosages() {
+    if (this.searchDosagesValue != '') {
+      this.filteredDosagesArray = [];
+      const filteredArr = this.allDosages.filter((obj: any) =>
+        obj.dosage_name.toLowerCase().includes(this.searchDosagesValue.toLowerCase())
+      );
+      this.filteredDosagesArray = filteredArr;
+    } else {
+      this.filteredDosagesArray = this.allDosages;
+    }
+  }
+  //-------------------------------------------------------------------
+  //-------------------------------------------------------------------
+  //get Instructions list...
+  getAllInstructionsList() {
+    this._adminService.getAllInstructionsWma().subscribe({
+      next: (res: any) => {
+        if (res.data.length > 0) {
+          this.allInstructions = res.data;
+          this.filteredInstructionsArray = this.allInstructions;
+        }
+      },
+    });
+  }
+  //Filter Instructions array
+  filterInstructions() {
+    if (this.searchInstructionsValue != '') {
+      this.filteredInstructionsArray = [];
+      const filteredArr = this.allInstructions.filter((obj: any) =>
+        obj.instruction.toLowerCase().includes(this.searchInstructionsValue.toLowerCase())
+      );
+      this.filteredInstructionsArray = filteredArr;
+    } else {
+      this.filteredInstructionsArray = this.allInstructions;
+    }
   }
 }

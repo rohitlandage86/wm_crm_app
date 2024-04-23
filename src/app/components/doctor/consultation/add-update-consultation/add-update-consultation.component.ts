@@ -18,6 +18,7 @@ import { AddUpdateChiefComplaintsComponent } from 'src/app/components/admin/clin
 import { MatDialog } from '@angular/material/dialog';
 import { AddUpdateDiagnosisComponent } from 'src/app/components/admin/masters/diagnosis/add-update-diagnosis/add-update-diagnosis.component';
 import { AddUpdateTreatmentComponent } from 'src/app/components/admin/masters/treatment/add-update-treatment/add-update-treatment.component';
+import { ViewLeadFooterComponent } from './view-lead-footer/view-lead-footer.component';
 
 @Component({
   selector: 'app-add-update-consultation',
@@ -25,12 +26,20 @@ import { AddUpdateTreatmentComponent } from 'src/app/components/admin/masters/tr
   styleUrl: './add-update-consultation.component.scss',
 })
 export class AddUpdateConsultationComponent implements OnInit {
+  allLeadList: Array<any> = [];
+  searchQuery: string = '';
+  page = 1;
+  perPage = 10;
+  total = 0;
   baseUrl = environment.baseUrl
   isAccordionOpen: number | null = null;
   form!: FormGroup;
   form_patient!: FormGroup;
   isEdit = false;
   mrno: any;
+  leadHid: any;
+  disableButton: boolean = false;
+  leadList:Array<any> = [];
   allConsutlationHistoryList: Array<any> = [];
   allStateList: Array<any> = [];
   allEntityList: Array<any> = [];
@@ -170,7 +179,7 @@ export class AddUpdateConsultationComponent implements OnInit {
   get control() {
     return this.form.controls;
   }
-  get controls() {
+  get patientControls() {
     return this.form_patient.controls;
   }
 
@@ -505,7 +514,6 @@ export class AddUpdateConsultationComponent implements OnInit {
     this.addConsultation();
   }
 
-
   addConsultation() {
     if (this.form.valid) {
       this._doctorService.addConsultation(this.form.value).subscribe({
@@ -535,7 +543,6 @@ export class AddUpdateConsultationComponent implements OnInit {
   }
   //get all consutlation view by mrno (history)..
   getConsultationHistory(id: any) {
-
     this._doctorService.getConsultationHistory(id).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
@@ -551,6 +558,7 @@ export class AddUpdateConsultationComponent implements OnInit {
   getPatientById(id: any) {
     this._receptionistService.getPatientById(id).subscribe((result: any) => {
       const patientData = result.data;
+      this.getSearchLead(patientData.mobile_no)
       this.form_patient.patchValue({
         registration_date: new Date(patientData.registration_date)
           .toISOString()
@@ -697,4 +705,35 @@ export class AddUpdateConsultationComponent implements OnInit {
     
   }
 
+  //get is lead search data
+  getSearchLead(searchQuery: string): void {
+    // Make API call with the search query
+    this._receptionistService.getAllSearchLeadHeaderList(this.page, this.perPage, searchQuery).subscribe({
+      next: (res: any) => {
+        if (res.data.length > 0) {
+         this.leadList=res.data[0].lead_hid
+        }else{
+            this.disableButton = true;
+        }
+      }
+    
+    });
+  }
+
+  // //open lead footer by...
+  openDialogLeadInfo(data: string): void {
+    let leadHid = this.leadList; 
+    const dialogRef = this.dialog.open(ViewLeadFooterComponent, {
+      data: leadHid,
+      width: '80%',
+      panelClass: 'mat-mdc-dialog-container',
+      maxHeight: '80vh'
+    });
+    dialogRef.afterClosed().subscribe((message: any) => {
+      if (message == 'create' || message == 'update') {
+      } else {
+        console.log('nothing happen');
+      }
+    });
+  }
 }

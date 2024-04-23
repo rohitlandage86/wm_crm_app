@@ -34,6 +34,7 @@ export class DoctorBillReportComponent implements OnInit{
     // this.getAllBillList();
     this.getAllServiceList();
     this.getAllServiceTypeList();
+    this.getAllEntityList();
     this.createForm()
   }
   createForm(){
@@ -57,8 +58,6 @@ export class DoctorBillReportComponent implements OnInit{
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allBillList = res.data;
-          console.log('data==', this.allBillList);
-          
           this.total = res.pagination.total;
         }else{
           this.allBillList =[];

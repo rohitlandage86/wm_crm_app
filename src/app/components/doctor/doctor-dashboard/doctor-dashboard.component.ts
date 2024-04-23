@@ -73,8 +73,6 @@ export class DoctorDashboardComponent implements OnInit {
   getAllAppointmentList() {
     this._doctorService.getAllAppointmentList(this.page, this.perPage, this.appointment_date).subscribe({
       next: (res: any) => {
-        console.log('appointment',res);
-
         if (res.data.length > 0) {
           this.allAppointmentList = res.data;
           this.total = res.pagination.total;
@@ -86,8 +84,6 @@ export class DoctorDashboardComponent implements OnInit {
   getAllLeadFollowUpList() {
     this._receptionistService.getAllLeadFollowUpList(this.page, this.perPage, this.follow_up_date).subscribe({
       next: (res: any) => {
-        console.log(res);
-
         if (res.data.length > 0) {
           this.allLeadFollowUpList = res.data;
           this.total = res.pagination.total;

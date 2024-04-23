@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { freeSet } from '@coreui/icons';
 import { PageEvent } from '@angular/material/paginator';
-import {  FormBuilder,  FormGroup } from '@angular/forms';
-import { AdminService } from 'src/app/components/admin/admin.service';
-import { ActivatedRoute } from '@angular/router';
+import { FormGroup } from '@angular/forms';
 import { ReceptionistService } from 'src/app/components/receptionist/receptionist.service';
 
 @Component({
@@ -23,9 +21,7 @@ export class DoctorSearchBillComponent implements OnInit{
   total = 0;
    icons = freeSet;
   constructor(
-    private fb: FormBuilder,
-    private _receptionistService: ReceptionistService, private _adminService: AdminService, private url: ActivatedRoute) { }
-
+    private _receptionistService: ReceptionistService) { }
 
   ngOnInit() {
   
@@ -38,8 +34,6 @@ export class DoctorSearchBillComponent implements OnInit{
     next: (res: any) => {
       if (res.data.length > 0) {
         this.allBillList = res.data;
-        console.log(res);
-
       }
     }
   });
@@ -63,6 +57,5 @@ export class DoctorSearchBillComponent implements OnInit{
   onPageChange(event: PageEvent): void {
     this.page = event.pageIndex + 1;
     this.perPage = event.pageSize;
-   
   }
 }

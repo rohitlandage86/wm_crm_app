@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { freeSet } from '@coreui/icons';
-import { ToastrService } from 'ngx-toastr';
 import { AdminService } from 'src/app/components/admin/admin.service';
 import { ReceptionistService } from 'src/app/components/receptionist/receptionist.service';
 
@@ -24,10 +23,9 @@ export class DoctorTreatmentReportComponent implements OnInit{
   toDate='';
   treatment_id='';
   minDate = new Date();
-  constructor(private _receptionistService: ReceptionistService, private _toastrService: ToastrService, private _adminService:AdminService, private fb:FormBuilder) { }
+  constructor(private _receptionistService: ReceptionistService, private _adminService:AdminService, private fb:FormBuilder) { }
 
   ngOnInit() {
-    // this.getAllTreatmentReportList();
     this.getAllTreatmentList();
     this.createForm()
   }
@@ -87,6 +85,5 @@ export class DoctorTreatmentReportComponent implements OnInit{
         }
       }
     });
-    
   }
 }

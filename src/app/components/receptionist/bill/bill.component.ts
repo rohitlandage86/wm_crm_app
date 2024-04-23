@@ -35,7 +35,6 @@ export class BillComponent implements OnInit{
     this._receptionistService.getBillDateList(this.page, this.perPage, this.Bill_date).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
-          console.log(res);
           this.allBillList = res.data;
           this.total = res.pagination.total;
         }
@@ -47,7 +46,4 @@ export class BillComponent implements OnInit{
     this.perPage = event.pageSize;
     this.getAllBillDateList();
   }
-
-
-
 }

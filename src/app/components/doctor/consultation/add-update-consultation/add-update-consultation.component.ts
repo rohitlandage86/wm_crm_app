@@ -547,8 +547,6 @@ export class AddUpdateConsultationComponent implements OnInit {
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allConsutlationHistoryList = res.data;
-          console.log(res);
-
         }
       }
     });

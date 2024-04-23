@@ -44,9 +44,7 @@ export class CallingListReportComponent implements OnInit{
     // this.getCallLogsList();
   }
   submitFilter(){
-    console.log(this.form.value);
     this.todayDate = this.form.value.today_date;
-
     this._doctorService.getCallLogsList(this.page, this.perPage, this.todayDate ).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {

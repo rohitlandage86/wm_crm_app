@@ -3,8 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ReceptionistService } from '../../receptionist.service';
 import { AdminService } from 'src/app/components/admin/admin.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DoctorService } from 'src/app/components/doctor/doctor.service';
+import {  Router } from '@angular/router';
 import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
 
 @Component({
@@ -31,8 +30,8 @@ export class AddUpdateBillComponent implements OnInit {
   isDoctor = false;
   constructor(
     private fb: FormBuilder,
-    private _receptionistService: ReceptionistService, private _adminService: AdminService, private _doctorService: DoctorService,  private _superAdminService: SuperAdminService,
-    private _toastrService: ToastrService, private router: Router, private url: ActivatedRoute) { this.defaultStateId = 20;}
+    private _receptionistService: ReceptionistService, private _adminService: AdminService,private _superAdminService: SuperAdminService,
+    private _toastrService: ToastrService, private router: Router) { this.defaultStateId = 20;}
 
 
   ngOnInit() {
@@ -119,7 +118,6 @@ this.form.get('discount_amount')?.valueChanges.subscribe(() => {
             entity_id:firstConsultation.entity_id
           });
         }
-
       }
     });
   }
@@ -199,7 +197,6 @@ this.form.get('discount_amount')?.valueChanges.subscribe(() => {
         }
       }
     });
-
   }
   //get  State list...
   getAllStateList() {
@@ -231,5 +228,4 @@ this.form.get('discount_amount')?.valueChanges.subscribe(() => {
         }
       });
     }
-
 }

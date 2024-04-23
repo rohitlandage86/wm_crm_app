@@ -43,7 +43,6 @@ export class AddUpdatePatientComponent implements OnInit {
     this.getAllSourceOfPatientList();
     this.getAllEmployeeList();
     this.getAllReferedByList();
-
     this.form.patchValue({ registration_date: new Date().toISOString().split('T')[0]});
     this.control['state_id'].patchValue(20);
     this.mrno = this.url.snapshot.params['id']
@@ -51,7 +50,6 @@ export class AddUpdatePatientComponent implements OnInit {
     if (this.mrno) {
       this.getPatientById(this.mrno)
       this.isEdit = true;
-
     }
     // Listen for changes in the entity_id field
     this.form.get('entity_id')?.valueChanges.subscribe(entityId => {
@@ -108,12 +106,7 @@ export class AddUpdatePatientComponent implements OnInit {
         next: (res: any) => {
           // this.mrnoEntitySeries = res.mrnoEntitySeries;
           this.control['mrno_entity_series'].patchValue(res.mrnoEntitySeries)
-
         },
-        error: (err: any) => {
-          console.error("Error fetching MR No Entity Series:", err);
-          // Handle the error here
-        }
       });
     }
   }
@@ -152,7 +145,6 @@ export class AddUpdatePatientComponent implements OnInit {
   calculateBMI() {
     const height = this.form.value.height;
     const weight = this.form.value.weight;
-
     if (height && weight) {
       const heightInMeters = height / 100; // Convert height to meters
       const bmi = weight / (heightInMeters * heightInMeters);
@@ -170,7 +162,6 @@ export class AddUpdatePatientComponent implements OnInit {
     // Make API call with the mobile number
     this._receptionistService.getAllSearchLeadHeaderList(this.page, this.perPage, mobileNumber).subscribe({
       next: (res: any) => {
-        
         this.control['patient_name'].patchValue(res.data[0].name);
         this.control['mobile_no'].patchValue(res.data[0].mobile_number);
         this.control['city'].patchValue(res.data[0].city);
@@ -193,7 +184,6 @@ export class AddUpdatePatientComponent implements OnInit {
       this._receptionistService.editPatient(this.form.value, this.mrno).subscribe({
         next: (res: any) => {
           if (res.status == 200) {
-
             this._toastrService.success(res.message);
             this.router.navigate(['/receptionist', { outlets: { receptionist_Menu: 'patient' } }])
           } else {
@@ -270,7 +260,6 @@ export class AddUpdatePatientComponent implements OnInit {
   //open refered by...
   openDialog(data?: any) {
     const dialogRef = this.dialog.open(AddUpdateReferedByComponent, {
-      
       data: data,
       width: '50%',
       panelClass: 'mat-mdc-dialog-container'
@@ -321,14 +310,10 @@ export class AddUpdatePatientComponent implements OnInit {
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allEmployeeList = res.data;
-          console.log(res.data);
-
         }
       }
     });
   }
-
-
 
   //get ReferedBy list...
   getAllReferedByList() {

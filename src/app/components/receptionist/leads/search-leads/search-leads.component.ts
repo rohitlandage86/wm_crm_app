@@ -4,7 +4,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminService } from 'src/app/components/admin/admin.service';
 import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ReceptionistService } from '../../receptionist.service';
 
 @Component({
@@ -30,7 +30,7 @@ export class SearchLeadsComponent implements OnInit{
   constructor (
     private fb:FormBuilder,
     private _receptionistService: ReceptionistService,private _adminService: AdminService,
-   private _superAdminService: SuperAdminService,private router: Router, private url: ActivatedRoute){}
+   private _superAdminService: SuperAdminService, private url: ActivatedRoute){}
 
 
   ngOnInit(){
@@ -41,14 +41,10 @@ export class SearchLeadsComponent implements OnInit{
       lead_date: new Date().toISOString().split('T')[0],
     });
     this.lead_hid = this.url.snapshot.params['id']
-    
     if (this.lead_hid) {
-      
       this.getLeadById(this.lead_hid)
-      // this.prepopulateData(this.lead_hid)
       this.leadStatusDetailAdded = true;
       this.isEdit =true;
-      
     }
   }
   getCurrentDate(): string {
@@ -56,7 +52,6 @@ export class SearchLeadsComponent implements OnInit{
     const year = today.getFullYear();
     const month = ('0' + (today.getMonth() + 1)).slice(-2); // Month is zero-based
     const day = ('0' + today.getDate()).slice(-2);
-
     return `${year}-${month}-${day}`;
   }
   createForm(){
@@ -77,10 +72,8 @@ export class SearchLeadsComponent implements OnInit{
   }
   get leadstatusDetailsArray() {
     return this.form.get('leadFooterDetails') as FormArray<any>;
-
   }
  
-
   newLeadFooter(): FormGroup {
     return this.fb.group({
       lead_fid: [null],
@@ -89,16 +82,11 @@ export class SearchLeadsComponent implements OnInit{
       no_of_calls: [null, Validators.required],
       lead_status_id: [null, Validators.required],
       follow_up_date: [null, Validators.required],
-      
     })
   }
   addLeadFooter() {
     this.leadstatusDetailsArray.push(this.newLeadFooter());
       this.leadStatusDetailAdded = true;
-    // if (this.isEdit) {
-    //   this.leadstatusDetailsArray.push(this.newLeadFooter());
-    //   this.leadStatusDetailAdded = true;
-    // }
   }
   deleteLeadFooter(i: any) {
     this.leadstatusDetailsArray.removeAt(i)
@@ -117,12 +105,10 @@ getSearchLead(searchQuery: string): void {
 }
   // Other properties and methods
   isValidName(inputValue: string): boolean {
-
     const namePattern = /^[A-Za-z\s]+$/;
     return namePattern.test(inputValue);
   }
   validateMobileNo(inputValue: string): boolean {
-
     const mobileNumberPattern = /^\d{10}$/;
     return mobileNumberPattern.test(inputValue);
   }
@@ -144,7 +130,6 @@ getSearchLead(searchQuery: string): void {
         this.leadstatusDetailsArray.clear();
         for (let index = 0; index < leadFooterDetails.length; index++) {
           const element = leadFooterDetails[index];
-
           this.leadstatusDetailsArray.push(this.newLeadFooter())
           this.leadstatusDetailsArray.at(index).get('lead_fid')?.patchValue(element.lead_fid)
         this.leadstatusDetailsArray.at(index).get('comments')?.patchValue(element.comments);
@@ -157,11 +142,8 @@ getSearchLead(searchQuery: string): void {
         );
         }
       }
-
     })
-    
   }
-
 
   //get category list...
   getAllCategoryList(){
@@ -172,7 +154,6 @@ getSearchLead(searchQuery: string): void {
         }
       }
     });
-    
   }
    //get  Lead Status list...
    getAllLeadStatusList(){
@@ -189,7 +170,6 @@ getSearchLead(searchQuery: string): void {
     this.perPage = event.pageSize;
     // this.getAllLeadsList();
   }
-
 }
 
 

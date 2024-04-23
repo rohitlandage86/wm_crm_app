@@ -1,3 +1,4 @@
+import { ReceptionistBillReportComponent } from './reports/receptionist-bill-report/receptionist-bill-report.component';
 import { ViewSearchBillComponent } from './bill/search-bill/view-search-bill/view-search-bill.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -176,6 +177,13 @@ canActivate:[AuthGuard]
 {
   path: "view-search-bill/:id",  
   component: ViewSearchBillComponent,
+  pathMatch: "full",
+  outlet: "receptionist_Menu",
+  canActivate:[AuthGuard]
+},
+{
+  path: "datewise-bill-report",  
+  component: ReceptionistBillReportComponent,
   pathMatch: "full",
   outlet: "receptionist_Menu",
   canActivate:[AuthGuard]

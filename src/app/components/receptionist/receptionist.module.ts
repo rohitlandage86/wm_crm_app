@@ -1,3 +1,4 @@
+import { ReceptionistBillReportComponent } from './reports/receptionist-bill-report/receptionist-bill-report.component';
 import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ReceptionistRoutingModule } from './receptionist-routing.module';
@@ -38,6 +39,7 @@ import { ViewSearchBillComponent } from './bill/search-bill/view-search-bill/vie
     ReceptionistPatientVisitReportComponent,
     ReceptionistFollowUpReportComponent,
     ReceptionistAppointmentReportComponent,
+    ReceptionistBillReportComponent,
     FollowUpComponent,
     BillComponent,
     AddUpdateBillComponent,

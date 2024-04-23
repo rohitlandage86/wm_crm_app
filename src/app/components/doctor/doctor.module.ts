@@ -1,3 +1,4 @@
+import { DoctorBillReportComponent } from './reports/doctor-bill-report/doctor-bill-report.component';
 import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 
@@ -46,6 +47,7 @@ import { ViewLeadFooterComponent } from './consultation/add-update-consultation/
     DoctorAppointmentReportComponent,
     DoctorDiagnosisReportComponent,
     DoctorTreatmentReportComponent,
+    DoctorBillReportComponent,
     DoctorFollowUpListComponent,
     EditConsultationComponent,
     CallingListReportComponent,

@@ -1,0 +1,68 @@
+<c-row class="m-0">
+    <c-col xs="12 " class="p-0">
+      <c-card class="">
+        <c-card-header class="d-flex justify-content-between">
+          <strong>View Lead Details  </strong>
+          <button
+          cButton
+          color="primary"
+          (click)="closeDialog()"
+        >
+          Close
+        </button>
+        </c-card-header>
+        <c-card-body >
+            <form cForm class="row g-3" [formGroup]="form">
+                <div *ngFor="let lead of allLeadList">
+                  <div class="d-flex">
+                    <div><strong>Date : </strong>{{ lead.lead_date | date : 'dd-MM-yyyy' }}</div>
+                    <div class="ms-5"><strong>Category : </strong>{{ lead.category_name }}</div>
+                    <div class="ms-5"><strong>Note : </strong> {{ lead.note ? lead.note : 'No note available' }}</div>
+                  </div>
+                </div>
+              
+                <div class="col-md-12">
+                  <table class="table table-striped">
+                    <thead cTableColor="light">
+                      <tr>
+                        <th>Sr. No</th>
+                        <th>Created Date</th>
+                        <th>Comments</th>
+                        <th>Calling Time</th>
+                        <th>No Of Calls</th>
+                        <th>Lead Status</th>
+                        <th>Follow Up Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Iterate through allLeadFooterList and display data -->
+                      <tr *ngFor="let item of allLeadFooterList; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ item.cts.split('T')[0] | date:'dd-MM-yyyy'}}</td>
+                        <!-- <td>{{ item.cts | date:'dd-MM-yyyy' }}</td> -->
+                        <td>{{ item.comments }}</td>
+                        <td>{{ item.calling_time }}</td>
+                        <td>{{ item.no_of_calls }}</td>
+                        <td>{{ item.lead_status }}</td>
+                        <td>{{ item.follow_up_date | date:'dd-MM-yyyy' }}</td>
+                      </tr>
+                      <!-- Display message if no data available -->
+                      <tr class="fw-bold text-center" *ngIf="allLeadFooterList.length === 0">
+                        <td colspan="7" class="text-danger">No Data Available</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                
+                <hr />
+              
+                <c-col xs="12">
+                  <button cButton color="primary" (click)="closeDialog()">Cancel</button>
+                </c-col>
+              </form>
+              
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+  

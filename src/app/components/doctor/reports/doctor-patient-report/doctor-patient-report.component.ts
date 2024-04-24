@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { freeSet } from '@coreui/icons';
-import { ToastrService } from 'ngx-toastr';
 import { AdminService } from 'src/app/components/admin/admin.service';
 import { PageEvent } from '@angular/material/paginator';
 import { ReceptionistService } from 'src/app/components/receptionist/receptionist.service';
@@ -31,7 +30,7 @@ export class DoctorPatientReportComponent implements OnInit{
   refered_by_id='';
   employee_id='';
   minDate = new Date();
-  constructor(private _receptionistService: ReceptionistService, private _toastrService: ToastrService, private _adminService:AdminService, private fb:FormBuilder) { }
+  constructor(private _receptionistService: ReceptionistService,private _adminService:AdminService, private fb:FormBuilder) { }
 
   ngOnInit() {
     this.getAllEntityList();

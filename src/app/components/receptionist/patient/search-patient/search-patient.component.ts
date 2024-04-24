@@ -40,23 +40,19 @@ export class SearchPatientComponent implements OnInit{
 
 
   ngOnInit() {
-
     this.createForm();
     this.getAllStateList();
     this.getAllEntityList();
     this.getAllSourceOfPatientList();
     this.getAllEmployeeList();
     this.getAllReferedByList();
-
     this.form.patchValue({
       registration_date: new Date().toISOString().split('T')[0],
     });
     this.mrno = this.url.snapshot.params['id']
-
     if (this.mrno) {
       this.getPatientById(this.mrno)
       this.isEdit = true;
-
     }
     // Listen for changes in the entity_id field
     this.form.get('entity_id')?.valueChanges.subscribe(entityId => {
@@ -108,26 +104,16 @@ export class SearchPatientComponent implements OnInit{
           console.log(res);
           this.mrnoEntitySeries = res.mrnoEntitySeries;
           this.control['mrno_entity_series'].patchValue(res.mrnoEntitySeries)
-
-        },
-        error: (err: any) => {
-          console.error("Error fetching MR No Entity Series:", err);
-          // Handle the error here
         }
       });
     }
   }
-
- 
-
  
 //get is Patient search data
 getSearchPatient(searchQuery: string): void {
   // Make API call with the search query
   this._receptionistService.getAllSearchPatientRegistrationList(this.page, this.perPage, searchQuery).subscribe({
     next: (res: any) => {
-      console.log(res);
-      
       if (res.data.length > 0) {
         this.allPatientVisitList = res.data;
         this.total = res.pagination.total;
@@ -137,12 +123,10 @@ getSearchPatient(searchQuery: string): void {
 }
   // Other properties and methods
   isValidName(inputValue: string): boolean {
-
     const namePattern = /^[A-Za-z\s]+$/;
     return namePattern.test(inputValue);
   }
   validateMobileNo(inputValue: string): boolean {
-
     const mobileNumberPattern = /^\d{10}$/;
     return mobileNumberPattern.test(inputValue);
   }
@@ -156,11 +140,9 @@ getSearchPatient(searchQuery: string): void {
 
   updatePatient() {
     if (this.form.valid) {
-      console.log(this.form.value);
       this._receptionistService.editPatient(this.form.value, this.mrno).subscribe({
         next: (res: any) => {
           if (res.status == 200) {
-
             this._toastrService.success(res.message);
             this.router.navigate(['/receptionist', { outlets: { receptionist_Menu: 'patient' } }])
           } else {
@@ -175,17 +157,14 @@ getSearchPatient(searchQuery: string): void {
           }
         },
       });
-
     } else {
       this.form.markAllAsTouched();
       this._toastrService.warning("Fill required fields");
     }
   }
 
-
   getPatientById(id: any) {
     this._receptionistService.getPatientById(id).subscribe((result: any) => {
-      console.log(result);
       const patientData = result.data;
       this.form.patchValue({
         registration_date: new Date(patientData.registration_date).toISOString().split('T')[0],
@@ -213,20 +192,17 @@ getSearchPatient(searchQuery: string): void {
 
   getLeadById(id: any) {
     this._receptionistService.getLeadById(id).subscribe((result: any) => {
-      console.log(result);
       this.form.patchValue(result.data)
       const leadDate = new Date(result.data.lead_date);
       this.form.get('lead_date')?.patchValue(
         `${leadDate.getFullYear()}-${('0' + (leadDate.getMonth() + 1)).slice(-2)}-${('0' + leadDate.getDate()).slice(-2)}`
       );
-
     })
   }
   //get entity list...
   getAllEntityList() {
     this._adminService.getAllEntitiesListWma().subscribe({
       next: (res: any) => {
-        console.log(res);
         if (res.data.length > 0) {
           this.allEntityList = res.data;
         }
@@ -238,7 +214,6 @@ getSearchPatient(searchQuery: string): void {
   getAllSourceOfPatientList() {
     this._adminService.getAllSourceOfPatientListWma().subscribe({
       next: (res: any) => {
-        console.log(res);
         if (res.data.length > 0) {
           this.allSourceOfPatientList = res.data;
         }
@@ -250,11 +225,8 @@ getSearchPatient(searchQuery: string): void {
   getAllEmployeeList() {
     this._adminService.getAllEmployeeListWma().subscribe({
       next: (res: any) => {
-        console.log(res);
         if (res.data.length > 0) {
           this.allEmployeeList = res.data;
-          console.log(res.data);
-
         }
       }
     });
@@ -264,7 +236,6 @@ getSearchPatient(searchQuery: string): void {
   getAllReferedByList() {
     this._adminService.getAllReferedByListWma().subscribe({
       next: (res: any) => {
-        console.log(res);
         if (res.data.length > 0) {
           this.allReferedByList = res.data;
         }

@@ -1,7 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { LeadsComponent } from '../leads.component';
 import { ReceptionistService } from '../../receptionist.service';
 import { AdminService } from 'src/app/components/admin/admin.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -34,7 +33,6 @@ export class AddUpdateLeadsComponent implements OnInit {
     this.lead_hid = this.url.snapshot.params['id']
     if (this.lead_hid) {
       this.getLeadById(this.lead_hid)
-      // this.prepopulateData(this.lead_hid)
       this.leadStatusDetailAdded = true;
       this.isEdit = true;
 
@@ -45,7 +43,6 @@ export class AddUpdateLeadsComponent implements OnInit {
     const year = today.getFullYear();
     const month = ('0' + (today.getMonth() + 1)).slice(-2); // Month is zero-based
     const day = ('0' + today.getDate()).slice(-2);
-
     return `${year}-${month}-${day}`;
   }
   createForm() {
@@ -81,10 +78,6 @@ export class AddUpdateLeadsComponent implements OnInit {
   addLeadFooter() {
     this.leadstatusDetailsArray.push(this.newLeadFooter());
     this.leadStatusDetailAdded = true;
-    // if (this.isEdit) {
-    //   this.leadstatusDetailsArray.push(this.newLeadFooter());
-    //   this.leadStatusDetailAdded = true;
-    // }
   }
   deleteLeadFooter(i: any) {
     this.leadstatusDetailsArray.removeAt(i)
@@ -154,7 +147,6 @@ export class AddUpdateLeadsComponent implements OnInit {
         this.leadstatusDetailsArray.clear();
         for (let index = 0; index < leadFooterDetails.length; index++) {
           const element = leadFooterDetails[index];
-
           this.leadstatusDetailsArray.push(this.newLeadFooter())
           this.leadstatusDetailsArray.at(index).get('lead_fid')?.patchValue(element.lead_fid)
           this.leadstatusDetailsArray.at(index).get('comments')?.patchValue(element.comments);
@@ -167,10 +159,8 @@ export class AddUpdateLeadsComponent implements OnInit {
           );
         }
       }
-
     })
   }
-
 
   //get category list...
   getAllCategoryList() {

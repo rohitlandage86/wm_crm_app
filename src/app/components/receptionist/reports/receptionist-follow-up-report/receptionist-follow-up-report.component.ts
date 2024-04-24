@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { freeSet } from '@coreui/icons';
 import { ReceptionistService } from '../../receptionist.service';
-import { ToastrService } from 'ngx-toastr';
-import { AdminService } from 'src/app/components/admin/admin.service';
 import { PageEvent } from '@angular/material/paginator';
 import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
 
@@ -24,7 +22,7 @@ export class ReceptionistFollowUpReportComponent  implements OnInit{
   toDate='';
   lead_status_id='';
   minDate = new Date();
-  constructor(private _receptionistService: ReceptionistService, private _toastrService: ToastrService, private _adminService:AdminService, private fb:FormBuilder, private _superAdminService:SuperAdminService) { }
+  constructor(private _receptionistService: ReceptionistService, private fb:FormBuilder, private _superAdminService:SuperAdminService) { }
 
   ngOnInit() {
     // this.getAllLeadFollowUpList();
@@ -88,8 +86,5 @@ export class ReceptionistFollowUpReportComponent  implements OnInit{
         }
       }
     });
-    
   }
-
-
 }

@@ -42,8 +42,6 @@ export class PatientComponent implements OnInit{
   getAllPatientVisitLists() {
     this._doctorService.getAllPatientVisitLists(this.page, this.perPage,).subscribe({
       next: (res: any) => {
-        console.log('patient',res);
-        
         if (res.data.length > 0) {
           this.allPatientVisitList = res.data;
           this.total = res.pagination.total;
@@ -54,8 +52,6 @@ export class PatientComponent implements OnInit{
   getAllPatientVisitCheckedLists() {
     this._doctorService.getAllPatientVisitCheckedLists(this.page, this.perPage,this.lead_date).subscribe({
       next: (res: any) => {
-        console.log('checkod',res);
-        
         if (res.data.length > 0) {
           this.allPatientVisitCheckedList = res.data;
           this.total = res.pagination.total;

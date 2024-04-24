@@ -24,7 +24,7 @@ export class ReceptionistLeadReportComponent implements OnInit{
   toDate='';
   category_id='';
   minDate = new Date();
-  constructor(private _receptionistService: ReceptionistService, private _toastrService: ToastrService, private _adminService:AdminService, private fb:FormBuilder) { }
+  constructor(private _receptionistService: ReceptionistService, private _adminService:AdminService, private fb:FormBuilder) { }
 
   ngOnInit() {
     // this.getAllLeadsList();
@@ -87,9 +87,6 @@ export class ReceptionistLeadReportComponent implements OnInit{
         }
       }
     });
-    
   }
-
-
 }
 

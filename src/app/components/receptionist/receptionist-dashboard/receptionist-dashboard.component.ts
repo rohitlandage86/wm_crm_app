@@ -36,17 +36,13 @@ export class ReceptionistDashboardComponent implements OnInit {
     this.getReceptionistDashboardCount();
     this.getReceptionistDashboardCount().subscribe((data: any) => {
       this.firstCardContent = data;
-      console.log(data);
       this.cdr.detectChanges(); // Trigger change detection
       this.monthly_datewise_patient_registration = data.monthly_datewise_patient_registration
       const month_array = this.monthly_datewise_patient_registration.map((re: any) => {
         this.month_array.push(re.registrationDate);
         this.patientCount_array.push(re.registrationCount)
-
-
       });
       this.chartBarData = {
-
         labels: this.month_array,
         datasets: [
           {
@@ -60,7 +56,6 @@ export class ReceptionistDashboardComponent implements OnInit {
   }
 
   getReceptionistDashboardCount(): Observable<any> {
-
     return this._receptionistService.getReceptionistDashboardCount();
   }
 
@@ -78,8 +73,6 @@ export class ReceptionistDashboardComponent implements OnInit {
   getAllLeadFollowUpList() {
     this._receptionistService.getAllLeadFollowUpList(this.page, this.perPage, this.follow_up_date).subscribe({
       next: (res: any) => {
-        console.log(res);
-
         if (res.data.length > 0) {
           this.allLeadFollowUpList = res.data;
           this.total = res.pagination.total;
@@ -97,8 +90,6 @@ export class ReceptionistDashboardComponent implements OnInit {
   getAllAppointmentList() {
     this._doctorService.getAllAppointmentList(this.page, this.perPage, this.appointment_date).subscribe({
       next: (res: any) => {
-        console.log('appointment', res);
-
         if (res.data.length > 0) {
           this.allAppointmentList = res.data;
           this.total = res.pagination.total;
@@ -125,7 +116,5 @@ export class ReceptionistDashboardComponent implements OnInit {
         }
       },
     })
-
-
   }
 }

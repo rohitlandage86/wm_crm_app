@@ -4,9 +4,8 @@ import { PageEvent } from '@angular/material/paginator';
 import { ReceptionistService } from './../receptionist.service';
 import { AdminService } from '../../admin/admin.service';
 import Swal from 'sweetalert2';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { DoctorService } from '../../doctor/doctor.service';
 
 @Component({
   selector: 'app-patient',
@@ -23,20 +22,16 @@ export class PatientComponent implements OnInit {
   color: string | undefined;
   mrno: any;
   visitType: any;
-  constructor(private _adminService: AdminService, private _doctorService: DoctorService,private _toastrService: ToastrService,private _receptionistService: ReceptionistService, private router: Router,) { }
+  constructor(private _adminService: AdminService,private _toastrService: ToastrService,private _receptionistService: ReceptionistService, private router: Router,) { }
 
   ngOnInit() {
     this.getAllPatientVisitList();
     this.getAllPatientVisitCheckedLists();
-
-
   }
   //get all PatientVisit List...
   getAllPatientVisitList() {
     this._adminService.getAllPatientVisitList(this.page, this.perPage).subscribe({
       next: (res: any) => {
-        console.log(res);
-
         if (res.data.length > 0) {
           this.allPatientVisitList = res.data;
           this.total = res.pagination.total;
@@ -67,8 +62,6 @@ export class PatientComponent implements OnInit {
     // Make API call with the search query
     this._receptionistService.getAllSearchPatientRegistrationList(this.page, this.perPage, searchQuery).subscribe({
       next: (res: any) => {
-        console.log(res);
-
         if (res.data.length > 0) {
           const patient = res.data[0]; // Assuming you only expect one patient in the response
           this.mrno =  res.data[0].mrno;
@@ -104,12 +97,10 @@ export class PatientComponent implements OnInit {
   }
   // Other properties and methods
   isValidName(inputValue: string): boolean {
-
     const namePattern = /^[A-Za-z\s]+$/;
     return namePattern.test(inputValue);
   }
   validateMobileNo(inputValue: string): boolean {
-
     const mobileNumberPattern = /^\d{10}$/;
     return mobileNumberPattern.test(inputValue);
   }
@@ -124,9 +115,7 @@ submit() {
 
   this._receptionistService.editPatientRevist(this.mrno, updatedData).subscribe({
     next: (res: any) => {
-      // Update patient record with the data received from the API response
       if (res.status == 200) {
-
         this._toastrService.success(res.message);
         this.getAllPatientVisitList();
         this.router.navigate(['/receptionist', { outlets: { receptionist_Menu: 'patient' } }], { skipLocationChange: true }).then(() => {

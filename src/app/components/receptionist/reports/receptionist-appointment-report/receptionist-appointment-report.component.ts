@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { freeSet } from '@coreui/icons';
 import { ReceptionistService } from '../../receptionist.service';
-import { ToastrService } from 'ngx-toastr';
-import { AdminService } from 'src/app/components/admin/admin.service';
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({
@@ -21,7 +19,7 @@ export class ReceptionistAppointmentReportComponent  implements OnInit{
   fromDate='';
   toDate='';
   minDate = new Date();
-  constructor(private _receptionistService: ReceptionistService, private _toastrService: ToastrService, private _adminService:AdminService, private fb:FormBuilder) { }
+  constructor(private _receptionistService: ReceptionistService, private fb:FormBuilder) { }
 
   ngOnInit() {
     // this.getAllAppointmentList();
@@ -69,8 +67,5 @@ export class ReceptionistAppointmentReportComponent  implements OnInit{
         }
       }
     });
-    
   }
-
-
 }

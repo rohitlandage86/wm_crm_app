@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { freeSet } from '@coreui/icons';
-import { AdminService } from 'src/app/components/admin/admin.service';
 import { PageEvent } from '@angular/material/paginator';
 import { ReceptionistService } from 'src/app/components/receptionist/receptionist.service';
 
@@ -12,7 +11,7 @@ import { ReceptionistService } from 'src/app/components/receptionist/receptionis
 })
 export class DoctorAppointmentReportComponent  implements OnInit{
   page = 1;
-  perPage = 10;
+  perPage = 50;
   total = 0;
   icons = freeSet;
   allAppointmentList: Array<any> = [];
@@ -20,7 +19,7 @@ export class DoctorAppointmentReportComponent  implements OnInit{
   fromDate='';
   toDate='';
   minDate = new Date();
-  constructor(private _receptionistService: ReceptionistService, private _adminService:AdminService, private fb:FormBuilder) { }
+  constructor(private _receptionistService: ReceptionistService, private fb:FormBuilder) { }
 
   ngOnInit() {
     this.createForm()

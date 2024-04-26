@@ -61,6 +61,15 @@ export class DoctorService {
     getConsultationById(id: any) {
         return this.http.get(this.baseUrl + 'api/consultation/' + id)
     }
+      //delete consultation  Chief Complaints  ...
+      deleteConsultationChiefComplaints(id: any, consultation_id: any): Observable<any> {
+        let params: any = {
+            consultation_id: consultation_id
+        };
+        return this.http.delete(this.baseUrl + 'api/consultation/chief_complaints/' + id, {
+            params: params
+        })
+    }
     //delete consultation  diagnosis  ...
     deleteConsultationDiagnosis(id: any, consultation_id: any): Observable<any> {
         let params: any = {

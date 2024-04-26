@@ -13,7 +13,7 @@ export class CustomersComponent implements OnInit{
   allCustomerslist: Array<any> = [];
   icons = freeSet;
   page = 1;
-  perPage = 10;
+  perPage = 50;
   total=0
 
   constructor( private _superAdminService: SuperAdminService) { }

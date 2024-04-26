@@ -24,6 +24,9 @@ export class DoctorDashboardComponent implements OnInit {
   perPage = 10;
   total = 0;
   follow_up_date: string;
+  appointmentPage = 1;
+  appointmentPerPage = 10;
+  appointmentTotal = 0;
   appointment_date: string;
   color: string | undefined;
   constructor(private _doctorService:DoctorService,private _receptionistService: ReceptionistService, private cdr: ChangeDetectorRef) { this.follow_up_date = '';  this.appointment_date = '';}
@@ -71,10 +74,8 @@ export class DoctorDashboardComponent implements OnInit {
   }
   //get all Appointment List...
   getAllAppointmentList() {
-    this._doctorService.getAllAppointmentList(this.page, this.perPage, this.appointment_date).subscribe({
+    this._doctorService.getAllAppointmentList(this.appointmentPage, this.appointmentPerPage, this.appointment_date).subscribe({
       next: (res: any) => {
-        console.log('appointment',res);
-
         if (res.data.length > 0) {
           this.allAppointmentList = res.data;
           this.total = res.pagination.total;
@@ -86,8 +87,6 @@ export class DoctorDashboardComponent implements OnInit {
   getAllLeadFollowUpList() {
     this._receptionistService.getAllLeadFollowUpList(this.page, this.perPage, this.follow_up_date).subscribe({
       next: (res: any) => {
-        console.log(res);
-
         if (res.data.length > 0) {
           this.allLeadFollowUpList = res.data;
           this.total = res.pagination.total;
@@ -99,6 +98,11 @@ export class DoctorDashboardComponent implements OnInit {
     this.page = event.pageIndex + 1;
     this.perPage = event.pageSize;
     this.getAllLeadFollowUpList();
+   
+  }
+  onAppointmentPageChange(event: PageEvent): void {
+    this.appointmentPage = event.pageIndex + 1;
+    this.appointmentPerPage = event.pageSize;
     this.getAllAppointmentList();
   }
 

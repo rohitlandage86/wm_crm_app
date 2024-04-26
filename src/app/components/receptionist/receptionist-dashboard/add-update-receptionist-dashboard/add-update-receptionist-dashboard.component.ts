@@ -29,19 +29,16 @@ export class AddUpdateReceptionistDashboardComponent implements OnInit{
     this.createForm();
     this.getAllCategoryList();
     this.getAllLeadStatusList();
- 
     this.form.patchValue({
       lead_date: new Date().toISOString().split('T')[0],
     });
     this.lead_hid = this.url.snapshot.params['id'];
-
     if (this.lead_hid) {
       this.getLeadById(this.lead_hid);
       this.leadStatusDetailAdded = true;
       this.isEdit = true;
     }
     this.disableFormControls();
- 
   }
   disableFormControls() {
     Object.keys(this.form.controls).forEach(key => {
@@ -54,7 +51,6 @@ export class AddUpdateReceptionistDashboardComponent implements OnInit{
     const year = today.getFullYear();
     const month = ('0' + (today.getMonth() + 1)).slice(-2); // Month is zero-based
     const day = ('0' + today.getDate()).slice(-2);
-
     return `${year}-${month}-${day}`;
   }
   createForm(){
@@ -73,7 +69,6 @@ export class AddUpdateReceptionistDashboardComponent implements OnInit{
   }
   get leadstatusDetailsArray() {
     return this.form.get('leadFooterDetails') as FormArray<any>;
-
   }
 
   newLeadFooter(): FormGroup {
@@ -84,7 +79,6 @@ export class AddUpdateReceptionistDashboardComponent implements OnInit{
       no_of_calls: [null, Validators.required],
       lead_status_id: [null, Validators.required],
       follow_up_date: [null, Validators.required],
-      
     })
   }
  addLeadFooter() {
@@ -135,7 +129,6 @@ export class AddUpdateReceptionistDashboardComponent implements OnInit{
         this.leadstatusDetailsArray.clear();
         for (let index = 0; index < leadFooterDetails.length + 1; index++) {
           const element = leadFooterDetails[index];
-  
           this.leadstatusDetailsArray.push(this.newLeadFooter());
           this.leadstatusDetailsArray.at(index).get('lead_fid')?.patchValue(element?.lead_fid);
           this.leadstatusDetailsArray.at(index).get('comments')?.patchValue(element?.comments);
@@ -155,13 +148,9 @@ export class AddUpdateReceptionistDashboardComponent implements OnInit{
            this.leadstatusDetailsArray.at(index).get('lead_status_id')?.disable();
            this.leadstatusDetailsArray.at(index).get('follow_up_date')?.disable();
         }
-     
       }
-      
     });
   }
-
-
 
   //get category list...
   getAllCategoryList(){
@@ -172,7 +161,6 @@ export class AddUpdateReceptionistDashboardComponent implements OnInit{
         }
       }
     });
-    
   }
    //get  Lead Status list...
    getAllLeadStatusList(){

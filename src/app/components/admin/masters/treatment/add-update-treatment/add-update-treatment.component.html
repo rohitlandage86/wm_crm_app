@@ -8,14 +8,14 @@
                 <form cForm class="row g-3"  [formGroup]="form"> 
                     <c-col md="8">
                         <label cLabel for="treatment_name">Treatment Name</label>
-                        <input cFormControl id="treatment_name" formControlName="treatment_name" type="text"[ngClass]="{ 'is-invalid': control['treatment_name'].invalid &&(control['treatment_name'].dirty ||control['treatment_name'].touched)}"/>
+                        <input cFormControl autocomplete="off" id="treatment_name" formControlName="treatment_name" type="text"[ngClass]="{ 'is-invalid': control['treatment_name'].invalid &&(control['treatment_name'].dirty ||control['treatment_name'].touched)}"/>
                         <div class="text-danger" *ngIf="control['treatment_name'].invalid &&(control['treatment_name'].dirty ||control['treatment_name'].touched)">
                             <small >Please provide a valid Treatment name.</small>
                         </div>
                     </c-col>
                     <c-col xs="12">
                         <label cLabel for="Description" >Description</label>
-                        <textarea cFormControl id="Description" formControlName="description" rows="3" [ngClass]="{'is-invalid':control['description'].errors?.['maxlength']}"></textarea>
+                        <textarea cFormControl autocomplete="off" id="Description" formControlName="description" rows="3" [ngClass]="{'is-invalid':control['description'].errors?.['maxlength']}"></textarea>
                         <span
                         *ngIf="
                           control['description'].invalid &&

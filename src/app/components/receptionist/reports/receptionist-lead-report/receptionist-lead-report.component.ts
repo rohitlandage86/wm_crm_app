@@ -13,7 +13,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class ReceptionistLeadReportComponent implements OnInit{
   page = 1;
-  perPage = 10;
+  perPage = 50;
   total = 0;
   icons = freeSet;
   allLeadsList: Array<any> = [];
@@ -24,7 +24,7 @@ export class ReceptionistLeadReportComponent implements OnInit{
   toDate='';
   category_id='';
   minDate = new Date();
-  constructor(private _receptionistService: ReceptionistService, private _toastrService: ToastrService, private _adminService:AdminService, private fb:FormBuilder) { }
+  constructor(private _receptionistService: ReceptionistService, private _adminService:AdminService, private fb:FormBuilder) { }
 
   ngOnInit() {
     // this.getAllLeadsList();
@@ -87,9 +87,6 @@ export class ReceptionistLeadReportComponent implements OnInit{
         }
       }
     });
-    
   }
-
-
 }
 

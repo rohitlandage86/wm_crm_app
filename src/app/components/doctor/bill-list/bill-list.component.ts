@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { freeSet } from '@coreui/icons';
 import { PageEvent } from '@angular/material/paginator';
-import { ToastrService } from 'ngx-toastr';
 import { ReceptionistService } from '../../receptionist/receptionist.service';
 
 
@@ -15,11 +14,11 @@ export class BillListComponent implements OnInit{
   firstCardContent: any;
   icons = freeSet;
   page = 1;
-  perPage = 10;
+  perPage = 50;
   total = 0;
   Bill_date: string;
   color: string | undefined;
-  constructor(private _receptionistService: ReceptionistService, private _toastrService: ToastrService) { this.Bill_date = ''; }
+  constructor(private _receptionistService: ReceptionistService) { this.Bill_date = ''; }
 
   ngOnInit() {
     this.setTodayDate();
@@ -37,7 +36,6 @@ export class BillListComponent implements OnInit{
     this._receptionistService.getBillDateList(this.page, this.perPage, this.Bill_date).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
-          console.log(res);
           this.allBillList = res.data;
           this.total = res.pagination.total;
         }

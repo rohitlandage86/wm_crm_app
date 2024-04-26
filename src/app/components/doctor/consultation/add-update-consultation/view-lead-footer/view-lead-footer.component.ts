@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { AdminService } from 'src/app/components/admin/admin.service';
+import { PageEvent } from '@angular/material/paginator';
 import { EntityComponent } from 'src/app/components/admin/masters/entity/entity.component';
 import { ReceptionistService } from 'src/app/components/receptionist/receptionist.service';
 
@@ -14,6 +14,7 @@ export class ViewLeadFooterComponent implements OnInit{
   form!: FormGroup;
   allLeadList: Array<any> = [];
   searchQuery: string = '';
+  leadHid:any;
   page = 1;
   perPage = 10;
   total = 0;
@@ -24,14 +25,14 @@ export class ViewLeadFooterComponent implements OnInit{
   constructor(
     private fb: FormBuilder,
     private _receptionistService: ReceptionistService, 
-    private dialogRef:MatDialogRef<EntityComponent>,private _adminService: AdminService,
+    private dialogRef:MatDialogRef<EntityComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,) { }
 
 
   ngOnInit() {
     this.createForm();
     if (this.data) {
-      console.log('data',this.data);
+      const leadHid = this.data;
       this.getLeadById(this.data)
       this.isEdit =true
     }
@@ -53,7 +54,6 @@ export class ViewLeadFooterComponent implements OnInit{
   }
   get leadstatusDetailsArray() {
     return this.form.get('leadFooterDetails') as FormArray<any>;
-
   }
   newLeadFooter(): FormGroup {
     return this.fb.group({
@@ -68,7 +68,6 @@ export class ViewLeadFooterComponent implements OnInit{
   }
   getLeadById(id: any) {
     this._receptionistService.getLeadById(id).subscribe((result: any) => {
-      console.log('Received lead data:', result); 
       let leadFooterDetails = result.data.leadFooterDetails;
       this.allLeadFooterList = leadFooterDetails;
       if (Array.isArray(result.data)) {
@@ -80,5 +79,10 @@ export class ViewLeadFooterComponent implements OnInit{
   }
   closeDialog(message?: any) {
     this.dialogRef.close(message);
+  }
+  onPageChange(event: PageEvent): void {
+    this.page = event.pageIndex + 1;
+    this.perPage = event.pageSize;
+    this.getLeadById(this.leadHid);
   }
 }

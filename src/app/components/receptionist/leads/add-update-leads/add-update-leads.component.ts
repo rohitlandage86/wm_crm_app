@@ -1,11 +1,11 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { LeadsComponent } from '../leads.component';
 import { ReceptionistService } from '../../receptionist.service';
 import { AdminService } from 'src/app/components/admin/admin.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-update-leads',
@@ -34,7 +34,6 @@ export class AddUpdateLeadsComponent implements OnInit {
     this.lead_hid = this.url.snapshot.params['id']
     if (this.lead_hid) {
       this.getLeadById(this.lead_hid)
-      // this.prepopulateData(this.lead_hid)
       this.leadStatusDetailAdded = true;
       this.isEdit = true;
 
@@ -45,7 +44,6 @@ export class AddUpdateLeadsComponent implements OnInit {
     const year = today.getFullYear();
     const month = ('0' + (today.getMonth() + 1)).slice(-2); // Month is zero-based
     const day = ('0' + today.getDate()).slice(-2);
-
     return `${year}-${month}-${day}`;
   }
   createForm() {
@@ -54,7 +52,7 @@ export class AddUpdateLeadsComponent implements OnInit {
       lead_date: ['', Validators.required],
       city: ['', [Validators.required]],
       mobile_number: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
-      note: [null, Validators.required],
+      note: [null],
       category_id: [null, Validators.required],
       leadFooterDetails: this.fb.array([this.newLeadFooter()])
     });
@@ -81,16 +79,32 @@ export class AddUpdateLeadsComponent implements OnInit {
   addLeadFooter() {
     this.leadstatusDetailsArray.push(this.newLeadFooter());
     this.leadStatusDetailAdded = true;
-    // if (this.isEdit) {
-    //   this.leadstatusDetailsArray.push(this.newLeadFooter());
-    //   this.leadStatusDetailAdded = true;
-    // }
   }
   deleteLeadFooter(i: any) {
     this.leadstatusDetailsArray.removeAt(i)
   }
-  submit() { this.isEdit ? this.updateLead() : this.addLead(); }
-
+  submit() { 
+    Swal.fire({
+      title: 'Are you sure ?',
+      text: 'Do you want to submit the form ?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, submit!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (this.form.valid) {
+          console.log(this.form.value);
+          this.isEdit ? this.updateLead() : this.addLead(); // Execute appropriate action based on isEdit flag
+        } else {
+          this.form.markAllAsTouched();
+          this._toastrService.warning("Fill required fields");
+        }
+      }
+    });
+  }
+  
   updateLead() {
     if (this.form.valid) {
       console.log(this.form.value);
@@ -116,7 +130,7 @@ export class AddUpdateLeadsComponent implements OnInit {
       this._toastrService.warning("Fill required fields");
     }
   }
-
+  
   addLead(){
     if (this.form.valid){
       this._receptionistService.addLead(this.form.value).subscribe({
@@ -141,6 +155,7 @@ export class AddUpdateLeadsComponent implements OnInit {
       this._toastrService.warning("Fill required fields");
     }
   }
+  
 
   getLeadById(id: any) {
     this._receptionistService.getLeadById(id).subscribe((result: any) => {
@@ -154,7 +169,6 @@ export class AddUpdateLeadsComponent implements OnInit {
         this.leadstatusDetailsArray.clear();
         for (let index = 0; index < leadFooterDetails.length; index++) {
           const element = leadFooterDetails[index];
-
           this.leadstatusDetailsArray.push(this.newLeadFooter())
           this.leadstatusDetailsArray.at(index).get('lead_fid')?.patchValue(element.lead_fid)
           this.leadstatusDetailsArray.at(index).get('comments')?.patchValue(element.comments);
@@ -167,10 +181,8 @@ export class AddUpdateLeadsComponent implements OnInit {
           );
         }
       }
-
     })
   }
-
 
   //get category list...
   getAllCategoryList() {

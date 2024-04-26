@@ -53,7 +53,17 @@
                     </tbody>
                   </table>
                 </div>
-                
+                <div class="col-md-12">
+                  <mat-paginator
+                    [length]="total"
+                    [pageSize]="perPage"
+                    [pageSizeOptions]="[5, 10, 25, 100]"
+                    aria-label="Select page"
+                    [showFirstLastButtons]="true"
+                    (page)="onPageChange($event)"
+                  >
+                  </mat-paginator>
+                </div>
                 <hr />
               
                 <c-col xs="12">

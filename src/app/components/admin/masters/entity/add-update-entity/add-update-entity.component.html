@@ -8,21 +8,21 @@
                 <form cForm class="row g-3"  [formGroup]="form"> 
                     <c-col md="8">
                         <label cLabel for="entity_name">Entity Name</label>
-                        <input cFormControl id="entity_name" formControlName="entity_name" type="text"[ngClass]="{ 'is-invalid': control['entity_name'].invalid &&(control['entity_name'].dirty ||control['entity_name'].touched)}"/>
+                        <input cFormControl id="entity_name"  autocomplete="off"formControlName="entity_name" type="text"[ngClass]="{ 'is-invalid': control['entity_name'].invalid &&(control['entity_name'].dirty ||control['entity_name'].touched)}"/>
                         <div class="text-danger" *ngIf="control['entity_name'].invalid &&(control['entity_name'].dirty ||control['entity_name'].touched)">
                             <small >Please provide a valid Entity name.</small>
                         </div>
                     </c-col>
                     <c-col md="8">
                         <label for="abbrivation" cLabel>Abbrivation</label>
-                        <input type="text" cFormControl id="abbrivation" formControlName="abbrivation" [ngClass]="{ 'is-invalid' :control['abbrivation'].invalid&&(control['abbrivation'].dirty || control['abbrivation'].touched)}">
+                        <input type="text" cFormControl autocomplete="off" id="abbrivation" formControlName="abbrivation" [ngClass]="{ 'is-invalid' :control['abbrivation'].invalid&&(control['abbrivation'].dirty || control['abbrivation'].touched)}">
                         <div class="text-danger" *ngIf="control['abbrivation'].invalid && (control['abbrivation'].dirty || control['abbrivation'].touched)">
                             <small>Please provide a valid Abbrivation.</small>
                         </div>
                     </c-col>
                     <c-col xs="12">
                         <label cLabel for="Description" >Description</label>
-                        <textarea cFormControl id="Description" formControlName="description" rows="3" [ngClass]="{'is-invalid':control['description'].errors?.['maxlength']}"></textarea>
+                        <textarea cFormControl autocomplete="off" id="Description" formControlName="description" rows="3" [ngClass]="{'is-invalid':control['description'].errors?.['maxlength']}"></textarea>
                         <span
                         *ngIf="
                           control['description'].invalid &&

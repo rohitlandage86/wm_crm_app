@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 import { PageEvent } from '@angular/material/paginator';
 import { freeSet } from '@coreui/icons';
 import { AdminService } from 'src/app/components/admin/admin.service';
@@ -13,7 +12,7 @@ import { ReceptionistService } from 'src/app/components/receptionist/receptionis
 })
 export class DoctorLeadReportComponent implements OnInit{
   page = 1;
-  perPage = 10;
+  perPage = 50;
   total = 0;
   icons = freeSet;
   allLeadsList: Array<any> = [];
@@ -24,10 +23,9 @@ export class DoctorLeadReportComponent implements OnInit{
   toDate='';
   category_id='';
   minDate = new Date();
-  constructor(private _receptionistService: ReceptionistService, private _toastrService: ToastrService, private _adminService:AdminService, private fb:FormBuilder) { }
+  constructor(private _receptionistService: ReceptionistService, private _adminService:AdminService, private fb:FormBuilder) { }
 
   ngOnInit() {
-    // this.getAllLeadsList();
     this.getAllCategoryList();
     this.createForm()
   }
@@ -87,8 +85,5 @@ export class DoctorLeadReportComponent implements OnInit{
         }
       }
     });
-    
   }
-
-
 }

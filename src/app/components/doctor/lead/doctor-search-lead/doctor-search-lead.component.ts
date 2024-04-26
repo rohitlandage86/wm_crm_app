@@ -4,7 +4,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminService } from 'src/app/components/admin/admin.service';
 import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ReceptionistService } from 'src/app/components/receptionist/receptionist.service';
 
 @Component({
@@ -24,13 +24,13 @@ export class DoctorSearchLeadComponent implements OnInit{
   isInputVisible: boolean = false;
   isValidMobileNo: boolean = false;
   page = 1;
-  perPage = 10;
+  perPage = 50;
   total = 0;
   searchQuery: string = '';
   constructor (
     private fb:FormBuilder,
     private _receptionistService: ReceptionistService,private _adminService: AdminService,
-   private _superAdminService: SuperAdminService,private router: Router, private url: ActivatedRoute){}
+   private _superAdminService: SuperAdminService, private url: ActivatedRoute){}
 
   ngOnInit(){
     this.createForm();

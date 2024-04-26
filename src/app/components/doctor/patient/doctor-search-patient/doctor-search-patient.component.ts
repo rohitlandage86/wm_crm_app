@@ -29,7 +29,7 @@ export class DoctorSearchPatientComponent implements OnInit {
   isInputVisible: boolean = false;
   isValidMobileNo: boolean = false;
   page = 1;
-  perPage = 10;
+  perPage = 50;
   total = 0;
   icons = freeSet;
   constructor(
@@ -57,7 +57,6 @@ export class DoctorSearchPatientComponent implements OnInit {
       // Fetch MR No Entity Series based on the selected entity_id
       const selectedEntity = this.allEntityList.find(entity => entity.id === entityId);
       if (selectedEntity) {
-        // Patch the MR No Entity Series field
         this.form.patchValue({
           mrno_entity_series: selectedEntity.mrno_entity_series
         });
@@ -100,9 +99,6 @@ export class DoctorSearchPatientComponent implements OnInit {
           this.mrnoEntitySeries = res.mrnoEntitySeries;
           this.control['mrno_entity_series'].patchValue(res.mrnoEntitySeries)
         },
-        error: (err: any) => {
-          console.error("Error fetching MR No Entity Series:", err);
-        }
       });
     }
   }
@@ -139,7 +135,6 @@ export class DoctorSearchPatientComponent implements OnInit {
       this._receptionistService.editPatient(this.form.value, this.mrno).subscribe({
         next: (res: any) => {
           if (res.status == 200) {
-
             this._toastrService.success(res.message);
             this.router.navigate(['/receptionist', { outlets: { receptionist_Menu: 'patient' } }])
           } else {

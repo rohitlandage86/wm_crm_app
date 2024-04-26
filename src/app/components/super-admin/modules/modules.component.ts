@@ -14,7 +14,7 @@ export class ModulesComponent implements OnInit {
   allModuleList: Array<any> = [];
   icons = freeSet;
   page = 1;
-  perPage = 10;
+  perPage = 50;
   total=0
 
   constructor(private dialog: MatDialog, private _superAdminService: SuperAdminService) { }

@@ -8,7 +8,7 @@
                 <form cForm class="row g-3"  [formGroup]="form"> 
                     <c-col md="12">
                         <label cLabel for="refered_by_name">Refered By Name</label>
-                        <input cFormControl id="refered_by_name" formControlName="refered_by_name" type="text"[ngClass]="{ 'is-invalid': control['refered_by_name'].invalid &&(control['refered_by_name'].dirty ||control['refered_by_name'].touched)}"/>
+                        <input cFormControl autocomplete="off" id="refered_by_name" formControlName="refered_by_name" type="text"[ngClass]="{ 'is-invalid': control['refered_by_name'].invalid &&(control['refered_by_name'].dirty ||control['refered_by_name'].touched)}"/>
                         <div class="text-danger" *ngIf="control['refered_by_name'].invalid &&(control['refered_by_name'].dirty ||control['refered_by_name'].touched)">
                             <small >Please provide a valid refered by name.</small>
                         </div>

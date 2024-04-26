@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { freeSet } from '@coreui/icons';
 import { ReceptionistService } from '../../receptionist.service';
-import { ToastrService } from 'ngx-toastr';
-import { AdminService } from 'src/app/components/admin/admin.service';
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({
@@ -13,7 +11,7 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class ReceptionistPatientVisitReportComponent  implements OnInit{
   page = 1;
-  perPage = 10;
+  perPage = 50;
   total = 0;
   icons = freeSet;
   allPatientVisitList: Array<any> = [];
@@ -24,7 +22,7 @@ export class ReceptionistPatientVisitReportComponent  implements OnInit{
   toDate='';
   visit_type='';
   minDate = new Date();
-  constructor(private _receptionistService: ReceptionistService, private _toastrService: ToastrService, private _adminService:AdminService, private fb:FormBuilder) { }
+  constructor(private _receptionistService: ReceptionistService, private fb:FormBuilder) { }
 
   ngOnInit() {
     // this.getAllPatientVisitList();
@@ -74,7 +72,6 @@ export class ReceptionistPatientVisitReportComponent  implements OnInit{
         }
       }
     });
-    
   }
 
   //table column visit type name show changes 

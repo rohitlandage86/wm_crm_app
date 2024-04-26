@@ -32,11 +32,8 @@ export class ViewSearchPatientComponent implements OnInit{
     this.getAllReferedByList();
     this.disableFormFields();
     this.mrno = this.url.snapshot.params['id']
-    console.log(this.mrno);
-    
     if (this.mrno) {
       this.getPatientById(this.mrno);
-    
     }
     // by defult cash pATCH dropdown
     this.form.patchValue({
@@ -65,8 +62,6 @@ export class ViewSearchPatientComponent implements OnInit{
       employee_id: [null],
       refered_by_id: [null],
       payment_type: [],
-
-
     });
   }
    //form controls
@@ -85,7 +80,6 @@ export class ViewSearchPatientComponent implements OnInit{
       //patient by id patch data
   getPatientById(id: any) {
     this._receptionistService.getPatientById(id).subscribe((result: any) => {
-      console.log(result);
       const patientData = result.data;
       this.form.patchValue({
         registration_date: new Date(patientData.registration_date).toISOString().split('T')[0],
@@ -114,7 +108,6 @@ export class ViewSearchPatientComponent implements OnInit{
   getAllEntityList() {
     this._adminService.getAllEntitiesListWma().subscribe({
       next: (res: any) => {
-        console.log(res);
         if (res.data.length > 0) {
           this.allEntityList = res.data;
         }
@@ -126,33 +119,26 @@ export class ViewSearchPatientComponent implements OnInit{
   getAllSourceOfPatientList() {
     this._adminService.getAllSourceOfPatientListWma().subscribe({
       next: (res: any) => {
-        console.log(res);
         if (res.data.length > 0) {
           this.allSourceOfPatientList = res.data;
         }
       }
     });
-
   }
   //get Employee list...
   getAllEmployeeList() {
     this._adminService.getAllEmployeeListWma().subscribe({
       next: (res: any) => {
-        console.log(res);
         if (res.data.length > 0) {
           this.allEmployeeList = res.data;
-          console.log(res.data);
-
         }
       }
     });
   }
-
   //get ReferedBy list...
   getAllReferedByList() {
     this._adminService.getAllReferedByListWma().subscribe({
       next: (res: any) => {
-        console.log(res);
         if (res.data.length > 0) {
           this.allReferedByList = res.data;
         }
@@ -164,7 +150,6 @@ export class ViewSearchPatientComponent implements OnInit{
   getAllStateList() {
     this._superAdminService.allstateList().subscribe({
       next: (res: any) => {
-        console.log(res);
         if (res.data.length > 0) {
           this.allStateList = res.data;
         }

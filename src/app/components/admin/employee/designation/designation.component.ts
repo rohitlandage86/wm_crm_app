@@ -15,7 +15,7 @@ export class DesignationComponent implements OnInit{
   allDesignationList: Array<any> = [];
   icons = freeSet;
   page = 1;
-  perPage = 10;
+  perPage = 50;
   total = 0
 color: string|undefined;
   constructor(private dialog: MatDialog, private _adminService: AdminService,private _toastrService: ToastrService) { }

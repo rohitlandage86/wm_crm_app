@@ -8,7 +8,7 @@
                 <form cForm class="row g-3" [formGroup]="form">
                     <c-col md="8">
                         <label cLabel for="medicines_name">Medicines Name</label>
-                        <input cFormControl id="medicines_name" formControlName="medicines_name" type="text"
+                        <input cFormControl id="medicines_name" autocomplete="off" formControlName="medicines_name" type="text"
                             [ngClass]="{ 'is-invalid': control['medicines_name'].invalid &&(control['medicines_name'].dirty ||control['medicines_name'].touched)}" />
                         <div class="text-danger"
                             *ngIf="control['medicines_name'].invalid &&(control['medicines_name'].dirty ||control['medicines_name'].touched)">
@@ -16,6 +16,7 @@
                         </div>
                     </c-col>
                     <c-col md="6">
+                        <label cLabel for="dosage_name">Dosages Name</label>
                         <mat-select #singleSelect formControlName="dosage_id" class="form-control theme-input">
                             <mat-option>
                                 <ngx-mat-select-search [(ngModel)]="searchDosagesValue"
@@ -32,6 +33,7 @@
                         </button> -->
                     </c-col>
                     <c-col md="6">
+                        <label cLabel for="instruction">Instruction</label>
                         <mat-select #singleSelect formControlName="instructions_id" class="form-control theme-input">
                             <mat-option>
                                 <ngx-mat-select-search [(ngModel)]="searchInstructionsValue"
@@ -46,7 +48,7 @@
                     </c-col>
                     <c-col xs="12">
                         <label cLabel for="content">Content</label>
-                        <textarea cFormControl id="content" formControlName="content" rows="3"
+                        <textarea cFormControl id="content" autocomplete="off" formControlName="content" rows="3"
                             [ngClass]="{'is-invalid':control['content'].errors?.['maxlength']}"></textarea>
                         <span *ngIf="
                           control['content'].invalid &&

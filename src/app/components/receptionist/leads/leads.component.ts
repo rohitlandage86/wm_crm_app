@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { freeSet } from '@coreui/icons';
 import { PageEvent } from '@angular/material/paginator';
-import { ToastrService } from 'ngx-toastr';
 import { ReceptionistService } from './../receptionist.service';
 
 @Component({
@@ -14,11 +13,11 @@ export class LeadsComponent implements OnInit {
   firstCardContent: any;
   icons = freeSet;
   page = 1;
-  perPage = 10;
+  perPage = 50;
   total = 0;
   lead_date: string;
   color: string | undefined;
-  constructor(private _receptionistService: ReceptionistService, private _toastrService: ToastrService) { this.lead_date = ''; }
+  constructor(private _receptionistService: ReceptionistService) { this.lead_date = ''; }
 
   ngOnInit() {
     this.setTodayDate();
@@ -48,7 +47,4 @@ export class LeadsComponent implements OnInit {
     this.perPage = event.pageSize;
     this.getAllLeadDateList();
   }
-
-
-
 }

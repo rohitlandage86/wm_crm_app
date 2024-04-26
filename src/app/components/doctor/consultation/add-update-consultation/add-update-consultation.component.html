@@ -1,6 +1,6 @@
 <c-row class="m-0">
   <c-col xs="12 " class="p-0">
-    <c-card class="">
+    <c-card class="mb-3">
       <c-card-header>
         <strong>Add Consultation</strong>
       </c-card-header>
@@ -235,9 +235,10 @@
                 id="past_history"
                 type="text"
                 formControlName="past_history"
+                autocomplete="off"
               />
             </c-col>
-            <c-col md="3" class="p-2">
+            <!-- <c-col md="3" class="p-2">
               <label for="chief_complaints_id" cLabel>
                 Chief Complaints<span
                   style="color: red"
@@ -250,6 +251,7 @@
                   #singleSelect
                   formControlName="chief_complaints_id"
                   class="form-control theme-input"
+                  style="width: 500px;"
                 >
                   <mat-option>
                     <ngx-mat-select-search
@@ -277,18 +279,7 @@
                   +
                 </button>
               </div>
-  
-              <div
-                class="text-danger"
-                *ngIf="
-                  control['chief_complaints_id'].invalid &&
-                  (control['chief_complaints_id'].dirty ||
-                    control['chief_complaints_id'].touched)
-                "
-              >
-                <small>Please provide a valid Chief Complaints.</small>
-              </div>
-            </c-col>
+            </c-col> -->
             <c-col md="3" class="lead-info p-4">
               <button cButton class="me-1" color="primary"[disabled]="disableButton" (click)="openDialogLeadInfo(leadHid)" >
                 Lead Info
@@ -297,6 +288,87 @@
          
           <hr class="mb-0" />
           <mat-tab-group class="mt-0">
+            <mat-tab label="Chief Complaints">
+              <div class="col-md-12">
+                <table class="table">
+                  <thead class="table-light">
+                    <tr>
+                      <th scope="col">Sr No</th>
+                      <th scope="col">Chief Complaints</th>
+                      <th scope="col" class="text-center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody formArrayName="consultationChiefComplaintsDetails">
+                    <tr
+                      *ngFor="
+                        let item of consultationChiefComplaintsDetailsArray.controls;
+                        let i = index
+                      "
+                      [formGroupName]="i"
+                    >
+                      <th>{{ i + 1 }}</th>
+
+                      <td>
+                        <div class="chief_complaints">
+                          <mat-select
+                            #singleSelect
+                            formControlName="chief_complaints_id"
+                            class="form-control theme-input"
+                            style="width: 500px;"
+                          >
+                            <mat-option>
+                              <ngx-mat-select-search
+                                [(ngModel)]="searchChiefComplaintsValue"
+                                [ngModelOptions]="{ standalone: true }"
+                                (input)="filterChiefComplaints(i)"
+                                placeholderLabel="Search chief complaint"
+                                noEntriesFoundLabel="No result available"
+                              ></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option
+                              *ngFor="let item of filteredChiefComplaintsArray[i]"
+                              [value]="item.chief_complaint_id"
+                            >
+                              {{ item?.chief_complaint }}
+                            </mat-option>
+                          </mat-select>
+                          <button
+                            cButton
+                            class="ms-1 mb-1"
+                            color="primary"
+                            sizing="sm"
+                            (click)="openDialog()"
+                          >
+                            +
+                          </button>
+                        </div>
+                      </td>
+                      <td class="d-flex pb-3 justify-content-center">
+                        <i
+                          class="material-icons"
+                          (click)="addConsultationChiefComplaints()"
+                          type="button"
+                          >add</i
+                        ><i
+                          class="material-icons ms-2"
+                          (click)="deleteConsultationChiefComplaints(i)"
+                          type="button"
+                          [class.disabled]="
+                          consultationChiefComplaintsDetailsArray.length === 1
+                          "
+                          [attr.aria-disabled]="
+                          consultationChiefComplaintsDetailsArray.length === 1
+                              ? 'true'
+                              : 'false'
+                          "
+                          >remove</i
+                        >
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </mat-tab>
             <mat-tab label="Diagnosis Details">
               <div class="col-md-12">
                 <table class="table">
@@ -478,12 +550,13 @@
                         </div>
                       </td>
                       <td>
-                        <input
-                          type="text"
-                          class="form-control"
-                          formControlName="notes"
-                        />
-                      </td>
+                        <textarea
+                            class="form-control"
+                            formControlName="notes"
+                            style="height: 45px; width: 600px;"
+                        ></textarea>
+                    </td>
+                    
 
                       <td class="d-flex pb-3 justify-content-center">
                         <i
@@ -535,6 +608,7 @@
                       <th>{{ i + 1 }}</th>
 
                       <td>
+                        <div class="chief_complaints">
                         <mat-select
                           #singleSelect
                           formControlName="medicines_id"
@@ -558,6 +632,16 @@
                             {{ item?.medicines_name }}
                           </mat-option>
                         </mat-select>
+                        <button
+                        cButton
+                        class="ms-1 mb-1"
+                        color="primary"
+                        sizing="sm"
+                        (click)="openDialogMedicines()"
+                      >
+                        +
+                      </button>
+                    </div>
                       </td>
                       <td>
                         <mat-select
@@ -739,20 +823,44 @@
                     >
                       <div class="accordion-body">
                         <div class="mb-4 d-flex justify-content-around">
-                          <div><strong>Pulse: </strong>{{ item.pluse }}</div>
-                          <div><strong>BP:</strong> {{ item.bp }}</div>
                           <div>
                             <strong>Past History: </strong
                             >{{ item.past_history }}
-                          </div>
-                          <div>
-                            <strong>Chief Complaints:</strong>
-                            {{ item.chief_complaint }}
                           </div>
                         </div>
                         <hr class="mb-0" />
 
                         <mat-tab-group class="mt-0">
+                          <mat-tab label="Chief Complaints">
+                            <div class="col-md-12">
+                              <table class="table">
+                                <thead class="table-light">
+                                  <tr>
+                                    <th scope="col">Sr No</th>
+                                    <th scope="col">Chief Complaints</th>
+                                  </tr>
+                                </thead>
+                                <tbody
+                                >
+                                  <ng-container
+                                  >
+                                    <!-- Consultation Complaints Details -->
+                                    <ng-container
+                                      *ngFor="
+                                        let complaints of item.consultationChiefComplaintsDetails
+                                        let i = index
+                                      "
+                                    >
+                                      <tr>
+                                        <td>{{ i + 1 }}</td>
+                                        <td >{{ complaints.chief_complaint }}</td>
+                                      </tr>
+                                    </ng-container>
+                                  </ng-container>
+                                </tbody>
+                              </table>
+                            </div>
+                          </mat-tab>
                           <mat-tab label="Diagnosis Details">
                             <div class="col-md-12">
                               <table class="table">
@@ -770,7 +878,8 @@
                                     <!-- Consultation Diagnosis Details -->
                                     <ng-container
                                       *ngFor="
-                                        let diagnosis of item.consultationDiagnosisDetails
+                                        let diagnosis of item.consultationDiagnosisDetails 
+                                        let i = index
                                       "
                                     >
                                       <tr>
@@ -802,6 +911,7 @@
                                     <ng-container
                                       *ngFor="
                                         let treatment of item.consultationTreatmentDetails
+                                        let i = index
                                       "
                                     >
                                       <tr>
@@ -835,6 +945,7 @@
                                     <ng-container
                                       *ngFor="
                                         let medicine of item.consultationMedicineDetails
+                                        let i = index
                                       "
                                     >
                                       <tr>
@@ -871,6 +982,7 @@
                                     <ng-container
                                       *ngFor="
                                         let file of item.consultationFileUploadDetails
+                                        let i = index
                                       "
                                     >
                                       <tr>

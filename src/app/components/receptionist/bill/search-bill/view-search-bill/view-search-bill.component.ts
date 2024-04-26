@@ -24,7 +24,7 @@ export class ViewSearchBillComponent implements OnInit{
   isValidMobileNo: boolean = false;
   defaultStateId: any;
   page = 1;
-  perPage = 10;
+  perPage = 50;
   total = 0;
 
   constructor(
@@ -34,7 +34,6 @@ export class ViewSearchBillComponent implements OnInit{
 
 
   ngOnInit() {
-  
     this.createForm();
     this.getAllStateList();
     this.getAllEntityList();
@@ -46,13 +45,9 @@ export class ViewSearchBillComponent implements OnInit{
       payment_type: 'Cash'
     });
     this.bill_id = this.url.snapshot.params['id']
-    console.log(this.bill_id);
-    
     if (this.bill_id) {
       this.getBillById(this.bill_id);
-    
     }
-
   }
 
   createForm() {
@@ -81,9 +76,7 @@ export class ViewSearchBillComponent implements OnInit{
       source_of_patient_id: [null],
       employee_id: [null],
       refered_by_id: [null],
-    
     });
-
   }
 
   get control() {
@@ -132,7 +125,6 @@ export class ViewSearchBillComponent implements OnInit{
         }
       }
     });
-
   }
   //get  State list...
   getAllStateList() {
@@ -164,5 +156,4 @@ export class ViewSearchBillComponent implements OnInit{
         }
       });
     }
-
 }

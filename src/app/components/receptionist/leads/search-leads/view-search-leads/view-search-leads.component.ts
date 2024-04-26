@@ -33,13 +33,10 @@ export class ViewSearchLeadsComponent implements OnInit {
       lead_date: new Date().toISOString().split('T')[0],
     });
     this.lead_hid = this.url.snapshot.params['id']
-
     if (this.lead_hid) {
       this.getLeadById(this.lead_hid)
-      // this.prepopulateData(this.lead_hid)
       this.leadStatusDetailAdded = true;
       this.isEdit = true;
-
     }
   }
   getCurrentDate(): string {
@@ -47,7 +44,6 @@ export class ViewSearchLeadsComponent implements OnInit {
     const year = today.getFullYear();
     const month = ('0' + (today.getMonth() + 1)).slice(-2); // Month is zero-based
     const day = ('0' + today.getDate()).slice(-2);
-
     return `${year}-${month}-${day}`;
   }
   createForm() {
@@ -66,7 +62,6 @@ export class ViewSearchLeadsComponent implements OnInit {
   }
   get leadstatusDetailsArray() {
     return this.form.get('leadFooterDetails') as FormArray<any>;
-
   }
 
   newLeadFooter(): FormGroup {
@@ -77,18 +72,15 @@ export class ViewSearchLeadsComponent implements OnInit {
       no_of_calls: [null],
       lead_status_id: [null],
       follow_up_date: [null],
-
     })
   }
   addLeadFooter() {
     this.leadstatusDetailsArray.push(this.newLeadFooter());
     this.leadStatusDetailAdded = true;
-
   }
   deleteLeadFooter(i: any) {
     this.leadstatusDetailsArray.removeAt(i)
   }
-
 
   // patientform all filed disable
   disableFormFields() {
@@ -132,10 +124,8 @@ export class ViewSearchLeadsComponent implements OnInit {
           }
         }
       }
-
     })
   }
-
 
   //get category list...
   getAllCategoryList() {
@@ -146,7 +136,6 @@ export class ViewSearchLeadsComponent implements OnInit {
         }
       }
     });
-
   }
   //get  Lead Status list...
   getAllLeadStatusList() {
@@ -158,5 +147,4 @@ export class ViewSearchLeadsComponent implements OnInit {
       }
     });
   }
-
 }

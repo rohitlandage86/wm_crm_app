@@ -337,6 +337,17 @@ export class AppComponent implements OnInit, AfterContentChecked {
       ]
     },
     {
+      name: 'Bill',
+      iconComponent: { name: 'cilList' },
+      children: [
+        {
+          name: 'Date Wise',
+          url: ['/doctor', { outlets: { doc_Menu: 'doctor-bill-reports' } }],
+
+        }
+      ]
+    },
+    {
       name: 'Appointments',
       url: ['/doctor', { outlets: { doc_Menu: 'appointments' } }],
       iconComponent: { name: 'cilList' },
@@ -450,6 +461,17 @@ export class AppComponent implements OnInit, AfterContentChecked {
         {
           name: 'Visits',
           url: ['/receptionist', { outlets: { receptionist_Menu: 'patient-visit-report' } }],
+
+        }
+      ]
+    },
+    {
+      name: 'Bill',
+      iconComponent: { name: 'cilList' },
+      children: [
+        {
+          name: 'Date Wise',
+          url: ['/receptionist', { outlets: { receptionist_Menu: 'datewise-bill-report' } }],
 
         }
       ]

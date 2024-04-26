@@ -15,7 +15,7 @@ export class ServiceTypeComponent implements OnInit {
   allServiceTypeList: Array<any> = [];
   icons = freeSet;
   page = 1;
-  perPage = 10;
+  perPage = 50;
   total = 0
   color: string | undefined;
 

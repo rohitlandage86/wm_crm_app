@@ -8,7 +8,7 @@
                 <form cForm class="row g-3"  [formGroup]="form"> 
                     <c-col md="12">
                         <label cLabel for="dosage_name">Dosages Name</label>
-                        <input cFormControl id="dosage_name" formControlName="dosage_name" type="text"[ngClass]="{ 'is-invalid': control['dosage_name'].invalid &&(control['dosage_name'].dirty ||control['dosage_name'].touched)}"/>
+                        <input cFormControl id="dosage_name" autocomplete="off" formControlName="dosage_name" type="text"[ngClass]="{ 'is-invalid': control['dosage_name'].invalid &&(control['dosage_name'].dirty ||control['dosage_name'].touched)}"/>
                         <div class="text-danger" *ngIf="control['dosage_name'].invalid &&(control['dosage_name'].dirty ||control['dosage_name'].touched)">
                             <small >Please provide a valid dosages name.</small>
                         </div>

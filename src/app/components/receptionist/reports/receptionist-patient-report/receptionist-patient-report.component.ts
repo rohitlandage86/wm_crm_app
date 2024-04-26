@@ -12,7 +12,7 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class ReceptionistPatientReportComponent implements OnInit{
   page = 1;
-  perPage = 10;
+  perPage = 50;
   total = 0;
   icons = freeSet;
   form!:FormGroup;

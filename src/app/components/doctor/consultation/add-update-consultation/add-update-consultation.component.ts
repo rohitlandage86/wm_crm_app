@@ -19,6 +19,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddUpdateDiagnosisComponent } from 'src/app/components/admin/masters/diagnosis/add-update-diagnosis/add-update-diagnosis.component';
 import { AddUpdateTreatmentComponent } from 'src/app/components/admin/masters/treatment/add-update-treatment/add-update-treatment.component';
 import { ViewLeadFooterComponent } from './view-lead-footer/view-lead-footer.component';
+import { AddUpdateMedicinesComponent } from 'src/app/components/admin/clinical-masters/medicines/add-update-medicines/add-update-medicines.component';
 
 @Component({
   selector: 'app-add-update-consultation',
@@ -156,10 +157,13 @@ export class AddUpdateConsultationComponent implements OnInit {
       pluse: [null],
       bp: [null],
       past_history: [''], 
-      chief_complaints_id: ['', Validators.required], // Add this line to define chief_complaints_id
+      // chief_complaints_id: ['', Validators.required],
       appointment_date: [''],
       appointment_time: [''],
       // imageBase64: [null],
+      consultationChiefComplaintsDetails: this.fb.array([
+        this.newConsultationChiefComplaints(),
+      ]),
       consultationDiagnosisDetails: this.fb.array([
         this.newConsultationDiagnosis(),
       ]),
@@ -190,26 +194,31 @@ export class AddUpdateConsultationComponent implements OnInit {
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allChiefComplaints = res.data;
-          this.filteredChiefComplaintsArray = this.allChiefComplaints;
+          // this.filteredChiefComplaintsArray = this.allChiefComplaints;
+          for (let index = 0; index < this.consultationChiefComplaintsDetailsArray.value.length; index++) {
+            this.filteredChiefComplaintsArray[index] = this.allChiefComplaints;
+          }
         }
       },
     });
   }
   //Filter chief complaints array
-  filterChiefComplaints() {
+  filterChiefComplaints(i:any) {
     if (this.searchChiefComplaintsValue != '') {
-      this.filteredChiefComplaintsArray = [];
-      const filteredArr = this.allChiefComplaints.filter((obj: any) =>
+      this.filteredChiefComplaintsArray[i]  = [];
+      const filteredArr = this.allChiefComplaints.filter((obj) =>
         obj.chief_complaint
           .toLowerCase()
           .includes(this.searchChiefComplaintsValue.toLowerCase())
       );
-      this.filteredChiefComplaintsArray = filteredArr;
+      this.filteredChiefComplaintsArray[i] = filteredArr;
+      let indexPlusOne = i + 1;
+      this.filteredChiefComplaintsArray[indexPlusOne] = this.allChiefComplaints;
     } else {
-      this.filteredChiefComplaintsArray = this.allChiefComplaints;
+      this.filteredChiefComplaintsArray[i] = this.allChiefComplaints;
     }
   }
-
+  
   // --------------------------------------------------------------------------
   //-------------------------------------------------------------------
   //get diagnosis list...
@@ -368,6 +377,30 @@ export class AddUpdateConsultationComponent implements OnInit {
       }
     });
   }
+  //  //Chief Complaints array controls
+   get consultationChiefComplaintsDetailsArray() {
+    return this.form.get('consultationChiefComplaintsDetails') as FormArray<any>;
+  }
+  newConsultationChiefComplaints(): FormGroup {
+    return this.fb.group({
+      chief_complaints_id: [null],
+      
+    });
+  }
+  addConsultationChiefComplaints() {
+    this.consultationChiefComplaintsDetailsArray.push(
+      this.newConsultationChiefComplaints()
+    );
+    for (let index = 0; index < this.consultationChiefComplaintsDetailsArray.value.length; index++) {
+      this.filteredChiefComplaintsArray[index] = this.allChiefComplaints;
+    }
+  }
+  deleteConsultationChiefComplaints(i: any) {
+    this.consultationChiefComplaintsDetailsArray.removeAt(i);
+    for (let index = 0; index < this.consultationChiefComplaintsDetailsArray.value.length; index++) {
+      this.filteredChiefComplaintsArray[index] = this.allChiefComplaints;
+    }
+  }
   //Diagnosis array controls
   get consultationDiagnosisDetailsArray() {
     return this.form.get('consultationDiagnosisDetails') as FormArray<any>;
@@ -519,12 +552,14 @@ export class AddUpdateConsultationComponent implements OnInit {
       this._doctorService.addConsultation(this.form.value).subscribe({
         next: (res: any) => {
           if (res.status == 201 || res.status == 200) {
+            this._toastrService.clear();
             this._toastrService.success(res.message);
             this.router.navigate([
               '/doctor',
               { outlets: { doc_Menu: 'patient' } },
             ]);
           } else {
+            this._toastrService.clear();
             this._toastrService.warning(res.message);
           }
         },
@@ -538,6 +573,7 @@ export class AddUpdateConsultationComponent implements OnInit {
       });
     } else {
       this.form.markAllAsTouched();
+      this._toastrService.clear();
       this._toastrService.warning('Fill required fields');
     }
   }
@@ -628,6 +664,21 @@ export class AddUpdateConsultationComponent implements OnInit {
       }
     });
   }
+    //open Medicines by...
+    openDialogMedicines(data?: any) {
+      const dialogRef = this.dialog.open(AddUpdateMedicinesComponent, {
+        data: data,
+        width: '50%',
+        panelClass: 'mat-mdc-dialog-container'
+      });
+      dialogRef.afterClosed().subscribe((message: any) => {
+        if (message == 'create' || message == 'update') {
+          this.getAllMedicinesList();
+        } else {
+          console.log('nothing happen');
+        }
+      });
+    }
   //get entity list...
   getAllEntityList() {
     this._adminService.getAllEntitiesListWma().subscribe({

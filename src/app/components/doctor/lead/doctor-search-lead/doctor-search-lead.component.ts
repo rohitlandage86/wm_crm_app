@@ -24,7 +24,7 @@ export class DoctorSearchLeadComponent implements OnInit{
   isInputVisible: boolean = false;
   isValidMobileNo: boolean = false;
   page = 1;
-  perPage = 10;
+  perPage = 50;
   total = 0;
   searchQuery: string = '';
   constructor (

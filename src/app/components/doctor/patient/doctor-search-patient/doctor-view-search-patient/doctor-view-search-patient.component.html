@@ -28,6 +28,7 @@
             <label cLabel for="mrno_entity_series">MR No Entity Series </label>
             <input
               cFormControl
+              autocomplete="off"
               id="mrno_entity_series"
               formControlName="mrno_entity_series"
               type="text"
@@ -46,6 +47,7 @@
             <label cLabel for="patient_name">Patient Name </label>
             <input
               cFormControl
+              autocomplete="off"
               id="patient_name"
               formControlName="patient_name"
               type="text"
@@ -55,6 +57,7 @@
             <label cLabel for="mobile_no">Mobile Number </label>
             <input
               cFormControl
+              autocomplete="off"
               id="mobile_no"
               formControlName="mobile_no"
               type="number"
@@ -77,12 +80,13 @@
           </c-col>
           <c-col md="2" class="p-2">
             <label cLabel for="age">Age </label>
-            <input cFormControl id="age" formControlName="age" type="number" />
+            <input cFormControl id="age" formControlName="age" type="number" autocomplete="off"/>
           </c-col>
           <c-col md="2" class="p-2">
             <label cLabel for="address">Address </label>
             <input
               cFormControl
+              autocomplete="off"
               id="address"
               formControlName="address"
               type="text"
@@ -92,6 +96,7 @@
             <label cLabel for="validationDefault01">City </label>
             <input
               cFormControl
+              autocomplete="off"
               id="validationDefault01"
               formControlName="city"
               type="text"
@@ -102,6 +107,7 @@
             <select
               aria-label="select state_id"
               cSelect
+              autocomplete="off"
               sizing="sm"
               formControlName="state_id"
               type="text"
@@ -116,6 +122,7 @@
             <label cLabel for="validationDefault01">Height (cm) </label>
             <input
               cFormControl
+              autocomplete="off"
               id="height"
               formControlName="height"
               type="number"
@@ -126,13 +133,14 @@
             <input
               cFormControl
               id="weight"
+              autocomplete="off"
               formControlName="weight"
               type="number"
             />
           </c-col>
           <c-col md="2" class="p-2">
             <label cLabel for="bmi">BMI (kg/m²) </label>
-            <input cFormControl id="bmi" formControlName="bmi" type="text" />
+            <input cFormControl id="bmi" formControlName="bmi" type="text" autocomplete="off" />
           </c-col>
           <c-col md="2" class="p-2">
             <label for="source_of_patient_id" cLabel> Source Of Patient </label>
@@ -218,6 +226,7 @@
             <label cLabel for="amount">Amount </label>
             <input
               cFormControl
+              autocomplete="off"
               id="amount"
               formControlName="amount"
               type="number"
@@ -225,21 +234,6 @@
           </c-col>
           <!-- </form> -->
           <hr />
-
-          <!-- <form cForm class="row g-3" > -->
-          <c-col md="3" class="p-2">
-            <label cLabel for="validationDefault01">Pulse </label>
-            <input
-              cFormControl
-              id="pluse"
-              type="number"
-              formControlName="pluse"
-            />
-          </c-col>
-          <c-col md="3" class="p-2">
-            <label cLabel for="validationDefault01">BP</label>
-            <input cFormControl id="bp" type="number" formControlName="bp" />
-          </c-col>
           <c-col md="3" class="p-2">
             <label cLabel for="validationDefault01"
               >Past History<span
@@ -250,12 +244,13 @@
             >
             <input
               cFormControl
+              autocomplete="off"
               id="past_history"
               type="text"
               formControlName="past_history"
             />
           </c-col>
-          <c-col md="3" class="p-2">
+          <!-- <c-col md="3" class="p-2">
             <label for="chief_complaints_id" cLabel>
               Chief Complaints<span
                 style="color: red"
@@ -298,9 +293,59 @@
             >
               <small>Please provide a valid Chief Complaints.</small>
             </div>
-          </c-col>
+          </c-col> -->
           <hr class="mb-0" />
           <mat-tab-group class="mt-0">
+            <mat-tab label="Chief Complaints">
+              <div class="col-md-12">
+                <table class="table">
+                  <thead class="table-light">
+                    <tr>
+                      <th scope="col">Sr No</th>
+                      <th scope="col">Chief Complaints</th>
+
+                    </tr>
+                  </thead>
+                  <tbody formArrayName="consultationChiefComplaintsDetails">
+                    <tr
+                      *ngFor="
+                        let item of consultationChiefComplaintsDetailsArray.controls;
+                        let i = index
+                      "
+                      [formGroupName]="i"
+                    >
+                      <th>{{ i + 1 }}</th>
+
+                      <td>
+                        <mat-select
+                          #singleSelect
+                          formControlName="chief_complaints_id"
+                          class="form-control theme-input"
+                          style="width: 500px;"
+                        >
+                          <mat-option>
+                            <ngx-mat-select-search
+                              [(ngModel)]="searchChiefComplaintsValue"
+                              [ngModelOptions]="{ standalone: true }"
+                              (input)="filterChiefComplaints()"
+                              placeholderLabel="Search chief complaints"
+                              noEntriesFoundLabel="No result available"
+                            ></ngx-mat-select-search>
+                          </mat-option>
+                          <mat-option
+                            *ngFor="let item of filteredChiefComplaintsArray"
+                            [value]="item.chief_complaint_id"
+                          >
+                            {{ item?.chief_complaint }}
+                          </mat-option>
+                        </mat-select>
+                      </td>
+                   
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </mat-tab>
             <mat-tab label="Diagnosis Details">
               <div class="col-md-12">
                 <table class="table">
@@ -309,7 +354,6 @@
                       <th scope="col">Sr No</th>
                       <th scope="col">Diagnosis</th>
                       <th scope="col">Notes</th>
-                      <th scope="col" class="text-center">Action</th>
                     </tr>
                   </thead>
                   <tbody formArrayName="consultationDiagnosisDetails">
@@ -348,31 +392,13 @@
                       <td>
                         <input
                           type="text"
+                          autocomplete="off"
                           class="form-control"
                           formControlName="notes"
                         />
                       </td>
 
-                      <td class="d-flex pb-3 justify-content-center">
-                        <i
-                          class="material-icons"
-                          (click)="addConsultationDiagnosis()"
-                          type="button"
-                          >add</i
-                        ><i
-                          class="material-icons ms-2"
-                          type="button"
-                          [class.disabled]="
-                            consultationDiagnosisDetailsArray.length === 1
-                          "
-                          [attr.aria-disabled]="
-                            consultationDiagnosisDetailsArray.length === 1
-                              ? 'true'
-                              : 'false'
-                          "
-                          >remove</i
-                        >
-                      </td>
+                   
                     </tr>
                   </tbody>
                 </table>
@@ -386,7 +412,6 @@
                       <th scope="col">Sr No</th>
                       <th scope="col">Treatment</th>
                       <th scope="col">Notes</th>
-                      <th scope="col" class="text-center">Action</th>
                     </tr>
                   </thead>
                   <tbody formArrayName="consultationTreatmentDetails">
@@ -426,30 +451,10 @@
                       <td>
                         <input
                           type="text"
+                          autocomplete="off"
                           class="form-control"
                           formControlName="notes"
                         />
-                      </td>
-
-                      <td class="d-flex pb-3 justify-content-center">
-                        <i
-                          class="material-icons"
-                          (click)="addConsultationTreatment()"
-                          type="button"
-                          >add</i
-                        ><i
-                          class="material-icons ms-2"
-                          type="button"
-                          [class.disabled]="
-                            consultationTreatmentDetailsArray.length === 1
-                          "
-                          [attr.aria-disabled]="
-                            consultationTreatmentDetailsArray.length === 1
-                              ? 'true'
-                              : 'false'
-                          "
-                          >remove</i
-                        >
                       </td>
                     </tr>
                   </tbody>
@@ -466,7 +471,6 @@
                       <th scope="col">Dosages</th>
                       <th scope="col">Days</th>
                       <th scope="col">Instructions</th>
-                      <th scope="col" class="text-center">Action</th>
                     </tr>
                   </thead>
                   <tbody formArrayName="consultationMedicineDetails">
@@ -555,26 +559,6 @@
                           </mat-option>
                         </mat-select>
                       </td>
-                      <td class="d-flex pb-3 justify-content-center">
-                        <i
-                          class="material-icons"
-                          (click)="addConsultationMedicine()"
-                          type="button"
-                          >add</i
-                        ><i
-                          class="material-icons ms-2"
-                          type="button"
-                          [class.disabled]="
-                            consultationMedicineDetailsArray.length === 1
-                          "
-                          [attr.aria-disabled]="
-                            consultationMedicineDetailsArray.length === 1
-                              ? 'true'
-                              : 'false'
-                          "
-                          >remove</i
-                        >
-                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -588,7 +572,6 @@
                       <th scope="col">Sr No</th>
                       <th scope="col">Image</th>
                       <th scope="col">Notes</th>
-                      <th scope="col" class="text-center">Action</th>
                     </tr>
                   </thead>
                   <tbody formArrayName="consultationFileUploadDetails">
@@ -615,29 +598,10 @@
                       <td>
                         <input
                           type="text"
+                          autocomplete="off"
                           class="form-control"
                           formControlName="notes"
                         />
-                      </td>
-                      <td class="d-flex pb-3 justify-content-center">
-                        <i
-                          class="material-icons"
-                          (click)="addConsultationFileUpload()"
-                          type="button"
-                          >add</i
-                        ><i
-                          class="material-icons ms-2"
-                          type="button"
-                          [class.disabled]="
-                            consultationFileUploadDetailsArray.length === 1
-                          "
-                          [attr.aria-disabled]="
-                            consultationFileUploadDetailsArray.length === 1
-                              ? 'true'
-                              : 'false'
-                          "
-                          >remove</i
-                        >
                       </td>
                     </tr>
                   </tbody>
@@ -681,20 +645,45 @@
                     >
                       <div class="accordion-body">
                         <div class="mb-4 d-flex justify-content-around">
-                          <div><strong>Pulse: </strong>{{ item.pluse }}</div>
-                          <div><strong>BP:</strong> {{ item.bp }}</div>
                           <div>
                             <strong>Past History: </strong
                             >{{ item.past_history }}
-                          </div>
-                          <div>
-                            <strong>Chief Complaints:</strong>
-                            {{ item.chief_complaint }}
                           </div>
                         </div>
                         <hr class="mb-0" />
 
                         <mat-tab-group class="mt-0">
+                          <mat-tab label="Chief Complaints">
+                            <div class="col-md-12">
+                              <table class="table">
+                                <thead class="table-light">
+                                  <tr>
+                                    <th scope="col">Sr No</th>
+                                    <th scope="col">Chief Complaints</th>
+                                
+                                  </tr>
+                                </thead>
+                                <tbody
+                                  formArrayName="consultationChiefComplaintsDetails"
+                                >
+                                  <ng-container>
+                                    <!-- Consultation Diagnosis Details -->
+                                    <ng-container
+                                      *ngFor="
+                                        let complaintsDetails of item.consultationChiefComplaintsDetails
+                                        let i = index
+                                      "
+                                    >
+                                      <tr>
+                                        <td>{{ i + 1 }}</td>
+                                        <td>{{ complaintsDetails.chief_complaint }}</td>
+                                      </tr>
+                                    </ng-container>
+                                  </ng-container>
+                                </tbody>
+                              </table>
+                            </div>
+                          </mat-tab>
                           <mat-tab label="Diagnosis Details">
                             <div class="col-md-12">
                               <table class="table">
@@ -713,6 +702,7 @@
                                     <ng-container
                                       *ngFor="
                                         let diagnosis of item.consultationDiagnosisDetails
+                                        let i = index
                                       "
                                     >
                                       <tr>
@@ -744,6 +734,7 @@
                                     <ng-container
                                       *ngFor="
                                         let treatment of item.consultationTreatmentDetails
+                                        let i = index
                                       "
                                     >
                                       <tr>
@@ -777,6 +768,7 @@
                                     <ng-container
                                       *ngFor="
                                         let medicine of item.consultationMedicineDetails
+                                        let i = index
                                       "
                                     >
                                     <tr>
@@ -810,6 +802,7 @@
                                     <ng-container
                                       *ngFor="
                                         let file of item.consultationFileUploadDetails
+                                        let i = index
                                       "
                                     >
                                       <tr>

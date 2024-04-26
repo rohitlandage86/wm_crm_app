@@ -14,7 +14,7 @@ export class BillListComponent implements OnInit{
   firstCardContent: any;
   icons = freeSet;
   page = 1;
-  perPage = 10;
+  perPage = 50;
   total = 0;
   Bill_date: string;
   color: string | undefined;

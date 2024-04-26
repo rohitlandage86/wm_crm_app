@@ -60,14 +60,14 @@ export class AddUpdateCustomersComponent implements OnInit {
       shortLogoName: [null],
       longLogoName: [null],
       password: [this.isEdit ? [''] : null, passwordValidators],
-      customerModelDetails: this.fb.array([this.newCustomerModel()])
+      customerModulesDetails: this.fb.array([this.newCustomerModel()])
     });
   }
   get control() {
     return this.form.controls;
   }
-  get customerModelDetailsArray() {
-    return this.form.get('customerModelDetails') as FormArray<any>;
+  get customerModulesDetailsArray() {
+    return this.form.get('customerModulesDetails') as FormArray<any>;
   }
 
   newCustomerModel(): FormGroup {
@@ -78,10 +78,10 @@ export class AddUpdateCustomersComponent implements OnInit {
     })
   }
   addCustomerModel() {
-    this.customerModelDetailsArray.push(this.newCustomerModel())
+    this.customerModulesDetailsArray.push(this.newCustomerModel())
   }
   deleteCustomerModel(i: any) {
-    this.customerModelDetailsArray.removeAt(i)
+    this.customerModulesDetailsArray.removeAt(i)
   }
   onImageChange(event: any) {
     const file = event.target.files[0];
@@ -201,11 +201,11 @@ export class AddUpdateCustomersComponent implements OnInit {
 
           let customerModulesDetails = result.data.customerModulesDetails;
           if (customerModulesDetails.length > 0) {
-            this.customerModelDetailsArray.clear();
+            this.customerModulesDetailsArray.clear();
             for (let index = 0; index < customerModulesDetails.length; index++) {
               const element = customerModulesDetails[index];
-              this.customerModelDetailsArray.push(this.newCustomerModel());
-              this.customerModelDetailsArray.at(index).get('module_id')?.patchValue(element.module_id);
+              this.customerModulesDetailsArray.push(this.newCustomerModel());
+              this.customerModulesDetailsArray.at(index).get('module_id')?.patchValue(element.module_id);
             }
           }
         } else {

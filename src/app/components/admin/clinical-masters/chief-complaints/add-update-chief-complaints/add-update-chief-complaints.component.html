@@ -8,7 +8,7 @@
                 <form cForm class="row g-3"  [formGroup]="form"> 
                     <c-col md="12">
                         <label cLabel for="chief_complaint">Chief Complaint</label>
-                        <input cFormControl id="chief_complaint" formControlName="chief_complaint" type="text"[ngClass]="{ 'is-invalid': control['chief_complaint'].invalid &&(control['chief_complaint'].dirty ||control['chief_complaint'].touched)}"/>
+                        <input cFormControl id="chief_complaint" formControlName="chief_complaint" autocomplete="off" type="text"[ngClass]="{ 'is-invalid': control['chief_complaint'].invalid &&(control['chief_complaint'].dirty ||control['chief_complaint'].touched)}"/>
                         <div class="text-danger" *ngIf="control['chief_complaint'].invalid &&(control['chief_complaint'].dirty ||control['chief_complaint'].touched)">
                             <small >Please provide a valid chief complaint.</small>
                         </div>

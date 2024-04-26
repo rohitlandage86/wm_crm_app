@@ -7,6 +7,7 @@ import {  ActivatedRoute, Router } from '@angular/router';
 import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddUpdateReferedByComponent } from 'src/app/components/admin/miscellaneous/refered-by/add-update-refered-by/add-update-refered-by.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-update-patient',
@@ -26,7 +27,7 @@ export class AddUpdatePatientComponent implements OnInit {
   isInputVisible: boolean = false;
   isValidMobileNo: boolean = false;
   page = 1;
-  perPage = 10;
+  perPage = 50;
   total = 0;
   isDoctor=false;
   constructor(
@@ -78,7 +79,7 @@ export class AddUpdatePatientComponent implements OnInit {
       mobile_no: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       gender: ['', [Validators.required]],
       age: [null, Validators.required],
-      address: [null, Validators.required],
+      address: [null],
       city: [null, Validators.required],
       state_id: [null, Validators.required],
       height: [null],
@@ -176,7 +177,19 @@ export class AddUpdatePatientComponent implements OnInit {
   }
 
 
-  submit() { this.isEdit ? this.updatePatient() : this.addPatient(); }
+  submit() {   Swal.fire({
+    title: 'Are you sure?',
+    text: 'Do you want to submit the form?',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, submit!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.isEdit ? this.updatePatient() : this.addPatient();
+    }
+  });}
 
   updatePatient() {
     if (this.form.valid) {

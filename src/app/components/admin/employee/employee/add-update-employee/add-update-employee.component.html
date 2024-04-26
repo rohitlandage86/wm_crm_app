@@ -8,7 +8,7 @@
                 <form cForm class="row g-3"  [formGroup]="form"> 
                     <c-col md="10">
                         <label cLabel for="name">Name</label>
-                        <input cFormControl id="name" formControlName="name" type="text"[ngClass]="{ 'is-invalid': control['name'].invalid &&(control['name'].dirty ||control['name'].touched)}"/>
+                        <input cFormControl autocomplete="off" id="name" formControlName="name" type="text"[ngClass]="{ 'is-invalid': control['name'].invalid &&(control['name'].dirty ||control['name'].touched)}"/>
                         <div class="text-danger" *ngIf="control['name'].invalid &&(control['name'].dirty ||control['name'].touched)">
                             <small >Please provide a valid Name.</small>
                         </div>
@@ -26,14 +26,14 @@
                     </c-col>
                     <c-col md="10" *ngIf="isDoctor">
                         <label cLabel for="charges">Charges</label>
-                        <input cFormControl id="charges" formControlName="charges" type="number"[ngClass]="{ 'is-invalid': control['charges'].invalid &&(control['charges'].dirty ||control['charges'].touched)}"/>
+                        <input cFormControl autocomplete="off" id="charges" formControlName="charges" type="number"[ngClass]="{ 'is-invalid': control['charges'].invalid &&(control['charges'].dirty ||control['charges'].touched)}"/>
                         <div class="text-danger" *ngIf="control['charges'].invalid &&(control['charges'].dirty ||control['charges'].touched)">
                             <small >Please provide a valid Charges.</small>
                         </div>
                     </c-col>
                     <c-col md="10">
                         <label cLabel for="email_id">Email Id</label>
-                        <input cFormControl id="email_id" formControlName="email_id" type="text"[ngClass]="{ 'is-invalid': control['email_id'].invalid &&(control['email_id'].dirty ||control['email_id'].touched)}"/>
+                        <input cFormControl autocomplete="off" id="email_id" formControlName="email_id" type="text"[ngClass]="{ 'is-invalid': control['email_id'].invalid &&(control['email_id'].dirty ||control['email_id'].touched)}"/>
                         <span
                         class="text-danger"
                         *ngIf="

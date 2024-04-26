@@ -25,7 +25,7 @@ export class AddUpdateBillComponent implements OnInit {
   isValidMobileNo: boolean = false;
   defaultStateId: any;
   page = 1;
-  perPage = 10;
+  perPage = 50;
   total = 0;
   isDoctor = false;
   constructor(

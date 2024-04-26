@@ -11,7 +11,7 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class ReceptionistAppointmentReportComponent  implements OnInit{
   page = 1;
-  perPage = 10;
+  perPage = 50;
   total = 0;
   icons = freeSet;
   allAppointmentList: Array<any> = [];

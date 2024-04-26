@@ -15,7 +15,7 @@ export class TitleComponent implements OnInit{
   allTitleList: Array<any> = [];
   icons = freeSet;
   page = 1;
-  perPage = 10;
+  perPage = 50;
   total = 0
   color: string | undefined;
 

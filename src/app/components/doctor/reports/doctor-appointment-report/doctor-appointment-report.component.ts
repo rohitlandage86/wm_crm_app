@@ -11,7 +11,7 @@ import { ReceptionistService } from 'src/app/components/receptionist/receptionis
 })
 export class DoctorAppointmentReportComponent  implements OnInit{
   page = 1;
-  perPage = 10;
+  perPage = 50;
   total = 0;
   icons = freeSet;
   allAppointmentList: Array<any> = [];

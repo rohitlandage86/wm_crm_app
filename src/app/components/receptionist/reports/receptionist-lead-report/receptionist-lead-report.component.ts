@@ -13,7 +13,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class ReceptionistLeadReportComponent implements OnInit{
   page = 1;
-  perPage = 10;
+  perPage = 50;
   total = 0;
   icons = freeSet;
   allLeadsList: Array<any> = [];

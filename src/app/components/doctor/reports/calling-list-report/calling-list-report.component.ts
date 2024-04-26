@@ -11,7 +11,7 @@ import { DoctorService } from '../../doctor.service';
 })
 export class CallingListReportComponent implements OnInit{
   page = 1;
-  perPage = 10;
+  perPage = 50;
   total = 0;
   icons = freeSet;
   allcallList: Array<any> = [];

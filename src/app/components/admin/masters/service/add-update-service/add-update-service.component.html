@@ -8,7 +8,7 @@
                 <form cForm class="row g-3"  [formGroup]="form"> 
                     <c-col md="8">
                         <label cLabel for="service_name">Service Name</label>
-                        <input cFormControl id="service_name" formControlName="service_name" type="text"[ngClass]="{ 'is-invalid': control['service_name'].invalid &&(control['service_name'].dirty ||control['service_name'].touched)}"/>
+                        <input cFormControl autocomplete="off" id="service_name" formControlName="service_name" type="text"[ngClass]="{ 'is-invalid': control['service_name'].invalid &&(control['service_name'].dirty ||control['service_name'].touched)}"/>
                         <div class="text-danger" *ngIf="control['service_name'].invalid &&(control['service_name'].dirty ||control['service_name'].touched)">
                             <small >Please provide a valid Service name.</small>
                         </div>
@@ -35,7 +35,7 @@
                     </c-col>
                     <c-col xs="12">
                         <label cLabel for="Description" >Description</label>
-                        <textarea cFormControl id="Description" formControlName="description" rows="3" [ngClass]="{'is-invalid':control['description'].errors?.['maxlength']}"></textarea>
+                        <textarea cFormControl autocomplete="off" id="Description" formControlName="description" rows="3" [ngClass]="{'is-invalid':control['description'].errors?.['maxlength']}"></textarea>
                         <span
                         *ngIf="
                           control['description'].invalid &&

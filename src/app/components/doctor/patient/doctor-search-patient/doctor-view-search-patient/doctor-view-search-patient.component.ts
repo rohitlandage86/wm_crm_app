@@ -102,10 +102,9 @@ export class DoctorViewSearchPatientComponent implements OnInit {
   createForm() {
     this.form = this.fb.group({
       mrno: [''],
-      pluse: [null],
-      bp: [null],
       past_history: [''],
-      chief_complaints_id: [''], // Add this line to define chief_complaints_id
+      // chief_complaints_id: [''], // Add this line to define chief_complaints_id
+      consultationChiefComplaintsDetails: this.fb.array([this.newConsultationChiefComplaints()]),
       consultationDiagnosisDetails: this.fb.array([this.newConsultationDiagnosis()]),
       consultationTreatmentDetails: this.fb.array([this.newConsultationTreatment()]),
       consultationMedicineDetails: this.fb.array([this.newConsultationMedicineDetails()]),
@@ -297,6 +296,21 @@ export class DoctorViewSearchPatientComponent implements OnInit {
       }
     });
   }
+
+   //Chief Complaints array controls
+   get consultationChiefComplaintsDetailsArray() {
+    return this.form.get('consultationChiefComplaintsDetails') as FormArray<any>;
+  }
+  newConsultationChiefComplaints(): FormGroup {
+    return this.fb.group({
+      chief_complaints_id: [null],
+
+    })
+  }
+  addConsultationChiefComplaints() {
+    this.consultationChiefComplaintsDetailsArray.push(this.newConsultationChiefComplaints());
+  }
+
   //Diagnosis array controls
   get consultationDiagnosisDetailsArray() {
     return this.form.get('consultationDiagnosisDetails') as FormArray<any>;
@@ -398,10 +412,24 @@ export class DoctorViewSearchPatientComponent implements OnInit {
       this.control['refered_by_id'].patchValue(patientData.refered_by_id);
       this.control['employee_id'].patchValue(patientData.employee_id);
       this.control['amount'].patchValue(patientData.amount);
-      this.control['pluse'].patchValue(patientData.pluse);
-      this.control['bp'].patchValue(patientData.bp);
       this.control['past_history'].patchValue(patientData.past_history);
-      this.control['chief_complaints_id'].patchValue(patientData.chief_complaints_id);
+      // this.control['chief_complaints_id'].patchValue(patientData.chief_complaints_id);
+      
+       // Patching Chief Complaints  details
+       let consultationChiefComplaintsDetails = result.data.consultationChiefComplaintsDetails;
+       if (consultationChiefComplaintsDetails.length > 0) {
+         this.consultationChiefComplaintsDetailsArray.clear();
+         for (let index = 0; index < consultationChiefComplaintsDetails.length; index++) {
+           const element = consultationChiefComplaintsDetails[index];
+           const chiefcomplaintsFormGroup = this.newConsultationChiefComplaints();
+           this.consultationChiefComplaintsDetailsArray.push(chiefcomplaintsFormGroup);
+           this.consultationChiefComplaintsDetailsArray.at(index).patchValue({
+            chief_complaints_id: element.chief_complaints_id,
+            
+           });
+         }
+       }
+       this.consultationChiefComplaintsDetailsArray.disable();
 
       // Patching diagnosis details
       let consultationDiagnosisDetails = result.data.consultationDiagnosisDetails;

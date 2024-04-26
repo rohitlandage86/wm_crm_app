@@ -19,7 +19,7 @@ export class FollowUpComponent implements OnInit {
   // pending follow up list
   allPendingFollowUpList: Array<any> = [];
   pendingPage = 1;
-  pendingPerPage = 10;
+  pendingPerPage = 50;
   pendingTotal = 0;
 
   constructor(

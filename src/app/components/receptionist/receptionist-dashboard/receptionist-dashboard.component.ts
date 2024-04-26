@@ -22,6 +22,9 @@ export class ReceptionistDashboardComponent implements OnInit {
   total = 0;
   follow_up_date: string;
   appointment_date: string;
+  appointmentPage = 1;
+  appointmentPerPage = 10;
+  appointmentTotal = 0;
   color: string | undefined;
   monthly_datewise_patient_registration: any
   chartBarData: any
@@ -88,7 +91,7 @@ export class ReceptionistDashboardComponent implements OnInit {
   }
   //get all Appointment List...
   getAllAppointmentList() {
-    this._doctorService.getAllAppointmentList(this.page, this.perPage, this.appointment_date).subscribe({
+    this._doctorService.getAllAppointmentList(this.appointmentPage, this.appointmentPerPage, this.appointment_date).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allAppointmentList = res.data;
@@ -116,5 +119,10 @@ export class ReceptionistDashboardComponent implements OnInit {
         }
       },
     })
+  }
+  onAppointmentPageChange(event: PageEvent): void {
+    this.appointmentPage = event.pageIndex + 1;
+    this.appointmentPerPage = event.pageSize;
+    this.getAllAppointmentList();
   }
 }

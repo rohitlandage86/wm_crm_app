@@ -29,7 +29,7 @@ export class DoctorSearchPatientComponent implements OnInit {
   isInputVisible: boolean = false;
   isValidMobileNo: boolean = false;
   page = 1;
-  perPage = 10;
+  perPage = 50;
   total = 0;
   icons = freeSet;
   constructor(

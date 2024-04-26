@@ -12,7 +12,7 @@ export class LeadComponent implements OnInit {
   allLeadFollowUpList: Array<any> = [];
   icons = freeSet;
   page = 1;
-  perPage = 10;
+  perPage = 50;
   total = 0;
   lead_date: string;
   color: string | undefined;

@@ -12,7 +12,7 @@ import { SuperAdminService } from 'src/app/components/super-admin/super-admin.se
 })
 export class ReceptionistFollowUpReportComponent  implements OnInit{
   page = 1;
-  perPage = 10;
+  perPage = 50;
   total = 0;
   icons = freeSet;
   allLeadFollowUpList: Array<any> = [];

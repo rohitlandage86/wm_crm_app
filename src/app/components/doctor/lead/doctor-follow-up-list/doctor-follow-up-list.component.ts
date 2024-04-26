@@ -13,13 +13,13 @@ export class DoctorFollowUpListComponent  implements OnInit{
   allLeadFollowUpList: Array<any> = [];
   icons = freeSet;
   page = 1;
-  perPage = 10;
+  perPage = 50;
   total = 0;
   follow_up_date: string;
   // pending follow up list
   allPendingFollowUpList: Array<any> = [];
   pendingPage = 1;
-  pendingPerPage = 10;
+  pendingPerPage = 50;
   pendingTotal = 0;
 
   constructor(

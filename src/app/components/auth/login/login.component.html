@@ -250,7 +250,7 @@
                 <span cInputGroupText>
                   <svg cIcon name="cilUser"></svg>
                 </span>
-                <input autoComplete="username" cFormControl placeholder="Username" formControlName="email_id" [ngClass]="{
+                <input autoComplete="username" cFormControl autocomplete="off" placeholder="Username" formControlName="email_id" [ngClass]="{
                 'is-invalid':
                   control['email_id'].invalid &&
                   (control['email_id'].dirty ||
@@ -276,7 +276,7 @@
                 <span cInputGroupText>
                   <svg cIcon name="cilLockLocked"></svg>
                 </span>
-                <input autoComplete="current-password" cFormControl placeholder="Password" formControlName="password"
+                <input autoComplete="current-password" cFormControl placeholder="Password" autocomplete="off" formControlName="password"
                   type="{{ passwordVisible ? 'text' : 'password' }}" [ngClass]="{
                 'is-invalid':
                   control['password'].invalid &&

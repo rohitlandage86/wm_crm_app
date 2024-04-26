@@ -12,7 +12,7 @@ import { ReceptionistService } from 'src/app/components/receptionist/receptionis
 })
 export class DoctorPatientVisitReportComponent implements OnInit{
   page = 1;
-  perPage = 10;
+  perPage = 50;
   total = 0;
   icons = freeSet;
   allPatientVisitList: Array<any> = [];

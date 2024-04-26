@@ -1,6 +1,6 @@
 <c-row class="m-0">
   <c-col xs="12 " class="p-0">
-    <c-card class="">
+    <c-card class="mb-3">
       <c-card-header>
         <strong>{{ isEdit ? " Edit" : "Add " }} Lead Details</strong>
       </c-card-header>
@@ -16,6 +16,7 @@
             <input
               cFormControl
               id="name"
+              autocomplete="off"
               formControlName="name"
               type="text"
               [ngClass]="{
@@ -75,6 +76,7 @@
               id="validationDefault01"
               formControlName="city"
               type="text"
+              autocomplete="off"
               [ngClass]="{
                 'is-invalid':
                   control['city'].invalid &&
@@ -100,6 +102,7 @@
             >
             <input
               cFormControl
+              autocomplete="off"
               id="validationDefault01"
               formControlName="mobile_number"
               type="number"
@@ -173,17 +176,8 @@
               id="note"
               formControlName="note"
               rows="3"
-              [ngClass]="{'is-invalid':control['note'].errors?.['maxlength']}"
+              
             ></textarea>
-            <div
-              class="text-danger"
-              *ngIf="
-                control['note'].invalid &&
-                (control['note'].dirty || control['note'].touched)
-              "
-            >
-              <small>Please provide a valid Note.</small>
-            </div>
           </c-col>
           <c-card-header>
             <strong> Lead Info</strong>
@@ -211,6 +205,7 @@
                   <input
                     cFormControl
                     id="validationDefault01"
+                    autocomplete="off"
                     formControlName="comments"
                     type="text"
                     [ngClass]="{
@@ -245,6 +240,7 @@
                   <input
                     cFormControl
                     id="validationDefault01"
+                    autocomplete="off"
                     formControlName="calling_time"
                     type="text"
                     [ngClass]="{

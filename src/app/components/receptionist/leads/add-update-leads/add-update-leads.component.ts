@@ -5,6 +5,7 @@ import { ReceptionistService } from '../../receptionist.service';
 import { AdminService } from 'src/app/components/admin/admin.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-update-leads',
@@ -51,7 +52,7 @@ export class AddUpdateLeadsComponent implements OnInit {
       lead_date: ['', Validators.required],
       city: ['', [Validators.required]],
       mobile_number: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
-      note: [null, Validators.required],
+      note: [null],
       category_id: [null, Validators.required],
       leadFooterDetails: this.fb.array([this.newLeadFooter()])
     });
@@ -82,8 +83,28 @@ export class AddUpdateLeadsComponent implements OnInit {
   deleteLeadFooter(i: any) {
     this.leadstatusDetailsArray.removeAt(i)
   }
-  submit() { this.isEdit ? this.updateLead() : this.addLead(); }
-
+  submit() { 
+    Swal.fire({
+      title: 'Are you sure ?',
+      text: 'Do you want to submit the form ?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, submit!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (this.form.valid) {
+          console.log(this.form.value);
+          this.isEdit ? this.updateLead() : this.addLead(); // Execute appropriate action based on isEdit flag
+        } else {
+          this.form.markAllAsTouched();
+          this._toastrService.warning("Fill required fields");
+        }
+      }
+    });
+  }
+  
   updateLead() {
     if (this.form.valid) {
       console.log(this.form.value);
@@ -109,7 +130,7 @@ export class AddUpdateLeadsComponent implements OnInit {
       this._toastrService.warning("Fill required fields");
     }
   }
-
+  
   addLead(){
     if (this.form.valid){
       this._receptionistService.addLead(this.form.value).subscribe({
@@ -134,6 +155,7 @@ export class AddUpdateLeadsComponent implements OnInit {
       this._toastrService.warning("Fill required fields");
     }
   }
+  
 
   getLeadById(id: any) {
     this._receptionistService.getLeadById(id).subscribe((result: any) => {

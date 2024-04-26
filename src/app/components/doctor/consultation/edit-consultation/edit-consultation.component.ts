@@ -19,6 +19,7 @@ import { AddUpdateChiefComplaintsComponent } from 'src/app/components/admin/clin
 import { AddUpdateDiagnosisComponent } from 'src/app/components/admin/masters/diagnosis/add-update-diagnosis/add-update-diagnosis.component';
 import { AddUpdateTreatmentComponent } from 'src/app/components/admin/masters/treatment/add-update-treatment/add-update-treatment.component';
 import Swal from 'sweetalert2';
+import { AddUpdateMedicinesComponent } from 'src/app/components/admin/clinical-masters/medicines/add-update-medicines/add-update-medicines.component';
 
 
 
@@ -35,6 +36,7 @@ export class EditConsultationComponent implements OnInit {
   isEdit = false;
   mrno: any;
   consultation_id: any;
+  consultation_chief_complaints_id: any;
   consultation_diagnosis_id: any;
   consultation_treatment_id: any;
   consultation_medicine_id: any;
@@ -52,7 +54,7 @@ export class EditConsultationComponent implements OnInit {
   @ViewChild('imagePreview') imagePreview!: ElementRef<HTMLImageElement>;
   showImagePreview: boolean[] = [];
   selectedImage: any;
-  
+
   @ViewChild('singleSelect') singleSelect: MatSelect | undefined;
   //for cheif compliant
   searchChiefComplaintsValue = '';
@@ -146,10 +148,13 @@ export class EditConsultationComponent implements OnInit {
       pluse: [null],
       bp: [null],
       past_history: [''],
-      chief_complaints_id: ['', Validators.required], // Add this line to define chief_complaints_id
+      // chief_complaints_id: ['', Validators.required], // Add this line to define chief_complaints_id
       appointment_date: [''],
       appointment_time: [''],
       // imageBase64: [null],
+      consultationChiefComplaintsDetails: this.fb.array([
+        this.newConsultationChiefComplaints(),
+      ]),
       consultationDiagnosisDetails: this.fb.array([
         this.newConsultationDiagnosis(),
       ]),
@@ -180,23 +185,28 @@ export class EditConsultationComponent implements OnInit {
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allChiefComplaints = res.data;
-          this.filteredChiefComplaintsArray = this.allChiefComplaints;
+          // this.filteredChiefComplaintsArray = this.allChiefComplaints;
+          for (let index = 0; index < this.consultationChiefComplaintsDetailsArray.value.length; index++) {
+            this.filteredChiefComplaintsArray[index] = this.allChiefComplaints;
+          }
         }
       },
     });
   }
   //Filter chief complaints array
-  filterChiefComplaints() {
+  filterChiefComplaints(i:any) {
     if (this.searchChiefComplaintsValue != '') {
-      this.filteredChiefComplaintsArray = [];
-      const filteredArr = this.allChiefComplaints.filter((obj: any) =>
+      this.filteredChiefComplaintsArray[i]  = [];
+      const filteredArr = this.allChiefComplaints.filter((obj) =>
         obj.chief_complaint
           .toLowerCase()
           .includes(this.searchChiefComplaintsValue.toLowerCase())
       );
-      this.filteredChiefComplaintsArray = filteredArr;
+      this.filteredChiefComplaintsArray[i] = filteredArr;
+      let indexPlusOne = i + 1;
+      this.filteredChiefComplaintsArray[indexPlusOne] = this.allChiefComplaints;
     } else {
-      this.filteredChiefComplaintsArray = this.allChiefComplaints;
+      this.filteredChiefComplaintsArray[i] = this.allChiefComplaints;
     }
   }
 
@@ -216,13 +226,13 @@ export class EditConsultationComponent implements OnInit {
     });
   }
   //Filter diagnosis array
-  filterDiagnosis(i:any) {
+  filterDiagnosis(i: any) {
     if (this.searchDiagnosisValue != "") {
       this.filteredDiagnosisArray[i] = [];
       // console.log(this.searchDiagnosisValue);
-      const filteredArr = this.allDiagnosis.filter((obj:any) =>
+      const filteredArr = this.allDiagnosis.filter((obj: any) =>
         obj.diagnosis_name.toLowerCase().includes(this.searchDiagnosisValue.toLowerCase()),
-    );
+      );
       this.filteredDiagnosisArray[i] = filteredArr;
       let indexPlusOne = i + 1;
       this.filteredDiagnosisArray[indexPlusOne] = this.allDiagnosis;
@@ -246,7 +256,7 @@ export class EditConsultationComponent implements OnInit {
     });
   }
   //Filter Treatment array
-  filterTreatment(i:any) {
+  filterTreatment(i: any) {
     if (this.searchTreatmentValue != '') {
       this.filteredTreatmentArray[i] = [];
       const filteredArr = this.allTreatment.filter((obj: any) =>
@@ -276,7 +286,7 @@ export class EditConsultationComponent implements OnInit {
     });
   }
   //Filter Medicines array
-  filterMedicines(i:any) {
+  filterMedicines(i: any) {
     if (this.searchMedicinesValue != '') {
       this.filteredMedicinesArray[i] = [];
       const filteredArr = this.allMedicines.filter((obj: any) =>
@@ -305,7 +315,7 @@ export class EditConsultationComponent implements OnInit {
     });
   }
   //Filter Dosages array
-  filterDosages(i:any) {
+  filterDosages(i: any) {
     if (this.searchDosagesValue != '') {
       this.filteredDosagesArray[i] = [];
       const filteredArr = this.allDosages.filter((obj: any) =>
@@ -334,7 +344,7 @@ export class EditConsultationComponent implements OnInit {
     });
   }
   //Filter Instructions array
-  filterInstructions(i:any) {
+  filterInstructions(i: any) {
     if (this.searchInstructionsValue != '') {
       this.filteredInstructionsArray[i] = [];
       const filteredArr = this.allInstructions.filter((obj: any) =>
@@ -358,6 +368,61 @@ export class EditConsultationComponent implements OnInit {
       }
     });
   }
+  // Chief Complaints array controls
+  get consultationChiefComplaintsDetailsArray() {
+    return this.form.get('consultationChiefComplaintsDetails') as FormArray<any>;
+  }
+
+  newConsultationChiefComplaints(): FormGroup {
+    return this.fb.group({
+      consultation_chief_complaints_id: [null],
+      chief_complaints_id: [null],
+     
+    });
+  }
+
+  addConsultationChiefComplaints() {
+    this.consultationChiefComplaintsDetailsArray.push(
+      this.newConsultationChiefComplaints()
+    );
+    for (let index = 0; index < this.consultationChiefComplaintsDetailsArray.value.length; index++) {
+      this.filteredChiefComplaintsArray[index] = this.allChiefComplaints;
+    }
+  }
+
+  deleteConsultationChiefComplaints(i: any, consultation_chief_complaints_id: any) {
+    // Open a confirmation dialog
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this item!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // If user clicked Yes
+        this.consultationChiefComplaintsDetailsArray.removeAt(i);
+        if (consultation_chief_complaints_id) {
+          this.deleteConsultationChiefComplaint(consultation_chief_complaints_id);
+        }
+        if (this.consultationChiefComplaintsDetailsArray.length === 0) {
+          this.addConsultationChiefComplaints();
+        }
+        for (let index = 0; index < this.consultationChiefComplaintsDetailsArray.length; index++) {
+          this.filteredChiefComplaintsArray[index] = this.allChiefComplaints;
+        }
+        Swal.fire(
+          'Deleted!',
+          'Your item has been deleted.',
+          'success'
+        );
+      }
+    });
+  }
+
   //Diagnosis array controls
   get consultationDiagnosisDetailsArray() {
     return this.form.get('consultationDiagnosisDetails') as FormArray<any>;
@@ -481,9 +546,9 @@ export class EditConsultationComponent implements OnInit {
     );
     for (let index = 0; index < this.consultationMedicineDetailsArray.value.length; index++) {
       this.filteredMedicinesArray[index] = this.allMedicines;
-      this.filteredDosagesArray[index]=this.allDosages;
-      this.filteredInstructionsArray[index]=this.allInstructions;
-  
+      this.filteredDosagesArray[index] = this.allDosages;
+      this.filteredInstructionsArray[index] = this.allInstructions;
+
     }
   }
 
@@ -504,9 +569,9 @@ export class EditConsultationComponent implements OnInit {
         this.consultationMedicineDetailsArray.removeAt(i);
         for (let index = 0; index < this.consultationMedicineDetailsArray.value.length; index++) {
           this.filteredMedicinesArray[index] = this.allMedicines;
-          this.filteredDosagesArray[index]=this.allDosages;
-          this.filteredInstructionsArray[index]=this.allInstructions;
-      
+          this.filteredDosagesArray[index] = this.allDosages;
+          this.filteredInstructionsArray[index] = this.allInstructions;
+
         }
         if (consultation_medicine_id) {
           this.deleteConsultationMedicines(consultation_medicine_id);
@@ -520,7 +585,7 @@ export class EditConsultationComponent implements OnInit {
           'success'
         );
       }
-     
+
     });
   }
   //FileUpload array controls
@@ -627,6 +692,7 @@ export class EditConsultationComponent implements OnInit {
       this._doctorService.editConsultation(this.form.value, this.consultation_id).subscribe({
         next: (res: any) => {
           if (res.status == 200) {
+            this._toastrService.clear();
             this._toastrService.success(res.message);
             this.router.navigate([
               '/doctor',
@@ -646,6 +712,7 @@ export class EditConsultationComponent implements OnInit {
       });
     } else {
       this.form.markAllAsTouched();
+      this._toastrService.clear();
       this._toastrService.warning("Fill required fields");
     }
   }
@@ -702,10 +769,24 @@ export class EditConsultationComponent implements OnInit {
       console.log('consutlation  data', result.data);
 
       this.control['mrno'].patchValue(consutlationData.mrno);
-      this.control['pluse'].patchValue(consutlationData.pluse);
-      this.control['bp'].patchValue(consutlationData.bp);
       this.control['past_history'].patchValue(consutlationData.past_history);
-      this.control['chief_complaints_id'].patchValue(consutlationData.chief_complaints_id);
+      // this.control['chief_complaints_id'].patchValue(consutlationData.chief_complaints_id);
+
+      // Patching chief complaints details
+      let consultationChiefComplaintsDetails = result.data.consultationChiefComplaintsDetails;
+      if (consultationChiefComplaintsDetails.length > 0) {
+        this.consultationChiefComplaintsDetailsArray.clear();
+        for (let index = 0; index < consultationChiefComplaintsDetails.length; index++) {
+          const element = consultationChiefComplaintsDetails[index];
+          const chiefComplaintsFormGroup = this.newConsultationChiefComplaints();
+          this.consultationChiefComplaintsDetailsArray.push(chiefComplaintsFormGroup);
+          this.consultationChiefComplaintsDetailsArray.at(index).patchValue({
+            chief_complaints_id: element.chief_complaints_id,
+            consultation_chief_complaints_id: element.consultation_chief_complaints_id
+          });
+        }
+        this.getAllChiefComplaintsList();
+      }
 
       // Patching diagnosis details
       let consultationDiagnosisDetails = result.data.consultationDiagnosisDetails;
@@ -783,6 +864,22 @@ export class EditConsultationComponent implements OnInit {
       }
     });
   }
+
+ //open Medicines by...
+ openDialogMedicines(data?: any) {
+  const dialogRef = this.dialog.open(AddUpdateMedicinesComponent, {
+    data: data,
+    width: '50%',
+    panelClass: 'mat-mdc-dialog-container'
+  });
+  dialogRef.afterClosed().subscribe((message: any) => {
+    if (message == 'create' || message == 'update') {
+      this.getAllMedicinesList();
+    } else {
+      console.log('nothing happen');
+    }
+  });
+}
 
   //open chief complaints by...
   openDialog(data?: any) {
@@ -891,6 +988,16 @@ export class EditConsultationComponent implements OnInit {
       this.isAccordionOpen = index; // Open the clicked accordion item
     }
   }
+   // delete consutlation Chief Complaints..
+   deleteConsultationChiefComplaint(consultation_chief_complaints_id: any) {
+    this._doctorService.deleteConsultationChiefComplaints( consultation_chief_complaints_id, this.consultation_id).subscribe({
+      next: (res: any) => {
+        if (res.data.length > 0) {
+
+        }
+      },
+    });
+  }
   // delete consutlation diagnosis..
   deleteConsultationsDiagnosis(consultation_diagnosis_id: any) {
     this._doctorService.deleteConsultationDiagnosis(consultation_diagnosis_id, this.consultation_id).subscribe({
@@ -945,11 +1052,11 @@ export class EditConsultationComponent implements OnInit {
       reader.readAsDataURL(file);
     }
   }
-  onMedicineChange(i:any,event:any){
+  onMedicineChange(i: any, event: any) {
     let medicines_id = event.value;
-    if(medicines_id){
+    if (medicines_id) {
       this._adminService.getMedicineById(medicines_id).subscribe({
-        next:(res:any)=>{
+        next: (res: any) => {
           this.consultationMedicineDetailsArray.at(i).patchValue({
             dosages_id: res.data.dosage_id,
             instructions_id: res.data.instructions_id,
@@ -957,7 +1064,7 @@ export class EditConsultationComponent implements OnInit {
         }
       })
     }
-    
+
   }
 }
 

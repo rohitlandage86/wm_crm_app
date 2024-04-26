@@ -8,14 +8,14 @@
                 <form cForm class="row g-3"  [formGroup]="form"> 
                     <c-col md="8">
                         <label cLabel for="validationDefault01">Customer Type</label>
-                        <input cFormControl id="validationDefault01" formControlName="customer_type" type="text"[ngClass]="{ 'is-invalid': control['customer_type'].invalid &&(control['customer_type'].dirty ||control['customer_type'].touched)}"/>
+                        <input cFormControl autocomplete="off" id="validationDefault01" formControlName="customer_type" type="text"[ngClass]="{ 'is-invalid': control['customer_type'].invalid &&(control['customer_type'].dirty ||control['customer_type'].touched)}"/>
                         <div class="text-danger" *ngIf="control['customer_type'].invalid &&(control['customer_type'].dirty ||control['customer_type'].touched)">
                             <small >Please provide a valid customer type.</small>
                         </div>
                     </c-col>
                     <c-col xs="12">
                         <label cLabel for="exampleFormControlTextarea1" >Description</label>
-                        <textarea cFormControl id="exampleFormControlTextarea1" formControlName="description" rows="3"></textarea>
+                        <textarea cFormControl autocomplete="off" id="exampleFormControlTextarea1" formControlName="description" rows="3"></textarea>
                       </c-col>
                     <c-col xs="12">
                         <button cButton class="me-1" color="primary"  (click)="submit()">

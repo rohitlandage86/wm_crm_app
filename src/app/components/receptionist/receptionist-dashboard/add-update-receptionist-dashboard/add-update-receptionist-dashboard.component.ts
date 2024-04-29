@@ -162,7 +162,6 @@ export class AddUpdateReceptionistDashboardComponent implements OnInit{
            this.leadstatusDetailsArray.at(index).get('follow_up_date')?.disable();
         }
       }
-      this.form.get('category_name')?.patchValue(result.data.category_name)
     });
   }
 

@@ -13,23 +13,11 @@
               <input
                 cFormControl
                 id="name"
+                [readonly] = true
+                class="diabled"
                 formControlName="name"
                 type="text"
-                [ngClass]="{
-                  'is-invalid':
-                    control['name'].invalid &&
-                    (control['name'].dirty || control['name'].touched)
-                }"
               />
-              <div
-                class="text-danger"
-                *ngIf="
-                  control['name'].invalid &&
-                  (control['name'].dirty || control['name'].touched)
-                "
-              >
-                <small>Please provide a valid Name.</small>
-              </div>
             </c-col>
             <c-col md="4" class="p-2">
               <label cLabel for="lead_date">Lead Date</label>
@@ -37,128 +25,62 @@
                 cFormControl
                 id="lead_date"
                 formControlName="lead_date"
+                [readonly] = true
+                class="diabled"
                 type="date"
-                [ngClass]="{
-                  'is-invalid':
-                    control['lead_date'].invalid &&
-                    (control['lead_date'].dirty || control['lead_date'].touched)
-                }"
+            
               />
-              <div
-                class="text-danger"
-                *ngIf="
-                  control['lead_date'].invalid &&
-                  (control['lead_date'].dirty || control['lead_date'].touched)
-                "
-              >
-                <small>Please provide a valid Lead Date.</small>
-              </div>
             </c-col>
   
             <c-col md="4" class="p-2">
               <label cLabel for="validationDefault01">City</label>
               <input
                 cFormControl
+                class="diabled"
+                [readonly] = true
                 id="validationDefault01"
                 formControlName="city"
                 type="text"
-                [ngClass]="{
-                  'is-invalid':
-                    control['city'].invalid &&
-                    (control['city'].dirty || control['city'].touched)
-                }"
+            
               />
-              <div
-                class="text-danger"
-                *ngIf="
-                  control['city'].invalid &&
-                  (control['city'].dirty || control['city'].touched)
-                "
-              >
-                <small>Please provide a valid City.</small>
-              </div>
+    
             </c-col>
             <c-col md="4" class="p-2">
               <label cLabel for="validationDefault01">Mobile Number</label>
               <input
                 cFormControl
+                class="diabled"
+                [readonly] = true
                 id="validationDefault01"
                 formControlName="mobile_number"
                 type="number"
-                [ngClass]="{
-                  'is-invalid':
-                    control['mobile_number'].invalid &&
-                    (control['mobile_number'].dirty ||
-                      control['mobile_number'].touched)
-                }"
+            
               />
-              <span
-                class="text-danger"
-                *ngIf="
-                  control['mobile_number'].invalid &&
-                  (control['mobile_number'].dirty ||
-                    control['mobile_number'].touched)
-                "
-              >
-                <div *ngIf="control['mobile_number'].errors?.['required']">
-                  <small>Mobile Number is required</small>
-                </div>
-                <div *ngIf="control['mobile_number'].errors?.['pattern']">
-                  Mobile Number only 10 digit
-                </div>
-              </span>
+           
             </c-col>
             <c-col md="3" class="p-2">
               <label for="category" cLabel> Category </label>
-              <select
-                aria-label="select category"
-                cSelect
-                sizing="sm"
-                formControlName="category_id"
-                type="text"
-                [ngClass]="{
-                  'is-invalid':
-                    control['category_id'].invalid &&
-                    (control['category_id'].dirty ||
-                      control['category_id'].touched)
-                }"
-              >
-                <option hidden value="null" disabled selected>Select Category</option>
-                <option
-                  [value]="item.category_id"
-                  *ngFor="let item of allCategoryList"
-                >
-                  {{ item.category_name }}
-                </option>
-              </select>
-              <div
-                class="text-danger"
-                *ngIf="
-                  control['category_id'].invalid &&
-                  (control['category_id'].dirty || control['category_id'].touched)
-                "
-              >
-                <small>Please provide a valid Category Name.</small>
-              </div>
+              <input
+              cFormControl
+              id="name"
+              [readonly] = true
+              class="diabled"
+              formControlName="category_name"
+              type="text"
+            style="width: 150px;"
+            />
+          
             </c-col>
             <c-col md="12" class="p-2">
               <label cLabel for="validationDefault01">Note</label>
               <textarea
                 cFormControl
+                class="diabled"
+                [readonly] = true
                 id="note"
                 formControlName="note"
                 rows="3"
-                [ngClass]="{'is-invalid':control['note'].errors?.['maxlength']}"
               ></textarea>
-              <div
-                class="text-danger"
-                *ngIf="
-                  control['note'].invalid &&
-                  (control['note'].dirty || control['note'].touched)
-                "
-              >
-                <small>Please provide a valid Note.</small>
-              </div>
             </c-col>
            
             <c-card-header >
@@ -180,7 +102,7 @@
                       cFormControl
                       id="validationDefault01"
                       formControlName="comments"
-                     
+                      autocomplete="off"
                       type="text"
                       [ngClass]="{
                         'is-invalid':
@@ -208,7 +130,7 @@
                       id="validationDefault01"
                       formControlName="calling_time"
                       type="text"
-                
+                      autocomplete="off"
                       [ngClass]="{
                         'is-invalid':
                           leadstatusDetailsArray.at(i).get('calling_time')
@@ -239,6 +161,7 @@
                       aria-label="select lead status id"
                       cSelect
                       sizing="sm"
+                      autocomplete="off"
                       formControlName="no_of_calls"
                       type="number"
                       [ngClass]="{
@@ -303,6 +226,7 @@
                       cSelect
                       sizing="sm"
                       formControlName="lead_status_id"
+                      autocomplete="off"
                       type="text"
                       [ngClass]="{
                         'is-invalid':
@@ -339,6 +263,7 @@
                     <label cLabel for="follow_up_date">Follow Up Date</label>
                     <input
                       cFormControl
+                      autocomplete="off"
                       id="follow_up_date"
                       formControlName="follow_up_date"
                       type="date"
@@ -367,21 +292,6 @@
                       <small>Please provide a valid Lead Date.</small>
                     </div>
                   </c-col>
-                  <!-- <c-col md="1"  >
-                    <label cLabel for="Action">Action</label>
-                    <c-col class="d-flex p-2">
-                      <c-col>
-                        <button  class="btn btn-primary btn-sm"
-                        type="button"
-                        (click)="addLeadFooter()"[disabled]="leadstatusDetailsArray.length>=1">+</button>
-                      </c-col>
-                      <c-col>
-                        <button class="btn btn-primary btn-sm " [disabled]="leadstatusDetailsArray.length===1"
-                        (click)="deleteLeadFooter(i)">-</button>
-                      </c-col>
-                    </c-col>
-                
-                  </c-col> -->
                 </c-col>
               </c-col>
             </div>

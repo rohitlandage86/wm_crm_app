@@ -59,17 +59,44 @@
            
             </c-col>
             <c-col md="3" class="p-2">
-              <label for="category" cLabel> Category </label>
-              <input
-              cFormControl
-              id="name"
-              [readonly] = true
-              class="diabled"
-              formControlName="category_name"
-              type="text"
-            style="width: 150px;"
-            />
-          
+              <label for="category" cLabel>
+                Category
+                <span style="color: red" *ngIf="!control['category_id'].value"
+                  >*</span
+                ></label
+              >
+              <select
+                aria-label="select category"
+                cSelect
+                sizing="sm"
+                formControlName="category_id"
+                type="text"
+                [ngClass]="{
+                  'is-invalid':
+                    control['category_id'].invalid &&
+                    (control['category_id'].dirty ||
+                      control['category_id'].touched)
+                }"
+              >
+                <option hidden value="null" disabled selected>
+                  Select Category
+                </option>
+                <option
+                  [value]="item.category_id"
+                  *ngFor="let item of allCategoryList"
+                >
+                  {{ item.category_name }}
+                </option>
+              </select>
+              <div
+                class="text-danger"
+                *ngIf="
+                  control['category_id'].invalid &&
+                  (control['category_id'].dirty || control['category_id'].touched)
+                "
+              >
+                <small>Please provide a valid Category Name.</small>
+              </div>
             </c-col>
             <c-col md="12" class="p-2">
               <label cLabel for="validationDefault01">Note</label>

@@ -27,6 +27,7 @@ import { BillListComponent } from './bill-list/bill-list.component';
 import { DoctorSearchBillComponent } from './bill-list/doctor-search-bill/doctor-search-bill.component';
 import { DoctorViewBillComponent } from './bill-list/doctor-search-bill/doctor-view-bill/doctor-view-bill.component';
 import { ViewLeadFooterComponent } from './consultation/add-update-consultation/view-lead-footer/view-lead-footer.component';
+import { DoctorPaymentHistoryReportComponent } from './reports/doctor-payment-history-report/doctor-payment-history-report.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { ViewLeadFooterComponent } from './consultation/add-update-consultation/
     BillListComponent,
     DoctorSearchBillComponent,
     DoctorViewBillComponent,
-    ViewLeadFooterComponent
+    ViewLeadFooterComponent,
+    DoctorPaymentHistoryReportComponent
   ],
   imports: [
     DoctorRoutingModule,

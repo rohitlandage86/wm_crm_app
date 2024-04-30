@@ -13,7 +13,7 @@ export class FollowUpComponent implements OnInit {
   allLeadFollowUpList: Array<any> = [];
   icons = freeSet;
   page = 1;
-  perPage = 10;
+  perPage = 50;
   total = 0;
   follow_up_date: string;
   // pending follow up list

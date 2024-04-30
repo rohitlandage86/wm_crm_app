@@ -5,6 +5,7 @@ import { ReceptionistService } from '../../receptionist.service';
 import { AdminService } from 'src/app/components/admin/admin.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-update-receptionist-dashboard',
@@ -38,13 +39,8 @@ export class AddUpdateReceptionistDashboardComponent implements OnInit{
       this.leadStatusDetailAdded = true;
       this.isEdit = true;
     }
-    this.disableFormControls();
   }
-  disableFormControls() {
-    Object.keys(this.form.controls).forEach(key => {
-      this.form.get(key)?.disable();
-    });
-  }
+
  
   getCurrentDate(): string {
     const today = new Date();
@@ -61,6 +57,7 @@ export class AddUpdateReceptionistDashboardComponent implements OnInit{
       mobile_number: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       note: [null, Validators.required],
       category_id: [null, Validators.required],
+      category_name:[''],
       leadFooterDetails: this.fb.array([this.newLeadFooter()])
     });
   }
@@ -90,11 +87,27 @@ export class AddUpdateReceptionistDashboardComponent implements OnInit{
   deleteLeadFooter(i: any) {
     this.leadstatusDetailsArray.removeAt(i)
   }
-  submit(){this.addLeadFollowUp();}
+  submit(){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you want to submit the form?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, submit!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.addLeadFollowUp();
+      }
+    });
+    
+  }
 
   addLeadFollowUp(){
     if (this.form.valid) {
-      this._receptionistService.editLeadFollowUp(this.form.getRawValue(),this.lead_hid).subscribe({
+      let data = this.form.getRawValue();
+      this._receptionistService.editLeadFollowUp(data,this.lead_hid).subscribe({
         next:(res:any)=>{
           if (res.status==200) {
             this._toastrService.success(res.message);

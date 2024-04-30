@@ -5,6 +5,7 @@ import { ReceptionistService } from '../../receptionist.service';
 import { AdminService } from 'src/app/components/admin/admin.service';
 import {  Router } from '@angular/router';
 import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-update-bill',
@@ -42,10 +43,12 @@ export class AddUpdateBillComponent implements OnInit {
     this.getAllServiceTypeList();
     this.getAllServiceList();
     this.disableFormFields();
-    // by defult cash pATCH dropdown
-    this.form.patchValue({
-      payment_type: 'Cash'
-    });
+
+ // by defult cash pATCH dropdown
+ this.form.patchValue({
+  payment_type: 'Cash'
+});
+
  // Subscribe to value changes of bill amount and discount amount
  this.form.get('bill_amount')?.valueChanges.subscribe(() => {
   this.calculateTotalAmount();
@@ -131,12 +134,31 @@ this.form.get('discount_amount')?.valueChanges.subscribe(() => {
     return this.validateMobileNo(inputValue);
   }
 
-  submit() { this.addBill(); }
+  submit() {   Swal.fire({
+    title: 'Are you sure?',
+    text: 'Do you want to submit the form?',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, submit!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      let paymentType = this.form.get('payment_type')?.value.toUpperCase();
+      // If payment type is 'online', set it to 'ONLINE_PAYMENT' in uppercase
+      if (paymentType === 'ONLINE PAYMENT') {
+        paymentType = 'ONLINE_PAYMENT';
+      }
+      this.form.get('payment_type')?.setValue(paymentType);
+    this.addBill();
+    }
+  });
+    
+ 
+   }
 
   addBill() {
     if (this.form.valid) {
-      console.log(this.form.value);
-      
       this._receptionistService.addBill(this.form.value).subscribe({
         next: (res: any) => {
           if (res.status == 201 || res.status == 200) {

@@ -91,7 +91,7 @@ export class AddUpdatePatientComponent implements OnInit {
       source_of_patient_id: [null, Validators.required],
       employee_id: [null, Validators.required],
       refered_by_id: [null,],
-      payment_type: [Validators.required],
+      payment_type: ['',Validators.required],
     });
 
   }
@@ -187,13 +187,20 @@ export class AddUpdatePatientComponent implements OnInit {
     confirmButtonText: 'Yes, submit!'
   }).then((result) => {
     if (result.isConfirmed) {
+      let paymentType = this.form.get('payment_type')?.value.toUpperCase();
+      // If payment type is 'online', set it to 'ONLINE_PAYMENT' in uppercase
+      if (paymentType === 'ONLINE PAYMENT') {
+        paymentType = 'ONLINE_PAYMENT';
+      }
+      this.form.get('payment_type')?.setValue(paymentType);
+   
       this.isEdit ? this.updatePatient() : this.addPatient();
     }
   });}
 
   updatePatient() {
     if (this.form.valid) {
-      // console.log(this.form.value);
+   
       this._receptionistService.editPatient(this.form.value, this.mrno).subscribe({
         next: (res: any) => {
           if (res.status == 200) {
@@ -245,6 +252,7 @@ export class AddUpdatePatientComponent implements OnInit {
   }
 
   getPatientById(id: any) {
+    
     this._receptionistService.getPatientById(id).subscribe((result: any) => {
       const patientData = result.data;
       this.form.patchValue({

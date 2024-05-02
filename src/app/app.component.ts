@@ -348,6 +348,11 @@ export class AppComponent implements OnInit, AfterContentChecked {
       ]
     },
     {
+      name: 'Payment History',
+      url: ['/doctor', { outlets: { doc_Menu: 'doctor-payment-history-reports' } }],
+      iconComponent: { name: 'cilList' },
+    },
+    {
       name: 'Appointments',
       url: ['/doctor', { outlets: { doc_Menu: 'appointments' } }],
       iconComponent: { name: 'cilList' },

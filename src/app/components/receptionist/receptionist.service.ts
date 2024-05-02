@@ -243,7 +243,7 @@ export class ReceptionistService {
         }
 
         // Make the HTTP GET request
-        return this.http.get(this.baseUrl + 'api/patient_registration/search-patient-registration', {
+        return this.http.get(this.baseUrl + 'api/patient_registration/search-patient-for-revisit/', {
             params: params
         });
     }
@@ -251,7 +251,10 @@ export class ReceptionistService {
     editPatientRevist(id: any, data: any) {
         return this.http.put(this.baseUrl + 'api/patient_registration/patient-revisit/' + id, data);
     }
-
+   // patient renew ...
+   PatientRenew(id: any, data: any) {
+    return this.http.put(this.baseUrl + 'api/patient_registration/patient-renewly/' + id, data);
+}
     //report lead follow up list
     getAllLeadFollowUpReportList(page: any, perPage: any, fromDate: any, toDate: any, lead_status_id: any): Observable<any> {
         let params = {

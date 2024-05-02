@@ -65,7 +65,7 @@
                     </button>
                 </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12 table-container">
                 <table class="table table-striped" >
                     <thead cTableColor="light">
                         <tr>
@@ -85,11 +85,11 @@
                         <tr *ngFor="let item of allBillList; let i = index">
                             <td>{{ i + 1 }}</td>
                             <td>{{ item.cts | date:'dd-MM-yyyy' }}</td>
-                            <td>{{ item.patient_name }}</td>
-                            <td>{{ item.abbrivation }}</td>
-                            <td>{{ item.service_name}}</td>
-                            <td>{{ item.service_type_name}}</td>
-                            <td>{{ item.payment_type}}</td>
+                            <td>{{ item.patient_name |titlecase }}</td>
+                            <td>{{ item.abbrivation | uppercase}}</td>
+                            <td>{{ item.service_name |titlecase}}</td>
+                            <td>{{ item.service_type_name |titlecase}}</td>
+                            <td>{{ item.payment_type |titlecase}}</td>
                             <td>{{ item.bill_amount }}</td>
                             <td>{{ item.discount_amount }}</td>
                             <td>{{ item.total_amount }}</td>

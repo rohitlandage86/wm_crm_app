@@ -11,7 +11,7 @@
         <c-card-body class="pt-0">
             <mat-tab-group>
                 <mat-tab label="Patient List">
-                    <div class="col-md-12">
+                    <div class="col-md-12 table-container">
                         <table class="table table-striped" >
                             <thead cTableColor="light">
                                 <tr>
@@ -30,11 +30,11 @@
                                 <tr *ngFor="let item of allPatientVisitList; let i = index">
                                     <td>{{ i + 1 }}</td>
                                     <td>{{ item.visit_date| date:'dd-MM-yyyy'}}</td>
-                                    <td>{{ item.abbrivation||'--'  }}</td>
-                                    <td>{{ item.patient_name  }}</td>
-                                    <td>{{ item.gender }}</td>
+                                    <td>{{ item.abbrivation||'--' | uppercase }}</td>
+                                    <td>{{ item.patient_name |titlecase }}</td>
+                                    <td>{{ item.gender |titlecase}}</td>
                                     <td>{{ item.age }}</td>
-                                    <td>{{ item.address }}</td>
+                                    <td>{{ item.address|titlecase }}</td>
                                     <td>{{ item.mobile_no }}</td>
                                     <td> <a [routerLink]="['/receptionist', { outlets: { receptionist_Menu: ['edit-patient',item.mrno]}}]" class="pointer"><svg [cIcon]="icons.cilPencil"  size="xl"
                                         title="List Icon" ></svg></a></td>
@@ -47,7 +47,7 @@
                     </div>
                 </mat-tab>
                 <mat-tab label="Checked Patients">
-                        <div class="col-md-12 " >
+                        <div class="col-md-12 table-container" >
                             <table class="table table-striped"  >
                                 <thead cTableColor="light">
                                     <tr>
@@ -66,13 +66,13 @@
                                 <tbody>
                                     <tr *ngFor="let item of allPatientVisitCheckedList; let i = index">
                                         <td>{{ i + 1 }}</td>
-                                        <td>{{ item.patient_name  }}</td>
+                                        <td>{{ item.patient_name|titlecase  }}</td>
                                         <td>{{ item.cts| date:'dd-MM-yyyy'}}</td>
                                         
                                         <td>{{ item.mobile_no }}</td>
-                                        <td>{{ item.gender }}</td>
+                                        <td>{{ item.gender |titlecase}}</td>
                                         <td>{{ item.age }}</td>
-                                        <td>{{ item.city }}</td>
+                                        <td>{{ item.city |titlecase}}</td>
                                         
                                     <tr class=" fw-bold text-center" *ngIf="allPatientVisitCheckedList.length===0">
                                         <td colspan="10" class="text-danger">No Data Available</td>

@@ -37,7 +37,7 @@
                       </button>
                 </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12 table-container">
                 <table class="table table-striped" >
                     <thead cTableColor="light">
                         <tr>
@@ -56,11 +56,11 @@
                         <tr *ngFor="let item of allPatientVisitList; let i = index">
                             <td>{{ i + 1 }}</td>
                             <td>{{ item.visit_date | date:'dd-MM-yyyy' }}</td>
-                            <td>{{ item.patient_name }}</td>
-                            <td>{{ item.age }}</td>
-                            <td>{{ item.visit_type| titlecase}}</td>
-                            <td>{{ item.mobile_no }}</td>
-                            <td>{{ item.city }}</td>
+                            <td>{{ item.patient_name |titlecase}}</td>
+                            <td>{{ item.age}}</td>
+                            <td>{{ transformVisitType(item.visit_type)|titlecase }}</td>
+                            <td>{{ item.mobile_no}}</td>
+                            <td>{{ item.city |titlecase}}</td>
                             <!-- <td> <a [routerLink]="['/receptionist', { outlets: { receptionist_Menu: ['edit-leads',item.lead_hid]}}]" class="pointer"><svg [cIcon]="icons.cilPencil"  size="xl"
                                 title="List Icon" ></svg></a></td> -->
                         </tr>

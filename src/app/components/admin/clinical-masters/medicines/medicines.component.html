@@ -22,10 +22,10 @@
                         <tr *ngFor="let item of allMedicinesList; let i = index">
                             <td>{{ i + 1 }}</td>
                             <td>{{ item.cts|date:'dd' }}/{{ item.cts|date:'MM' }}/{{ item.cts|date:'YYYY' }}</td>
-                            <td>{{ item.medicines_name }}</td>
-                            <td>{{ item.dosage_name || '--' }}</td>
-                            <td>{{ item.instruction || '--'}}</td>
-                            <td>{{ item.status == 1 ? "Activated" : "Deactivated" }}</td>
+                            <td>{{ item.medicines_name |titlecase}}</td>
+                            <td>{{ item.dosage_name || '--' |titlecase}}</td>
+                            <td>{{ item.instruction || '--' |titlecase}}</td>
+                            <td>{{ item.status == 1 ? "Activated" : "Deactivated"|titlecase }}</td>
                             <td><mat-slide-toggle 
                                 (change)="changeEvent($event,item.medicines_id)"
                                 class="example-margin"

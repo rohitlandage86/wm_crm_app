@@ -17,7 +17,7 @@
               </div>
         </c-card-header>
         <c-card-body>
-            <div class="col-md-12">
+            <div class="col-md-12 table-container">
                 <table class="table table-striped" >
                     <thead cTableColor="light">
                         <tr>
@@ -35,10 +35,10 @@
                         <tr *ngFor="let item of allConsultationList; let i = index">
                             <td>{{ i + 1 }}</td>
                             <td>{{ item.cts | date:'dd-MM-yyyy'}}</td>
-                            <td>{{ item.patient_name  }}</td>
-                            <td>{{ item.gender }}</td>
+                            <td>{{ item.patient_name |titlecase }}</td>
+                            <td>{{ item.gender|titlecase }}</td>
                             <td>{{ item.age }}</td>
-                            <td>{{ item.address }}</td>
+                            <td>{{ item.address|titlecase }}</td>
                             <td>{{ item.mobile_no }}</td>
                             <td> <a  [routerLink]="['/doctor', { outlets: { doc_Menu: ['doctor-view-search-patient',item.consultation_id]}}]"><svg [cIcon]="icons.cilDescription"  size="xl"
                                 title="List Icon" ></svg></a></td>

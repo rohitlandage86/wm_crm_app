@@ -18,7 +18,7 @@
                       </button>
                 </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12 table-container">
                 <table class="table table-striped">
                     <thead cTableColor="light">
                         <tr>
@@ -37,11 +37,11 @@
                         <tr *ngFor="let item of allcallList; let i = index">
                             <td>{{ i + 1 }}</td>
                             <td>{{ item.follow_up_date | date:'dd-MM-yyyy' }}</td>
-                            <td>{{ item.name }}</td>
-                            <td>{{ item.category_name }}</td>
+                            <td>{{ item.name |titlecase}}</td>
+                            <td>{{ item.category_name|titlecase }}</td>
                             <td>{{ item.mobile_number }}</td>
-                            <td>{{ item.comments }}</td>
-                            <td>{{item.lead_status}}</td>
+                            <td>{{ item.comments|titlecase }}</td>
+                            <td>{{item.lead_status |titlecase}}</td>
                             <td>{{ item.cts | date:'dd-MM-yyyy' }}</td>
                             <td>{{ item.cts | date:'hh:mm a':'en-IN' }}</td>
                         </tr>

@@ -21,9 +21,9 @@
                         <tr *ngFor="let item of allEntitieslist; let i = index">
                             <td>{{ i + 1 }}</td>
                             <td>{{ item.cts|date:'dd' }}/{{ item.cts|date:'MM' }}/{{ item.cts|date:'YYYY' }}</td>
-                            <td>{{ item.entity_name }}</td>
-                            <td>{{ item.abbrivation }}</td>
-                            <td>{{ item.status == 1 ? "Activated" : "Deactivated" }}</td>
+                            <td>{{ item.entity_name |titlecase}}</td>
+                            <td>{{ item.abbrivation | uppercase }}</td>
+                            <td>{{ item.status == 1 ? "Activated" : "Deactivated" |titlecase}}</td>
                             <td><mat-slide-toggle 
                                 (change)="changeEvent($event,item.entity_id)"
                                 class="example-margin"

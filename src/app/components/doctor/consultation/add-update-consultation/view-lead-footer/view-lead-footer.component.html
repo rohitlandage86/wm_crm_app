@@ -21,7 +21,7 @@
                   </div>
                 </div>
               
-                <div class="col-md-12">
+                <div class="col-md-12 table-container">
                   <table class="table table-striped">
                     <thead cTableColor="light">
                       <tr>
@@ -40,7 +40,7 @@
                         <td>{{ i + 1 }}</td>
                         <td>{{ item.cts.split('T')[0] | date:'dd-MM-yyyy'}}</td>
                         <!-- <td>{{ item.cts | date:'dd-MM-yyyy' }}</td> -->
-                        <td>{{ item.comments }}</td>
+                        <td>{{ item.comments | titlecase }}</td>
                         <td>{{ item.calling_time }}</td>
                         <td>{{ item.no_of_calls }}</td>
                         <td>{{ item.lead_status }}</td>

@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ReceptionistService } from '../../../receptionist.service';
 import { ActivatedRoute } from '@angular/router';
 import { AdminService } from 'src/app/components/admin/admin.service';
 import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
 import { Location } from '@angular/common';
+import { ReceptionistService } from 'src/app/components/receptionist/receptionist.service';
 
 @Component({
-  selector: 'app-view-search-patient',
-  templateUrl: './view-search-patient.component.html',
-  styleUrl: './view-search-patient.component.scss'
+  selector: 'app-veiw-patient-details',
+  templateUrl: './veiw-patient-details.component.html',
+  styleUrl: './veiw-patient-details.component.scss'
 })
-export class ViewSearchPatientComponent implements OnInit{
+export class VeiwPatientDetailsComponent implements OnInit{
   form!: FormGroup;
   mrno: any;
   allPatientVisitList: Array<any> = [];

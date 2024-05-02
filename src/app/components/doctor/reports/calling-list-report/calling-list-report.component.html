@@ -31,6 +31,8 @@
                             <th>Status</th>
                             <th>Calling Date</th>
                             <th>CTS</th>
+                            <th>View</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -44,6 +46,23 @@
                             <td>{{item.lead_status |titlecase}}</td>
                             <td>{{ item.cts | date:'dd-MM-yyyy' }}</td>
                             <td>{{ item.cts | date:'hh:mm a':'en-IN' }}</td>
+                            <td>
+                                <a
+                                  [routerLink]="[
+                                    '/doctor',
+                                    {
+                                      outlets: {
+                                        doc_Menu: ['doctor-view-search-lead', item.lead_hid]
+                                      }
+                                    }
+                                  ]"
+                                  class="pointer"
+                                  ><svg
+                                    [cIcon]="icons.cilDescription"
+                                    size="xl"
+                                    title="List Icon"
+                                  ></svg></a>
+                              </td>
                         </tr>
                         <tr class=" fw-bold text-center" *ngIf="allcallList.length===0">
                             <td colspan="10" class="text-danger">No Data Available</td>

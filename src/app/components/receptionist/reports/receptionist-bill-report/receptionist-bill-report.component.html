@@ -74,11 +74,12 @@
                             <th>Name</th>
                             <th>Entity</th>
                             <th>Service</th>
-                            <th>Service Type</th>
+                            <!-- <th>Service Type</th> -->
                             <th>Payment Type</th>
                             <th>Bill Amount</th>
                             <th>Discount Amount</th>
-                            <th>Total Amount</th>  
+                            <th>Total Amount</th> 
+                            <th>View</th> 
                         </tr>
                     </thead>
                     <tbody>
@@ -88,11 +89,13 @@
                             <td>{{ item.patient_name|titlecase }}</td>
                             <td>{{ item.abbrivation | uppercase }}</td>
                             <td>{{ item.service_name|titlecase}}</td>
-                            <td>{{ item.service_type_name|titlecase}}</td>
+                            <!-- <td>{{ item.service_type_name|titlecase}}</td> -->
                             <td>{{ item.payment_type|titlecase}}</td>
                             <td>{{ item.bill_amount }}</td>
                             <td>{{ item.discount_amount }}</td>
                             <td>{{ item.total_amount }}</td>
+                            <td> <a [routerLink]="['/receptionist', { outlets: { receptionist_Menu: ['view-search-bill',item.bill_id]}}]" class="pointer"><svg [cIcon]="icons.cilDescription"  size="xl"
+                                title="List Icon" ></svg></a></td>
                         </tr>
                         <tr class=" fw-bold text-center" *ngIf="allBillList.length===0">
                             <td colspan="10" class="text-danger">No Data Available</td>

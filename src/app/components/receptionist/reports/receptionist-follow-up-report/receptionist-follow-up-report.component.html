@@ -49,6 +49,7 @@
                             <th>Mobile Number</th>
                             <th>City</th>
                             <th>Status</th>
+                            <th>View</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,6 +61,23 @@
                             <td>{{ item.mobile_number }}</td>
                             <td>{{ item.city |titlecase}}</td>
                             <td>{{ item.lead_status |titlecase}}</td>
+                            <td>
+                                <a
+                                  [routerLink]="[
+                                    '/receptionist',
+                                    {
+                                      outlets: {
+                                        receptionist_Menu: ['view-search-leads', item.lead_hid]
+                                      }
+                                    }
+                                  ]"
+                                  class="pointer"
+                                  ><svg
+                                    [cIcon]="icons.cilDescription"
+                                    size="xl"
+                                    title="List Icon"
+                                  ></svg></a>
+                              </td>
                         </tr>
                         <tr class=" fw-bold text-center" *ngIf="allLeadFollowUpList.length===0">
                             <td colspan="10" class="text-danger">No Data Available</td>

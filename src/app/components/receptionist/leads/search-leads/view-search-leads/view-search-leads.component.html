@@ -222,10 +222,7 @@
               <button
                 cButton
                 color="primary"
-                [routerLink]="[
-                  '/receptionist',
-                  { outlets: { receptionist_Menu: 'search-leads' } }
-                ]"
+             (click)="goToback()"
               >
                 Cancel
               </button>

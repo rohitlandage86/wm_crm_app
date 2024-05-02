@@ -1,4 +1,3 @@
-import { DoctorBillReportComponent } from './reports/doctor-bill-report/doctor-bill-report.component';
 import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 
@@ -28,6 +27,8 @@ import { DoctorSearchBillComponent } from './bill-list/doctor-search-bill/doctor
 import { DoctorViewBillComponent } from './bill-list/doctor-search-bill/doctor-view-bill/doctor-view-bill.component';
 import { ViewLeadFooterComponent } from './consultation/add-update-consultation/view-lead-footer/view-lead-footer.component';
 import { DoctorPaymentHistoryReportComponent } from './reports/doctor-payment-history-report/doctor-payment-history-report.component';
+import { VeiwPatientDetailsComponent } from './reports/doctor-patient-report/veiw-patient-details/veiw-patient-details.component';
+import { DoctorBillReportComponent } from './reports/doctor-bill-report/doctor-bill-report.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { DoctorPaymentHistoryReportComponent } from './reports/doctor-payment-hi
     DoctorSearchBillComponent,
     DoctorViewBillComponent,
     ViewLeadFooterComponent,
-    DoctorPaymentHistoryReportComponent
+    DoctorPaymentHistoryReportComponent,
+    VeiwPatientDetailsComponent
   ],
   imports: [
     DoctorRoutingModule,

@@ -48,6 +48,7 @@
                             <th>Category</th>
                             <th>Mobile Number</th>
                             <th>City</th>
+                            <th>View</th>
                             <!-- <th>Edit</th> -->
                         </tr>
                     </thead>
@@ -59,6 +60,23 @@
                             <td>{{ item.category_name|titlecase }}</td>
                             <td>{{ item.mobile_number }}</td>
                             <td>{{ item.city|titlecase }}</td>
+                            <td>
+                                <a
+                                  [routerLink]="[
+                                    '/doctor',
+                                    {
+                                      outlets: {
+                                        doc_Menu: ['doctor-view-search-lead', item.lead_hid]
+                                      }
+                                    }
+                                  ]"
+                                  class="pointer"
+                                  ><svg
+                                    [cIcon]="icons.cilDescription"
+                                    size="xl"
+                                    title="List Icon"
+                                  ></svg></a>
+                              </td>
                             <!-- <td> <a [routerLink]="['/receptionist', { outlets: { receptionist_Menu: ['edit-leads',item.lead_hid]}}]" class="pointer"><svg [cIcon]="icons.cilPencil"  size="xl"
                                 title="List Icon" ></svg></a></td> -->
                         </tr>

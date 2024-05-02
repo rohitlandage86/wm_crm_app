@@ -239,10 +239,7 @@
           <button
             cButton
             color="primary"
-            [routerLink]="[
-              '/receptionist',
-              { outlets: { receptionist_Menu: 'search-patient' } }
-            ]"
+            (click)="goToback()"
           >
             Cancel
           </button>

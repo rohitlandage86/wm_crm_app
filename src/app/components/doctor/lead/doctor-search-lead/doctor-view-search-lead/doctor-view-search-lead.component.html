@@ -1,6 +1,6 @@
 <c-row class="m-0">
     <c-col xs="12 " class="p-0">
-      <c-card class="">
+      <c-card class="mb-3">
         <c-card-header>
           <strong>View Lead Details</strong>
         </c-card-header>
@@ -228,10 +228,7 @@
               <button
                 cButton
                 color="primary"
-                [routerLink]="[
-                  '/doctor',
-                  { outlets: { doc_Menu: 'doctor-search-lead' } }
-                ]"
+               (click)="goToback()"
               >
                 Cancel
               </button>

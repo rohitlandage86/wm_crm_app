@@ -32,16 +32,15 @@ export class PatientComponent implements OnInit {
     this.setTodayDate();
     this.getAllPatientVisitList();
     this.getAllPatientVisitCheckedLists();
+   
   }
 
-  
   setTodayDate() {
     const today = new Date();
     // Format the date as per your backend requirement
     this.lead_date = `${today.getFullYear()}-${(today.getMonth() + 1)
       .toString()
       .padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
-    
   }
   //get all PatientVisit List...
   getAllPatientVisitList() {
@@ -80,7 +79,6 @@ export class PatientComponent implements OnInit {
           this.mrno = patient.mrno;
           this.total = res.pagination.total;
           let message = `1. Patient Name: ${patient.patient_name} & 2.MRNO: ${patient.mrno}`;
-          
           // Check if patientIsrenewly is 0
           if (patient.patientIsrenewly === 0) {
             message = "\n  Warning: Case paper expired!";
@@ -116,6 +114,12 @@ export class PatientComponent implements OnInit {
           const dialogRef = this.dialog.open(SearchPatientRevisitComponent, {
             width: '70%',
             data: { patients: res.data } // Pass the array of patients to your dialog
+            
+          });
+          dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            // Dialog box close hone ke baad yaha page reload kar sakte hain
+            this.reloadPage();
           });
         } else {
           Swal.fire({
@@ -163,7 +167,6 @@ this._receptionistService.PatientRenew(this.mrno, updatedData).subscribe({
     } else {
       this._toastrService.warning(res.message);
     }
-  
   },
   error: (err: any) => {
     if (err.error.status == 401 || err.error.status == 422) {
@@ -190,7 +193,6 @@ submit() {
       } else {
         this._toastrService.warning(res.message);
       }
-    
     },
     error: (err: any) => {
       if (err.error.status == 401 || err.error.status == 422) {
@@ -201,5 +203,7 @@ submit() {
     },
   });
 }
-
+reloadPage() {
+  this.getAllPatientVisitList();
+}
 }

@@ -7,6 +7,7 @@ import { ReceptionistService } from '../../receptionist.service';
 import { DoctorService } from 'src/app/components/doctor/doctor.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PatientComponent } from '../patient.component';
+import { AdminService } from 'src/app/components/admin/admin.service';
 
 @Component({
   selector: 'app-search-patient-revisit',
@@ -23,7 +24,7 @@ export class SearchPatientRevisitComponent implements OnInit {
   mrno: any;
   lead_date: string;
   visitType: any;
-  constructor( private dialogRef: MatDialogRef<PatientComponent>,private _toastrService: ToastrService,private _receptionistService: ReceptionistService, private router: Router,   private _doctorService: DoctorService,@Inject(MAT_DIALOG_DATA) public data: any) {  
+  constructor(private _adminService: AdminService, private dialogRef: MatDialogRef<PatientComponent>,private _toastrService: ToastrService,private _receptionistService: ReceptionistService, private router: Router,   private _doctorService: DoctorService,@Inject(MAT_DIALOG_DATA) public data: any) {  
     this.lead_date = '';    this.allPatientVisitList = data.patients;
   }
 
@@ -47,6 +48,16 @@ export class SearchPatientRevisitComponent implements OnInit {
     this.perPage = event.pageSize;
     event.length = this.total;
   }
+  getAllPatientVisitList() {
+    this._adminService.getAllPatientVisitList(this.page, this.perPage).subscribe({
+      next: (res: any) => {
+        if (res.data.length > 0) {
+          this.allPatientVisitList = res.data;
+          this.total = res.pagination.total;
+        }
+      }
+    });
+  }
  
 // Patient Revist type change
 submit(mrno:any) {
@@ -57,6 +68,7 @@ submit(mrno:any) {
     next: (res: any) => {
       if (res.status == 200) {
         this._toastrService.success(res.message);
+        this.getAllPatientVisitList(),
         this.closeDialog("Revisit");
       } else {
         this._toastrService.warning(res.message);
@@ -79,6 +91,7 @@ this._receptionistService.PatientRenew(mrno, updatedData).subscribe({
   next: (res: any) => {
     if (res.status == 200) {
       this._toastrService.success(res.message);
+      this.getAllPatientVisitList();
       this.closeDialog("Renew");
     } else {
       this._toastrService.warning(res.message);
@@ -95,5 +108,7 @@ this._receptionistService.PatientRenew(mrno, updatedData).subscribe({
 }
 closeDialog(message?: any) {
   this.dialogRef.close(message);
+  // window.location.reload();
+  
 }
 }

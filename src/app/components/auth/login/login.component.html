@@ -257,15 +257,16 @@
                     control['email_id'].touched)
               }" />
               </c-input-group>
-              <span class="text-danger" *ngIf="
+
+              <span class="text-danger " *ngIf="
               control['email_id'].invalid &&
               (control['email_id'].dirty ||
                 control['email_id'].touched)
             ">
-                <div *ngIf="control['email_id'].errors?.['required']">
+                <div *ngIf="control['email_id'].errors?.['required']" class="d-flex justify-content-start" >
                   <small>Email Address is required</small>
                 </div>
-                <div *ngIf="control['email_id'].errors?.['email']">
+                <div *ngIf="control['email_id'].errors?.['email']"  class="d-flex justify-content-start" >
                   <small> Email must be a valid email address</small>
                 </div>
               </span>
@@ -289,8 +290,8 @@
                 </button>
               </c-input-group>
 
-              <span class="text-danger">
-                <div *ngIf="
+              <span class="text-danger ">
+                <div   class="d-flex justify-content-start" *ngIf="
                 control['password'].invalid &&
                 (control['password'].dirty ||
                   control['password'].touched)

@@ -1,4 +1,12 @@
 <c-container breakpoint="lg">
+    <div class="d-flex flex-column mb-3">
+        <c-input-group style="width: 400px;">
+            <span cInputGroupText>
+                <svg cIcon name="cil-search"></svg>
+            </span>
+            <input cFormControl autocomplete="off" type="search" placeholder="Search ....." id="searchInput" #searchInput [formControl]="searchControl">
+        </c-input-group>
+    </div>
     <c-card class="mb-4">
         <c-card-header class="d-flex justify-content-between">
             <strong>Visits</strong>

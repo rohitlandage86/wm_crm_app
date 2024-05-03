@@ -2,7 +2,7 @@
     <c-card class="mb-4">
         <c-card-header class="d-flex justify-content-between">
             <div class=""><strong class="d-flex align-items-center me-3 "> Revisit    <div class="d-flex flex-column pe-2">
-                <input cFormControl class="ms-2" type="text"  autocomplete="off" placeholder="Search Mobile No" id="searchInput" #searchInput (input)="isValidInput(searchInput.value)">
+                <input cFormControl class="ms-2" type="number"  autocomplete="off" placeholder="Search Mobile No" id="searchInput" #searchInput (input)="isValidInput(searchInput.value)">
                 <small class="text-danger" *ngIf="searchInput.value && !validateMobileNo(searchInput.value) && !isValidName(searchInput.value)">
                   Please enter a valid 10-digit number.
                 </small>
@@ -54,13 +54,10 @@
                                         <th>Sr. No</th>
                                         <th>Patient Name</th>
                                         <th>Visit Date</th>
-                                    
                                         <th>Mobile Number</th>
                                         <th>Gender</th>
                                         <th>Age</th>
                                         <th>City</th>
-                                      
-                                       
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -68,18 +65,15 @@
                                         <td>{{ i + 1 }}</td>
                                         <td>{{ item.patient_name|titlecase  }}</td>
                                         <td>{{ item.cts| date:'dd-MM-yyyy'}}</td>
-                                        
                                         <td>{{ item.mobile_no }}</td>
                                         <td>{{ item.gender |titlecase}}</td>
                                         <td>{{ item.age }}</td>
                                         <td>{{ item.city |titlecase}}</td>
-                                        
                                     <tr class=" fw-bold text-center" *ngIf="allPatientVisitCheckedList.length===0">
                                         <td colspan="10" class="text-danger">No Data Available</td>
                                     </tr>
                                 </tbody>
                             </table>
-                            
                         </div>
                 </mat-tab>
             </mat-tab-group>

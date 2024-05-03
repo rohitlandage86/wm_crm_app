@@ -10,11 +10,11 @@ import { ReceptionistService } from 'src/app/components/receptionist/receptionis
   templateUrl: './view-lead-footer.component.html',
   styleUrl: './view-lead-footer.component.scss'
 })
-export class ViewLeadFooterComponent implements OnInit{
+export class ViewLeadFooterComponent implements OnInit {
   form!: FormGroup;
   allLeadList: Array<any> = [];
   searchQuery: string = '';
-  leadHid:any;
+  leadHid: any;
   page = 1;
   perPage = 10;
   total = 0;
@@ -24,8 +24,8 @@ export class ViewLeadFooterComponent implements OnInit{
   allLeadFooterList: Array<any> = [];
   constructor(
     private fb: FormBuilder,
-    private _receptionistService: ReceptionistService, 
-    private dialogRef:MatDialogRef<EntityComponent>,
+    private _receptionistService: ReceptionistService,
+    private dialogRef: MatDialogRef<EntityComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,) { }
 
 
@@ -34,7 +34,7 @@ export class ViewLeadFooterComponent implements OnInit{
     if (this.data) {
       const leadHid = this.data;
       this.getLeadById(this.data)
-      this.isEdit =true
+      this.isEdit = true
     }
   }
 

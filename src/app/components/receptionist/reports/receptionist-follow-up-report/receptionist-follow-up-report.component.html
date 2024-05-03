@@ -1,4 +1,12 @@
 <c-container breakpoint="lg">
+    <div class="d-flex flex-column mb-3">
+        <c-input-group style="width: 400px;">
+            <span cInputGroupText>
+                <svg cIcon name="cil-search"></svg>
+            </span>
+            <input cFormControl autocomplete="off" type="search" placeholder="Search ....." id="searchInput" #searchInput [formControl]="searchControl">
+        </c-input-group>
+    </div>
     <c-card class="mb-4">
         <c-card-header class="d-flex justify-content-between">
             <strong>Follow Up</strong>
@@ -38,7 +46,7 @@
                       </button>
                 </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12 table-container">
                 <table class="table table-striped" >
                     <thead cTableColor="light">
                         <tr>
@@ -49,17 +57,35 @@
                             <th>Mobile Number</th>
                             <th>City</th>
                             <th>Status</th>
+                            <th>View</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of allLeadFollowUpList; let i = index">
                             <td>{{ i + 1 }}</td>
                             <td>{{ item.follow_up_date | date:'dd-MM-yyyy' }}</td>
-                            <td>{{ item.name }}</td>
-                            <td>{{ item.category_name }}</td>
+                            <td>{{ item.name |titlecase }}</td>
+                            <td>{{ item.category_name |titlecase }}</td>
                             <td>{{ item.mobile_number }}</td>
-                            <td>{{ item.city }}</td>
-                            <td>{{ item.lead_status }}</td>
+                            <td>{{ item.city |titlecase}}</td>
+                            <td>{{ item.lead_status |titlecase}}</td>
+                            <td>
+                                <a
+                                  [routerLink]="[
+                                    '/receptionist',
+                                    {
+                                      outlets: {
+                                        receptionist_Menu: ['view-search-leads', item.lead_hid]
+                                      }
+                                    }
+                                  ]"
+                                  class="pointer"
+                                  ><svg
+                                    [cIcon]="icons.cilDescription"
+                                    size="xl"
+                                    title="List Icon"
+                                  ></svg></a>
+                              </td>
                         </tr>
                         <tr class=" fw-bold text-center" *ngIf="allLeadFollowUpList.length===0">
                             <td colspan="10" class="text-danger">No Data Available</td>

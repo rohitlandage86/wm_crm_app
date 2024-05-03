@@ -14,7 +14,7 @@
           </button> -->
         </c-card-header>
         <c-card-body>
-            <div class="col-md-12">
+            <div class="col-md-12 table-container">
                 <table class="table table-striped" >
                     <thead cTableColor="light">
                         <tr>
@@ -33,11 +33,11 @@
                         <tr *ngFor="let item of allPatientVisitList; let i = index">
                             <td>{{ i + 1 }}</td>
                             <td>{{ item.registration_date | date:'dd-MM-yyyy'}}</td>
-                            <td>{{ item.patient_name  }}</td>
+                            <td>{{ item.patient_name |titlecase }}</td>
                             <td>{{ item.mobile_no }}</td>
-                            <td>{{ item.abbrivation }}</td>
+                            <td>{{ item.abbrivation | uppercase}}</td>
                             <!-- <td>{{ item.mrno_entity_series }}</td> -->
-                            <td>{{ item.address }}</td>
+                            <td>{{ item.address |titlecase}}</td>
                             <td> <button cButton color="primary" class="fs-3"[innerText]="item.patientIsrenewly === 1 ? 'Revisit' : 'Renew'" (click)="item.patientIsrenewly === 1 ? submit(item.mrno) : renew(item.mrno) " ></button></td>
                         </tr>
                         <tr class=" fw-bold text-center" *ngIf="allPatientVisitList.length===0">

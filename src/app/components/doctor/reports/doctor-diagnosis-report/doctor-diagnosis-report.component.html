@@ -55,7 +55,7 @@
           </button>
         </div>
       </div>
-      <div class="col-md-12">
+      <div class="col-md-12 table-container">
         <table class="table table-striped" >
           <thead cTableColor="light">
             <tr>
@@ -74,11 +74,11 @@
             >
               <td>{{ i + 1 }}</td>
               <td>{{ item.cts | date : "dd-MM-yyyy" }}</td>
-              <td>{{ item.patient_name }}</td>
-              <td>{{ item.diagnosis_name }}</td>
+              <td>{{ item.patient_name|titlecase }}</td>
+              <td>{{ item.diagnosis_name|titlecase }}</td>
               <td>{{ item.mobile_no }}</td>
-              <td>{{ item.city }}</td>
-              <td>{{ item.employee_name }}</td>
+              <td>{{ item.city |titlecase}}</td>
+              <td>{{ item.employee_name|titlecase }}</td>
             </tr>
             <tr
               class="fw-bold text-center"

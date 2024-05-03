@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { freeSet } from '@coreui/icons';
 import { PageEvent } from '@angular/material/paginator';
 import { ReceptionistService } from 'src/app/components/receptionist/receptionist.service';
+import { debounceTime } from 'rxjs';
 
 
 @Component({
@@ -23,10 +24,22 @@ export class DoctorPatientVisitReportComponent implements OnInit{
   toDate='';
   visit_type='';
   minDate = new Date();
+  searchControl: FormControl = new FormControl('');
+  searchTerm: string = '';
+  searchTimer: any;
   constructor(private _receptionistService: ReceptionistService, private fb:FormBuilder) { }
 
   ngOnInit() {
-    this.createForm()
+    this.createForm();
+    this.searchControl.valueChanges
+    .pipe(debounceTime(300))
+    .subscribe((searchTerm: string) => {
+      clearTimeout(this.searchTimer);
+      this.searchTerm = searchTerm;
+      this.searchTimer = setTimeout(() => {
+        this.getAllPatientVisitList();
+      }, 1000); // Set timeout to 5 seconds (5000 milliseconds)
+    });
   }
   createForm(){
     this.form = this.fb.group({
@@ -43,7 +56,7 @@ export class DoctorPatientVisitReportComponent implements OnInit{
 }
   //get all patient visit List...
   getAllPatientVisitList() {
-    this._receptionistService.getAllPatientVisitList(this.page, this.perPage, this.fromDate,this.toDate,this.visit_type).subscribe({
+    this._receptionistService.getAllPatientVisitList(this.page, this.perPage, this.fromDate,this.toDate,this.visit_type,this.searchTerm).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allPatientVisitList = res.data;
@@ -61,7 +74,7 @@ export class DoctorPatientVisitReportComponent implements OnInit{
     this.fromDate = this.form.value.fromDate;
     this.toDate = this.form.value.toDate;
     this.visit_type = this.form.value.visit_type;
-    this._receptionistService.getAllPatientVisitList(this.page, this.perPage, this.fromDate, this.toDate, this.visit_type ).subscribe({
+    this._receptionistService.getAllPatientVisitList(this.page, this.perPage, this.fromDate, this.toDate, this.visit_type,this.searchTerm ).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allPatientVisitList = res.data;
@@ -71,5 +84,20 @@ export class DoctorPatientVisitReportComponent implements OnInit{
         }
       }
     });
+  }
+  
+  //table column visit type name show changes 
+  transformVisitType(visitType: string): string {
+    switch (visitType) {
+        case 'FIRST_VISIT':
+            return 'First Visit';
+        case 'Follow_UP':
+            return 'Follow Up';
+        case 'RE_VISIT':
+            return 'Re Visit';
+        
+        default:
+            return visitType;
+    }
   }
 }

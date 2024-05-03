@@ -1,4 +1,12 @@
 <c-container breakpoint="lg">
+  <div class="d-flex flex-column mb-3">
+    <c-input-group style="width: 400px;">
+        <span cInputGroupText>
+            <svg cIcon name="cil-search"></svg>
+        </span>
+        <input cFormControl autocomplete="off" type="search" placeholder="Search ....." id="searchInput" #searchInput [formControl]="searchControl">
+    </c-input-group>
+</div>
   <c-card class="mb-4">
     <c-card-header class="d-flex justify-content-between">
       <strong>Registrations</strong>
@@ -125,7 +133,7 @@
           </button>
         </div>
       </div>
-      <div class="col-md-12">
+      <div class="col-md-12 table-container">
         <table class="table table-striped" >
           <thead cTableColor="light">
             <tr>
@@ -138,6 +146,7 @@
               <th>Source</th>
               <th>Refered By</th>
               <th>Doctor</th>
+              <th>View</th>
               <!-- <th>Edit</th> -->
             </tr>
           </thead>
@@ -145,13 +154,15 @@
             <tr *ngFor="let item of allPatientRegistrationsList; let i = index">
               <td>{{ i + 1 }}</td>
               <td>{{ item.registration_date | date : "dd-MM-yyyy" }}</td>
-              <td>{{ item.patient_name }}</td>
+              <td>{{ item.patient_name |titlecase}}</td>
               <td>{{ item.mobile_no }}</td>
-              <td>{{ item.gender }}</td>
-              <td>{{ item.abbrivation }}</td>
-              <td>{{ item.source_of_patient_name }}</td>
-              <td>{{ item.refered_by_name }}</td>
-              <td>{{ item.employee_name }}</td>
+              <td>{{ item.gender|titlecase }}</td>
+              <td>{{ item.abbrivation | uppercase}}</td>
+              <td>{{ item.source_of_patient_name|titlecase }}</td>
+              <td>{{ item.refered_by_name |titlecase}}</td>
+              <td>{{ item.employee_name |titlecase}}</td>
+              <td> <a [routerLink]="['/doctor', { outlets: { doc_Menu: ['view-patient',item.mrno]}}]" class="pointer"><svg [cIcon]="icons.cilDescription"  size="xl"
+                title="List Icon" ></svg></a></td>
               <!-- <td>{{ item.employee_name }}</td> -->
               <!-- <td> <a [routerLink]="['/receptionist', { outlets: { receptionist_Menu: ['edit-leads',item.lead_hid]}}]" class="pointer"><svg [cIcon]="icons.cilPencil"  size="xl"
                                 title="List Icon" ></svg></a></td> -->

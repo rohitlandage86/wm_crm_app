@@ -5,7 +5,7 @@
             <div class=" d-flex align-items-center">
                 <ng-container>
                     <div class="d-flex flex-column pe-2">
-                      <input cFormControl class="ms-2" type="text" placeholder="Search Name Or Mobile No" id="searchInput" #searchInput (input)="isValidInput(searchInput.value)">
+                      <input cFormControl class="ms-2" type="number" placeholder="Mobile Number" id="searchInput" #searchInput (input)="isValidInput(searchInput.value)">
                       <small class="text-danger" *ngIf="searchInput.value && !validateMobileNo(searchInput.value) && !isValidName(searchInput.value)">
                         Please enter a valid 10-digit number.
                       </small>
@@ -18,7 +18,7 @@
               </div>
         </c-card-header>
         <c-card-body>
-            <div class="col-md-12">
+            <div class="col-md-12 table-container">
                 <table class="table table-striped" >
                     <thead cTableColor="light">
                         <tr>
@@ -36,10 +36,10 @@
                         <tr *ngFor="let item of allPatientVisitList; let i = index">
                             <td>{{ i + 1 }}</td>
                             <td>{{ item.registration_date | date:'dd-MM-yyyy'}}</td>
-                            <td>{{ item.patient_name  }}</td>
-                            <td>{{ item.gender }}</td>
+                            <td>{{ item.patient_name  |titlecase}}</td>
+                            <td>{{ item.gender|titlecase }}</td>
                             <td>{{ item.age }}</td>
-                            <td>{{ item.address }}</td>
+                            <td>{{ item.address|titlecase }}</td>
                             <td>{{ item.mobile_no }}</td>
                             <td> <a [routerLink]="['/receptionist', { outlets: { receptionist_Menu: ['view-search-patient',item.mrno]}}]" class="pointer"><svg [cIcon]="icons.cilDescription"  size="xl"
                                 title="List Icon" ></svg></a></td>

@@ -24,8 +24,6 @@ export class DoctorSearchBillComponent implements OnInit{
     private _receptionistService: ReceptionistService) { }
 
   ngOnInit() {
-  
-
   }
 
  //get all consutlation view by mrno (history)..
@@ -45,7 +43,6 @@ export class DoctorSearchBillComponent implements OnInit{
     return namePattern.test(inputValue);
   }
   validateMobileNo(inputValue: string): boolean {
-
     const mobileNumberPattern = /^\d{10}$/;
     return mobileNumberPattern.test(inputValue);
   }

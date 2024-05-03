@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -20,7 +21,7 @@ export class DoctorViewSearchLeadComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private _receptionistService: ReceptionistService, private _adminService: AdminService,
-    private _superAdminService: SuperAdminService, private url: ActivatedRoute) { }
+    private _superAdminService: SuperAdminService, private url: ActivatedRoute, private location:Location) { }
 
 
   ngOnInit() {
@@ -149,5 +150,9 @@ export class DoctorViewSearchLeadComponent implements OnInit {
         }
       }
     });
+  }
+  // cancel route location service
+  goToback(){
+    this.location.back();
   }
 }

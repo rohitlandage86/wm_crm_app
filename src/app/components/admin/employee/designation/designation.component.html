@@ -20,8 +20,8 @@
                         <tr *ngFor="let item of allDesignationList; let i = index">
                             <td>{{ i + 1 }}</td>
                             <td>{{ item.cts|date:'dd' }}/{{ item.cts|date:'MM' }}/{{ item.cts|date:'YYYY' }}</td>
-                            <td>{{ item.designation_name }}</td>
-                            <td>{{ item.status == 1 ? "Activated" : "Deactivated" }}</td>
+                            <td>{{ item.designation_name |titlecase}}</td>
+                            <td>{{ item.status == 1 ? "Activated" : "Deactivated" |titlecase }}</td>
                             <td><mat-slide-toggle 
                                 (change)="changeEvent($event,item.designation_id)"
                                 class="example-margin"

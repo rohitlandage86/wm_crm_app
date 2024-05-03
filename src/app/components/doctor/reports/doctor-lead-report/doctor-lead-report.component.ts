@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { freeSet } from '@coreui/icons';
 import { AdminService } from 'src/app/components/admin/admin.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ReceptionistService } from 'src/app/components/receptionist/receptionist.service';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-doctor-lead-report',
@@ -23,11 +24,23 @@ export class DoctorLeadReportComponent implements OnInit{
   toDate='';
   category_id='';
   minDate = new Date();
+  searchControl: FormControl = new FormControl('');
+  searchTerm: string = '';
+  searchTimer: any;
   constructor(private _receptionistService: ReceptionistService, private _adminService:AdminService, private fb:FormBuilder) { }
 
   ngOnInit() {
     this.getAllCategoryList();
     this.createForm()
+    this.searchControl.valueChanges
+    .pipe(debounceTime(300))
+    .subscribe((searchTerm: string) => {
+      clearTimeout(this.searchTimer);
+      this.searchTerm = searchTerm;
+      this.searchTimer = setTimeout(() => {
+        this.getAllLeadsList();
+      }, 1000); // Set timeout to 5 seconds (5000 milliseconds)
+    });
   }
   createForm(){
     this.form = this.fb.group({
@@ -44,11 +57,14 @@ export class DoctorLeadReportComponent implements OnInit{
 }
   //get all Leads List...
   getAllLeadsList() {
-    this._receptionistService.getAllLeadsList(this.page, this.perPage, this.fromDate,this.toDate,this.category_id).subscribe({
+    this._receptionistService.getAllLeadsList(this.page, this.perPage, this.fromDate,this.toDate,this.category_id,this.searchTerm).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allLeadsList = res.data;
           this.total = res.pagination.total;
+        }else{
+            this.allLeadsList =[];
+            this.total = 0;
         }
       }
     });
@@ -75,7 +91,7 @@ export class DoctorLeadReportComponent implements OnInit{
     this.fromDate = this.form.value.fromDate;
     this.toDate = this.form.value.toDate;
     this.category_id = this.form.value.category_id;
-    this._receptionistService.getAllLeadsList(this.page, this.perPage, this.fromDate, this.toDate, this.category_id ).subscribe({
+    this._receptionistService.getAllLeadsList(this.page, this.perPage, this.fromDate, this.toDate, this.category_id ,this.searchTerm).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allLeadsList = res.data;

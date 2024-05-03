@@ -11,14 +11,16 @@ export class ReceptionistService {
     constructor(private http: HttpClient) { }
     //Receptionist..........................
     // get all leads............................................................
-    getAllLeadsList(page: any, perPage: any, fromDate: any, toDate: any, category_id: any): Observable<any> {
+    getAllLeadsList(page: any, perPage: any, fromDate: any, toDate: any, category_id: any, key: any): Observable<any> {
         let params = {
             'page': page,
             'perPage': perPage,
             'fromDate': fromDate,
             'toDate': toDate,
-            'category_id': category_id
+            'category_id': category_id,
+            'key': key  
         };
+    
         if (page == '' || perPage == '') {
             delete params['page'];
             delete params['perPage'];
@@ -30,8 +32,10 @@ export class ReceptionistService {
         if (category_id == '' || category_id == 'null') {
             delete params['category_id'];
         }
+    
         return this.http.get(this.baseUrl + 'api/lead_header/', { params: params });
     }
+    
     //get all search-lead-header list...............................................................
     getAllSearchLeadHeaderList(page: any, perPage: any, key: any): Observable<any> {
         let params: any = {
@@ -76,7 +80,7 @@ export class ReceptionistService {
         });
     }
     //get all Patient list............................................................... 
-    getAllPatientList(page: any, perPage: any, fromDate: any, toDate: any, gender: any, entity_id: any, source_of_patient_id: any, refered_by_id: any, employee_id: any): Observable<any> {
+    getAllPatientList(page: any, perPage: any, fromDate: any, toDate: any, gender: any, entity_id: any, source_of_patient_id: any, refered_by_id: any, employee_id: any,key:any): Observable<any> {
         let params = {
             page: page,
             perPage: perPage,
@@ -86,7 +90,8 @@ export class ReceptionistService {
             entity_id: entity_id,
             source_of_patient_id: source_of_patient_id,
             employee_id: employee_id,
-            refered_by_id: refered_by_id
+            refered_by_id: refered_by_id,
+            key:key
         };
         if (page == '' || perPage == '') {
             delete params['page'];
@@ -115,13 +120,14 @@ export class ReceptionistService {
             params: params
         });
     }
-    getAllPatientVisitList(page: any, perPage: any, fromDate: any, toDate: any, visit_type: any): Observable<any> {
+    getAllPatientVisitList(page: any, perPage: any, fromDate: any, toDate: any, visit_type: any,key:any): Observable<any> {
         let params = {
             'page': page,
             'perPage': perPage,
             'fromDate': fromDate,
             'toDate': toDate,
-            'visit_type': visit_type
+            'visit_type': visit_type,
+            'key':key
         };
         if (page == '' || perPage == '') {
             delete params['page'];
@@ -256,13 +262,14 @@ export class ReceptionistService {
     return this.http.put(this.baseUrl + 'api/patient_registration/patient-renewly/' + id, data);
 }
     //report lead follow up list
-    getAllLeadFollowUpReportList(page: any, perPage: any, fromDate: any, toDate: any, lead_status_id: any): Observable<any> {
+    getAllLeadFollowUpReportList(page: any, perPage: any, fromDate: any, toDate: any, lead_status_id: any,key:any): Observable<any> {
         let params = {
             page: page,
             perPage: perPage,
             lead_status_id: lead_status_id,
             fromDate: fromDate,
-            toDate: toDate
+            toDate: toDate,
+            key:key
         }
         if (page == '' || perPage == '') {
             delete params['page'];
@@ -397,7 +404,7 @@ export class ReceptionistService {
         });
     }
      //get all bill report list............................................................... 
-     getAllBillList(page: any, perPage: any, fromDate: any, toDate: any,entity_id:any,  service_id: any, service_type_id: any): Observable<any> {
+     getAllBillList(page: any, perPage: any, fromDate: any, toDate: any,entity_id:any,  service_id: any, service_type_id: any,key:any): Observable<any> {
         let params = {
             page: page,
             perPage: perPage,
@@ -406,6 +413,7 @@ export class ReceptionistService {
             entity_id:entity_id,
             service_id: service_id,
             service_type_id: service_type_id,
+            key:key
 
          
         };

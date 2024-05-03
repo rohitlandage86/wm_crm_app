@@ -40,7 +40,7 @@
         </div>
       </c-card-header>
       <c-card-body>
-        <div class="col-md-12">
+        <div class="col-md-12 table-container">
           <table class="table table-striped" >
             <thead cTableColor="light">
               <tr>
@@ -56,8 +56,8 @@
               <tr *ngFor="let item of allLeadList; let i = index">
                 <td>{{ i + 1 }}</td>
                 <td>{{ item.lead_date | date : "dd-MM-yyyy" }}</td>
-                <td>{{ item.name }}</td>
-                <td>{{ item.city }}</td>
+                <td>{{ item.name|titlecase }}</td>
+                <td>{{ item.city|titlecase }}</td>
                 <td>{{ item.mobile_number }}</td>
                 <td>
                   <a

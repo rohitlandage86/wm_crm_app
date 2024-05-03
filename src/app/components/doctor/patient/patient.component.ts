@@ -29,7 +29,6 @@ export class PatientComponent implements OnInit{
     this.getAllPatientVisitCheckedLists();
     this.getAllPatientVisitLists();
   }
-
   setTodayDate() {
     const today = new Date();
     // Format the date as per your backend requirement

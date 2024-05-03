@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { freeSet } from '@coreui/icons';
 import { ReceptionistService } from '../../receptionist.service';
 import { PageEvent } from '@angular/material/paginator';
 import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-receptionist-follow-up-report',
@@ -22,12 +23,24 @@ export class ReceptionistFollowUpReportComponent  implements OnInit{
   toDate='';
   lead_status_id='';
   minDate = new Date();
+  searchControl: FormControl = new FormControl('');
+  searchTerm: string = '';
+  searchTimer: any;
   constructor(private _receptionistService: ReceptionistService, private fb:FormBuilder, private _superAdminService:SuperAdminService) { }
 
   ngOnInit() {
     // this.getAllLeadFollowUpList();
     this.getLeadStatusList();
     this.createForm()
+    this.searchControl.valueChanges
+    .pipe(debounceTime(300))
+    .subscribe((searchTerm: string) => {
+      clearTimeout(this.searchTimer);
+      this.searchTerm = searchTerm;
+      this.searchTimer = setTimeout(() => {
+        this.getAllLeadFollowUpList();
+      }, 1000); // Set timeout to 5 seconds (5000 milliseconds)
+    });
   }
   createForm(){
     this.form = this.fb.group({
@@ -44,11 +57,14 @@ export class ReceptionistFollowUpReportComponent  implements OnInit{
 }
   //get all Leads List...
   getAllLeadFollowUpList() {
-    this._receptionistService.getAllLeadFollowUpReportList(this.page, this.perPage, this.fromDate,this.toDate,this.lead_status_id).subscribe({
+    this._receptionistService.getAllLeadFollowUpReportList(this.page, this.perPage, this.fromDate,this.toDate,this.lead_status_id,this.searchTerm).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allLeadFollowUpList = res.data;
           this.total = res.pagination.total;
+        }else{
+          this.allLeadFollowUpList = [];
+          this.total = 0;
         }
       }
     });
@@ -76,7 +92,7 @@ export class ReceptionistFollowUpReportComponent  implements OnInit{
     this.toDate = this.form.value.toDate;
     this.lead_status_id = this.form.value.lead_status_id;
     
-    this._receptionistService.getAllLeadFollowUpReportList(this.page, this.perPage, this.fromDate, this.toDate, this.lead_status_id ).subscribe({
+    this._receptionistService.getAllLeadFollowUpReportList(this.page, this.perPage, this.fromDate, this.toDate, this.lead_status_id ,this.searchTerm).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allLeadFollowUpList = res.data;
@@ -86,5 +102,6 @@ export class ReceptionistFollowUpReportComponent  implements OnInit{
         }
       }
     });
+    
   }
 }

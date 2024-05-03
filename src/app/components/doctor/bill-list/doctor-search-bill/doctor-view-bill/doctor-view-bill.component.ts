@@ -4,20 +4,21 @@ import { AdminService } from 'src/app/components/admin/admin.service';
 import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
 import { ActivatedRoute } from '@angular/router';
 import { ReceptionistService } from 'src/app/components/receptionist/receptionist.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-doctor-view-bill',
   templateUrl: './doctor-view-bill.component.html',
   styleUrl: './doctor-view-bill.component.scss'
 })
-export class DoctorViewBillComponent implements OnInit{
+export class DoctorViewBillComponent implements OnInit {
   form!: FormGroup;
   form_patient!: FormGroup;
   isEdit = false;
   bill_id: any;
   allStateList: Array<any> = [];
-  allServiceTypeList:Array<any> = [];
-  allServiceList:Array<any> = [];
+  allServiceTypeList: Array<any> = [];
+  allServiceList: Array<any> = [];
   allConsultationList: Array<any> = [];
   allEntityList: Array<any> = [];
   isInputVisible: boolean = false;
@@ -29,30 +30,25 @@ export class DoctorViewBillComponent implements OnInit{
 
   constructor(
     private fb: FormBuilder,
-    private _receptionistService: ReceptionistService, private _adminService: AdminService,  private _superAdminService: SuperAdminService,private url: ActivatedRoute
-) { this.defaultStateId = 20;}
+    private _receptionistService: ReceptionistService, private _adminService: AdminService, private _superAdminService: SuperAdminService, private url: ActivatedRoute, private location: Location
+  ) { this.defaultStateId = 20; }
 
 
   ngOnInit() {
-  
     this.createForm();
     this.getAllStateList();
     this.getAllEntityList();
     this.getAllServiceTypeList();
     this.getAllServiceList();
-     this.disableBillFormFields();
+    this.disableBillFormFields();
     // by defult cash pATCH dropdown
     this.form.patchValue({
       payment_type: 'Cash'
     });
     this.bill_id = this.url.snapshot.params['id']
-    console.log(this.bill_id);
-    
     if (this.bill_id) {
       this.getBillById(this.bill_id);
-    
     }
-
   }
 
   createForm() {
@@ -81,15 +77,12 @@ export class DoctorViewBillComponent implements OnInit{
       source_of_patient_id: [null],
       employee_id: [null],
       refered_by_id: [null],
-    
     });
-
   }
 
   get control() {
     return this.form.controls;
   }
- 
 
   getBillById(id: any) {
     this._receptionistService.getBillById(id).subscribe((result: any) => {
@@ -114,15 +107,15 @@ export class DoctorViewBillComponent implements OnInit{
     });
   }
 
-    // bill form all filed disable
-    disableBillFormFields() {
-      Object.keys(this.form.controls).forEach((key) => {
-        const control = this.form.get(key);
-        if (control) {
-          control.disable();
-        }
-      });
-    }
+  // bill form all filed disable
+  disableBillFormFields() {
+    Object.keys(this.form.controls).forEach((key) => {
+      const control = this.form.get(key);
+      if (control) {
+        control.disable();
+      }
+    });
+  }
   //get entity list...
   getAllEntityList() {
     this._adminService.getAllEntitiesListWma().subscribe({
@@ -132,7 +125,6 @@ export class DoctorViewBillComponent implements OnInit{
         }
       }
     });
-
   }
   //get  State list...
   getAllStateList() {
@@ -144,24 +136,28 @@ export class DoctorViewBillComponent implements OnInit{
       },
     });
   }
-    //get service type list...
-    getAllServiceTypeList(){
-      this._adminService.getAllServiceTypeListWma().subscribe({
-        next:(res:any)=>{
-          if (res.data.length>0) {
-            this.allServiceTypeList= res.data;
-          }
+  //get service type list...
+  getAllServiceTypeList() {
+    this._adminService.getAllServiceTypeListWma().subscribe({
+      next: (res: any) => {
+        if (res.data.length > 0) {
+          this.allServiceTypeList = res.data;
         }
-      });
-    }
-    //get service  list...
-    getAllServiceList(){
-      this._adminService.getAllServiceListWma().subscribe({
-        next:(res:any)=>{
-          if (res.data.length>0) {
-            this.allServiceList= res.data;
-          }
+      }
+    });
+  }
+  //get service  list...
+  getAllServiceList() {
+    this._adminService.getAllServiceListWma().subscribe({
+      next: (res: any) => {
+        if (res.data.length > 0) {
+          this.allServiceList = res.data;
         }
-      });
-    }
+      }
+    });
+  }
+  // cancel route location service
+  goToback() {
+    this.location.back();
+  }
 }

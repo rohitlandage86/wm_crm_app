@@ -4,6 +4,7 @@ import { ReceptionistService } from '../../../receptionist.service';
 import { ActivatedRoute } from '@angular/router';
 import { AdminService } from 'src/app/components/admin/admin.service';
 import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class ViewSearchLeadsComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private _receptionistService: ReceptionistService, private _adminService: AdminService,
-     private _superAdminService: SuperAdminService, private url: ActivatedRoute) { }
+     private _superAdminService: SuperAdminService, private url: ActivatedRoute,private location:Location) { }
 
 
   ngOnInit() {
@@ -147,4 +148,8 @@ export class ViewSearchLeadsComponent implements OnInit {
       }
     });
   }
+    // cancel route location service
+    goToback(){
+      this.location.back();
+    }
 }

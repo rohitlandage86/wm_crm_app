@@ -44,3 +44,8 @@
   line-height: 27px;
   margin-top: 20px!important;
 }
+@media (max-width: 750px) {
+  .d-flex {
+    flex-direction: column;
+  }
+}

@@ -170,12 +170,13 @@ export class DoctorService {
         }
 
         //get all payment history report list............................................................... 
-        getAllPaymentHistoryList(page: any, perPage: any, fromDate: any, toDate: any): Observable<any> {
+        getAllPaymentHistoryList(page: any, perPage: any, fromDate: any, toDate: any, key:any): Observable<any> {
             let params = {
                 page: page,
                 perPage: perPage,
                 fromDate: fromDate,
                 toDate: toDate,
+                key:key
 
     
              

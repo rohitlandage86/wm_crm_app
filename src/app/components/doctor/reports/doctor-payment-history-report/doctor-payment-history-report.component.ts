@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { freeSet } from '@coreui/icons';
 import { PageEvent } from '@angular/material/paginator';
 import { DoctorService } from '../../doctor.service';
+import { debounceTime } from 'rxjs';
 
 
 @Component({
@@ -22,12 +23,24 @@ export class DoctorPaymentHistoryReportComponent implements OnInit{
   toDate='';
   gender='';
   minDate = new Date();
+  searchControl: FormControl = new FormControl('');
+  searchTerm: string = '';
+  searchTimer: any;
   constructor(  private fb:FormBuilder, private _doctorService: DoctorService) { }
 
   ngOnInit() {
     // this.getAllBillList();
 
     this.createForm()
+    this.searchControl.valueChanges
+    .pipe(debounceTime(300))
+    .subscribe((searchTerm: string) => {
+      clearTimeout(this.searchTimer);
+      this.searchTerm = searchTerm;
+      this.searchTimer = setTimeout(() => {
+        this.getAllPaymentListList();
+      }, 1000); // Set timeout to 5 seconds (5000 milliseconds)
+    });
   }
   createForm(){
     this.form = this.fb.group({
@@ -43,7 +56,7 @@ export class DoctorPaymentHistoryReportComponent implements OnInit{
 }
   //get all Bill List...
   getAllPaymentListList() {
-    this._doctorService.getAllPaymentHistoryList(this.page, this.perPage, this.fromDate,this.toDate).subscribe({
+    this._doctorService.getAllPaymentHistoryList(this.page, this.perPage, this.fromDate,this.toDate ,this.searchTerm).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allPaymentHistoryList = res.data;
@@ -67,7 +80,7 @@ export class DoctorPaymentHistoryReportComponent implements OnInit{
     console.log(this.form.value);
     this.fromDate = this.form.value.fromDate;
     this.toDate = this.form.value.toDate;
-    this._doctorService.getAllPaymentHistoryList(this.page, this.perPage, this.fromDate, this.toDate).subscribe({
+    this._doctorService.getAllPaymentHistoryList(this.page, this.perPage, this.fromDate, this.toDate, this.searchTerm).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allPaymentHistoryList = res.data;

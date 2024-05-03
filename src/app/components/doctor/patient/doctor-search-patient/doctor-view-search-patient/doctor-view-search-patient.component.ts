@@ -59,7 +59,7 @@ export class DoctorViewSearchPatientComponent implements OnInit {
   i: any;
   @ViewChild('imagePreview') imagePreview!: ElementRef<HTMLImageElement>;
   showImagePreview: boolean[] = [];
-
+  patientData:any = {}
   constructor(
     private fb: FormBuilder,
     private _adminService: AdminService, private _doctorService: DoctorService,
@@ -395,6 +395,7 @@ export class DoctorViewSearchPatientComponent implements OnInit {
     this._doctorService.getConsultationById(id).subscribe((result: any) => {
       this.getConsultationHistory(result.data.mrno);
       const patientData = result.data;
+      this.patientData = result.data;
       this.control['entity_id'].patchValue(patientData.entity_id);
       this.control['registration_date'].patchValue(new Date(patientData.registration_date).toISOString().split('T')[0]);
       this.control['mrno_entity_series'].patchValue(patientData.mrno_entity_series);
@@ -582,9 +583,29 @@ export class DoctorViewSearchPatientComponent implements OnInit {
       popupWin.document.write(`
         <html>
           <head>
+          <link href="assets/images/nirmiti.png" rel="icon" type="image/x-icon">
           <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-            <body onload="window.print();window.close()">${printContents}</body>
+          <style>
+          .pl-4{
+            padding-left: 4rem;
+          }
+          .table-bordered{
+            border: 1px solid #000000!important;
+          }
+          .img-fluid{
+            max-width: 100%;
+            height: auto;
+          }
+          table{
+            font-size:14px!important;
+          }
+          h3{
+            font-size:1.3rem;
+          }
+          </style>
+            <body style="font-size:14px!important" onload="window.print();window.close()">${printContents}</body>
+       
           </head>
         </html>
       `)

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { freeSet } from '@coreui/icons';
 import { AdminService } from 'src/app/components/admin/admin.service';
 import { PageEvent } from '@angular/material/paginator';
 import { ReceptionistService } from 'src/app/components/receptionist/receptionist.service';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-doctor-bill-report',
@@ -28,6 +29,9 @@ export class DoctorBillReportComponent implements OnInit{
   service_id='';
   service_type_id='';
   minDate = new Date();
+  searchControl: FormControl = new FormControl('');
+  searchTerm: string = '';
+  searchTimer: any;
   constructor(private _receptionistService: ReceptionistService,  private _adminService:AdminService, private fb:FormBuilder) { }
 
   ngOnInit() {
@@ -35,7 +39,16 @@ export class DoctorBillReportComponent implements OnInit{
     this.getAllServiceList();
     this.getAllServiceTypeList();
     this.getAllEntityList();
-    this.createForm()
+    this.createForm();
+    this.searchControl.valueChanges
+    .pipe(debounceTime(300))
+    .subscribe((searchTerm: string) => {
+      clearTimeout(this.searchTimer);
+      this.searchTerm = searchTerm;
+      this.searchTimer = setTimeout(() => {
+        this.getAllBillList();
+      }, 1000); // Set timeout to 5 seconds (5000 milliseconds)
+    });
   }
   createForm(){
     this.form = this.fb.group({
@@ -54,7 +67,7 @@ export class DoctorBillReportComponent implements OnInit{
 }
   //get all Bill List...
   getAllBillList() {
-    this._receptionistService.getAllBillList(this.page, this.perPage, this.fromDate,this.toDate,this.entity_id,this.service_id, this.service_type_id).subscribe({
+    this._receptionistService.getAllBillList(this.page, this.perPage, this.fromDate,this.toDate,this.entity_id,this.service_id, this.service_type_id, this.searchTerm).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allBillList = res.data;
@@ -116,7 +129,7 @@ export class DoctorBillReportComponent implements OnInit{
     this.entity_id = this.form.value.entity_id
     this.service_id = this.form.value.service_id;
     this.service_type_id = this.form.value.service_type_id;
-    this._receptionistService.getAllBillList(this.page, this.perPage, this.fromDate, this.toDate,this.entity_id, this.service_id , this.service_type_id).subscribe({
+    this._receptionistService.getAllBillList(this.page, this.perPage, this.fromDate, this.toDate,this.entity_id, this.service_id , this.service_type_id, this.searchTerm).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allBillList = res.data;

@@ -4,6 +4,7 @@ import { AdminService } from 'src/app/components/admin/admin.service';
 import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
 import { ReceptionistService } from '../../../receptionist.service';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-view-search-bill',
@@ -29,7 +30,7 @@ export class ViewSearchBillComponent implements OnInit{
 
   constructor(
     private fb: FormBuilder,
-    private _receptionistService: ReceptionistService, private _adminService: AdminService,  private _superAdminService: SuperAdminService,private url: ActivatedRoute
+    private _receptionistService: ReceptionistService, private _adminService: AdminService,  private _superAdminService: SuperAdminService,private url: ActivatedRoute, private location:Location
 ) { this.defaultStateId = 20;}
 
 
@@ -156,4 +157,8 @@ export class ViewSearchBillComponent implements OnInit{
         }
       });
     }
+      // cancel route location service
+  goToback(){
+    this.location.back();
+  }
 }

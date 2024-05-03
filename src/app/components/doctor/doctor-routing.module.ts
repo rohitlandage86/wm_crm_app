@@ -24,6 +24,8 @@ import { BillListComponent } from './bill-list/bill-list.component';
 import { DoctorSearchBillComponent } from './bill-list/doctor-search-bill/doctor-search-bill.component';
 import { DoctorViewBillComponent } from './bill-list/doctor-search-bill/doctor-view-bill/doctor-view-bill.component';
 import { DoctorBillReportComponent } from './reports/doctor-bill-report/doctor-bill-report.component';
+import { DoctorPaymentHistoryReportComponent } from './reports/doctor-payment-history-report/doctor-payment-history-report.component';
+import { VeiwPatientDetailsComponent } from './reports/doctor-patient-report/veiw-patient-details/veiw-patient-details.component';
 
 
 const routes: Routes = [
@@ -92,6 +94,13 @@ const routes: Routes = [
   {
     path: "doctor-search-patient",
     component: DoctorSearchPatientComponent,
+    pathMatch: "full",
+    outlet: "doc_Menu",
+    canActivate:[AuthGuard]
+  },
+  {
+    path: "view-patient/:id",  
+    component: VeiwPatientDetailsComponent,
     pathMatch: "full",
     outlet: "doc_Menu",
     canActivate:[AuthGuard]
@@ -194,7 +203,13 @@ const routes: Routes = [
     outlet: "doc_Menu",
     canActivate:[AuthGuard]
   },
-  
+  {
+    path: "doctor-payment-history-reports",  
+    component: DoctorPaymentHistoryReportComponent,
+    pathMatch: "full",
+    outlet: "doc_Menu",
+    canActivate:[AuthGuard]
+  },
 ];
 
 @NgModule({

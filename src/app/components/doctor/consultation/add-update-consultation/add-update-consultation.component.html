@@ -228,7 +228,7 @@
         <hr />
 
         <form cForm class="row g-3" [formGroup]="form">
-            <c-col md="3" class="p-2">
+            <c-col md="4" class="p-2">
               <label cLabel for="validationDefault01">Past History</label>
               <input
                 cFormControl
@@ -238,48 +238,6 @@
                 autocomplete="off"
               />
             </c-col>
-            <!-- <c-col md="3" class="p-2">
-              <label for="chief_complaints_id" cLabel>
-                Chief Complaints<span
-                  style="color: red"
-                  *ngIf="!form.get('chief_complaints_id')?.value"
-                  >*</span
-                ></label
-              >
-              <div class="chief_complaints">
-                <mat-select
-                  #singleSelect
-                  formControlName="chief_complaints_id"
-                  class="form-control theme-input"
-                  style="width: 500px;"
-                >
-                  <mat-option>
-                    <ngx-mat-select-search
-                      [(ngModel)]="searchChiefComplaintsValue"
-                      [ngModelOptions]="{ standalone: true }"
-                      (input)="filterChiefComplaints()"
-                      placeholderLabel="Search chief complaint"
-                      noEntriesFoundLabel="No result available"
-                    ></ngx-mat-select-search>
-                  </mat-option>
-                  <mat-option
-                    *ngFor="let item of filteredChiefComplaintsArray"
-                    [value]="item.chief_complaint_id"
-                  >
-                    {{ item?.chief_complaint }}
-                  </mat-option>
-                </mat-select>
-                <button
-                  cButton
-                  class="ms-1 mb-1"
-                  color="primary"
-                  sizing="sm"
-                  (click)="openDialog()"
-                >
-                  +
-                </button>
-              </div>
-            </c-col> -->
             <c-col md="3" class="lead-info p-4">
               <button cButton class="me-1" color="primary"[disabled]="disableButton" (click)="openDialogLeadInfo(leadHid)" >
                 Lead Info
@@ -289,7 +247,7 @@
           <hr class="mb-0" />
           <mat-tab-group class="mt-0">
             <mat-tab label="Chief Complaints">
-              <div class="col-md-12">
+              <div class="col-md-12 table-container">
                 <table class="table">
                   <thead class="table-light">
                     <tr>
@@ -370,7 +328,7 @@
               </div>
             </mat-tab>
             <mat-tab label="Diagnosis Details">
-              <div class="col-md-12">
+              <div class="col-md-12 table-container">
                 <table class="table">
                   <thead class="table-light">
                     <tr>
@@ -477,7 +435,7 @@
               </div>
             </mat-tab>
             <mat-tab label="Treatment Details">
-              <div class="col-md-12">
+              <div class="col-md-12 table-container">
                 <table class="table">
                   <thead class="table-light">
                     <tr>
@@ -585,7 +543,7 @@
               </div>
             </mat-tab>
             <mat-tab label="Medicine Details">
-              <div class="col-md-12">
+              <div class="col-md-12 table-container">
                 <table class="table">
                   <thead class="table-light">
                     <tr>
@@ -726,7 +684,7 @@
               </div>
             </mat-tab>
             <mat-tab label="File Upload Details">
-              <div class="col-md-12">
+              <div class="col-md-12 table-container">
                 <table class="table">
                   <thead class="table-light">
                     <tr>
@@ -833,7 +791,7 @@
 
                         <mat-tab-group class="mt-0">
                           <mat-tab label="Chief Complaints">
-                            <div class="col-md-12">
+                            <div class="col-md-12 table-container">
                               <table class="table">
                                 <thead class="table-light">
                                   <tr>
@@ -863,7 +821,7 @@
                             </div>
                           </mat-tab>
                           <mat-tab label="Diagnosis Details">
-                            <div class="col-md-12">
+                            <div class="col-md-12 table-container">
                               <table class="table">
                                 <thead class="table-light">
                                   <tr>
@@ -895,7 +853,7 @@
                             </div>
                           </mat-tab>
                           <mat-tab label="Treatment Details">
-                            <div class="col-md-12">
+                            <div class="col-md-12 table-container">
                               <table class="table">
                                 <thead class="table-light">
                                   <tr>
@@ -927,7 +885,7 @@
                             </div>
                           </mat-tab>
                           <mat-tab label="Medicine Details">
-                            <div class="col-md-12">
+                            <div class="col-md-12 table-container">
                               <table class="table">
                                 <thead class="table-light">
                                   <tr>
@@ -965,7 +923,7 @@
                             </div>
                           </mat-tab>
                           <mat-tab label="File Upload Details">
-                            <div class="col-md-12">
+                            <div class="col-md-12 table-container">
                               <table class="table">
                                 <thead class="table-light">
                                   <tr>

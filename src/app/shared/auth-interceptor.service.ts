@@ -39,6 +39,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   private handleAuthError(err: HttpErrorResponse): Observable<any> {
     console.log(err);
+    this._toastrService.clear();
     if (err.error.status == 401) {
       this._router.navigate(['']);
       this._toastrService.warning("Session Expries..!!!");

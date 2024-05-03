@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { freeSet } from '@coreui/icons';
 import { ReceptionistService } from '../../receptionist.service';
 import { AdminService } from 'src/app/components/admin/admin.service';
 import { PageEvent } from '@angular/material/paginator';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-receptionist-patient-report',
@@ -30,15 +31,26 @@ export class ReceptionistPatientReportComponent implements OnInit{
   refered_by_id='';
   employee_id='';
   minDate = new Date();
-  constructor(private _receptionistService: ReceptionistService, private _adminService:AdminService, private fb:FormBuilder) { }
+  searchControl: FormControl = new FormControl('');
+  searchTerm: string = '';
+  searchTimer: any;
+  constructor(private _receptionistService: ReceptionistService,private _adminService:AdminService, private fb:FormBuilder) { }
 
   ngOnInit() {
-    // this.getAllPatientRegistrationList();
     this.getAllEntityList();
     this.getAllSourceOfPatientList();
     this.getAllReferedByList();
     this.getAllEmployeeList();
     this.createForm()
+    this.searchControl.valueChanges
+    .pipe(debounceTime(300))
+    .subscribe((searchTerm: string) => {
+      clearTimeout(this.searchTimer);
+      this.searchTerm = searchTerm;
+      this.searchTimer = setTimeout(() => {
+        this.getAllPatientRegistrationList();
+      }, 1000); // Set timeout to 5 seconds (5000 milliseconds)
+    });
   }
   createForm(){
     this.form = this.fb.group({
@@ -59,7 +71,7 @@ export class ReceptionistPatientReportComponent implements OnInit{
 }
   //get all Patient registration List...
   getAllPatientRegistrationList() {
-    this._receptionistService.getAllPatientList(this.page, this.perPage, this.fromDate,this.toDate,this.entity_id, '', '','','').subscribe({
+    this._receptionistService.getAllPatientList(this.page, this.perPage, this.fromDate,this.toDate,this.entity_id, '', '','','',this.searchTerm).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allPatientRegistrationsList = res.data;
@@ -125,7 +137,6 @@ export class ReceptionistPatientReportComponent implements OnInit{
     this.getAllPatientRegistrationList();
   }
   submitFilter(){
-    console.log(this.form.value);
     this.fromDate = this.form.value.fromDate;
     this.toDate = this.form.value.toDate;
     this.gender = this.form.value.gender;
@@ -133,7 +144,7 @@ export class ReceptionistPatientReportComponent implements OnInit{
     this.source_of_patient_id = this.form.value.source_of_patient_id;
     this.refered_by_id = this.form.value.refered_by_id;
     this.employee_id = this.form.value.employee_id;
-    this._receptionistService.getAllPatientList(this.page, this.perPage, this.fromDate, this.toDate, this.gender, this.entity_id,this.source_of_patient_id,this.refered_by_id,this.employee_id ).subscribe({
+    this._receptionistService.getAllPatientList(this.page, this.perPage, this.fromDate, this.toDate, this.gender, this.entity_id,this.source_of_patient_id,this.refered_by_id,this.employee_id,this.searchTerm ).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allPatientRegistrationsList = res.data;

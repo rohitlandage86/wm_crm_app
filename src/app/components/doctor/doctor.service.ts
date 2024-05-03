@@ -168,4 +168,32 @@ export class DoctorService {
                 params: params
             });
         }
+
+        //get all payment history report list............................................................... 
+        getAllPaymentHistoryList(page: any, perPage: any, fromDate: any, toDate: any, key:any): Observable<any> {
+            let params = {
+                page: page,
+                perPage: perPage,
+                fromDate: fromDate,
+                toDate: toDate,
+                key:key
+
+    
+             
+            };
+            if (page == '' || perPage == '') {
+                delete params['page'];
+                delete params['perPage'];
+            }
+            if (fromDate == '' || toDate == '') {
+                delete params['fromDate'];
+                delete params['toDate'];
+            }
+           
+          
+            return this.http.get(this.baseUrl + 'api/bill/payment-history', {
+                params: params
+            });
+        }
+
 }

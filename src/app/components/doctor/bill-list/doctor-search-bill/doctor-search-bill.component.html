@@ -1,60 +1,102 @@
 <c-container breakpoint="lg">
-    <c-card class="mb-4">
-        <c-card-header class="d-flex justify-content-between">
-            <strong>Search Bill</strong>
-            <div class=" d-flex align-items-center">
-                <ng-container>
-                    <div class="d-flex flex-column pe-2">
-                      <input cFormControl class="ms-2" type="text" placeholder="Search Name Or Mobile No" id="searchInput" autocomplete="off" #searchInput (input)="isValidInput(searchInput.value)">
-                      <small class="text-danger" *ngIf="searchInput.value && !validateMobileNo(searchInput.value) && !isValidName(searchInput.value)">
-                        Please enter a valid 10-digit number.
-                      </small>
-
-                    </div>
-                    <!-- Submit button -->
-                    <button cButton color="primary" class="fw-bold btn-sm ms-2" [disabled]="!isValidInput(searchInput.value)" (click)="getConsultationHistory(searchInput.value)">Submit</button>
-                  </ng-container>
-                  
-              </div>
-        </c-card-header>
-        <c-card-body>
-            <div class="col-md-12">
-                <table class="table table-striped" >
-                    <thead cTableColor="light">
-                        <tr>
-                            <th>Sr. No</th>
-                            <th>Bill Date</th>
-                            <th>Patient Name</th>
-                            <th>Mobile Number</th>
-                            <th>Bill Amount</th>
-                            <th>Discount Amount</th>
-                            <th>Total Amount</th>
-                            <th>View</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of allBillList; let i = index">
-                            <td>{{ i + 1 }}</td>
-                            <td>{{ item.cts | date:'dd-MM-yyyy'}}</td>
-                            <td>{{ item.patient_name  }}</td>
-                            <td>{{ item.mobile_no }}</td>
-                            <td>{{ item.bill_amount }}</td>
-                            <td>{{ item.discount_amount }}</td>
-                            <td>{{ item.total_amount }}</td>
-                            <td> <a [routerLink]="['/doctor', { outlets: { doc_Menu: ['doctor-view-bill',item.bill_id]}}]" class="pointer"><svg [cIcon]="icons.cilDescription"  size="xl"
-                                title="List Icon" ></svg></a></td>
-                        </tr>
-                        <tr class=" fw-bold text-center" *ngIf="allBillList.length===0">
-                            <td colspan="10" class="text-danger">No Data Available</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-md-12">
-                <mat-paginator [length]="total" [pageSize]="perPage" [pageSizeOptions]="[5, 10, 25, 100]"
-                aria-label="Select page" [showFirstLastButtons]="true" (page)="onPageChange($event)">
-            </mat-paginator>
-            </div>
-        </c-card-body>
-    </c-card>
+  <c-card class="mb-4">
+    <c-card-header class="d-flex justify-content-between">
+      <strong>Search Bill</strong>
+      <div class="d-flex align-items-center">
+        <ng-container>
+          <div class="d-flex flex-column pe-2">
+            <input
+              cFormControl
+              class="ms-2"
+              type="text"
+              placeholder="Search Name Or Mobile No"
+              id="searchInput"
+              autocomplete="off"
+              #searchInput
+              (input)="isValidInput(searchInput.value)"
+            />
+            <small
+              class="text-danger"
+              *ngIf="
+                searchInput.value &&
+                !validateMobileNo(searchInput.value) &&
+                !isValidName(searchInput.value)
+              "
+            >
+              Please enter a valid 10-digit number.
+            </small>
+          </div>
+          <!-- Submit button -->
+          <button
+            cButton
+            color="primary"
+            class="fw-bold btn-sm ms-2"
+            [disabled]="!isValidInput(searchInput.value)"
+            (click)="getConsultationHistory(searchInput.value)"
+          >
+            Submit
+          </button>
+        </ng-container>
+      </div>
+    </c-card-header>
+    <c-card-body>
+      <div class="col-md-12 table-container">
+        <table class="table table-striped">
+          <thead cTableColor="light">
+            <tr>
+              <th>Sr. No</th>
+              <th>Bill Date</th>
+              <th>Patient Name</th>
+              <th>Mobile Number</th>
+              <th>Bill Amount</th>
+              <th>Discount Amount</th>
+              <th>Total Amount</th>
+              <th>View</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of allBillList; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ item.cts | date : "dd-MM-yyyy" }}</td>
+              <td>{{ item.patient_name | titlecase }}</td>
+              <td>{{ item.mobile_no }}</td>
+              <td>{{ item.bill_amount }}</td>
+              <td>{{ item.discount_amount }}</td>
+              <td>{{ item.total_amount }}</td>
+              <td>
+                <a
+                  [routerLink]="[
+                    '/doctor',
+                    {
+                      outlets: { doc_Menu: ['doctor-view-bill', item.bill_id] }
+                    }
+                  ]"
+                  class="pointer"
+                  ><svg
+                    [cIcon]="icons.cilDescription"
+                    size="xl"
+                    title="List Icon"
+                  ></svg
+                ></a>
+              </td>
+            </tr>
+            <tr class="fw-bold text-center" *ngIf="allBillList.length === 0">
+              <td colspan="10" class="text-danger">No Data Available</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-12">
+        <mat-paginator
+          [length]="total"
+          [pageSize]="perPage"
+          [pageSizeOptions]="[5, 10, 25, 100]"
+          aria-label="Select page"
+          [showFirstLastButtons]="true"
+          (page)="onPageChange($event)"
+        >
+        </mat-paginator>
+      </div>
+    </c-card-body>
+  </c-card>
 </c-container>

@@ -4,6 +4,7 @@ import { ReceptionistService } from '../../../receptionist.service';
 import { ActivatedRoute } from '@angular/router';
 import { AdminService } from 'src/app/components/admin/admin.service';
 import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-view-search-patient',
@@ -22,7 +23,7 @@ export class ViewSearchPatientComponent implements OnInit{
   color: string | undefined;
   constructor(
     private fb: FormBuilder,
-    private _receptionistService: ReceptionistService, private url: ActivatedRoute,private _adminService: AdminService, private _superAdminService: SuperAdminService,) { }
+    private _receptionistService: ReceptionistService, private url: ActivatedRoute,private _adminService: AdminService, private _superAdminService: SuperAdminService, private location:Location) { }
   ngOnInit() {
     this.patientForm();
     this.getAllStateList();
@@ -156,4 +157,8 @@ export class ViewSearchPatientComponent implements OnInit{
       }
     });
   }
+    // cancel route location service
+    goToback(){
+      this.location.back();
+    }
 }

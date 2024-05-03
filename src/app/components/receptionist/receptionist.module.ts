@@ -1,4 +1,3 @@
-import { ReceptionistBillReportComponent } from './reports/receptionist-bill-report/receptionist-bill-report.component';
 import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ReceptionistRoutingModule } from './receptionist-routing.module';
@@ -22,6 +21,8 @@ import { BillComponent } from './bill/bill.component';
 import { AddUpdateBillComponent } from './bill/add-update-bill/add-update-bill.component';
 import { SearchBillComponent } from './bill/search-bill/search-bill.component';
 import { ViewSearchBillComponent } from './bill/search-bill/view-search-bill/view-search-bill.component';
+import { ReceptionistBillReportComponent } from './reports/receptionist-bill-report/receptionist-bill-report.component';
+import { SearchPatientRevisitComponent } from './patient/search-patient-revisit/search-patient-revisit.component';
 @NgModule({
   declarations: [
     ReceptionistDashboardComponent,
@@ -44,7 +45,8 @@ import { ViewSearchBillComponent } from './bill/search-bill/view-search-bill/vie
     BillComponent,
     AddUpdateBillComponent,
     SearchBillComponent,
-    ViewSearchBillComponent
+    ViewSearchBillComponent,
+    SearchPatientRevisitComponent
     
   ],
   imports: [

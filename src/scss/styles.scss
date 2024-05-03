@@ -29,7 +29,9 @@ $enable-rtl: true;
     font-size: 0.89rem!important;
 }
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Quicksand, sans-serif!important; }
+
 .cdk-overlay-container {
     position: fixed;
     z-index: 9999;
@@ -42,8 +44,8 @@ td a{
     color: unset;
     padding-top: 10px;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+// html, body { height: 100%; }
+// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .diabled{
     background: #ebedef;

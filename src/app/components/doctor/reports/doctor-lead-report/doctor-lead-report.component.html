@@ -1,4 +1,12 @@
 <c-container breakpoint="lg">
+    <div class="d-flex flex-column mb-3">
+        <c-input-group style="width: 400px;">
+            <span cInputGroupText>
+                <svg cIcon name="cil-search"></svg>
+            </span>
+            <input cFormControl autocomplete="off" type="search" placeholder="Search ....." id="searchInput" #searchInput [formControl]="searchControl">
+        </c-input-group>
+    </div>
     <c-card class="mb-4">
         <c-card-header class="d-flex justify-content-between">
             <strong>Leads</strong>
@@ -38,7 +46,7 @@
                       </button>
                 </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12 table-container">
                 <table class="table table-striped" >
                     <thead cTableColor="light">
                         <tr>
@@ -48,6 +56,7 @@
                             <th>Category</th>
                             <th>Mobile Number</th>
                             <th>City</th>
+                            <th>View</th>
                             <!-- <th>Edit</th> -->
                         </tr>
                     </thead>
@@ -55,10 +64,27 @@
                         <tr *ngFor="let item of allLeadsList; let i = index">
                             <td>{{ i + 1 }}</td>
                             <td>{{ item.lead_date | date:'dd-MM-yyyy' }}</td>
-                            <td>{{ item.name }}</td>
-                            <td>{{ item.category_name }}</td>
+                            <td>{{ item.name |titlecase}}</td>
+                            <td>{{ item.category_name|titlecase }}</td>
                             <td>{{ item.mobile_number }}</td>
-                            <td>{{ item.city }}</td>
+                            <td>{{ item.city|titlecase }}</td>
+                            <td>
+                                <a
+                                  [routerLink]="[
+                                    '/doctor',
+                                    {
+                                      outlets: {
+                                        doc_Menu: ['doctor-view-search-lead', item.lead_hid]
+                                      }
+                                    }
+                                  ]"
+                                  class="pointer"
+                                  ><svg
+                                    [cIcon]="icons.cilDescription"
+                                    size="xl"
+                                    title="List Icon"
+                                  ></svg></a>
+                              </td>
                             <!-- <td> <a [routerLink]="['/receptionist', { outlets: { receptionist_Menu: ['edit-leads',item.lead_hid]}}]" class="pointer"><svg [cIcon]="icons.cilPencil"  size="xl"
                                 title="List Icon" ></svg></a></td> -->
                         </tr>

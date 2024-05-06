@@ -120,6 +120,7 @@ export class ReceptionistService {
             params: params
         });
     }
+    //get all patient visit list
     getAllPatientVisitList(page: any, perPage: any, fromDate: any, toDate: any, visit_type: any,key:any): Observable<any> {
         let params = {
             'page': page,
@@ -142,6 +143,22 @@ export class ReceptionistService {
         }
         return this.http.get(this.baseUrl + 'api/patient_registration/get-all-patient-visit-list', { params: params });
     }
+    //get patient view list by mrno
+    getAllVisitPatientListByMrno(page: any, perPage: any,mrno:any): Observable<any> {
+        let params = {
+            page: page,
+            perPage: perPage,
+            mrno:mrno
+        };
+        if (page == '' || perPage == '') {
+            delete params['page'];
+            delete params['perPage'];
+        }
+        return this.http.get(this.baseUrl + 'api/patient_registration/get-all-patient-visit-list/by-mrno', {
+            params: params
+        });
+    }
+  
     //add new Patient...
     addPatient(data: any): Observable<any> {
         return this.http.post(this.baseUrl + 'api/patient_registration', data);

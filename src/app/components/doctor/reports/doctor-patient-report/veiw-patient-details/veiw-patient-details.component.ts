@@ -5,6 +5,7 @@ import { AdminService } from 'src/app/components/admin/admin.service';
 import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
 import { Location } from '@angular/common';
 import { ReceptionistService } from 'src/app/components/receptionist/receptionist.service';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-veiw-patient-details',
@@ -21,9 +22,14 @@ export class VeiwPatientDetailsComponent implements OnInit{
   allEmployeeList: Array<any> = [];
   allReferedByList: Array<any> = [];
   color: string | undefined;
+  allPatientVisitListByMrno: Array<any> = [];
+  pendingPage = 1;
+  pendingPerPage = 50;
+  pendingTotal = 0;
+  icons: any;
   constructor(
     private fb: FormBuilder,
-    private _receptionistService: ReceptionistService, private url: ActivatedRoute,private _adminService: AdminService, private _superAdminService: SuperAdminService, private location:Location) { }
+    private _receptionistService: ReceptionistService, private url: ActivatedRoute, private _adminService: AdminService, private _superAdminService: SuperAdminService, private location: Location) { }
   ngOnInit() {
     this.patientForm();
     this.getAllStateList();
@@ -32,16 +38,18 @@ export class VeiwPatientDetailsComponent implements OnInit{
     this.getAllEmployeeList();
     this.getAllReferedByList();
     this.disableFormFields();
+
     this.mrno = this.url.snapshot.params['id']
     if (this.mrno) {
       this.getPatientById(this.mrno);
+      this.getAllPatientVisitListByMrno(this.mrno);
     }
     // by defult cash pATCH dropdown
     this.form.patchValue({
       payment_type: 'Cash'
     });
   }
-  
+
   //patientform + consultation form
   patientForm() {
     this.form = this.fb.group({
@@ -65,20 +73,32 @@ export class VeiwPatientDetailsComponent implements OnInit{
       payment_type: [],
     });
   }
-   //form controls
-   get control() {
+  //form controls
+  get control() {
     return this.form.controls;
   }
-    // patientform all filed disable
-    disableFormFields() {
-      Object.keys(this.form.controls).forEach(key => {
-        const control = this.form.get(key);
-        if (control) {
-          control.disable();
+  // patientform all filed disable
+  disableFormFields() {
+    Object.keys(this.form.controls).forEach(key => {
+      const control = this.form.get(key);
+      if (control) {
+        control.disable();
+      }
+    });
+  }
+
+  //get all patient visit List by mrno...
+  getAllPatientVisitListByMrno(mrno: any) {
+    this._receptionistService.getAllVisitPatientListByMrno(this.pendingPage, this.pendingPerPage, mrno).subscribe({
+      next: (res: any) => {
+        if (res.data.length > 0) {
+          this.allPatientVisitListByMrno = res.data;
+          this.pendingTotal = res.pagination.total;
         }
-      });
-    }
-      //patient by id patch data
+      }
+    });
+  }
+  //patient by id patch data
   getPatientById(id: any) {
     this._receptionistService.getPatientById(id).subscribe((result: any) => {
       const patientData = result.data;
@@ -104,7 +124,7 @@ export class VeiwPatientDetailsComponent implements OnInit{
 
     })
   }
-  
+
   //get entity list...
   getAllEntityList() {
     this._adminService.getAllEntitiesListWma().subscribe({
@@ -157,8 +177,28 @@ export class VeiwPatientDetailsComponent implements OnInit{
       }
     });
   }
-    // cancel route location service
-    goToback(){
-      this.location.back();
+  // cancel route location service
+  goToback() {
+    this.location.back();
+  }
+  onPendingPageChange(event: PageEvent): void {
+    this.pendingPage = event.pageIndex + 1;
+    this.pendingPerPage = event.pageSize;
+    this.getAllPatientVisitListByMrno(this.mrno);
+
+  }
+  //table column visit type name show changes 
+  transformVisitType(visitType: string): string {
+    switch (visitType) {
+      case 'FIRST_VISIT':
+        return 'First Visit';
+      case 'Follow_UP':
+        return 'Follow Up';
+      case 'RE_VISIT':
+        return 'Re Visit';
+
+      default:
+        return visitType;
     }
+  }
 }

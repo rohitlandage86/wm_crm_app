@@ -20,6 +20,7 @@ import { AddUpdateDiagnosisComponent } from 'src/app/components/admin/masters/di
 import { AddUpdateTreatmentComponent } from 'src/app/components/admin/masters/treatment/add-update-treatment/add-update-treatment.component';
 import { ViewLeadFooterComponent } from './view-lead-footer/view-lead-footer.component';
 import { AddUpdateMedicinesComponent } from 'src/app/components/admin/clinical-masters/medicines/add-update-medicines/add-update-medicines.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-update-consultation',
@@ -32,7 +33,7 @@ export class AddUpdateConsultationComponent implements OnInit {
   page = 1;
   perPage = 10;
   total = 0;
-  baseUrl = environment.baseUrl
+  baseUrl = environment.baseUrl;
   isAccordionOpen: number | null = null;
   form!: FormGroup;
   form_patient!: FormGroup;
@@ -40,7 +41,7 @@ export class AddUpdateConsultationComponent implements OnInit {
   mrno: any;
   leadHid: any;
   disableButton: boolean = false;
-  leadList:Array<any> = [];
+  leadList: Array<any> = [];
   allConsutlationHistoryList: Array<any> = [];
   allStateList: Array<any> = [];
   allEntityList: Array<any> = [];
@@ -80,7 +81,7 @@ export class AddUpdateConsultationComponent implements OnInit {
   filteredInstructionsArray: Array<any> = [];
   allInstructions: Array<any> = [];
   formGroup: any;
-
+  patientData: any = {};
   constructor(
     private fb: FormBuilder,
     private _receptionistService: ReceptionistService,
@@ -90,7 +91,7 @@ export class AddUpdateConsultationComponent implements OnInit {
     private _superAdminService: SuperAdminService,
     private router: Router,
     private url: ActivatedRoute,
-    private dialog: MatDialog,
+    private dialog: MatDialog
   ) {
     this.defaultStateId = 20;
   }
@@ -116,7 +117,7 @@ export class AddUpdateConsultationComponent implements OnInit {
     if (this.mrno) {
       this.getPatientById(this.mrno);
       this.getConsultationHistory(this.mrno);
-      this.isEdit = true
+      this.isEdit = true;
     }
     this.form.patchValue({
       mrno: this.url.snapshot.params['id'],
@@ -156,7 +157,7 @@ export class AddUpdateConsultationComponent implements OnInit {
       mrno: ['', Validators.required],
       pluse: [null],
       bp: [null],
-      past_history: [''], 
+      past_history: [''],
       // chief_complaints_id: ['', Validators.required],
       appointment_date: [''],
       appointment_time: [''],
@@ -195,7 +196,11 @@ export class AddUpdateConsultationComponent implements OnInit {
         if (res.data.length > 0) {
           this.allChiefComplaints = res.data;
           // this.filteredChiefComplaintsArray = this.allChiefComplaints;
-          for (let index = 0; index < this.consultationChiefComplaintsDetailsArray.value.length; index++) {
+          for (
+            let index = 0;
+            index < this.consultationChiefComplaintsDetailsArray.value.length;
+            index++
+          ) {
             this.filteredChiefComplaintsArray[index] = this.allChiefComplaints;
           }
         }
@@ -203,9 +208,9 @@ export class AddUpdateConsultationComponent implements OnInit {
     });
   }
   //Filter chief complaints array
-  filterChiefComplaints(i:any) {
+  filterChiefComplaints(i: any) {
     if (this.searchChiefComplaintsValue != '') {
-      this.filteredChiefComplaintsArray[i]  = [];
+      this.filteredChiefComplaintsArray[i] = [];
       const filteredArr = this.allChiefComplaints.filter((obj) =>
         obj.chief_complaint
           .toLowerCase()
@@ -218,7 +223,7 @@ export class AddUpdateConsultationComponent implements OnInit {
       this.filteredChiefComplaintsArray[i] = this.allChiefComplaints;
     }
   }
-  
+
   // --------------------------------------------------------------------------
   //-------------------------------------------------------------------
   //get diagnosis list...
@@ -228,20 +233,25 @@ export class AddUpdateConsultationComponent implements OnInit {
         if (res.data.length > 0) {
           this.allDiagnosis = res.data;
           // this.filteredDiagnosisArray = this.allDiagnosis;
-          for (let index = 0; index < this.consultationDiagnosisDetailsArray.value.length; index++) {
+          for (
+            let index = 0;
+            index < this.consultationDiagnosisDetailsArray.value.length;
+            index++
+          ) {
             this.filteredDiagnosisArray[index] = this.allDiagnosis;
           }
         }
-       
       },
     });
   }
   //Filter diagnosis array
-  filterDiagnosis(i:any) {
-    if (this.searchDiagnosisValue != "") {
+  filterDiagnosis(i: any) {
+    if (this.searchDiagnosisValue != '') {
       this.filteredDiagnosisArray[i] = [];
       const filteredArr = this.allDiagnosis.filter((obj) =>
-        obj.diagnosis_name.toLowerCase().includes(this.searchDiagnosisValue.toLowerCase())
+        obj.diagnosis_name
+          .toLowerCase()
+          .includes(this.searchDiagnosisValue.toLowerCase())
       );
       this.filteredDiagnosisArray[i] = filteredArr;
       let indexPlusOne = i + 1;
@@ -258,7 +268,11 @@ export class AddUpdateConsultationComponent implements OnInit {
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allTreatment = res.data;
-          for (let index = 0; index < this.consultationTreatmentDetailsArray.value.length; index++) {
+          for (
+            let index = 0;
+            index < this.consultationTreatmentDetailsArray.value.length;
+            index++
+          ) {
             this.filteredTreatmentArray[index] = this.allTreatment;
           }
         }
@@ -266,11 +280,13 @@ export class AddUpdateConsultationComponent implements OnInit {
     });
   }
   //Filter Treatment array
-  filterTreatment(i:any) {
+  filterTreatment(i: any) {
     if (this.searchTreatmentValue != '') {
       this.filteredTreatmentArray[i] = [];
       const filteredArr = this.allTreatment.filter((obj: any) =>
-        obj.treatment_name.toLowerCase().includes(this.searchTreatmentValue.toLowerCase())
+        obj.treatment_name
+          .toLowerCase()
+          .includes(this.searchTreatmentValue.toLowerCase())
       );
       this.filteredTreatmentArray[i] = filteredArr;
       let indexPlusOne = i + 1;
@@ -288,7 +304,11 @@ export class AddUpdateConsultationComponent implements OnInit {
         if (res.data.length > 0) {
           this.allMedicines = res.data;
           // this.filteredMedicinesArray = this.allMedicines;
-          for (let index = 0; index < this.consultationMedicineDetailsArray.value.length; index++) {
+          for (
+            let index = 0;
+            index < this.consultationMedicineDetailsArray.value.length;
+            index++
+          ) {
             this.filteredMedicinesArray[index] = this.allMedicines;
           }
         }
@@ -296,11 +316,13 @@ export class AddUpdateConsultationComponent implements OnInit {
     });
   }
   //Filter Medicines array
-  filterMedicines(i:any) {
+  filterMedicines(i: any) {
     if (this.searchMedicinesValue != '') {
       this.filteredMedicinesArray[i] = [];
       const filteredArr = this.allMedicines.filter((obj: any) =>
-        obj.medicines_name.toLowerCase().includes(this.searchMedicinesValue.toLowerCase())
+        obj.medicines_name
+          .toLowerCase()
+          .includes(this.searchMedicinesValue.toLowerCase())
       );
       this.filteredMedicinesArray[i] = filteredArr;
       let indexPlusOne = i + 1;
@@ -316,7 +338,11 @@ export class AddUpdateConsultationComponent implements OnInit {
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allDosages = res.data;
-          for (let index = 0; index < this.consultationMedicineDetailsArray.value.length; index++) {
+          for (
+            let index = 0;
+            index < this.consultationMedicineDetailsArray.value.length;
+            index++
+          ) {
             this.filteredDosagesArray[index] = this.allDosages;
           }
         }
@@ -324,11 +350,13 @@ export class AddUpdateConsultationComponent implements OnInit {
     });
   }
   //Filter Dosages array
-  filterDosages(i:any) {
+  filterDosages(i: any) {
     if (this.searchDosagesValue != '') {
       this.filteredDosagesArray[i] = [];
       const filteredArr = this.allDosages.filter((obj: any) =>
-        obj.dosage_name.toLowerCase().includes(this.searchDosagesValue.toLowerCase())
+        obj.dosage_name
+          .toLowerCase()
+          .includes(this.searchDosagesValue.toLowerCase())
       );
       this.filteredDosagesArray[i] = filteredArr;
       let indexPlusOne = i + 1;
@@ -345,7 +373,11 @@ export class AddUpdateConsultationComponent implements OnInit {
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allInstructions = res.data;
-          for (let index = 0; index < this.consultationMedicineDetailsArray.value.length; index++) {
+          for (
+            let index = 0;
+            index < this.consultationMedicineDetailsArray.value.length;
+            index++
+          ) {
             this.filteredInstructionsArray[index] = this.allInstructions;
           }
         }
@@ -353,11 +385,13 @@ export class AddUpdateConsultationComponent implements OnInit {
     });
   }
   //Filter Instructions array
-  filterInstructions(i:any) {
+  filterInstructions(i: any) {
     if (this.searchInstructionsValue != '') {
       this.filteredInstructionsArray[i] = [];
       const filteredArr = this.allInstructions.filter((obj: any) =>
-        obj.instruction.toLowerCase().includes(this.searchInstructionsValue.toLowerCase())
+        obj.instruction
+          .toLowerCase()
+          .includes(this.searchInstructionsValue.toLowerCase())
       );
       this.filteredInstructionsArray[i] = filteredArr;
       let indexPlusOne = i + 1;
@@ -378,26 +412,35 @@ export class AddUpdateConsultationComponent implements OnInit {
     });
   }
   //  //Chief Complaints array controls
-   get consultationChiefComplaintsDetailsArray() {
-    return this.form.get('consultationChiefComplaintsDetails') as FormArray<any>;
+  get consultationChiefComplaintsDetailsArray() {
+    return this.form.get(
+      'consultationChiefComplaintsDetails'
+    ) as FormArray<any>;
   }
   newConsultationChiefComplaints(): FormGroup {
     return this.fb.group({
       chief_complaints_id: [null],
-      
     });
   }
   addConsultationChiefComplaints() {
     this.consultationChiefComplaintsDetailsArray.push(
       this.newConsultationChiefComplaints()
     );
-    for (let index = 0; index < this.consultationChiefComplaintsDetailsArray.value.length; index++) {
+    for (
+      let index = 0;
+      index < this.consultationChiefComplaintsDetailsArray.value.length;
+      index++
+    ) {
       this.filteredChiefComplaintsArray[index] = this.allChiefComplaints;
     }
   }
   deleteConsultationChiefComplaints(i: any) {
     this.consultationChiefComplaintsDetailsArray.removeAt(i);
-    for (let index = 0; index < this.consultationChiefComplaintsDetailsArray.value.length; index++) {
+    for (
+      let index = 0;
+      index < this.consultationChiefComplaintsDetailsArray.value.length;
+      index++
+    ) {
       this.filteredChiefComplaintsArray[index] = this.allChiefComplaints;
     }
   }
@@ -415,13 +458,21 @@ export class AddUpdateConsultationComponent implements OnInit {
     this.consultationDiagnosisDetailsArray.push(
       this.newConsultationDiagnosis()
     );
-    for (let index = 0; index < this.consultationDiagnosisDetailsArray.value.length; index++) {
+    for (
+      let index = 0;
+      index < this.consultationDiagnosisDetailsArray.value.length;
+      index++
+    ) {
       this.filteredDiagnosisArray[index] = this.allDiagnosis;
     }
   }
   deleteConsultationDiagnosis(i: any) {
     this.consultationDiagnosisDetailsArray.removeAt(i);
-    for (let index = 0; index < this.consultationDiagnosisDetailsArray.value.length; index++) {
+    for (
+      let index = 0;
+      index < this.consultationDiagnosisDetailsArray.value.length;
+      index++
+    ) {
       this.filteredDiagnosisArray[index] = this.allDiagnosis;
     }
   }
@@ -439,13 +490,21 @@ export class AddUpdateConsultationComponent implements OnInit {
     this.consultationTreatmentDetailsArray.push(
       this.newConsultationTreatment()
     );
-    for (let index = 0; index < this.consultationTreatmentDetailsArray.value.length; index++) {
+    for (
+      let index = 0;
+      index < this.consultationTreatmentDetailsArray.value.length;
+      index++
+    ) {
       this.filteredTreatmentArray[index] = this.allTreatment;
     }
   }
   deleteConsultationTreatment(i: any) {
     this.consultationTreatmentDetailsArray.removeAt(i);
-    for (let index = 0; index < this.consultationTreatmentDetailsArray.value.length; index++) {
+    for (
+      let index = 0;
+      index < this.consultationTreatmentDetailsArray.value.length;
+      index++
+    ) {
       this.filteredTreatmentArray[index] = this.allTreatment;
     }
   }
@@ -465,20 +524,26 @@ export class AddUpdateConsultationComponent implements OnInit {
     this.consultationMedicineDetailsArray.push(
       this.newConsultationMedicineDetails()
     );
-    for (let index = 0; index < this.consultationMedicineDetailsArray.value.length; index++) {
+    for (
+      let index = 0;
+      index < this.consultationMedicineDetailsArray.value.length;
+      index++
+    ) {
       this.filteredMedicinesArray[index] = this.allMedicines;
-      this.filteredDosagesArray[index]=this.allDosages;
-      this.filteredInstructionsArray[index]=this.allInstructions;
-  
+      this.filteredDosagesArray[index] = this.allDosages;
+      this.filteredInstructionsArray[index] = this.allInstructions;
     }
   }
   deleteConsultationMedicine(i: any) {
     this.consultationMedicineDetailsArray.removeAt(i);
-    for (let index = 0; index < this.consultationMedicineDetailsArray.value.length; index++) {
+    for (
+      let index = 0;
+      index < this.consultationMedicineDetailsArray.value.length;
+      index++
+    ) {
       this.filteredMedicinesArray[index] = this.allMedicines;
-      this.filteredDosagesArray[index]=this.allDosages;
-      this.filteredInstructionsArray[index]=this.allInstructions;
-  
+      this.filteredDosagesArray[index] = this.allDosages;
+      this.filteredInstructionsArray[index] = this.allInstructions;
     }
   }
   //FileUpload array controls
@@ -500,7 +565,7 @@ export class AddUpdateConsultationComponent implements OnInit {
   }
   deleteConsultationFileUpload(i: any) {
     this.consultationFileUploadDetailsArray.removeAt(i);
-  }  // Utility function to convert file to base64 format
+  } // Utility function to convert file to base64 format
   fileToBase64(file: File): Promise<string | ArrayBuffer | null> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -516,9 +581,15 @@ export class AddUpdateConsultationComponent implements OnInit {
       reader.readAsDataURL(file);
       reader.onload = () => {
         const base64Image = reader.result as string;
-        this.consultationFileUploadDetailsArray.at(index).get('imageBase64')?.patchValue(base64Image.split(',')[1])
+        this.consultationFileUploadDetailsArray
+          .at(index)
+          .get('imageBase64')
+          ?.patchValue(base64Image.split(',')[1]);
         const fileName = file.name; // Get the file name
-        this.consultationFileUploadDetailsArray.at(index).get('image_name')?.patchValue(fileName);
+        this.consultationFileUploadDetailsArray
+          .at(index)
+          .get('image_name')
+          ?.patchValue(fileName);
         this.showImagePreview[index] = true; // Assuming you want to toggle image preview automatically when a new image is selected
       };
     }
@@ -554,10 +625,24 @@ export class AddUpdateConsultationComponent implements OnInit {
           if (res.status == 201 || res.status == 200) {
             this._toastrService.clear();
             this._toastrService.success(res.message);
-            this.router.navigate([
-              '/doctor',
-              { outlets: { doc_Menu: 'patient' } },
-            ]);
+            Swal.fire({
+              title: 'Are you sure?',
+              text: 'Do you want to Print Prescription?',
+              icon: 'question',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                if (res.consultation_id) {
+                  this.print(res.consultation_id)
+                } 
+              }
+              this.router.navigate(['/doctor', { outlets: { doc_Menu: 'patient' } }]);
+
+            });
+
           } else {
             this._toastrService.clear();
             this._toastrService.warning(res.message);
@@ -584,7 +669,7 @@ export class AddUpdateConsultationComponent implements OnInit {
         if (res.data.length > 0) {
           this.allConsutlationHistoryList = res.data;
         }
-      }
+      },
     });
   }
 
@@ -592,7 +677,7 @@ export class AddUpdateConsultationComponent implements OnInit {
   getPatientById(id: any) {
     this._receptionistService.getPatientById(id).subscribe((result: any) => {
       const patientData = result.data;
-      this.getSearchLead(patientData.mobile_no)
+      this.getSearchLead(patientData.mobile_no);
       this.form_patient.patchValue({
         registration_date: new Date(patientData.registration_date)
           .toISOString()
@@ -622,7 +707,7 @@ export class AddUpdateConsultationComponent implements OnInit {
     const dialogRef = this.dialog.open(AddUpdateChiefComplaintsComponent, {
       data: data,
       width: '50%',
-      panelClass: 'mat-mdc-dialog-container'
+      panelClass: 'mat-mdc-dialog-container',
     });
     dialogRef.afterClosed().subscribe((message: any) => {
       if (message == 'create' || message == 'update') {
@@ -638,7 +723,7 @@ export class AddUpdateConsultationComponent implements OnInit {
     const dialogRef = this.dialog.open(AddUpdateDiagnosisComponent, {
       data: data,
       width: '50%',
-      panelClass: 'mat-mdc-dialog-container'
+      panelClass: 'mat-mdc-dialog-container',
     });
     dialogRef.afterClosed().subscribe((message: any) => {
       if (message == 'create' || message == 'update') {
@@ -654,7 +739,7 @@ export class AddUpdateConsultationComponent implements OnInit {
     const dialogRef = this.dialog.open(AddUpdateTreatmentComponent, {
       data: data,
       width: '50%',
-      panelClass: 'mat-mdc-dialog-container'
+      panelClass: 'mat-mdc-dialog-container',
     });
     dialogRef.afterClosed().subscribe((message: any) => {
       if (message == 'create' || message == 'update') {
@@ -664,21 +749,21 @@ export class AddUpdateConsultationComponent implements OnInit {
       }
     });
   }
-    //open Medicines by...
-    openDialogMedicines(data?: any) {
-      const dialogRef = this.dialog.open(AddUpdateMedicinesComponent, {
-        data: data,
-        width: '50%',
-        panelClass: 'mat-mdc-dialog-container'
-      });
-      dialogRef.afterClosed().subscribe((message: any) => {
-        if (message == 'create' || message == 'update') {
-          this.getAllMedicinesList();
-        } else {
-          console.log('nothing happen');
-        }
-      });
-    }
+  //open Medicines by...
+  openDialogMedicines(data?: any) {
+    const dialogRef = this.dialog.open(AddUpdateMedicinesComponent, {
+      data: data,
+      width: '50%',
+      panelClass: 'mat-mdc-dialog-container',
+    });
+    dialogRef.afterClosed().subscribe((message: any) => {
+      if (message == 'create' || message == 'update') {
+        this.getAllMedicinesList();
+      } else {
+        console.log('nothing happen');
+      }
+    });
+  }
   //get entity list...
   getAllEntityList() {
     this._adminService.getAllEntitiesListWma().subscribe({
@@ -739,44 +824,44 @@ export class AddUpdateConsultationComponent implements OnInit {
       this.isAccordionOpen = index; // Open the clicked accordion item
     }
   }
-  onMedicineChange(i:any,event:any){
+  onMedicineChange(i: any, event: any) {
     let medicines_id = event.value;
-    if(medicines_id){
+    if (medicines_id) {
       this._adminService.getMedicineById(medicines_id).subscribe({
-        next:(res:any)=>{
+        next: (res: any) => {
           this.consultationMedicineDetailsArray.at(i).patchValue({
             dosages_id: res.data.dosage_id,
             instructions_id: res.data.instructions_id,
           });
-        }
-      })
+        },
+      });
     }
-    
   }
 
   //get is lead search data
   getSearchLead(searchQuery: string): void {
     // Make API call with the search query
-    this._receptionistService.getAllSearchLeadHeaderList(this.page, this.perPage, searchQuery).subscribe({
-      next: (res: any) => {
-        if (res.data.length > 0) {
-         this.leadList=res.data[0].lead_hid
-        }else{
+    this._receptionistService
+      .getAllSearchLeadHeaderList(this.page, this.perPage, searchQuery)
+      .subscribe({
+        next: (res: any) => {
+          if (res.data.length > 0) {
+            this.leadList = res.data[0].lead_hid;
+          } else {
             this.disableButton = true;
-        }
-      }
-    
-    });
+          }
+        },
+      });
   }
 
   // //open lead footer by...
   openDialogLeadInfo(data: string): void {
-    let leadHid = this.leadList; 
+    let leadHid = this.leadList;
     const dialogRef = this.dialog.open(ViewLeadFooterComponent, {
       data: leadHid,
       width: '80%',
       panelClass: 'mat-mdc-dialog-container',
-      maxHeight: '80vh'
+      maxHeight: '80vh',
     });
     dialogRef.afterClosed().subscribe((message: any) => {
       if (message == 'create' || message == 'update') {
@@ -784,5 +869,203 @@ export class AddUpdateConsultationComponent implements OnInit {
         console.log('nothing happen');
       }
     });
+  }
+  print(id: any) {
+    this._doctorService.getConsultationById(id).subscribe((result: any) => {
+      console.log(result);
+
+      this.patientData = result.data
+
+      let popupWin;
+      popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+      const dateParts = this.patientData.cts.split('-');
+      const formattedDate = `${dateParts[2].split('T')[0]}/${dateParts[1]}/${dateParts[0]}`;
+      if (popupWin) {
+        popupWin.document.open();
+        popupWin.document.write(`
+  <html>
+  <head>
+    <link href="assets/images/nirmiti.png" rel="icon" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      .pl-4 {
+        padding-left: 4rem;
+      }
+  
+      .table-bordered {
+        border: 1px solid #000000 !important;
+      }
+  
+      .img-fluid {
+        max-width: 100%;
+        height: auto;
+      }
+  
+      table {
+        font-size: 14px !important;
+      }
+  
+      h3 {
+        font-size: 1.3rem;
+      }
+    </style>
+  </head>
+  
+  <body style="font-size: 14px!important" onload="window.print();window.close()">
+    <section class="">
+      <div class="container-fuild">
+        <div class="row justify-content-center">
+          <div class="col-12 col-lg-12 col-xl-12 col-xxl-12 ">
+            <header>
+              <div class="row mb-3">
+                <div class="col-12 col-lg-12 col-xl-12 col-xxl-12 ">
+                  <a class="d-flex justify-content-center ">
+                    <img src="../../../../../../assets/images/Nirmiti_English.png" class="img-fluid"
+                      alt="BootstrapBrain Logo" width="200" height="100">
+                  </a>
+                  <h3 class="p-0 m-0 d-flex justify-content-center">Nirmiti Cosmetic Surgery Centre</h3>
+                  <p class="p-0 m-0 d-flex justify-content-center"><span class="fw-bold">Address</span>: Shanti Sagar
+                    Colony, 100 Feet Rd, near Shani Mandir, Sangli, Maharashtra
+                    416415 </p>
+                  <span class="d-flex justify-content-center">Contact: +91 8690069006, +91 9637222022</span>
+                </div>
+                <div class="col-12 col-lg-12 col-xl-12 col-xxl-12 ">
+                  <address class="m-0">
+                    <div class="row pl-4">
+                      <div class="col-8">
+                        <strong>Dr.Neeraj Bhaban</strong> <br>
+                        M.S ( KEM Mumbai ) <br>MCh ( Plastic and Cosmetic surgery)
+                      </div>
+                      <div class="col-4">
+                        <strong>Dr. Mayuri Bhaban</strong> <br>
+                        Dip in Cosmetology and Trichology
+                      </div>
+                    </div>
+                    <!-- E-Mail: nirmiticosmeticcentre&#64;gmail.com -->
+                  </address>
+                </div>
+              </div>
+              <hr style="border-top:3px solid #000000!important;">
+            </header>
+            <section>
+              <div class="row mb-3 pl-4">
+                <div class="col-8">
+                  <div class="form-group">
+                    <strong> MR NO. : </strong><label for=""> ${this.patientData.mrno || '--'} </label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                  <strong> Date : </strong> <label for=""> ${formattedDate}</label>
+                  </div>
+                </div>
+                <div class="col-8">
+                  <div class="form-group">
+                    <strong>Name : </strong> <label for=""> ${this.patientData.patient_name || '--'}</label>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <strong>Age/Gender: </strong><label for="">
+                      ${this.patientData.age || '--'}/${this.patientData.gender || '--'}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3 pl-4">
+                <div class="col-3">
+                  <div class="form-group">
+                    <strong>Diagnosis Details:</strong>
+                  </div>
+                </div>
+                <div class="col-9">
+                  <div class="form-gr">
+                    ${this.patientData.consultationDiagnosisDetails.map((item: any, i: number) => `
+                    <label for="">
+                      ${item.diagnosis_name || '--'}
+                      <span>${i < (this.patientData.consultationDiagnosisDetails.length - 1) ? ',' : ''}</span>
+                          <span>${i === (this.patientData.consultationDiagnosisDetails.length - 1) ? '.' : ''}</span>
+                    </label>
+                    `).join('')}
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3 pl-4">
+                <div class="col-3">
+                  <div class="form-group">
+                    <strong>Treatment Details: </strong>
+                  </div>
+                </div>
+                <div class="col-9">
+                  <div class="form-gr">
+                    ${this.patientData.consultationTreatmentDetails.map((item: any, i: number) => `
+                    <label for="">
+                      ${item.treatment_name || '--'}
+                      <span>${i < (this.patientData.consultationTreatmentDetails.length - 1) ? ',' : ''}</span>
+                          <span>${i === (this.patientData.consultationTreatmentDetails.length - 1) ? '.' : ''}</span>
+                    </label>
+                    `).join('')}
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3 pl-4">
+                <div class="col-12">
+                  <div class="table-responsive">
+                    <table class="table table-striped table-bordered">
+                      <thead>
+                        <tr>
+                          <th scope="col" class="text-uppercase">Medicine</th>
+                          <th scope="col" class="text-uppercase">Dosage</th>
+                          <th scope="col" class="text-uppercase text-center">Days</th>
+                          <th scope="col" class="text-uppercase">Instructions</th>
+                        </tr>
+                      </thead>
+                      <tbody class="table-group-divider">
+                        ${this.patientData.consultationMedicineDetails.map((item: any) => `
+                        <tr>
+                          <td>${item.medicines_name || '--'}</td>
+                          <td>${item.dosage_name || '--'}</td>
+                          <td class="text-center">${item.days || '--'}</td>
+                          <td>${item.instruction || '--'}</td>
+                        </tr>
+                        `).join('')}
+  
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <div class="row mb-3 pl-4">
+              <div class="col-12">
+                Note:
+                <br> <br> <br> <br>
+                <br> <br> <br> <br>
+              </div>
+            </div>
+            <footer>
+              <div class="row">
+                <div class="col-6 text-start pl-4 mt-3">
+                  <strong>( Dr.Neeraj Bhaban )</strong>
+                </div>
+                <div class="col-6 text-end mt-3">
+                  <strong>( Dr. Mayuri Bhaban )</strong>
+                </div>
+              </div>
+            </footer>
+  
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+  </html>
+        `);
+        popupWin.document.close();
+      }
+
+    });
+
+
+
   }
 }

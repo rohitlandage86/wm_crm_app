@@ -593,7 +593,8 @@
               ]">
               Cancel
             </button>
-            <button cButton color="primary" class="mx-2"  (click)="print()">PRINT <svg cIcon class="me-2 mx-2" name="cil-print"></svg></button>
+            <button cButton color="primary" class="mx-2" (click)="print()">PRINT <svg cIcon class="me-2 mx-2"
+                name="cil-print"></svg></button>
 
           </c-col>
         </form>
@@ -601,58 +602,36 @@
     </c-card>
   </c-col>
 </c-row>
-<!-- py-3 py-md-5 -->
-<section class="" id="agrrement-section"  hidden>
+<!-- <section class="" id="agrrement-section" hidden>
   <div class="container-fuild">
     <div class="row justify-content-center">
       <div class="col-12 col-lg-12 col-xl-12 col-xxl-12 ">
-        <!-- <div class="row mb-3">
-          <div class="col-4 col-lg-4 col-xl-4 col-xxl-4">
-            <a class="d-block ">
-              <img src="../../../../../../assets/images/Nirmiti_English.png" class="img-fluid" alt="BootstrapBrain Logo"
-                width="250" height="150">
-            </a>
-          </div>
-          <div class="col-8 col-lg-8 col-xl-8 col-xxl-8 ">
-            <address>
-              <h2>Nirmiti Plastic Cosmetic and Laser Surgery Center</h2>
-              <strong>Dr.Neeraj Bhaban</strong> <br>
-              M.S ( KEM Mumbai ) MCh ( Plastic and cosmetic surgery) <br>
-              <strong>Dr. Mayuri Bhaban</strong> <br>
-              Dip in cosmetology and Trichology <br>
-              Address: Shanti Sagar Colony, 100 Feet Rd, near Shani Mandir, Sangli, Maharashtra
-              416415 <br>
-              <span>Contact: +91 8690069006, +91 9637222022</span> <br>
-              E-Mail: nirmiticosmeticcentre&#64;gmail.com
-            </address>
-          </div>
-        </div> -->
         <header>
           <div class="row mb-3">
             <div class="col-12 col-lg-12 col-xl-12 col-xxl-12 ">
               <a class="d-flex justify-content-center ">
-                <img src="../../../../../../assets/images/Nirmiti_English.png" class="img-fluid" alt="BootstrapBrain Logo"
-                  width="200" height="100">
+                <img src="../../../../../../assets/images/Nirmiti_English.png" class="img-fluid"
+                  alt="BootstrapBrain Logo" width="200" height="100">
               </a>
               <h3 class="p-0 m-0 d-flex justify-content-center">Nirmiti Cosmetic Surgery Centre</h3>
-              <p class="p-0 m-0 d-flex justify-content-center"><span class="fw-bold">Address</span>: Shanti Sagar Colony, 100 Feet Rd, near Shani Mandir, Sangli, Maharashtra
-                416415 </p> 
-                <span class="d-flex justify-content-center">Contact: +91 8690069006, +91 9637222022</span> 
+              <p class="p-0 m-0 d-flex justify-content-center"><span class="fw-bold">Address</span>: Shanti Sagar
+                Colony, 100 Feet Rd, near Shani Mandir, Sangli, Maharashtra
+                416415 </p>
+              <span class="d-flex justify-content-center">Contact: +91 8690069006, +91 9637222022</span>
             </div>
             <div class="col-12 col-lg-12 col-xl-12 col-xxl-12 ">
-              
+
               <address class="m-0">
                 <div class="row pl-4">
                   <div class="col-8">
                     <strong>Dr.Neeraj Bhaban</strong> <br>
-                    M.S ( KEM Mumbai ) <br>MCh ( Plastic and Cosmetic surgery) 
+                    M.S ( KEM Mumbai ) <br>MCh ( Plastic and Cosmetic surgery)
                   </div>
                   <div class="col-4">
                     <strong>Dr. Mayuri Bhaban</strong> <br>
-                    Dip in Cosmetology and Trichology 
+                    Dip in Cosmetology and Trichology
                   </div>
-                </div>        
-                <!-- E-Mail: nirmiticosmeticcentre&#64;gmail.com -->
+                </div>
               </address>
             </div>
           </div>
@@ -662,12 +641,13 @@
           <div class="row mb-3 pl-4">
             <div class="col-8">
               <div class="form-group">
-                <strong> MR NO. : </strong><label for="">  {{patientData.mrno||'--'}} </label>
+                <strong> MR NO. : </strong><label for=""> {{patientData.mrno||'--'}} </label>
               </div>
             </div>
             <div class="col-4">
               <div class="form-group">
-                <strong> Date : </strong> <label for=""> {{patientData.cts| date : "dd"}}/{{patientData.cts| date : "MM"}}/{{patientData.cts| date : "yyyy"}}</label>
+                <strong> Date : </strong> <label for=""> {{patientData.cts| date : "dd"}}/{{patientData.cts| date :
+                  "MM"}}/{{patientData.cts| date : "yyyy"}}</label>
               </div>
             </div>
             <div class="col-8">
@@ -677,7 +657,8 @@
             </div>
             <div class="col-4">
               <div class="form-group">
-                <strong>Age/Gender: </strong><label for="">  {{patientData.age||'--'}}/{{patientData.gender||'--'}}</label>
+                <strong>Age/Gender: </strong><label for="">
+                  {{patientData.age||'--'}}/{{patientData.gender||'--'}}</label>
               </div>
             </div>
           </div>
@@ -688,8 +669,10 @@
               </div>
             </div>
             <div class="col-9">
-              <div class="form-gr" >
-                <label for="" *ngFor="let item of patientData.consultationDiagnosisDetails; let i = index"> {{item.diagnosis_name ||'--'}} <span *ngIf="i < (patientData.consultationDiagnosisDetails.length-1)"> , </span> <span *ngIf="i ==(patientData.consultationDiagnosisDetails.length-1)"> . </span> </label> 
+              <div class="form-gr">
+                <label for="" *ngFor="let item of patientData.consultationDiagnosisDetails; let i = index">
+                  {{item.diagnosis_name ||'--'}} <span *ngIf="i < (patientData.consultationDiagnosisDetails.length-1)">
+                    , </span> <span *ngIf="i ==(patientData.consultationDiagnosisDetails.length-1)"> . </span> </label>
               </div>
             </div>
           </div>
@@ -700,8 +683,10 @@
               </div>
             </div>
             <div class="col-9">
-              <div class="form-gr" >
-                <label for="" *ngFor="let item of patientData.consultationTreatmentDetails; let i = index"> {{item.treatment_name ||'--'}}  <span *ngIf="i < (patientData.consultationTreatmentDetails.length-1)"> , </span> <span *ngIf="i ==(patientData.consultationTreatmentDetails.length-1)"> . </span> </label> 
+              <div class="form-gr">
+                <label for="" *ngFor="let item of patientData.consultationTreatmentDetails; let i = index">
+                  {{item.treatment_name ||'--'}} <span *ngIf="i < (patientData.consultationTreatmentDetails.length-1)">
+                    , </span> <span *ngIf="i ==(patientData.consultationTreatmentDetails.length-1)"> . </span> </label>
               </div>
             </div>
           </div>
@@ -748,8 +733,9 @@
             </div>
           </div>
         </footer>
-        
+
       </div>
     </div>
   </div>
-</section>
+</section> -->
+

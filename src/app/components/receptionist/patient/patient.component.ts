@@ -74,6 +74,8 @@ export class PatientComponent implements OnInit {
     // Make API call with the search query
     this._receptionistService.getAllSearchPatientRegistrationList(this.page, this.perPage, searchQuery).subscribe({
       next: (res: any) => {
+        console.log('data =',res);
+        
         if (res.data.length === 1) {
           const patient = res.data[0];
           this.mrno = patient.mrno;

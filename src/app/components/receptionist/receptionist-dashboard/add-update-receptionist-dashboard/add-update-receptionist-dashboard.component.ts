@@ -55,7 +55,7 @@ export class AddUpdateReceptionistDashboardComponent implements OnInit{
       lead_date: [new Date().toISOString().split('T')[0], Validators.required],
       city: ['', [Validators.required]],
       mobile_number: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
-      note: [null, Validators.required],
+      note: [null],
       category_id: [null, Validators.required],
       category_name:[''],
       leadFooterDetails: this.fb.array([this.newLeadFooter()])

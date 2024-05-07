@@ -1,4 +1,20 @@
 <c-container breakpoint="lg">
+  <div class="d-flex flex-column mb-3">
+    <c-input-group class="w-100 w-md-auto" style="max-width: 400px">
+      <span cInputGroupText>
+        <svg cIcon name="cil-search"></svg>
+      </span>
+      <input
+        cFormControl
+        autocomplete="off"
+        type="search"
+        placeholder="Search ....."
+        id="searchInput"
+        #searchInput
+        [formControl]="searchControl"
+      />
+    </c-input-group>
+  </div>
   <c-card class="mb-4">
     <c-card-header class="d-flex justify-content-between">
       <strong>Treatment</strong>
@@ -32,21 +48,33 @@
           </div>
           <!-- <div *ngIf="form.get('toDate')?.hasError('futureDate')&&form.get('toDate')?.dirty" class="text-danger">Invalid date.</div> -->
         </div>
-        <div class="col-md-3">
-          <label cLabel for="">Treatment</label>
-          <select
-            aria-label="select "
-            cSelect
-            sizing="sm"
-            formControlName="treatment_id"
-          >
-            <option value="null" selected>All</option>
-            <ng-container *ngFor="let item of allTreatmentList">
-              <option [value]="item.treatment_id">
-                {{ item.treatment_name }}
-              </option>
-            </ng-container>
-          </select>
+  
+        <div class="col-md-4">
+          <label class="mb-2">Treatment</label>
+          <div class="chief_complaints">
+            <mat-select
+              #singleSelect
+              placeholder="Select Treatment"
+              formControlName="treatment_id"
+              class="form-control theme-input"
+            >
+              <mat-option>
+                <ngx-mat-select-search
+                  [(ngModel)]="searchTreatmentValue"
+                  [ngModelOptions]="{ standalone: true }"
+                  (input)="filterTreatment()"
+                  placeholderLabel="Search chief complaint"
+                  noEntriesFoundLabel="No result available"
+                ></ngx-mat-select-search>
+              </mat-option>
+              <mat-option
+                *ngFor="let item of filteredTreatmentArray"
+                [value]="item.treatment_id"
+              >
+                {{ item?.treatment_name }}
+              </mat-option>
+            </mat-select>
+          </div>
         </div>
 
         <div class="col-md-3 h-100 d-flex align-self-center pt-2">

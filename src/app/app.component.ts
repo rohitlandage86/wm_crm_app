@@ -259,11 +259,11 @@ export class AppComponent implements OnInit, AfterContentChecked {
       ]
     },
     {
-      name: 'Bill',
+      name: 'Surgery Bill',
       iconComponent: { name: 'cilList' },
       children: [
         {
-          name: 'Bills',
+          name: 'Surgery Bills',
           url: ['/doctor', { outlets: { doc_Menu: 'bills' } }],
 
         },
@@ -337,7 +337,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
       ]
     },
     {
-      name: 'Bill',
+      name: 'Surgery Bill',
       iconComponent: { name: 'cilList' },
       children: [
         {
@@ -415,7 +415,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
       ]
     },
     {
-      name: 'Bill',
+      name: 'Surgery Bill',
       iconComponent: { name: 'cilList' },
       children: [
         {
@@ -471,7 +471,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
       ]
     },
     {
-      name: 'Bill',
+      name: 'Surgery Bill',
       iconComponent: { name: 'cilList' },
       children: [
         {

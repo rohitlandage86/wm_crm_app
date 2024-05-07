@@ -1,0 +1,12 @@
+@media only screen and (max-width: 600px) {
+    /* Adjust the max-width as needed */
+    .d-flex {
+      flex-wrap: wrap;
+    }
+  
+    .p-2 {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+  }
+  

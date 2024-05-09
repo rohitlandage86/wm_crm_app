@@ -23,6 +23,7 @@ import { SearchBillComponent } from './bill/search-bill/search-bill.component';
 import { ViewSearchBillComponent } from './bill/search-bill/view-search-bill/view-search-bill.component';
 import { ReceptionistBillReportComponent } from './reports/receptionist-bill-report/receptionist-bill-report.component';
 import { SearchPatientRevisitComponent } from './patient/search-patient-revisit/search-patient-revisit.component';
+import { PendingFollowupComponent } from './leads/follow-up/pending-followup/pending-followup.component';
 @NgModule({
   declarations: [
     ReceptionistDashboardComponent,
@@ -46,7 +47,8 @@ import { SearchPatientRevisitComponent } from './patient/search-patient-revisit/
     AddUpdateBillComponent,
     SearchBillComponent,
     ViewSearchBillComponent,
-    SearchPatientRevisitComponent
+    SearchPatientRevisitComponent,
+    PendingFollowupComponent
     
   ],
   imports: [

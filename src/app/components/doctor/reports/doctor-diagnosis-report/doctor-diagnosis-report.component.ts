@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { freeSet } from '@coreui/icons';
+import { debounceTime } from 'rxjs';
 import { AdminService } from 'src/app/components/admin/admin.service';
 import { ReceptionistService } from 'src/app/components/receptionist/receptionist.service';
 
@@ -16,19 +17,34 @@ export class DoctorDiagnosisReportComponent implements OnInit{
   total = 0;
   icons = freeSet;
   allConsultationDiagnosisList: Array<any> = [];
-  allDiagnosisList:Array<any>=[];
+//for diagnosis
+searchDiagnosisValue = '';
+filteredDiagnosisArray: Array<any> = [];
+allDiagnosis: Array<any> = [];
   selectedDiagnosis:any;
   form!:FormGroup;
   fromDate='';
   toDate='';
   diagnosis_id='';
   minDate = new Date();
+  searchControl: FormControl = new FormControl('');
+  searchTerm: string = '';
+  searchTimer: any;
   constructor(private _receptionistService: ReceptionistService, private _adminService:AdminService, private fb:FormBuilder) { }
 
   ngOnInit() {
     // this.getAllDiagnosisReportList();
     this.getAllDiagnosisList();
     this.createForm()
+    this.searchControl.valueChanges
+    .pipe(debounceTime(300))
+    .subscribe((searchTerm: string) => {
+      clearTimeout(this.searchTimer);
+      this.searchTerm = searchTerm;
+      this.searchTimer = setTimeout(() => {
+        this.getAllDiagnosisReportList();
+      }, 1000); // Set timeout to 5 seconds (5000 milliseconds)
+    });
   }
   createForm(){
     this.form = this.fb.group({
@@ -45,7 +61,7 @@ export class DoctorDiagnosisReportComponent implements OnInit{
 }
   //get all Diagnosis List...
   getAllDiagnosisReportList() {
-    this._receptionistService.getAllDiagnosisReportList(this.page, this.perPage, this.fromDate,this.toDate,this.diagnosis_id).subscribe({
+    this._receptionistService.getAllDiagnosisReportList(this.page, this.perPage, this.fromDate,this.toDate,this.diagnosis_id,this.searchTerm).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allConsultationDiagnosisList = res.data;
@@ -54,17 +70,30 @@ export class DoctorDiagnosisReportComponent implements OnInit{
       }
     });
   }
-  //get diagnosis list...
-  getAllDiagnosisList(){
-    this._adminService.getAllDiagnosisListWma().subscribe({
-      next:(res:any)=>{
-        if (res.data.length>0) {
-          this.allDiagnosisList = res.data;
-        } else {
-          this.allDiagnosisList = [];
-        }
+ //get diagnosis list...
+ getAllDiagnosisList() {
+  this._adminService.getAllDiagnosisListWma().subscribe({
+    next: (res: any) => {
+      if (res.data.length > 0) {
+        this.allDiagnosis = res.data;
+        this.filteredDiagnosisArray = this.allDiagnosis;       
+      }else
+      {
+        this.allDiagnosis = [];
+        this.filteredDiagnosisArray = this.allDiagnosis;    
       }
-    })
+    },
+  });
+}
+  //Filter diagnosis array
+  filterDiagnosis() {
+    if (this.searchDiagnosisValue !== "") {
+      this.filteredDiagnosisArray = this.allDiagnosis.filter((obj) =>
+        obj.diagnosis_name.toLowerCase().includes(this.searchDiagnosisValue.toLowerCase())
+      );
+    } else {
+      this.filteredDiagnosisArray = this.allDiagnosis;
+    }
   }
   onPageChange(event: PageEvent): void {
     this.page = event.pageIndex + 1;
@@ -76,7 +105,7 @@ export class DoctorDiagnosisReportComponent implements OnInit{
     this.fromDate = this.form.value.fromDate;
     this.toDate = this.form.value.toDate;
     this.diagnosis_id = this.form.value.diagnosis_id;
-    this._receptionistService.getAllDiagnosisReportList(this.page, this.perPage, this.fromDate, this.toDate, this.diagnosis_id ).subscribe({
+    this._receptionistService.getAllDiagnosisReportList(this.page, this.perPage, this.fromDate, this.toDate, this.diagnosis_id,this.searchTerm ).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allConsultationDiagnosisList = res.data;
@@ -86,6 +115,5 @@ export class DoctorDiagnosisReportComponent implements OnInit{
         }
       }
     });
-    
   }
 }

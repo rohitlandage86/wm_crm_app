@@ -259,11 +259,11 @@ export class AppComponent implements OnInit, AfterContentChecked {
       ]
     },
     {
-      name: 'Bill',
+      name: 'Surgery Bill',
       iconComponent: { name: 'cilList' },
       children: [
         {
-          name: 'Bills',
+          name: 'Surgery Bills',
           url: ['/doctor', { outlets: { doc_Menu: 'bills' } }],
 
         },
@@ -337,7 +337,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
       ]
     },
     {
-      name: 'Bill',
+      name: 'Surgery Bill',
       iconComponent: { name: 'cilList' },
       children: [
         {
@@ -407,6 +407,11 @@ export class AppComponent implements OnInit, AfterContentChecked {
 
         },
         {
+          name: 'Pandding',
+          url: ['/receptionist', { outlets: { receptionist_Menu: 'pending-follow-up' } }],
+
+        },
+        {
           name: 'Search',
           url: ['/receptionist', { outlets: { receptionist_Menu: 'search-leads' } }],
 
@@ -415,7 +420,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
       ]
     },
     {
-      name: 'Bill',
+      name: 'Surgery Bill',
       iconComponent: { name: 'cilList' },
       children: [
         {
@@ -471,7 +476,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
       ]
     },
     {
-      name: 'Bill',
+      name: 'Surgery Bill',
       iconComponent: { name: 'cilList' },
       children: [
         {

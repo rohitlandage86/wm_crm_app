@@ -328,13 +328,14 @@ export class ReceptionistService {
         return this.http.get(this.baseUrl + 'api/receptionist-dashboard')
     }
     //get all diagnosis report list ..............................................................................
-    getAllDiagnosisReportList(page: any, perPage: any, fromDate: any, toDate: any, diagnosis_id: any): Observable<any> {
+    getAllDiagnosisReportList(page: any, perPage: any, fromDate: any, toDate: any, diagnosis_id: any,key:any): Observable<any> {
         let params = {
             'page': page,
             'perPage': perPage,
             'fromDate': fromDate,
             'toDate': toDate,
-            'diagnosis_id': diagnosis_id
+            'diagnosis_id': diagnosis_id,
+            'key':key
         };
         if (page == '' || perPage == '') {
             delete params['page'];
@@ -351,13 +352,14 @@ export class ReceptionistService {
     }
 
     //get all Treatment report list ..............................................................................
-    getAllTreatmentReportList(page: any, perPage: any, fromDate: any, toDate: any, treatment_id: any): Observable<any> {
+    getAllTreatmentReportList(page: any, perPage: any, fromDate: any, toDate: any, treatment_id: any ,key:any): Observable<any> {
         let params = {
             'page': page,
             'perPage': perPage,
             'fromDate': fromDate,
             'toDate': toDate,
-            'treatment_id': treatment_id
+            'treatment_id': treatment_id,
+            'key':key
         };
         if (page == '' || perPage == '') {
             delete params['page'];

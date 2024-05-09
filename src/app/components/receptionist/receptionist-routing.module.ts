@@ -22,6 +22,7 @@ import { AuthGuard } from 'src/app/shared/auth-guard.service';
 import { BillComponent } from './bill/bill.component';
 import { AddUpdateBillComponent } from './bill/add-update-bill/add-update-bill.component';
 import { SearchBillComponent } from './bill/search-bill/search-bill.component';
+import { PendingFollowupComponent } from './leads/follow-up/pending-followup/pending-followup.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "receptionist", pathMatch: "full" },
@@ -129,6 +130,13 @@ const routes: Routes = [
 {
   path: "follow-up",  
   component: FollowUpComponent,
+  pathMatch: "full",
+  outlet: "receptionist_Menu",
+  canActivate:[AuthGuard]
+},
+{
+  path: "pending-follow-up",  
+  component: PendingFollowupComponent,
   pathMatch: "full",
   outlet: "receptionist_Menu",
   canActivate:[AuthGuard]

@@ -6,6 +6,7 @@ import { AdminService } from 'src/app/components/admin/admin.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
 import Swal from 'sweetalert2';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-update-receptionist-dashboard',
@@ -22,7 +23,7 @@ export class AddUpdateReceptionistDashboardComponent implements OnInit{
   
   constructor (
     private fb:FormBuilder,
-    private _receptionistService: ReceptionistService,private _adminService: AdminService, private router: Router,
+    private _receptionistService: ReceptionistService,private _adminService: AdminService, private router: Router,private location:Location,
     private _toastrService:ToastrService,private _superAdminService: SuperAdminService,private url: ActivatedRoute){}
 
 
@@ -55,7 +56,7 @@ export class AddUpdateReceptionistDashboardComponent implements OnInit{
       lead_date: [new Date().toISOString().split('T')[0], Validators.required],
       city: ['', [Validators.required]],
       mobile_number: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
-      note: [null, Validators.required],
+      note: [null],
       category_id: [null, Validators.required],
       category_name:[''],
       leadFooterDetails: this.fb.array([this.newLeadFooter()])
@@ -185,4 +186,8 @@ export class AddUpdateReceptionistDashboardComponent implements OnInit{
       }
     });
   }
+    // cancel route location service
+    goToback() {
+      this.location.back();
+    }
 }

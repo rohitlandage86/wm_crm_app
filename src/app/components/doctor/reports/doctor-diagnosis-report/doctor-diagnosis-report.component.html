@@ -65,6 +65,9 @@
                   noEntriesFoundLabel="No result available"
                 ></ngx-mat-select-search>
               </mat-option>
+              <mat-option value="null">
+                All Diagnosis
+              </mat-option>
               <mat-option
                 *ngFor="let item of filteredDiagnosisArray"
                 [value]="item.diagnosis_id"

@@ -6,6 +6,7 @@ import { AdminService } from 'src/app/components/admin/admin.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
 import Swal from 'sweetalert2';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-update-leads',
@@ -21,7 +22,7 @@ export class AddUpdateLeadsComponent implements OnInit {
   leadStatusDetailAdded: boolean = false;
   constructor(
     private fb: FormBuilder,
-    private _receptionistService: ReceptionistService, private _adminService: AdminService,
+    private _receptionistService: ReceptionistService, private _adminService: AdminService,private location:Location,
     private _toastrService: ToastrService, private _superAdminService: SuperAdminService, private router: Router, private url: ActivatedRoute) { }
 
   ngOnInit() {
@@ -205,5 +206,8 @@ export class AddUpdateLeadsComponent implements OnInit {
       }
     });
   }
-
+    // cancel route location service
+    goToback() {
+      this.location.back();
+    }
 }

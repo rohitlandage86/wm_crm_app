@@ -66,6 +66,9 @@ allDiagnosis: Array<any> = [];
         if (res.data.length > 0) {
           this.allConsultationDiagnosisList = res.data;
           this.total = res.pagination.total;
+        }else{
+          this.allConsultationDiagnosisList = [];
+          this.total = 0
         }
       }
     });

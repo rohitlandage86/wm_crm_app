@@ -407,7 +407,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
 
         },
         {
-          name: 'Pandding',
+          name: 'Pending Leads',
           url: ['/receptionist', { outlets: { receptionist_Menu: 'pending-follow-up' } }],
 
         },

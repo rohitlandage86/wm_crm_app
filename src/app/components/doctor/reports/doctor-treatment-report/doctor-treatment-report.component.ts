@@ -65,6 +65,9 @@ export class DoctorTreatmentReportComponent implements OnInit{
         if (res.data.length > 0) {
           this.allConsultationTreatmentList = res.data;
           this.total = res.pagination.total;
+        }else{
+          this.allConsultationTreatmentList = [];
+          this.total = 0
         }
       }
     });

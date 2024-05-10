@@ -17,11 +17,9 @@
                                 <tr>
                                     <th>Sr. No</th>
                                     <th>Visit Date</th>
-                                    <th>Entity</th>
+                                    <th>MR No</th>
                                     <th>Patient Name</th>
-                                    <th>Gender</th>
-                                    <th>Age</th>
-                                    <th>Address</th>
+                                    <th>City</th>
                                     <th>Mobile Number</th>
                                     <th>Edit</th>
                                 </tr>
@@ -30,11 +28,9 @@
                                 <tr *ngFor="let item of allPatientVisitList; let i = index">
                                     <td>{{ i + 1 }}</td>
                                     <td>{{ item.visit_date| date:'dd-MM-yyyy'}}</td>
-                                    <td>{{ item.abbrivation||'--' | uppercase }}</td>
+                                    <td>{{ item.mrno_entity_series||'--' | uppercase }}</td>
                                     <td>{{ item.patient_name |titlecase }}</td>
-                                    <td>{{ item.gender |titlecase}}</td>
-                                    <td>{{ item.age }}</td>
-                                    <td>{{ item.address|titlecase }}</td>
+                                    <td>{{ item.city|titlecase }}</td>
                                     <td>{{ item.mobile_no }}</td>
                                     <td> <a [routerLink]="['/receptionist', { outlets: { receptionist_Menu: ['edit-patient',item.mrno]}}]" class="pointer"><svg [cIcon]="icons.cilPencil"  size="xl"
                                         title="List Icon" ></svg></a></td>

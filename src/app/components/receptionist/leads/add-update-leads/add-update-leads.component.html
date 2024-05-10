@@ -440,10 +440,7 @@
             <button
               cButton
               color="secondary"
-              [routerLink]="[
-                '/receptionist',
-                { outlets: { receptionist_Menu: 'leads' } }
-              ]"
+          (click)="goToback()"
             >
               Cancel
             </button>

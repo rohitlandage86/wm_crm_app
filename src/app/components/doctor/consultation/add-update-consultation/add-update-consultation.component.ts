@@ -951,7 +951,7 @@ export class AddUpdateConsultationComponent implements OnInit {
               <div class="row mb-3 pl-4">
                 <div class="col-8">
                   <div class="form-group">
-                    <strong> MR NO. : </strong><label for=""> ${this.patientData.mrno || '--'} </label>
+                    <strong> MR NO. : </strong><label for=""> ${this.patientData.mrno_entity_series || '--'} </label>
                   </div>
                 </div>
                 <div class="col-4">

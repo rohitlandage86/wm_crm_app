@@ -229,6 +229,11 @@ export class AppComponent implements OnInit, AfterContentChecked {
 
         },
         {
+          name: 'Pending',
+          url: ['/doctor', { outlets: { doc_Menu: 'pending-consultation' } }],
+
+        },
+        {
           name: 'Search',
           url: ['/doctor', { outlets: { doc_Menu: 'doctor-search-patient' } }],
 

@@ -49,7 +49,7 @@ export class SearchPatientRevisitComponent implements OnInit {
     event.length = this.total;
   }
   getAllPatientVisitList() {
-    this._adminService.getAllPatientVisitList(this.page, this.perPage).subscribe({
+    this._adminService.getAllPatientVisitList(this.page, this.perPage, null).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allPatientVisitList = res.data;

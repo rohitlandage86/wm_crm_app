@@ -113,7 +113,7 @@ export class AddUpdateLeadsComponent implements OnInit {
         next: (res: any) => {
           if (res.status == 200) {
             this._toastrService.success(res.message);
-            this.router.navigate(['/receptionist', { outlets: { receptionist_Menu: 'leads' } }])
+            this.goToback();
           } else {
             this._toastrService.warning(res.message);
           }
@@ -138,7 +138,7 @@ export class AddUpdateLeadsComponent implements OnInit {
         next: (res: any) => {
           if (res.status == 201 || res.status == 200) {
             this._toastrService.success(res.message);
-            this.router.navigate(['/receptionist', { outlets: { receptionist_Menu: 'leads' } }])
+            this.goToback()
           } else {
             this._toastrService.warning(res.message);
           }

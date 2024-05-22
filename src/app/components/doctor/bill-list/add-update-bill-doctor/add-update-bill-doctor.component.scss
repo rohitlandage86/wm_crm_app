@@ -1,0 +1,25 @@
+.card-bill {
+    border: 1px solid #ccc;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  .form-group {
+    margin-bottom: 10px;
+  }
+  .chief_complaints{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  // margin-bottom: 25px;
+  }
+  :host ::ng-deep mat-select{
+    height: 35px;
+    font-size: 0.9rem!important;
+    padding: 4px 8px !important;
+  }
+  

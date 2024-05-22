@@ -1,0 +1,315 @@
+<c-row class="m-0">
+    <c-col xs="12 " class="p-0">
+      <c-card class="">
+        <c-card-header class="d-flex justify-content-between align-items-center">
+          <strong>Generate Bill </strong>
+          <div class="d-flex align-items-center">
+            <ng-container>
+              <div class="d-flex flex-column pe-2">
+                <input
+                  cFormControl
+                  autocomplete="off"
+                  class="ms-2"
+                  type="number"
+                  placeholder="Search Mobile No"
+                  id="searchInput"
+                  #searchInput
+                  (input)="isValidInput(searchInput.value)"
+                />
+                <small
+                  class="text-danger"
+                  *ngIf="
+                    searchInput.value && !validateMobileNo(searchInput.value)
+                  "
+                >
+                  Please enter a valid 10-digit number.
+                </small>
+              </div>
+              <!-- Submit button -->
+              <button
+                cButton
+                color="primary"
+                class="fw-bold btn-sm ms-2"
+                [disabled]="!isValidInput(searchInput.value)"
+                (click)="getSearchpatientBill(searchInput.value)"
+              >
+                Submit
+              </button>
+            </ng-container>
+          </div>
+        </c-card-header>
+        <c-card-body>
+          <form cForm class="row g-3" [formGroup]="form_patient">
+            <c-col md="3" class="p-2">
+              <label for="entity_id" cLabel> Entity Name </label>
+              <select
+                aria-label="select entity_id"
+                cSelect
+                sizing="sm"
+                formControlName="entity_id"
+                type="text"
+              >
+                <option hidden value="null" disabled selected>Entity Name</option>
+                <option
+                  [value]="item.entity_id"
+                  *ngFor="let item of allEntityList"
+                >
+                  {{ item.entity_name }}
+                </option>
+              </select>
+            </c-col>
+            <c-col md="3" class="p-2">
+              <label cLabel for="mrno_entity_series">MR No Entity Series </label>
+              <input
+                cFormControl
+                id="mrno_entity_series"
+                formControlName="mrno_entity_series"
+                type="text"
+              />
+            </c-col>
+            <c-col md="3" class="p-2">
+              <label cLabel for="patient_name">Patient Name </label>
+              <input
+                cFormControl
+                id="patient_name"
+                formControlName="patient_name"
+                type="text"
+              />
+            </c-col>
+            <c-col md="3" class="p-2">
+              <label cLabel for="mobile_no">Mobile Number </label>
+              <input
+                cFormControl
+                id="mobile_no"
+                formControlName="mobile_no"
+                type="number"
+              />
+            </c-col>
+            <c-col md="2" class="p-2">
+              <label cLabel for="validationDefault01">Gender </label>
+              <select
+                aria-label="select lead gender"
+                cSelect
+                sizing="sm"
+                formControlName="gender"
+                type="text"
+              >
+                <option hidden value="null" disabled selected>Gender</option>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+              </select>
+            </c-col>
+            <c-col md="2" class="p-2">
+              <label cLabel for="age">Age </label>
+              <input cFormControl id="age" formControlName="age" type="number" />
+            </c-col>
+            <c-col md="4" class="p-2">
+              <label cLabel for="address">Address </label>
+              <input
+                cFormControl
+                id="address"
+                formControlName="address"
+                type="text"
+              />
+            </c-col>
+            <c-col md="2" class="p-2">
+              <label cLabel for="validationDefault01">City </label>
+              <input
+                cFormControl
+                id="validationDefault01"
+                formControlName="city"
+                type="text"
+              />
+            </c-col>
+            <c-col md="2" class="p-2">
+              <label for="state_id" cLabel> State </label>
+              <select
+                aria-label="select state_id"
+                cSelect
+                sizing="sm"
+                formControlName="state_id"
+                type="text"
+                [(ngModel)]="defaultStateId"
+              >
+                <option hidden value="null" disabled selected>State</option>
+                <option [value]="item.state_id" *ngFor="let item of allStateList">
+                  {{ item.state_name }}
+                </option>
+              </select>
+            </c-col>
+          </form>
+          <form cForm class="row g-3" [formGroup]="form">
+            <c-col md="4" class="p-2">
+              <label for="service_type_id" cLabel>Service Type </label>
+              <select
+                aria-label="select service type"
+                cSelect
+                sizing="sm"
+                formControlName="service_type_id"
+                type="text"
+                (change)="onServiceTypeChange()"
+                [ngClass]="{
+                  'is-invalid':
+                    control['service_type_id'].invalid &&
+                    (control['service_type_id'].dirty ||
+                      control['service_type_id'].touched)
+                }"
+              >
+                <option hidden value="null" disabled selected>Select Service Type</option>
+                <option
+                  [value]="item.service_type_id"
+                  *ngFor="let item of allServiceTypeList"
+                >
+                  {{ item.service_type_name }}
+                </option>
+              </select>
+              <div
+                class="text-danger"
+                *ngIf="
+                  control['service_type_id'].invalid &&
+                  (control['service_type_id'].dirty ||
+                    control['service_type_id'].touched)
+                "
+              >
+                <small>Please provide a valid Service Type.</small>
+              </div>
+            </c-col>
+  
+            <c-col md="4" class="p-2">
+              <label for="service_id" cLabel> Service </label>
+              <div class="chief_complaints">
+                <mat-select #singleSelect placeholder="Select Service" formControlName="service_id"
+                    class="form-control theme-input">
+                    <mat-option>
+                        <ngx-mat-select-search [(ngModel)]="searchServiceValue" [ngModelOptions]="{ standalone: true }"
+                            (input)="filterService()" placeholderLabel="Search Service"
+                            noEntriesFoundLabel="No result available"></ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option *ngFor="let item of filteredServiceArray" [value]="item.service_id">
+                        {{ item?.service_name }}
+                    </mat-option>
+                </mat-select>
+            </div>
+              <div
+                class="text-danger"
+                *ngIf="
+                  control['service_id'].invalid &&
+                  (control['service_id'].dirty || control['service_id'].touched)
+                "
+              >
+                <small>Please provide a valid Service.</small>
+              </div>
+            </c-col>
+            <c-col md="4" class="p-2">
+              <label cLabel for="validationDefault01">Payment Type </label>
+              <select
+                aria-label="select lead payment_type"
+                cSelect
+                sizing="sm"
+                formControlName="payment_type"
+                type="text"
+                [ngClass]="{
+                  'is-invalid':
+                    control['payment_type'].invalid &&
+                    (control['payment_type'].dirty ||
+                      control['payment_type'].touched)
+                }"
+              >
+                <option hidden value="null" disabled selected>
+                  Payment Type
+                </option>
+                <option>Cash</option>
+                <option>Online Payment</option>
+              </select>
+              <span
+                class="text-danger"
+                *ngIf="
+                  control['payment_type'].invalid &&
+                  (control['payment_type'].dirty ||
+                    control['payment_type'].touched)
+                "
+                ><small> Please provide a valid Payment Type.</small></span
+              >
+            </c-col>
+  
+            <div class="card card-bill ">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="bill_amount">Bill Amount </label>
+                      <input
+                        class="form-control"
+                        id="bill_amount"
+                        autocomplete="off"
+                        formControlName="bill_amount"
+                        type="number"
+                        [ngClass]="{
+                          'is-invalid':
+                            control['bill_amount'].invalid &&
+                            (control['bill_amount'].dirty || control['bill_amount'].touched)
+                        }"
+                      />
+                      <div class="invalid-feedback" *ngIf="control['bill_amount'].invalid && (control['bill_amount'].dirty || control['bill_amount'].touched)">
+                        Please provide a valid amount.
+                      </div>
+                    </div>
+                  </div>
+            
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="discount_amount">Discount Amount</label>
+                      <input
+                        class="form-control"
+                        autocomplete="off"
+                        id="discount_amount"
+                        formControlName="discount_amount"
+                        type="number"
+                      />
+                    </div>
+                  </div>
+            
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="total_amount">Total Amount</label>
+                      <input
+                        class="form-control"
+                        autocomplete="off"
+                        id="total_amount"
+                        formControlName="total_amount"
+                        type="number"
+                        [ngClass]="{
+                          'is-invalid':
+                            control['total_amount'].invalid &&
+                            (control['total_amount'].dirty || control['total_amount'].touched)
+                        }"
+                      />
+                      <div class="invalid-feedback" *ngIf="control['total_amount'].invalid && (control['total_amount'].dirty || control['total_amount'].touched)">
+                        Please provide a valid total amount.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+  
+            <c-col xs="12">
+              <button cButton class="me-1" color="primary" (click)="submit()">
+                Submit
+              </button>
+              <button
+                cButton
+                color="secondary"
+                (click)="goToback()"
+              >
+                Cancel
+              </button>
+            </c-col>
+          </form>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+  

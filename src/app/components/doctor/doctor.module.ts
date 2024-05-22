@@ -1,3 +1,4 @@
+import { AddUpdateBillDoctorComponent } from './bill-list/add-update-bill-doctor/add-update-bill-doctor.component';
 import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 
@@ -58,7 +59,8 @@ import { DoctorBillReportComponent } from './reports/doctor-bill-report/doctor-b
     DoctorViewBillComponent,
     ViewLeadFooterComponent,
     DoctorPaymentHistoryReportComponent,
-    VeiwPatientDetailsComponent
+    VeiwPatientDetailsComponent,
+    AddUpdateBillDoctorComponent
   ],
   imports: [
     DoctorRoutingModule,

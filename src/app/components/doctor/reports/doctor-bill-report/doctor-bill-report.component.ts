@@ -17,9 +17,12 @@ export class DoctorBillReportComponent implements OnInit{
   total = 0;
   icons = freeSet;
   form!:FormGroup;
+  //for Service
+  searchServiceValue = '';
+  allServiceList:Array<any>=[];
+  filteredServiceArray: Array<any> = [];
 
   allBillList: Array<any> = [];
-  allServiceList:Array<any>=[];
   allServiceTypeList:Array<any>=[];
   allEntityList:Array<any>=[];
   fromDate='';
@@ -95,13 +98,26 @@ export class DoctorBillReportComponent implements OnInit{
   getAllServiceList(){
     this._adminService.getAllServiceListWma().subscribe({
       next:(res:any)=>{
-        if (res.data.length>0) {
+        if (res.data.length > 0) {
           this.allServiceList = res.data;
-        } else {
+          this.filteredServiceArray = this.allServiceList;       
+        }else
+        {
           this.allServiceList = [];
+          this.filteredServiceArray = this.allServiceList;    
         }
       }
     })
+  }
+   //Filter Service array
+   filterService() {
+    if (this.searchServiceValue !== "") {
+      this.filteredServiceArray = this.allServiceList.filter((obj) =>
+        obj.service_name.toLowerCase().includes(this.searchServiceValue.toLowerCase())
+      );
+    } else {
+      this.filteredServiceArray = this.allServiceList;
+    }
   }
     //get Service Type list...
     getAllServiceTypeList(){
@@ -114,6 +130,17 @@ export class DoctorBillReportComponent implements OnInit{
           }
         }
       })
+    }
+    filterServicesByType() {
+      const selectedServiceTypeId = parseInt(this.form.value.service_type_id); // Convert to integer if service_type_id is a number
+      if (!isNaN(selectedServiceTypeId) && selectedServiceTypeId !== null) { // Check if it's a valid number
+         this.filteredServiceArray = this.allServiceList.filter(service => service.service_type_id === selectedServiceTypeId);
+      } else {
+         this.filteredServiceArray = this.allServiceList;
+      }
+   }   
+    onServiceTypeChange() {
+      this.filterServicesByType();
     }
 
   

@@ -98,7 +98,7 @@ export class DoctorDashboardComponent implements OnInit {
     this.page = event.pageIndex + 1;
     this.perPage = event.pageSize;
     this.getAllLeadFollowUpList();
-   
+    
   }
   onAppointmentPageChange(event: PageEvent): void {
     this.appointmentPage = event.pageIndex + 1;

@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { ReceptionistService } from '../../receptionist.service';
 import { AdminService } from 'src/app/components/admin/admin.service';
 import {  Router } from '@angular/router';
 import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
 import Swal from 'sweetalert2';
+import { ReceptionistService } from 'src/app/components/receptionist/receptionist.service';
+import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-add-update-bill',
-  templateUrl: './add-update-bill.component.html',
-  styleUrl: './add-update-bill.component.scss'
+  selector: 'app-add-update-bill-doctor',
+  templateUrl: './add-update-bill-doctor.component.html',
+  styleUrl: './add-update-bill-doctor.component.scss'
 })
-export class AddUpdateBillComponent implements OnInit {
+export class AddUpdateBillDoctorComponent implements OnInit{
   form!: FormGroup;
   form_patient!: FormGroup;
   isEdit = false;
@@ -35,7 +36,7 @@ export class AddUpdateBillComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private _receptionistService: ReceptionistService, private _adminService: AdminService,private _superAdminService: SuperAdminService,
-    private _toastrService: ToastrService, private router: Router) { this.defaultStateId = 20;}
+    private _toastrService: ToastrService, private router: Router, private location:Location) { this.defaultStateId = 20;}
 
 
   ngOnInit() {
@@ -166,7 +167,7 @@ this.form.get('discount_amount')?.valueChanges.subscribe(() => {
         next: (res: any) => {
           if (res.status == 201 || res.status == 200) {
             this._toastrService.success(res.message);
-            this.router.navigate(['/receptionist', { outlets: { receptionist_Menu: 'bill' } }])
+            this.router.navigate(['/doctor', { outlets: { doc_Menu: 'bills' } }]);
           } else {
             this._toastrService.warning(res.message);
           }
@@ -278,5 +279,9 @@ this.form.get('discount_amount')?.valueChanges.subscribe(() => {
     } else {
       this.filteredServiceArray = this.allServiceList;
     }
+  }
+   // cancel route location service
+   goToback() {
+    this.location.back();
   }
 }

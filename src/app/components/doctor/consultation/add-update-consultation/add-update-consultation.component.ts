@@ -21,6 +21,7 @@ import { AddUpdateTreatmentComponent } from 'src/app/components/admin/masters/tr
 import { ViewLeadFooterComponent } from './view-lead-footer/view-lead-footer.component';
 import { AddUpdateMedicinesComponent } from 'src/app/components/admin/clinical-masters/medicines/add-update-medicines/add-update-medicines.component';
 import Swal from 'sweetalert2';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-update-consultation',
@@ -91,7 +92,8 @@ export class AddUpdateConsultationComponent implements OnInit {
     private _superAdminService: SuperAdminService,
     private router: Router,
     private url: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private location:Location
   ) {
     this.defaultStateId = 20;
   }
@@ -1064,8 +1066,9 @@ export class AddUpdateConsultationComponent implements OnInit {
       }
 
     });
-
-
-
   }
+    // cancel route location service
+    goToback() {
+      this.location.back();
+    }
 }

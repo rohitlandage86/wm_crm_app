@@ -18,7 +18,10 @@ export class ReceptionistLeadReportComponent implements OnInit{
   total = 0;
   icons = freeSet;
   allLeadsList: Array<any> = [];
-  allCategoryList:Array<any>=[];
+  //for Category
+  searchCategoryValue = '';
+  filteredCategoryArray: Array<any> = [];
+  allCategoryList: Array<any> = [];
   selectedCategory:any;
   form!:FormGroup;
   fromDate='';
@@ -74,14 +77,27 @@ export class ReceptionistLeadReportComponent implements OnInit{
   getAllCategoryList(){
     this._adminService.getAllCategoryListWma().subscribe({
       next:(res:any)=>{
-        if (res.data.length>0) {
+        if (res.data.length > 0) {
           this.allCategoryList = res.data;
-        } else {
+          this.filteredCategoryArray = this.allCategoryList;       
+        }else
+        {
           this.allCategoryList = [];
+          this.filteredCategoryArray = this.allCategoryList;    
         }
       }
     })
   }
+    //Filter category array
+    filterCategory() {
+      if (this.searchCategoryValue !== "") {
+        this.filteredCategoryArray = this.allCategoryList.filter((obj) =>
+          obj.category_name.toLowerCase().includes(this.searchCategoryValue.toLowerCase())
+        );
+      } else {
+        this.filteredCategoryArray = this.allCategoryList;
+      }
+    }
   onPageChange(event: PageEvent): void {
     this.page = event.pageIndex + 1;
     this.perPage = event.pageSize;

@@ -671,7 +671,7 @@
             <button cButton class="me-1" color="primary" (click)="submit()">
               Submit
             </button>
-            <button cButton color="secondary" [routerLink]="['/doctor', { outlets: { doc_Menu: 'patient' } }]">
+            <button cButton color="secondary"   (click)="goToback()">
               Cancel
             </button>
           </c-col>

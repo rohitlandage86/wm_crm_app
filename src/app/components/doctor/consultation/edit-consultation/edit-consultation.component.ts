@@ -20,6 +20,7 @@ import { AddUpdateDiagnosisComponent } from 'src/app/components/admin/masters/di
 import { AddUpdateTreatmentComponent } from 'src/app/components/admin/masters/treatment/add-update-treatment/add-update-treatment.component';
 import Swal from 'sweetalert2';
 import { AddUpdateMedicinesComponent } from 'src/app/components/admin/clinical-masters/medicines/add-update-medicines/add-update-medicines.component';
+import { Location } from '@angular/common';
 
 
 
@@ -91,6 +92,7 @@ export class EditConsultationComponent implements OnInit {
     private router: Router,
     private url: ActivatedRoute,
     private dialog: MatDialog,
+    private location:Location,
   ) {
     this.defaultStateId = 20;
   }
@@ -1066,6 +1068,10 @@ export class EditConsultationComponent implements OnInit {
     }
 
   }
+    // cancel route location service
+    goToback() {
+      this.location.back();
+    }
 }
 
 

@@ -148,6 +148,7 @@
               sizing="sm"
               formControlName="service_type_id"
               type="text"
+              (change)="onServiceTypeChange()"
               [ngClass]="{
                 'is-invalid':
                   control['service_type_id'].invalid &&
@@ -177,26 +178,19 @@
 
           <c-col md="4" class="p-2">
             <label for="service_id" cLabel> Service </label>
-            <select
-              aria-label="select service_id"
-              cSelect
-              sizing="sm"
-              formControlName="service_id"
-              type="text"
-              [ngClass]="{
-                'is-invalid':
-                  control['service_id'].invalid &&
-                  (control['service_id'].dirty || control['service_id'].touched)
-              }"
-            >
-              <option hidden value="null" disabled selected>Service</option>
-              <option
-                [value]="item.service_id"
-                *ngFor="let item of allServiceList"
-              >
-                {{ item.service_name }}
-              </option>
-            </select>
+            <div class="chief_complaints">
+              <mat-select #singleSelect placeholder="Select Service" formControlName="service_id"
+                  class="form-control theme-input">
+                  <mat-option>
+                      <ngx-mat-select-search [(ngModel)]="searchServiceValue" [ngModelOptions]="{ standalone: true }"
+                          (input)="filterService()" placeholderLabel="Search Service"
+                          noEntriesFoundLabel="No result available"></ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option *ngFor="let item of filteredServiceArray" [value]="item.service_id">
+                      {{ item?.service_name }}
+                  </mat-option>
+              </mat-select>
+          </div>
             <div
               class="text-danger"
               *ngIf="

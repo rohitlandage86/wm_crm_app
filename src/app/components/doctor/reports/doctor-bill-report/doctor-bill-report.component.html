@@ -41,20 +41,9 @@
                         </ng-container>
                     </select>
                 </div>
-                <div class="col-md-2">
-                    <label cLabel for="">Service</label>
-                    <select aria-label="select service" cSelect sizing="sm" formControlName="service_id">
-                        <option value="null" selected>All</option>
-                        <ng-container *ngFor="let item of allServiceList">
-                            <option [value]="item.service_id">
-                                {{ item.service_name }}
-                            </option>
-                        </ng-container>
-                    </select>
-                </div>
                 <div class="col-md-2 my-1">
                     <label cLabel for="">Service Type</label>
-                    <select aria-label="select source of patient" cSelect sizing="sm"
+                    <select aria-label="select source of patient" cSelect sizing="sm"(change)="onServiceTypeChange()"
                         formControlName="service_type_id">
                         <option value="null" selected>All</option>
                         <ng-container *ngFor="let item of allServiceTypeList">
@@ -64,6 +53,25 @@
                         </ng-container>
                     </select>
                 </div>
+                <div class="col-md-2">
+                    <label cLabel for="">Service</label>
+                    <div class="chief_complaints">
+                        <mat-select #singleSelect placeholder="Select Treatment" formControlName="service_id"
+                            class="form-control theme-input">
+                            <mat-option>
+                                <ngx-mat-select-search [(ngModel)]="searchServiceValue" [ngModelOptions]="{ standalone: true }"
+                                    (input)="filterService()" placeholderLabel="Search Service"
+                                    noEntriesFoundLabel="No result available"></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option value="null">All Service</mat-option>
+                            <mat-option *ngFor="let item of filteredServiceArray" [value]="item.service_id">
+                                {{ item?.service_name }}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+                
+              
             
            
 
@@ -100,7 +108,7 @@
                             <!-- <td>{{ item.service_type_name |titlecase}}</td> -->
                             <td>{{ item.payment_type |titlecase}}</td>
                             <td>{{ item.bill_amount }}</td>
-                            <td>{{ item.discount_amount }}</td>
+                            <td>{{ item.discount_amount || '--'}}</td>
                             <td>{{ item.total_amount }}</td>
                             <td> <a [routerLink]="['/doctor', { outlets: { doc_Menu: ['doctor-view-bill',item.bill_id]}}]" class="pointer"><svg [cIcon]="icons.cilDescription"  size="xl"
                                 title="List Icon" ></svg></a></td>

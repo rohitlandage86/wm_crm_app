@@ -984,7 +984,7 @@
             <button
               cButton
               color="secondary"
-              [routerLink]="['/doctor', { outlets: { doc_Menu: 'patient' } }]"
+              (click)="goToback()"
             >
               Cancel
             </button>

@@ -1066,11 +1066,10 @@ export class AddUpdateConsultationComponent implements OnInit {
       }
 
     });
-
-
-
   }
-  goToback() {
-    this.location.back();
-  }
+
+    // cancel route location service
+    goToback() {
+      this.location.back();
+    }
 }

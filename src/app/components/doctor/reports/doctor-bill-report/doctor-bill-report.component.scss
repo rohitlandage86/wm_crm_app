@@ -1,0 +1,11 @@
+.chief_complaints{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  margin-bottom: 25px;
+  }
+  :host ::ng-deep mat-select{
+    height: 35px;
+    font-size: 0.9rem!important;
+    padding: 4px 8px !important;
+  }

@@ -92,7 +92,7 @@ export class EditConsultationComponent implements OnInit {
     private router: Router,
     private url: ActivatedRoute,
     private dialog: MatDialog,
-    private location :Location
+    private location:Location,
   ) {
     this.defaultStateId = 20;
   }
@@ -1065,9 +1065,12 @@ export class EditConsultationComponent implements OnInit {
     }
 
   }
-  goToback() {
-    this.location.back();
-  }
+
+    // cancel route location service
+    goToback() {
+      this.location.back();
+    }
+
 }
 
 

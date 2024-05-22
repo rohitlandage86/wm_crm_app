@@ -641,7 +641,7 @@ export class AddUpdateConsultationComponent implements OnInit {
                   this.print(res.consultation_id)
                 } 
               }
-              this.router.navigate(['/doctor', { outlets: { doc_Menu: 'patient' } }]);
+              this.goToback()
 
             });
 
@@ -1067,6 +1067,7 @@ export class AddUpdateConsultationComponent implements OnInit {
 
     });
   }
+
     // cancel route location service
     goToback() {
       this.location.back();

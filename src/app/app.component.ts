@@ -27,7 +27,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
   navDoctorItems!: INavData[];
   navReceptionistItems!: INavData[];
   navSuperAdminItems!: INavData[];
-
+  isLoading = false;
   constructor(
     private router: Router,
     private titleService: Title,
@@ -41,6 +41,15 @@ export class AppComponent implements OnInit, AfterContentChecked {
   }
   ngOnInit() {
     this.navItemList();
+    this._sharedService.isLoading$.subscribe({
+      next: (res: any) => {
+        if (res) {
+          this.isLoading = res;
+        } else {
+          this.isLoading = res
+        }
+      }
+    })
   }
   ngAfterContentChecked() {
     let currentRoute = this.router.routerState.snapshot.url;
@@ -226,6 +235,11 @@ export class AppComponent implements OnInit, AfterContentChecked {
         {
           name: 'Patients',
           url: ['/doctor', { outlets: { doc_Menu: 'patient' } }],
+
+        },
+        {
+          name: 'Pending',
+          url: ['/doctor', { outlets: { doc_Menu: 'pending-consultation' } }],
 
         },
         {

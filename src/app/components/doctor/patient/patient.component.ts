@@ -40,7 +40,7 @@ export class PatientComponent implements OnInit {
   }
   //get all Patien tVisit List...
   getAllPatientVisitLists() {
-    this._doctorService.getAllPatientVisitLists(this.page, this.perPage,).subscribe({
+    this._doctorService.getAllPatientVisitLists(this.page, this.perPage,this.lead_date).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allPatientVisitList = res.data;

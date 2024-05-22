@@ -11,13 +11,15 @@ export class DoctorService {
     constructor(private http: HttpClient) { }
     //Doctor..........................
     //get all patient_visit_lists...............................................................
-    getAllPatientVisitLists(page: any, perPage: any): Observable<any> {
+    getAllPatientVisitLists(page: any, perPage: any, visit_date:any): Observable<any> {
         let params: any = {
             page: page,
             perPage: perPage,
 
         };
-
+        if (visit_date) {
+            params.visit_date = visit_date;
+        }
         // Remove page and perPage parameters if they are empty
         if (page === '' || perPage === '') {
             delete params.page;

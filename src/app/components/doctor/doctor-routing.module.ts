@@ -26,7 +26,9 @@ import { DoctorViewBillComponent } from './bill-list/doctor-search-bill/doctor-v
 import { DoctorBillReportComponent } from './reports/doctor-bill-report/doctor-bill-report.component';
 import { DoctorPaymentHistoryReportComponent } from './reports/doctor-payment-history-report/doctor-payment-history-report.component';
 import { VeiwPatientDetailsComponent } from './reports/doctor-patient-report/veiw-patient-details/veiw-patient-details.component';
+
 import { AddUpdateBillDoctorComponent } from './bill-list/add-update-bill-doctor/add-update-bill-doctor.component';
+
 
 
 const routes: Routes = [
@@ -67,6 +69,13 @@ const routes: Routes = [
   {
     path: "edit-consultation/:id",
     component: EditConsultationComponent,
+    pathMatch: "full",
+    outlet: "doc_Menu",
+    canActivate:[AuthGuard]
+  },
+  {
+    path: "pending-consultation",
+    component:PendingConsultationListComponent ,
     pathMatch: "full",
     outlet: "doc_Menu",
     canActivate:[AuthGuard]

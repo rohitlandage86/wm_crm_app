@@ -68,8 +68,20 @@ export class ReceptionistService {
         return this.http.put(this.baseUrl + 'api/lead_header/' + id, data);
     }
     // lead get by id ...
-    getLeadById(id: any) {
-        return this.http.get(this.baseUrl + 'api/lead_header/' + id)
+    getLeadById(id: any, page?:any, perPage?:any) {
+        let params :any = {
+            page: page,
+            perPage: perPage,
+        }
+        console.log(page);
+        
+        if (page == '' || perPage == ''|| page == undefined || perPage == undefined) {
+            delete params['page'];
+            delete params['perPage'];
+        }
+        return this.http.get(this.baseUrl + 'api/lead_header/' + id,{
+            params:params
+        })
     }
     //on lead status change...
     onLeadStatusChange(status: any, id: number): Observable<any> {

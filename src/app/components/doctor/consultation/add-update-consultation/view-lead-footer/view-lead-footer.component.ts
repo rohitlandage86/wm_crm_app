@@ -67,13 +67,19 @@ export class ViewLeadFooterComponent implements OnInit {
     })
   }
   getLeadById(id: any) {
-    this._receptionistService.getLeadById(id).subscribe((result: any) => {
+    this._receptionistService.getLeadById(id, this.page, this.perPage).subscribe((result: any) => {
       let leadFooterDetails = result.data.leadFooterDetails;
-      this.allLeadFooterList = leadFooterDetails;
       if (Array.isArray(result.data)) {
         this.allLeadList = result.data;
       } else {
         this.allLeadList = [result.data];
+      }
+      if (leadFooterDetails.length > 0) {
+        this.allLeadFooterList = leadFooterDetails;
+        this.total = result.pagination.total;
+      } else {
+        this.allLeadFooterList = []; 
+        this.total = 0;
       }
     });
   }

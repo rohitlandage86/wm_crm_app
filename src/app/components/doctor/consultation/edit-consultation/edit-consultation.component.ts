@@ -696,10 +696,7 @@ export class EditConsultationComponent implements OnInit {
           if (res.status == 200) {
             this._toastrService.clear();
             this._toastrService.success(res.message);
-            this.router.navigate([
-              '/doctor',
-              { outlets: { doc_Menu: 'patient' } },
-            ]);
+            this.goToback();
           } else {
             this._toastrService.warning(res.message);
           }
@@ -1068,10 +1065,12 @@ export class EditConsultationComponent implements OnInit {
     }
 
   }
+
     // cancel route location service
     goToback() {
       this.location.back();
     }
+
 }
 
 

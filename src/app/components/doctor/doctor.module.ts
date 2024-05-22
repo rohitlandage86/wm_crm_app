@@ -30,6 +30,7 @@ import { ViewLeadFooterComponent } from './consultation/add-update-consultation/
 import { DoctorPaymentHistoryReportComponent } from './reports/doctor-payment-history-report/doctor-payment-history-report.component';
 import { VeiwPatientDetailsComponent } from './reports/doctor-patient-report/veiw-patient-details/veiw-patient-details.component';
 import { DoctorBillReportComponent } from './reports/doctor-bill-report/doctor-bill-report.component';
+import { PendingConsultationListComponent } from './consultation/pending-consultation-list/pending-consultation-list.component'
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { DoctorBillReportComponent } from './reports/doctor-bill-report/doctor-b
     DoctorPaymentHistoryReportComponent,
     VeiwPatientDetailsComponent,
     AddUpdateBillDoctorComponent
+
   ],
   imports: [
     DoctorRoutingModule,

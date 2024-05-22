@@ -536,11 +536,14 @@ export class AdminService {
     }
 
     //get all PatientVisit list...............................................................
-    getAllPatientVisitList(page: any, perPage: any): Observable<any> {
-        let params = {
+    getAllPatientVisitList(page: any, perPage: any, visit_date:any): Observable<any> {
+        let params:any = {
             page: page,
             perPage: perPage
         };
+        if (visit_date) {
+            params.visit_date = visit_date;
+        }
         if (page == '' || perPage == '') {
             delete params['page'];
             delete params['perPage'];

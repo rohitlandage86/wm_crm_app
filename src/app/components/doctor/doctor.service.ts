@@ -11,10 +11,12 @@ export class DoctorService {
     constructor(private http: HttpClient) { }
     //Doctor..........................
     //get all patient_visit_lists...............................................................
-    getAllPatientVisitLists(page: any, perPage: any, visit_date:any): Observable<any> {
+    getAllPatientVisitLists(page: any, perPage: any, visit_date:any,key:any): Observable<any> {
         let params: any = {
             page: page,
             perPage: perPage,
+            key:key
+    
 
         };
         if (visit_date) {

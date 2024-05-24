@@ -33,6 +33,7 @@ export class SearchPatientComponent implements OnInit{
   perPage = 50;
   total = 0;
    icons = freeSet;
+   searchQuery: string = '';
   constructor(
     private fb: FormBuilder,
     private _receptionistService: ReceptionistService, private _adminService: AdminService,

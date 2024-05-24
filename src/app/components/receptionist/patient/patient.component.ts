@@ -22,6 +22,9 @@ export class PatientComponent implements OnInit {
   page = 1;
   perPage = 50;
   total = 0
+  checkedpage = 1;
+  checkedperPage = 50;
+  checkedtotal = 0
   color: string | undefined;
   mrno: any;
   lead_date: string;
@@ -58,7 +61,7 @@ export class PatientComponent implements OnInit {
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allPatientVisitCheckedList = res.data;
-          this.total = res.pagination.total;
+          this.checkedtotal = res.pagination.total;
         }
       }
     });
@@ -66,6 +69,12 @@ export class PatientComponent implements OnInit {
   onPageChange(event: PageEvent): void {
     this.page = event.pageIndex + 1;
     this.perPage = event.pageSize;
+    this.getAllPatientVisitList();
+    this.getAllPatientVisitCheckedLists();
+  }
+  onCheckedPageChange(event: PageEvent): void {
+    this.checkedpage = event.pageIndex + 1;
+    this.checkedperPage = event.pageSize;
     this.getAllPatientVisitList();
     this.getAllPatientVisitCheckedLists();
   }

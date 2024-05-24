@@ -78,7 +78,7 @@ export class DoctorDashboardComponent implements OnInit {
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allAppointmentList = res.data;
-          this.total = res.pagination.total;
+          this.appointmentTotal = res.pagination.total;
         }
       }
     });

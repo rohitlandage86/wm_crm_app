@@ -61,7 +61,8 @@ import { PendingConsultationListComponent } from './consultation/pending-consult
     ViewLeadFooterComponent,
     DoctorPaymentHistoryReportComponent,
     VeiwPatientDetailsComponent,
-    AddUpdateBillDoctorComponent
+    AddUpdateBillDoctorComponent,
+    PendingConsultationListComponent
 
   ],
   imports: [

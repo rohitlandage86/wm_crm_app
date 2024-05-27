@@ -28,6 +28,7 @@ import { DoctorPaymentHistoryReportComponent } from './reports/doctor-payment-hi
 import { VeiwPatientDetailsComponent } from './reports/doctor-patient-report/veiw-patient-details/veiw-patient-details.component';
 
 import { AddUpdateBillDoctorComponent } from './bill-list/add-update-bill-doctor/add-update-bill-doctor.component';
+import { PendingConsultationListComponent } from './consultation/pending-consultation-list/pending-consultation-list.component';
 
 
 

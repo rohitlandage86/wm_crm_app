@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { freeSet } from '@coreui/icons';
 import { PageEvent } from '@angular/material/paginator';
-import { ToastrService } from 'ngx-toastr';
 import { ReceptionistService } from '../../receptionist.service';
 
 @Component({
@@ -24,7 +23,6 @@ export class FollowUpComponent implements OnInit {
 
   constructor(
     private _receptionistService: ReceptionistService,
-    private _toastrService: ToastrService
   ) {
     this.follow_up_date = '';
   }
@@ -32,7 +30,6 @@ export class FollowUpComponent implements OnInit {
   ngOnInit() {
     this.setTodayDate();
     this.getAllLeadFollowUpList();
-    this.getAllPendingFollowUpList();
   }
   setTodayDate() {
     const today = new Date();
@@ -58,42 +55,6 @@ export class FollowUpComponent implements OnInit {
     this.page = event.pageIndex + 1;
     this.perPage = event.pageSize;
     this.getAllLeadFollowUpList();
-  }
-
-  //slide-toggle change Patient
-  changeEvent(event: any, id: any) {
-    let status = 0;
-    if (event.checked) {
-      status = 1;
-    }
-    this._receptionistService.onPatientStatusChange(status, id).subscribe({
-      next: (res: any) => {
-        this._toastrService.success(res.message);
-        this.getAllLeadFollowUpList();
-      },
-      error: (error: any) => {
-        if (error.status == 422) {
-          this._toastrService.warning(error.message);
-          this.getAllLeadFollowUpList();
-        }
-      },
-    });
-  }
-  //pending follow up list
-  getAllPendingFollowUpList(){
-    this._receptionistService.getAllPendingLeadFollowUpList(this.pendingPage, this.pendingPerPage, this.follow_up_date).subscribe({
-      next:(res:any)=>{
-        if (res.data.length > 0) {
-          this.allPendingFollowUpList = res.data;
-          this.pendingTotal = res.pagination.total;
-        }
-      }
-    })
-  }
-  onPendingPageChange(event: PageEvent): void {
-    this.pendingPage = event.pageIndex + 1;
-    this.pendingPerPage = event.pageSize;
-    this.getAllPendingFollowUpList();
   }
 
 }

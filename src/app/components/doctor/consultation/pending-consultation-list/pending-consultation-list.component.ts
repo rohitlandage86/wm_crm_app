@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { freeSet } from '@coreui/icons';
 import { DoctorService } from '../../doctor.service';
-import { ToastrService } from 'ngx-toastr';
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({
@@ -19,7 +18,6 @@ export class PendingConsultationListComponent implements OnInit {
 
   constructor(
     private _doctorService: DoctorService,
-    private _toastrService: ToastrService
   ) { }
 
   ngOnInit() {

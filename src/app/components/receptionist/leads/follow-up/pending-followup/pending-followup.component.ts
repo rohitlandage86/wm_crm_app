@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { freeSet } from '@coreui/icons';
 import { PageEvent } from '@angular/material/paginator';
-import { ToastrService } from 'ngx-toastr';
 import { ReceptionistService } from '../../../receptionist.service';
 
 @Component({

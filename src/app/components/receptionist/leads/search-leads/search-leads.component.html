@@ -5,43 +5,27 @@
       <div class="d-flex align-items-center">
         <ng-container>
           <div class="d-flex flex-column pe-2">
-            <input
-              cFormControl
-              class="ms-2"
-              type="text"
-              autocomplete="off"
-              placeholder="Search Name Or Mobile No"
-              id="searchInput"
-              #searchInput
-              (input)="isValidInput(searchInput.value)"
-            />
-            <small
-              class="text-danger"
-              *ngIf="
+            <input cFormControl class="ms-2" type="text" autocomplete="off" placeholder="Search Name Or Mobile No"
+              id="searchInput" #searchInput (input)="isValidInput(searchInput.value)" />
+            <small class="text-danger" *ngIf="
                 searchInput.value &&
                 !validateMobileNo(searchInput.value) &&
                 !isValidName(searchInput.value)
-              "
-            >
+              ">
               Please enter a valid 10-digit number.
             </small>
           </div>
           <!-- Submit button -->
-          <button
-            cButton
-            color="primary"
-            class="fw-bold btn-sm ms-2"
-            [disabled]="!isValidInput(searchInput.value)"
-            (click)="getSearchLead(searchInput.value)"
-          >
+          <button cButton color="primary" class="fw-bold btn-sm ms-2" [disabled]="!isValidInput(searchInput.value)"
+            (click)="getSearchLead(searchInput.value)">
             Submit
           </button>
         </ng-container>
       </div>
     </c-card-header>
     <c-card-body>
-      <div class="col-md-12 table-container ">
-        <table class="table table-striped" >
+      <div class="col-md-12 table-container">
+        <table class="table table-striped">
           <thead cTableColor="light">
             <tr>
               <th>Sr. No</th>
@@ -57,43 +41,28 @@
             <tr *ngFor="let item of allLeadList; let i = index">
               <td>{{ i + 1 }}</td>
               <td>{{ item.lead_date | date : "dd-MM-yyyy" }}</td>
-              <td>{{ item.name |titlecase}}</td>
-              <td>{{ item.city |titlecase}}</td>
+              <td>{{ item.name | titlecase }}</td>
+              <td>{{ item.city | titlecase }}</td>
               <td>{{ item.mobile_number }}</td>
               <td>
-                <a
-                  [routerLink]="[
+                <a [routerLink]="[
                     '/receptionist',
                     {
                       outlets: {
                         receptionist_Menu: ['view-search-leads', item.lead_hid]
                       }
                     }
-                  ]"
-                  class="pointer"
-                  ><svg
-                    [cIcon]="icons.cilDescription"
-                    size="xl"
-                    title="List Icon"
-                  ></svg></a>
+                  ]" class="pointer"><svg [cIcon]="icons.cilDescription" size="xl" title="List Icon"></svg></a>
               </td>
               <td>
-                <a
-                  [routerLink]="[
+                <a [routerLink]="[
                     '/receptionist',
                     {
                       outlets: {
                         receptionist_Menu: ['edit-leads', item.lead_hid]
                       }
                     }
-                  ]"
-                  class="pointer"
-                  ><svg
-                    [cIcon]="icons.cilPencil"
-                    size="xl"
-                    title="List Icon"
-                  ></svg
-                ></a>
+                  ]" class="pointer"><svg [cIcon]="icons.cilPencil" size="xl" title="List Icon"></svg></a>
               </td>
             </tr>
             <tr class="fw-bold text-center" *ngIf="allLeadList.length === 0">
@@ -103,14 +72,8 @@
         </table>
       </div>
       <div class="col-md-12">
-        <mat-paginator
-          [length]="total"
-          [pageSize]="perPage"
-          [pageSizeOptions]="[5, 10, 25, 100]"
-          aria-label="Select page"
-          [showFirstLastButtons]="true"
-          (page)="onPageChange($event)"
-        >
+        <mat-paginator [length]="total" [pageSize]="perPage" [pageSizeOptions]="[5, 10, 25, 100]"
+          aria-label="Select page" [showFirstLastButtons]="true" (page)="onPageChange($event)">
         </mat-paginator>
       </div>
     </c-card-body>

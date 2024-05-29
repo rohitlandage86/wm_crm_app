@@ -1,235 +1,133 @@
 <c-row class="m-0">
-    <c-col xs="12 " class="p-0">
-      <c-card class="mb-3">
-        <c-card-header>
-          <strong>View Lead Details</strong>
-        </c-card-header>
-        <c-card-body>
-          <form cForm class="row g-3" [formGroup]="form">
-            <c-col md="4" class="p-2">
-              <label cLabel for="name"
-                >Name
-               </label
-              >
-              <input
-                cFormControl
-                id="name"
-                formControlName="name"
-                type="text"
-              
-              />
-            
-            </c-col>
-            <c-col md="4" class="p-2">
-              <label cLabel for="lead_date"
-                >Lead Date
-               </label
-              >
-              <input
-                cFormControl
-                id="lead_date"
-                formControlName="lead_date"
-                type="date"
-             
-              />
-              
-            </c-col>
-  
-            <c-col md="4" class="p-2">
-              <label cLabel for="validationDefault01"
-                >City
-               </label
-              >
-              <input
-                cFormControl
-                id="validationDefault01"
-                formControlName="city"
-                type="text"
-               
-              />
-             
-            </c-col>
-            <c-col md="4" class="p-2">
-              <label cLabel for="validationDefault01"
-                >Mobile Number
-              </label
-              >
-              <input
-                cFormControl
-                id="validationDefault01"
-                formControlName="mobile_number"
-                type="number"
-              
-              />
-            
-            </c-col>
-            <c-col md="3" class="p-2">
-              <label for="category" cLabel>
-                Category
-              </label
-              >
-              <select
-                aria-label="select category"
-                cSelect
-                sizing="sm"
-                formControlName="category_id"
-                type="text"
-              
-              >
-                <option hidden value="null" disabled selected>
-                  Select Category
-                </option>
-                <option
-                  [value]="item.category_id"
-                  *ngFor="let item of allCategoryList"
-                >
-                  {{ item.category_name }}
-                </option>
-              </select>
-            
-            </c-col>
-            <c-col md="12" class="p-2">
-              <label cLabel for="validationDefault01"
-                >Note
-               </label
-              >
-              <textarea
-                cFormControl
-                id="note"
-                formControlName="note"
-                rows="3"
+  <c-col xs="12 " class="p-0">
+    <c-card class="mb-3">
+      <c-card-header>
+        <strong>View Lead Details</strong>
+      </c-card-header>
+      <c-card-body>
+        <form cForm class="row g-3" [formGroup]="form">
+          <c-col md="4" class="p-2">
+            <label cLabel for="name">Name
+            </label>
+            <input cFormControl id="name" formControlName="name" type="text" />
 
-              ></textarea>
-             
-            </c-col>
-  
-            <c-card-header>
-              <strong> Lead Info</strong>
-            </c-card-header>
-            <div formArrayName="leadFooterDetails">
-              <c-col
-                *ngFor="
+          </c-col>
+          <c-col md="4" class="p-2">
+            <label cLabel for="lead_date">Lead Date
+            </label>
+            <input cFormControl id="lead_date" formControlName="lead_date" type="date" />
+
+          </c-col>
+
+          <c-col md="4" class="p-2">
+            <label cLabel for="validationDefault01">City
+            </label>
+            <input cFormControl id="validationDefault01" formControlName="city" type="text" />
+
+          </c-col>
+          <c-col md="4" class="p-2">
+            <label cLabel for="validationDefault01">Mobile Number
+            </label>
+            <input cFormControl id="validationDefault01" formControlName="mobile_number" type="number" />
+
+          </c-col>
+          <c-col md="3" class="p-2">
+            <label for="category" cLabel>
+              Category
+            </label>
+            <select aria-label="select category" cSelect sizing="sm" formControlName="category_id" type="text">
+              <option hidden value="null" disabled selected>
+                Select Category
+              </option>
+              <option [value]="item.category_id" *ngFor="let item of allCategoryList">
+                {{ item.category_name }}
+              </option>
+            </select>
+
+          </c-col>
+          <c-col md="12" class="p-2">
+            <label cLabel for="validationDefault01">Note
+            </label>
+            <textarea cFormControl id="note" formControlName="note" rows="3"></textarea>
+
+          </c-col>
+
+          <c-card-header>
+            <strong> Lead Info</strong>
+          </c-card-header>
+          <div formArrayName="leadFooterDetails">
+            <c-col *ngFor="
                   let item of leadstatusDetailsArray.controls;
                   let i = index
-                "
-                [formGroupName]="i"
-              >
-                <c-col md-12 class="d-flex">
-                  <c-col md="3" class="p-2">
-                    <label cLabel for="validationDefault01"
-                      >Comments
-                     </label
-                    >
-                    <input
-                      cFormControl
-                      id="validationDefault01"
-                      formControlName="comments"
-                      type="text"
-                   
-                    />
-                 
-                  </c-col>
-                  <c-col md="2" class="p-2">
-                    <label cLabel for="validationDefault01"
-                      >Calling Time
-                      </label
-                    >
-                    <input
-                      cFormControl
-                      id="validationDefault01"
-                      formControlName="calling_time"
-                      type="text"
-                    
-                    />
-                
-                  </c-col>
-                  <c-col md="2" class="p-2">
-                    <label cLabel for="validationDefault01"
-                      >No Of Calls
-                    </label
-                    >
-                    <select
-                      aria-label="select lead status id"
-                      cSelect
-                      sizing="sm"
-                      formControlName="no_of_calls"
-                      type="number"
-                   
-                    >
-                      <option hidden value="null" disabled selected>
-                        Select No Of Calls
-                      </option>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                      <option>6</option>
-                      <option>7</option>
-                      <option>8</option>
-                      <option>9</option>
-                      <option>10</option>
-                    </select>
-                   
-                  </c-col>
-                  <c-col md="2" class="p-2">
-                    <label cLabel for="validationDefault01"
-                      >Lead Status
-                     </label
-                    >
-                    <select
-                      aria-label="select lead status id"
-                      cSelect
-                      sizing="sm"
-                      formControlName="lead_status_id"
-                      type="text"
-                     
-                    >
-                      <option hidden value="null" disabled selected>
-                        Select Lead Status
-                      </option>
-                      <option
-                        [value]="item.lead_status_id"
-                        *ngFor="let item of allLeadStatusList"
-                      >
-                        {{ item.lead_status }}
-                      </option>
-                    </select>
-                   
-                  </c-col>
-                  <c-col md="3" class="p-2">
-                    <label cLabel for="follow_up_date"
-                      >Follow Up Date
-                     </label
-                    >
-                    <input
-                      cFormControl
-                      id="follow_up_date"
-                      formControlName="follow_up_date"
-                      type="date"
-                   
-                    />
-                
-                  </c-col>
-         
+                " [formGroupName]="i">
+              <c-col md-12 class="d-flex">
+                <c-col md="3" class="p-2">
+                  <label cLabel for="validationDefault01">Comments
+                  </label>
+                  <input cFormControl id="validationDefault01" formControlName="comments" type="text" />
+
                 </c-col>
+                <c-col md="2" class="p-2">
+                  <label cLabel for="validationDefault01">Calling Time
+                  </label>
+                  <input cFormControl id="validationDefault01" formControlName="calling_time" type="text" />
+
+                </c-col>
+                <c-col md="2" class="p-2">
+                  <label cLabel for="validationDefault01">No Of Calls
+                  </label>
+                  <select aria-label="select lead status id" cSelect sizing="sm" formControlName="no_of_calls"
+                    type="number">
+                    <option hidden value="null" disabled selected>
+                      Select No Of Calls
+                    </option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                  </select>
+
+                </c-col>
+                <c-col md="2" class="p-2">
+                  <label cLabel for="validationDefault01">Lead Status
+                  </label>
+                  <select aria-label="select lead status id" cSelect sizing="sm" formControlName="lead_status_id"
+                    type="text">
+                    <option hidden value="null" disabled selected>
+                      Select Lead Status
+                    </option>
+                    <option [value]="item.lead_status_id" *ngFor="let item of allLeadStatusList">
+                      {{ item.lead_status }}
+                    </option>
+                  </select>
+
+                </c-col>
+                <c-col md="3" class="p-2">
+                  <label cLabel for="follow_up_date">Follow Up Date
+                  </label>
+                  <input cFormControl id="follow_up_date" formControlName="follow_up_date" type="date" />
+
+                </c-col>
+
               </c-col>
-            </div>
-            <hr />
-  
-            <c-col xs="12">
-             
-              <button
-                cButton
-                color="primary"
-             (click)="goToback()"
-              >
-                Cancel
-              </button>
             </c-col>
-          </form>
-        </c-card-body>
-      </c-card>
-    </c-col>
-  </c-row>
-  
+          </div>
+          <hr />
+
+          <c-col xs="12">
+
+            <button cButton color="primary" (click)="goToback()">
+              Cancel
+            </button>
+          </c-col>
+        </form>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>

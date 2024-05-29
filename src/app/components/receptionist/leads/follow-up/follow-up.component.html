@@ -5,7 +5,7 @@
     </c-card-header>
     <c-card-body>
       <div class="col-md-12 table-container">
-        <table class="table table-striped" >
+        <table class="table table-striped">
           <thead cTableColor="light">
             <tr>
               <th>Sr. No</th>
@@ -19,17 +19,17 @@
             <tr *ngFor="let item of allLeadFollowUpList; let i = index">
               <td>{{ i + 1 }}</td>
               <td>{{ item.follow_up_date | date : "dd-MM-yyyy" }}</td>
-              <td>{{ item.name |titlecase}}</td>
+              <td>{{ item.name | titlecase }}</td>
               <td>{{ item.mobile_number }}</td>
               <td>
                 <a [routerLink]="[
-                          '/receptionist',
-                          {
-                            outlets: {
-                              receptionist_Menu: ['add-receptionist', item.lead_hid]
-                            }
-                          }
-                        ]" class="pointer"><svg [cIcon]="icons.cilPlus" size="xl" title="List Icon"></svg></a>
+                    '/receptionist',
+                    {
+                      outlets: {
+                        receptionist_Menu: ['add-receptionist', item.lead_hid]
+                      }
+                    }
+                  ]" class="pointer"><svg [cIcon]="icons.cilPlus" size="xl" title="List Icon"></svg></a>
               </td>
             </tr>
             <tr class="fw-bold text-center" *ngIf="allLeadFollowUpList.length === 0">

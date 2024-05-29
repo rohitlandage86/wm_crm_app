@@ -9,7 +9,7 @@ import { ReceptionistService } from 'src/app/components/receptionist/receptionis
   templateUrl: './doctor-search-bill.component.html',
   styleUrl: './doctor-search-bill.component.scss'
 })
-export class DoctorSearchBillComponent implements OnInit{
+export class DoctorSearchBillComponent implements OnInit {
   form!: FormGroup;
   isEdit = false;
   mrno: any
@@ -19,23 +19,23 @@ export class DoctorSearchBillComponent implements OnInit{
   page = 1;
   perPage = 50;
   total = 0;
-   icons = freeSet;
+  icons = freeSet;
   constructor(
     private _receptionistService: ReceptionistService) { }
 
   ngOnInit() {
   }
 
- //get all consutlation view by mrno (history)..
- getConsultationHistory(searchQuery: any) {
-  this._receptionistService.getAllSearchBillList(this.page, this.perPage,searchQuery).subscribe({
-    next: (res: any) => {
-      if (res.data.length > 0) {
-        this.allBillList = res.data;
+  //get all consutlation view by mrno (history)..
+  getConsultationHistory(searchQuery: any) {
+    this._receptionistService.getAllSearchBillList(this.page, this.perPage, searchQuery).subscribe({
+      next: (res: any) => {
+        if (res.data.length > 0) {
+          this.allBillList = res.data;
+        }
       }
-    }
-  });
-}
+    });
+  }
 
   // Other properties and methods
   isValidName(inputValue: string): boolean {
@@ -50,7 +50,7 @@ export class DoctorSearchBillComponent implements OnInit{
   isValidInput(inputValue: string): boolean {
     return this.validateMobileNo(inputValue) || this.isValidName(inputValue);
   }
-  
+
   onPageChange(event: PageEvent): void {
     this.page = event.pageIndex + 1;
     this.perPage = event.pageSize;

@@ -33,7 +33,6 @@ export class EditConsultationComponent implements OnInit {
   baseUrl = environment.baseUrl
   isAccordionOpen: number | null = null;
   form!: FormGroup;
-  form_patient!: FormGroup;
   isEdit = false;
   mrno: any;
   consultation_id: any;
@@ -43,12 +42,6 @@ export class EditConsultationComponent implements OnInit {
   consultation_medicine_id: any;
   consultation_file_upload_id: any;
   allConsutlationHistoryList: Array<any> = [];
-  allStateList: Array<any> = [];
-  allEntityList: Array<any> = [];
-  allSourceOfPatientList: Array<any> = [];
-  allEmployeeList: Array<any> = [];
-  allReferedByList: Array<any> = [];
-  defaultStateId: any;
   color: string | undefined;
   apiUrl = environment.baseUrl;
   streetControl = new FormControl();
@@ -81,7 +74,7 @@ export class EditConsultationComponent implements OnInit {
   searchInstructionsValue = '';
   filteredInstructionsArray: Array<any> = [];
   allInstructions: Array<any> = [];
-
+  patientDetails:any ={};
   constructor(
     private fb: FormBuilder,
     private _receptionistService: ReceptionistService,
@@ -89,23 +82,14 @@ export class EditConsultationComponent implements OnInit {
     private _doctorService: DoctorService,
     private _toastrService: ToastrService,
     private _superAdminService: SuperAdminService,
-    private router: Router,
     private url: ActivatedRoute,
     private dialog: MatDialog,
-    private location:Location,
+    private location: Location,
   ) {
-    this.defaultStateId = 20;
   }
 
   ngOnInit() {
-    this.patientForm();
     this.createForm();
-    this.getAllStateList();
-    this.getAllEntityList();
-    this.getAllSourceOfPatientList();
-    this.getAllEmployeeList();
-    this.getAllReferedByList();
-    this.disableFormFields();
     this.getAllMedicinesList();
     this.getAllTreatmentList();
     this.getAllChiefComplaintsList();
@@ -120,29 +104,6 @@ export class EditConsultationComponent implements OnInit {
     }
   }
 
-  //patientform + consultation form
-  patientForm() {
-    this.form_patient = this.fb.group({
-      registration_date: [''],
-      patient_name: [''],
-      mobile_no: [''],
-      gender: [''],
-      age: [null],
-      address: [null],
-      city: [null],
-      state_id: [null],
-      height: [null],
-      weight: [null],
-      bmi: [''],
-      amount: [null],
-      entity_id: [null],
-      mrno_entity_series: [null],
-      source_of_patient_id: [null],
-      employee_id: [null],
-      refered_by_id: [null],
-      payment_type: [],
-    });
-  }
   //consultation form
   createForm() {
     this.form = this.fb.group({
@@ -150,10 +111,8 @@ export class EditConsultationComponent implements OnInit {
       pluse: [null],
       bp: [null],
       past_history: [''],
-      // chief_complaints_id: ['', Validators.required], // Add this line to define chief_complaints_id
       appointment_date: [''],
       appointment_time: [''],
-      // imageBase64: [null],
       consultationChiefComplaintsDetails: this.fb.array([
         this.newConsultationChiefComplaints(),
       ]),
@@ -176,9 +135,6 @@ export class EditConsultationComponent implements OnInit {
   get control() {
     return this.form.controls;
   }
-  get controls() {
-    return this.form_patient.controls;
-  }
 
   // ------------------------------------------------------------------
   //get Chief Complaints list...
@@ -196,9 +152,9 @@ export class EditConsultationComponent implements OnInit {
     });
   }
   //Filter chief complaints array
-  filterChiefComplaints(i:any) {
+  filterChiefComplaints(i: any) {
     if (this.searchChiefComplaintsValue != '') {
-      this.filteredChiefComplaintsArray[i]  = [];
+      this.filteredChiefComplaintsArray[i] = [];
       const filteredArr = this.allChiefComplaints.filter((obj) =>
         obj.chief_complaint
           .toLowerCase()
@@ -360,16 +316,6 @@ export class EditConsultationComponent implements OnInit {
     }
   }
   //-------------------------------------------------------------------
-
-  // patientform all filed disable
-  disableFormFields() {
-    Object.keys(this.form_patient.controls).forEach((key) => {
-      const control = this.form_patient.get(key);
-      if (control) {
-        control.disable();
-      }
-    });
-  }
   // Chief Complaints array controls
   get consultationChiefComplaintsDetailsArray() {
     return this.form.get('consultationChiefComplaintsDetails') as FormArray<any>;
@@ -379,7 +325,7 @@ export class EditConsultationComponent implements OnInit {
     return this.fb.group({
       consultation_chief_complaints_id: [null],
       chief_complaints_id: [null],
-     
+
     });
   }
 
@@ -715,8 +661,6 @@ export class EditConsultationComponent implements OnInit {
       this._toastrService.warning("Fill required fields");
     }
   }
-
-
   //get all consutlation view by mrno (history)..
   getConsultationHistory(id: any) {
 
@@ -734,29 +678,7 @@ export class EditConsultationComponent implements OnInit {
   //patient by id patch data
   getPatientById(id: any) {
     this._receptionistService.getPatientById(id).subscribe((result: any) => {
-      const patientData = result.data;
-
-      this.form_patient.patchValue({
-        registration_date: new Date(patientData.registration_date)
-          .toISOString()
-          .split('T')[0],
-        patient_name: patientData.patient_name,
-        mobile_no: patientData.mobile_no,
-        gender: patientData.gender,
-        age: patientData.age,
-        address: patientData.address,
-        city: patientData.city,
-        state_id: patientData.state_id,
-        height: patientData.height,
-        weight: patientData.weight,
-        bmi: patientData.bmi,
-        amount: patientData.amount,
-        entity_id: patientData.entity_id,
-        mrno_entity_series: patientData.mrno_entity_series,
-        source_of_patient_id: patientData.source_of_patient_id,
-        employee_id: patientData.employee_id,
-        refered_by_id: patientData.refered_by_id,
-      });
+      this.patientDetails = result.data;
     });
   }
   //consutlation by id patch data
@@ -765,11 +687,9 @@ export class EditConsultationComponent implements OnInit {
       this.getPatientById(result.data.mrno);
       this.getConsultationHistory(result.data.mrno);
       const consutlationData = result.data;
-      console.log('consutlation  data', result.data);
 
       this.control['mrno'].patchValue(consutlationData.mrno);
       this.control['past_history'].patchValue(consutlationData.past_history);
-      // this.control['chief_complaints_id'].patchValue(consutlationData.chief_complaints_id);
 
       // Patching chief complaints details
       let consultationChiefComplaintsDetails = result.data.consultationChiefComplaintsDetails;
@@ -864,21 +784,21 @@ export class EditConsultationComponent implements OnInit {
     });
   }
 
- //open Medicines by...
- openDialogMedicines(data?: any) {
-  const dialogRef = this.dialog.open(AddUpdateMedicinesComponent, {
-    data: data,
-    width: '50%',
-    panelClass: 'mat-mdc-dialog-container'
-  });
-  dialogRef.afterClosed().subscribe((message: any) => {
-    if (message == 'create' || message == 'update') {
-      this.getAllMedicinesList();
-    } else {
-      console.log('nothing happen');
-    }
-  });
-}
+  //open Medicines by...
+  openDialogMedicines(data?: any) {
+    const dialogRef = this.dialog.open(AddUpdateMedicinesComponent, {
+      data: data,
+      width: '50%',
+      panelClass: 'mat-mdc-dialog-container'
+    });
+    dialogRef.afterClosed().subscribe((message: any) => {
+      if (message == 'create' || message == 'update') {
+        this.getAllMedicinesList();
+      } else {
+        console.log('nothing happen');
+      }
+    });
+  }
 
   //open chief complaints by...
   openDialog(data?: any) {
@@ -927,58 +847,6 @@ export class EditConsultationComponent implements OnInit {
       }
     });
   }
-  //get entity list...
-  getAllEntityList() {
-    this._adminService.getAllEntitiesListWma().subscribe({
-      next: (res: any) => {
-        if (res.data.length > 0) {
-          this.allEntityList = res.data;
-        }
-      },
-    });
-  }
-  //get source_of_patient list...
-  getAllSourceOfPatientList() {
-    this._adminService.getAllSourceOfPatientListWma().subscribe({
-      next: (res: any) => {
-        if (res.data.length > 0) {
-          this.allSourceOfPatientList = res.data;
-        }
-      },
-    });
-  }
-  //get Employee list...
-  getAllEmployeeList() {
-    this._adminService.getAllEmployeeListWma().subscribe({
-      next: (res: any) => {
-        if (res.data.length > 0) {
-          this.allEmployeeList = res.data;
-        }
-      },
-    });
-  }
-
-  //get ReferedBy list...
-  getAllReferedByList() {
-    this._adminService.getAllReferedByListWma().subscribe({
-      next: (res: any) => {
-        if (res.data.length > 0) {
-          this.allReferedByList = res.data;
-        }
-      },
-    });
-  }
-
-  //get  State list...
-  getAllStateList() {
-    this._superAdminService.allstateList().subscribe({
-      next: (res: any) => {
-        if (res.data.length > 0) {
-          this.allStateList = res.data;
-        }
-      },
-    });
-  }
   //history
   toggleAccordion(index: number): void {
     if (this.isAccordionOpen === index) {
@@ -987,9 +855,9 @@ export class EditConsultationComponent implements OnInit {
       this.isAccordionOpen = index; // Open the clicked accordion item
     }
   }
-   // delete consutlation Chief Complaints..
-   deleteConsultationChiefComplaint(consultation_chief_complaints_id: any) {
-    this._doctorService.deleteConsultationChiefComplaints( consultation_chief_complaints_id, this.consultation_id).subscribe({
+  // delete consutlation Chief Complaints..
+  deleteConsultationChiefComplaint(consultation_chief_complaints_id: any) {
+    this._doctorService.deleteConsultationChiefComplaints(consultation_chief_complaints_id, this.consultation_id).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
 
@@ -1066,10 +934,10 @@ export class EditConsultationComponent implements OnInit {
 
   }
 
-    // cancel route location service
-    goToback() {
-      this.location.back();
-    }
+  // cancel route location service
+  goToback() {
+    this.location.back();
+  }
 
 }
 

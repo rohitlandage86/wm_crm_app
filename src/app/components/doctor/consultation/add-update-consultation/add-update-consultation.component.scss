@@ -1,32 +1,46 @@
 .material-icons {
-    font-size: 35px; /* Adjust the font-size to increase the height */
-  }
-  .disabled {
-    color: gray; /* Change color to gray or any other color to indicate it's disabled */
-    pointer-events: none;
-    cursor: not-allowed; /* Change cursor to indicate it's not clickable */
-  }
-  .chief_complaints{
-    display: flex;
-    // justify-content: space-between;
-    align-items: center;
-  }
+  font-size: 35px;
+  /* Adjust the font-size to increase the height */
+}
+
+.disabled {
+  color: gray;
+  /* Change color to gray or any other color to indicate it's disabled */
+  pointer-events: none;
+  cursor: not-allowed;
+  /* Change cursor to indicate it's not clickable */
+}
+
+.chief_complaints {
+  display: flex;
+  // justify-content: space-between;
+  align-items: center;
+}
+
 :host ::ng-deep .mdc-tab-indicator--active {
   background: rgb(232, 232, 232) !important;
-  color: #040404!important;
+  color: #040404 !important;
 }
+
 :host ::ng-deep .accordion-button.active {
-  background-color: #007bff; /* Blue color as an example */
-  color: #fff; /* White text color */
+  background-color: #007bff;
+  /* Blue color as an example */
+  color: #fff;
+  /* White text color */
 }
+
 :host::ng-deep .mat-select-panel {
-  width: 400px; /* Adjust the width as needed */
+  width: 400px;
+  /* Adjust the width as needed */
 }
-.lead-info{
+
+.lead-info {
   align-content: center;
   margin-top: 30px;
 }
+
 .mat-dialog-container .dialog-content {
-  max-height: calc(80vh - 150px); /* Subtract any header/footer height */
+  max-height: calc(80vh - 150px);
+  /* Subtract any header/footer height */
   overflow-y: auto;
 }

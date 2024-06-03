@@ -9,7 +9,6 @@ import {
 } from '@angular/forms';
 import { ReceptionistService } from 'src/app/components/receptionist/receptionist.service';
 import { AdminService } from 'src/app/components/admin/admin.service';
-import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DoctorService } from '../../doctor.service';
 import { environment } from 'src/environments/environment';
@@ -29,7 +28,6 @@ import { Location } from '@angular/common';
   styleUrl: './add-update-consultation.component.scss',
 })
 export class AddUpdateConsultationComponent implements OnInit {
-  allLeadList: Array<any> = [];
   searchQuery: string = '';
   page = 1;
   perPage = 10;
@@ -37,19 +35,12 @@ export class AddUpdateConsultationComponent implements OnInit {
   baseUrl = environment.baseUrl;
   isAccordionOpen: number | null = null;
   form!: FormGroup;
-  form_patient!: FormGroup;
   isEdit = false;
   mrno: any;
   leadHid: any;
   disableButton: boolean = false;
   leadList: Array<any> = [];
   allConsutlationHistoryList: Array<any> = [];
-  allStateList: Array<any> = [];
-  allEntityList: Array<any> = [];
-  allSourceOfPatientList: Array<any> = [];
-  allEmployeeList: Array<any> = [];
-  allReferedByList: Array<any> = [];
-  defaultStateId: any;
   color: string | undefined;
   apiUrl = environment.baseUrl;
   streetControl = new FormControl();
@@ -82,31 +73,23 @@ export class AddUpdateConsultationComponent implements OnInit {
   filteredInstructionsArray: Array<any> = [];
   allInstructions: Array<any> = [];
   formGroup: any;
+  //FOR PRINT CONSULATION...
   patientData: any = {};
+  //FOR DISPLAY PATIENT DETAILS
+  patientDetails: any = {};
   constructor(
     private fb: FormBuilder,
     private _receptionistService: ReceptionistService,
     private _adminService: AdminService,
     private _doctorService: DoctorService,
     private _toastrService: ToastrService,
-    private _superAdminService: SuperAdminService,
-    private router: Router,
     private url: ActivatedRoute,
     private dialog: MatDialog,
-    private location:Location
-  ) {
-    this.defaultStateId = 20;
-  }
+    private location: Location
+  ) { }
 
   ngOnInit() {
-    this.patientForm();
     this.createForm();
-    this.getAllStateList();
-    this.getAllEntityList();
-    this.getAllSourceOfPatientList();
-    this.getAllEmployeeList();
-    this.getAllReferedByList();
-    this.disableFormFields();
     this.getAllMedicinesList();
     this.getAllTreatmentList();
     this.getAllChiefComplaintsList();
@@ -115,7 +98,6 @@ export class AddUpdateConsultationComponent implements OnInit {
     this.getAllInstructionsList();
     //url id
     this.mrno = this.url.snapshot.params['id'];
-
     if (this.mrno) {
       this.getPatientById(this.mrno);
       this.getConsultationHistory(this.mrno);
@@ -123,34 +105,6 @@ export class AddUpdateConsultationComponent implements OnInit {
     }
     this.form.patchValue({
       mrno: this.url.snapshot.params['id'],
-    });
-    // by defult cash pATCH dropdown
-    this.form_patient.patchValue({
-      payment_type: 'Cash',
-    });
-  }
-
-  //patientform + consultation form
-  patientForm() {
-    this.form_patient = this.fb.group({
-      registration_date: [''],
-      patient_name: [''],
-      mobile_no: [''],
-      gender: [''],
-      age: [null],
-      address: [null],
-      city: [null],
-      state_id: [null],
-      height: [null],
-      weight: [null],
-      bmi: [''],
-      amount: [null],
-      entity_id: [null],
-      mrno_entity_series: [null],
-      source_of_patient_id: [null],
-      employee_id: [null],
-      refered_by_id: [null],
-      payment_type: [],
     });
   }
   //consultation form
@@ -160,10 +114,8 @@ export class AddUpdateConsultationComponent implements OnInit {
       pluse: [null],
       bp: [null],
       past_history: [''],
-      // chief_complaints_id: ['', Validators.required],
       appointment_date: [''],
       appointment_time: [''],
-      // imageBase64: [null],
       consultationChiefComplaintsDetails: this.fb.array([
         this.newConsultationChiefComplaints(),
       ]),
@@ -181,15 +133,10 @@ export class AddUpdateConsultationComponent implements OnInit {
       ]),
     });
   }
-
   //form controls
   get control() {
     return this.form.controls;
   }
-  get patientControls() {
-    return this.form_patient.controls;
-  }
-
   // ------------------------------------------------------------------
   //get Chief Complaints list...
   getAllChiefComplaintsList() {
@@ -225,7 +172,6 @@ export class AddUpdateConsultationComponent implements OnInit {
       this.filteredChiefComplaintsArray[i] = this.allChiefComplaints;
     }
   }
-
   // --------------------------------------------------------------------------
   //-------------------------------------------------------------------
   //get diagnosis list...
@@ -403,16 +349,6 @@ export class AddUpdateConsultationComponent implements OnInit {
     }
   }
   //-------------------------------------------------------------------
-
-  // patientform all filed disable
-  disableFormFields() {
-    Object.keys(this.form_patient.controls).forEach((key) => {
-      const control = this.form_patient.get(key);
-      if (control) {
-        control.disable();
-      }
-    });
-  }
   //  //Chief Complaints array controls
   get consultationChiefComplaintsDetailsArray() {
     return this.form.get(
@@ -552,7 +488,6 @@ export class AddUpdateConsultationComponent implements OnInit {
   get consultationFileUploadDetailsArray() {
     return this.form.get('consultationFileUploadDetails') as FormArray<any>;
   }
-
   newconsultationFileUploadDetails(): FormGroup {
     return this.fb.group({
       imageBase64: [null],
@@ -615,11 +550,9 @@ export class AddUpdateConsultationComponent implements OnInit {
       }
     }
   }
-
   submit() {
     this.addConsultation();
   }
-
   addConsultation() {
     if (this.form.valid) {
       this._doctorService.addConsultation(this.form.value).subscribe({
@@ -634,17 +567,15 @@ export class AddUpdateConsultationComponent implements OnInit {
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
               cancelButtonColor: '#d33',
-              confirmButtonText: 'Yes'
+              confirmButtonText: 'Yes',
             }).then((result) => {
               if (result.isConfirmed) {
                 if (res.consultation_id) {
-                  this.print(res.consultation_id)
-                } 
+                  this.print(res.consultation_id);
+                }
               }
-              this.goToback()
-
+              this.goToback();
             });
-
           } else {
             this._toastrService.clear();
             this._toastrService.warning(res.message);
@@ -674,36 +605,13 @@ export class AddUpdateConsultationComponent implements OnInit {
       },
     });
   }
-
   //patient by id patch data
   getPatientById(id: any) {
     this._receptionistService.getPatientById(id).subscribe((result: any) => {
-      const patientData = result.data;
-      this.getSearchLead(patientData.mobile_no);
-      this.form_patient.patchValue({
-        registration_date: new Date(patientData.registration_date)
-          .toISOString()
-          .split('T')[0],
-        patient_name: patientData.patient_name,
-        mobile_no: patientData.mobile_no,
-        gender: patientData.gender,
-        age: patientData.age,
-        address: patientData.address,
-        city: patientData.city,
-        state_id: patientData.state_id,
-        height: patientData.height,
-        weight: patientData.weight,
-        bmi: patientData.bmi,
-        amount: patientData.amount,
-        entity_id: patientData.entity_id,
-        mrno_entity_series: patientData.mrno_entity_series,
-        source_of_patient_id: patientData.source_of_patient_id,
-        employee_id: patientData.employee_id,
-        refered_by_id: patientData.refered_by_id,
-      });
+      this.patientDetails = result.data;
+      this.getSearchLead(this.patientDetails.mobile_no);
     });
   }
-
   //open chief complaints by...
   openDialog(data?: any) {
     const dialogRef = this.dialog.open(AddUpdateChiefComplaintsComponent, {
@@ -719,7 +627,6 @@ export class AddUpdateConsultationComponent implements OnInit {
       }
     });
   }
-
   //open Diagnosis by...
   openDialogDiagnosis(data?: any) {
     const dialogRef = this.dialog.open(AddUpdateDiagnosisComponent, {
@@ -735,7 +642,6 @@ export class AddUpdateConsultationComponent implements OnInit {
       }
     });
   }
-
   //open Treatment by...
   openDialogTreatment(data?: any) {
     const dialogRef = this.dialog.open(AddUpdateTreatmentComponent, {
@@ -766,58 +672,6 @@ export class AddUpdateConsultationComponent implements OnInit {
       }
     });
   }
-  //get entity list...
-  getAllEntityList() {
-    this._adminService.getAllEntitiesListWma().subscribe({
-      next: (res: any) => {
-        if (res.data.length > 0) {
-          this.allEntityList = res.data;
-        }
-      },
-    });
-  }
-  //get source_of_patient list...
-  getAllSourceOfPatientList() {
-    this._adminService.getAllSourceOfPatientListWma().subscribe({
-      next: (res: any) => {
-        if (res.data.length > 0) {
-          this.allSourceOfPatientList = res.data;
-        }
-      },
-    });
-  }
-  //get Employee list...
-  getAllEmployeeList() {
-    this._adminService.getAllEmployeeListWma().subscribe({
-      next: (res: any) => {
-        if (res.data.length > 0) {
-          this.allEmployeeList = res.data;
-        }
-      },
-    });
-  }
-
-  //get ReferedBy list...
-  getAllReferedByList() {
-    this._adminService.getAllReferedByListWma().subscribe({
-      next: (res: any) => {
-        if (res.data.length > 0) {
-          this.allReferedByList = res.data;
-        }
-      },
-    });
-  }
-
-  //get  State list...
-  getAllStateList() {
-    this._superAdminService.allstateList().subscribe({
-      next: (res: any) => {
-        if (res.data.length > 0) {
-          this.allStateList = res.data;
-        }
-      },
-    });
-  }
   //history
   toggleAccordion(index: number): void {
     if (this.isAccordionOpen === index) {
@@ -839,10 +693,8 @@ export class AddUpdateConsultationComponent implements OnInit {
       });
     }
   }
-
   //get is lead search data
   getSearchLead(searchQuery: string): void {
-    // Make API call with the search query
     this._receptionistService
       .getAllSearchLeadHeaderList(this.page, this.perPage, searchQuery)
       .subscribe({
@@ -855,7 +707,6 @@ export class AddUpdateConsultationComponent implements OnInit {
         },
       });
   }
-
   // //open lead footer by...
   openDialogLeadInfo(data: string): void {
     let leadHid = this.leadList;
@@ -874,14 +725,16 @@ export class AddUpdateConsultationComponent implements OnInit {
   }
   print(id: any) {
     this._doctorService.getConsultationById(id).subscribe((result: any) => {
-      console.log(result);
-
-      this.patientData = result.data
-
+      this.patientData = result.data;
       let popupWin;
-      popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+      popupWin = window.open(
+        '',
+        '_blank',
+        'top=0,left=0,height=100%,width=auto'
+      );
       const dateParts = this.patientData.cts.split('-');
-      const formattedDate = `${dateParts[2].split('T')[0]}/${dateParts[1]}/${dateParts[0]}`;
+      const formattedDate = `${dateParts[2].split('T')[0]}/${dateParts[1]}/${dateParts[0]
+        }`;
       if (popupWin) {
         popupWin.document.open();
         popupWin.document.write(`
@@ -953,7 +806,8 @@ export class AddUpdateConsultationComponent implements OnInit {
               <div class="row mb-3 pl-4">
                 <div class="col-8">
                   <div class="form-group">
-                    <strong> MR NO. : </strong><label for=""> ${this.patientData.mrno_entity_series || '--'} </label>
+                    <strong> MR NO. : </strong><label for=""> ${this.patientData.mrno_entity_series || '--'
+          } </label>
                   </div>
                 </div>
                 <div class="col-4">
@@ -963,13 +817,15 @@ export class AddUpdateConsultationComponent implements OnInit {
                 </div>
                 <div class="col-8">
                   <div class="form-group">
-                    <strong>Name : </strong> <label for=""> ${this.patientData.patient_name || '--'}</label>
+                    <strong>Name : </strong> <label for=""> ${this.patientData.patient_name || '--'
+          }</label>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="form-group">
                     <strong>Age/Gender: </strong><label for="">
-                      ${this.patientData.age || '--'}/${this.patientData.gender || '--'}</label>
+                      ${this.patientData.age || '--'}/${this.patientData.gender || '--'
+          }</label>
                   </div>
                 </div>
               </div>
@@ -981,13 +837,27 @@ export class AddUpdateConsultationComponent implements OnInit {
                 </div>
                 <div class="col-9">
                   <div class="form-gr">
-                    ${this.patientData.consultationDiagnosisDetails.map((item: any, i: number) => `
+                    ${this.patientData.consultationDiagnosisDetails
+            .map(
+              (item: any, i: number) => `
                     <label for="">
                       ${item.diagnosis_name || '--'}
-                      <span>${i < (this.patientData.consultationDiagnosisDetails.length - 1) ? ',' : ''}</span>
-                          <span>${i === (this.patientData.consultationDiagnosisDetails.length - 1) ? '.' : ''}</span>
+                      <span>${i <
+                  this.patientData.consultationDiagnosisDetails.length - 1
+                  ? ','
+                  : ''
+                }</span>
+                          <span>${i ===
+                  this.patientData.consultationDiagnosisDetails
+                    .length -
+                  1
+                  ? '.'
+                  : ''
+                }</span>
                     </label>
-                    `).join('')}
+                    `
+            )
+            .join('')}
                   </div>
                 </div>
               </div>
@@ -999,13 +869,27 @@ export class AddUpdateConsultationComponent implements OnInit {
                 </div>
                 <div class="col-9">
                   <div class="form-gr">
-                    ${this.patientData.consultationTreatmentDetails.map((item: any, i: number) => `
+                    ${this.patientData.consultationTreatmentDetails
+            .map(
+              (item: any, i: number) => `
                     <label for="">
                       ${item.treatment_name || '--'}
-                      <span>${i < (this.patientData.consultationTreatmentDetails.length - 1) ? ',' : ''}</span>
-                          <span>${i === (this.patientData.consultationTreatmentDetails.length - 1) ? '.' : ''}</span>
+                      <span>${i <
+                  this.patientData.consultationTreatmentDetails.length - 1
+                  ? ','
+                  : ''
+                }</span>
+                          <span>${i ===
+                  this.patientData.consultationTreatmentDetails
+                    .length -
+                  1
+                  ? '.'
+                  : ''
+                }</span>
                     </label>
-                    `).join('')}
+                    `
+            )
+            .join('')}
                   </div>
                 </div>
               </div>
@@ -1022,14 +906,18 @@ export class AddUpdateConsultationComponent implements OnInit {
                         </tr>
                       </thead>
                       <tbody class="table-group-divider">
-                        ${this.patientData.consultationMedicineDetails.map((item: any) => `
+                        ${this.patientData.consultationMedicineDetails
+            .map(
+              (item: any) => `
                         <tr>
                           <td>${item.medicines_name || '--'}</td>
                           <td>${item.dosage_name || '--'}</td>
                           <td class="text-center">${item.days || '--'}</td>
                           <td>${item.instruction || '--'}</td>
                         </tr>
-                        `).join('')}
+                        `
+            )
+            .join('')}
   
                       </tbody>
                     </table>
@@ -1064,12 +952,10 @@ export class AddUpdateConsultationComponent implements OnInit {
         `);
         popupWin.document.close();
       }
-
     });
   }
-
-    // cancel route location service
-    goToback() {
-      this.location.back();
-    }
+  // cancel route location service
+  goToback() {
+    this.location.back();
+  }
 }

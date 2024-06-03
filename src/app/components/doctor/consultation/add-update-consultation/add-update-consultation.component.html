@@ -5,127 +5,71 @@
         <strong>Add Consultation</strong>
       </c-card-header>
       <c-card-body>
-        <form cForm class="row g-3" [formGroup]="form_patient">
-          <c-col md="2" class="p-2" hidden>
-            <label for="entity_id" cLabel> Entity Name </label>
-            <select aria-label="select entity_id" cSelect sizing="sm" formControlName="entity_id" type="text">
-              <option hidden value="null" disabled selected>Entity Name</option>
-              <option [value]="item.entity_id" *ngFor="let item of allEntityList">
-                {{ item.entity_name }}
-              </option>
-            </select>
+        <form cForm class="row g-3">
+          <c-col md="2" class="p-2">
+            <label class="fw-bold" cLabel for="mrno_entity_series">MR No Entity Series </label><br>
+            <label cLabel for="mrno_entity_series">{{patientDetails.mrno_entity_series}} </label>
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="mrno_entity_series">MR No Entity Series </label>
-            <input cFormControl id="mrno_entity_series" formControlName="mrno_entity_series" type="text" />
-          </c-col>
-          <c-col md="2" class="p-2">
-            <label cLabel for="registration_date">Registration Date </label>
-            <input cFormControl id="registration_date" formControlName="registration_date" type="date" />
+            <label class="fw-bold" cLabel for="registration_date">Registration Date </label><br>
+            <label cLabel for="registration_date">{{patientDetails.registration_date|date:'dd-MM-YYYY'}} </label>
           </c-col>
           <c-col md="4" class="p-2">
-            <label cLabel for="patient_name">Patient Name </label>
-            <input cFormControl id="patient_name" formControlName="patient_name" type="text" />
+            <label class="fw-bold" cLabel for="patient_name">Patient Name </label><br>
+            <label cLabel for="patient_name">{{patientDetails.patient_name}} </label>
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="mobile_no">Mobile Number </label>
-            <input cFormControl id="mobile_no" formControlName="mobile_no" type="number" />
+            <label class="fw-bold" cLabel for="mobile_no">Mobile Number </label><br>
+            <label cLabel for="mobile_no">{{patientDetails.mobile_no}} </label>
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="validationDefault01">Gender </label>
-            <select aria-label="select lead gender" cSelect sizing="sm" formControlName="gender" type="text">
-              <option hidden value="null" disabled selected>Gender</option>
-              <option>Male</option>
-              <option>Female</option>
-              <option>Other</option>
-            </select>
+            <label class="fw-bold" cLabel for="validationDefault01">Gender</label><br>
+            <label cLabel for="gender">{{patientDetails.gender}} </label>
+
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="age">Age </label>
-            <input cFormControl id="age" formControlName="age" type="number" />
+            <label class="fw-bold" cLabel for="age">Age </label> <br>
+            <label cLabel for="age">{{patientDetails.age}} </label>
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="address">Address </label>
-            <input cFormControl id="address" formControlName="address" type="text" />
+            <label class="fw-bold" cLabel for="address">Address </label><br>
+            <label cLabel for="address">{{patientDetails.address}} </label>
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="validationDefault01">City </label>
-            <input cFormControl id="validationDefault01" formControlName="city" type="text" />
+            <label class="fw-bold" cLabel for="validationDefault01">City </label><br>
+            <label cLabel for="city">{{patientDetails.city}} </label>
           </c-col>
           <c-col md="2" class="p-2">
-            <label for="state_id" cLabel> State </label>
-            <select aria-label="select state_id" cSelect sizing="sm" formControlName="state_id" type="text"
-              [(ngModel)]="defaultStateId">
-              <option hidden value="null" disabled selected>State</option>
-              <option [value]="item.state_id" *ngFor="let item of allStateList">
-                {{ item.state_name }}
-              </option>
-            </select>
+            <label class="fw-bold" for="state_id" cLabel> State </label><br>
+            <label cLabel for="gender">{{patientDetails.state_name}} </label>
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="validationDefault01">Height (cm) </label>
-            <input cFormControl id="height" formControlName="height" type="number" />
+            <label class="fw-bold" cLabel for="validationDefault01">Height (cm) </label> <br>
+            <label cLabel for="height">{{patientDetails.height}} </label>
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="validationDefault01">Weight (kg) </label>
-            <input cFormControl id="weight" formControlName="weight" type="number" />
+            <label class="fw-bold" cLabel for="validationDefault01">Weight (kg) </label> <br>
+            <label cLabel for="weight">{{patientDetails.weight}} </label>
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="bmi">BMI (kg/m²) </label>
-            <input cFormControl id="bmi" formControlName="bmi" type="text" />
+            <label class="fw-bold" cLabel for="bmi">BMI (kg/m²) </label> <br>
+            <label cLabel for="bmi">{{patientDetails.bmi}} </label>
           </c-col>
           <c-col md="2" class="p-2">
-            <label for="source_of_patient_id" cLabel> Source Of Patient </label>
-            <select aria-label="select source_of_patient_id" cSelect sizing="sm" formControlName="source_of_patient_id"
-              type="text">
-              <option hidden value="null" disabled selected>
-                Source Of Patient
-              </option>
-              <option [value]="item.source_of_patient_id" *ngFor="let item of allSourceOfPatientList">
-                {{ item.source_of_patient_name }}
-              </option>
-            </select>
+            <label class="fw-bold" for="source_of_patient_id" cLabel> Source Of Patient </label> <br>
+            <label cLabel for="source_of_patient_name">{{patientDetails.source_of_patient_name}} </label>
           </c-col>
           <c-col md="2" class="p-2 m-9">
-            <div>
-              <label for="refered_by_id" cLabel> Refered By </label>
-            </div>
-            <div class="refered-by">
-              <select aria-label="select refered_by_id" cSelect sizing="sm" formControlName="refered_by_id" type="text">
-                <option hidden value="null" disabled selected>
-                  Refered By
-                </option>
-                <option [value]="item.refered_by_id" *ngFor="let item of allReferedByList">
-                  {{ item.refered_by_name }}
-                </option>
-              </select>
-            </div>
+            <label class="fw-bold" for="refered_by_id" cLabel> Refered By </label> <br>
+            <label cLabel for="gender">{{patientDetails.refered_by_name}} </label>
           </c-col>
           <c-col md="2" class="p-2">
-            <label for="employee_id" cLabel> Assign to </label>
-            <select aria-label="select employee_id" cSelect sizing="sm" formControlName="employee_id" type="text">
-              <option hidden value="null" disabled selected>Select Name</option>
-              <ng-container *ngFor="let item of allEmployeeList">
-                <option [value]="item.employee_id" *ngIf="item.designation_name.toLowerCase() === 'doctor'">
-                  {{ item.name }}
-                </option>
-              </ng-container>
-            </select>
+            <label class="fw-bold" for="employee_id" cLabel> Assign to </label> <br>
+            <label cLabel for="employee_name">{{patientDetails.name}} </label>
           </c-col>
           <c-col md="2" class="p-2">
-            <label cLabel for="validationDefault01">Payment Type </label>
-            <select aria-label="select lead payment_type" cSelect sizing="sm" formControlName="payment_type"
-              type="text">
-              <option hidden value="null" disabled selected>
-                Payment Type
-              </option>
-              <option>Cash</option>
-              <option>Online Payment</option>
-            </select>
-          </c-col>
-          <c-col md="2" class="p-2">
-            <label cLabel for="amount">Amount </label>
-            <input cFormControl id="amount" formControlName="amount" type="number" />
+            <label class="fw-bold" cLabel for="amount">Amount </label> <br>
+            <label cLabel for="amount">{{patientDetails.amount}} </label>
           </c-col>
         </form>
         <hr />
@@ -133,7 +77,7 @@
         <form cForm class="row g-3" [formGroup]="form">
           <c-col md="4" class="p-2">
             <label cLabel for="validationDefault01">Past History</label>
-            <input cFormControl id="past_history" type="text" formControlName="past_history" autocomplete="off" />
+            <textarea cFormControl id="past_history" formControlName="past_history" autocomplete="off"></textarea>
           </c-col>
           <c-col md="3" class="lead-info p-4">
             <button cButton class="me-1" color="primary" [disabled]="disableButton"
@@ -671,7 +615,7 @@
             <button cButton class="me-1" color="primary" (click)="submit()">
               Submit
             </button>
-            <button cButton color="secondary"   (click)="goToback()">
+            <button cButton color="secondary" (click)="goToback()">
               Cancel
             </button>
           </c-col>

@@ -5,180 +5,81 @@
         <strong>View Consultation</strong>
       </c-card-header>
       <c-card-body>
-        <form cForm class="row g-3" [formGroup]="form">
-          <c-col md="2" class="p-2">
-            <label for="entity_id" cLabel> Entity Name </label>
-            <select aria-label="select entity_id" cSelect sizing="sm" formControlName="entity_id" type="text">
-              <option hidden value="null" disabled selected>Entity Name</option>
-              <option [value]="item.entity_id" *ngFor="let item of allEntityList">
-                {{ item.entity_name }}
-              </option>
-            </select>
-          </c-col>
-          <c-col md="2" class="p-2">
-            <label cLabel for="mrno_entity_series">MR No Entity Series </label>
-            <input cFormControl autocomplete="off" id="mrno_entity_series" formControlName="mrno_entity_series"
-              type="text" />
-          </c-col>
-          <c-col md="2" class="p-2">
-            <label cLabel for="registration_date">Registration Date </label>
-            <input cFormControl id="registration_date" formControlName="registration_date" type="date" />
-          </c-col>
-          <c-col md="2" class="p-2">
-            <label cLabel for="patient_name">Patient Name </label>
-            <input cFormControl autocomplete="off" id="patient_name" formControlName="patient_name" type="text" />
-          </c-col>
-          <c-col md="2" class="p-2">
-            <label cLabel for="mobile_no">Mobile Number </label>
-            <input cFormControl autocomplete="off" id="mobile_no" formControlName="mobile_no" type="number" />
-          </c-col>
-          <c-col md="2" class="p-2">
-            <label cLabel for="validationDefault01">Gender </label>
-            <select aria-label="select lead gender" cSelect sizing="sm" formControlName="gender" type="text">
-              <option hidden value="null" disabled selected>Gender</option>
-              <option>Male</option>
-              <option>Female</option>
-              <option>Other</option>
-            </select>
-          </c-col>
-          <c-col md="2" class="p-2">
-            <label cLabel for="age">Age </label>
-            <input cFormControl id="age" formControlName="age" type="number" autocomplete="off" />
-          </c-col>
-          <c-col md="2" class="p-2">
-            <label cLabel for="address">Address </label>
-            <input cFormControl autocomplete="off" id="address" formControlName="address" type="text" />
-          </c-col>
-          <c-col md="2" class="p-2">
-            <label cLabel for="validationDefault01">City </label>
-            <input cFormControl autocomplete="off" id="validationDefault01" formControlName="city" type="text" />
-          </c-col>
-          <c-col md="2" class="p-2">
-            <label for="state_id" cLabel> State </label>
-            <select aria-label="select state_id" cSelect autocomplete="off" sizing="sm" formControlName="state_id"
-              type="text">
-              <option hidden value="null" disabled selected>State</option>
-              <option [value]="item.state_id" *ngFor="let item of allStateList">
-                {{ item.state_name }}
-              </option>
-            </select>
-          </c-col>
-          <c-col md="2" class="p-2">
-            <label cLabel for="validationDefault01">Height (cm) </label>
-            <input cFormControl autocomplete="off" id="height" formControlName="height" type="number" />
-          </c-col>
-          <c-col md="2" class="p-2">
-            <label cLabel for="validationDefault01">Weight (kg) </label>
-            <input cFormControl id="weight" autocomplete="off" formControlName="weight" type="number" />
-          </c-col>
-          <c-col md="2" class="p-2">
-            <label cLabel for="bmi">BMI (kg/m²) </label>
-            <input cFormControl id="bmi" formControlName="bmi" type="text" autocomplete="off" />
-          </c-col>
-          <c-col md="2" class="p-2">
-            <label for="source_of_patient_id" cLabel> Source Of Patient </label>
-            <select aria-label="select source_of_patient_id" cSelect sizing="sm" formControlName="source_of_patient_id"
-              type="text">
-              <option hidden value="null" disabled selected>
-                Source Of Patient
-              </option>
-              <option [value]="item.source_of_patient_id" *ngFor="let item of allSourceOfPatientList">
-                {{ item.source_of_patient_name }}
-              </option>
-            </select>
-          </c-col>
-          <c-col md="2" class="p-2 m-9">
-            <div>
-              <label for="refered_by_id" cLabel> Refered By </label>
-            </div>
-            <div class="refered-by">
-              <select aria-label="select refered_by_id" cSelect sizing="sm" formControlName="refered_by_id" type="text">
-                <option hidden value="null" disabled selected>
-                  Refered By
-                </option>
-                <option [value]="item.refered_by_id" *ngFor="let item of allReferedByList">
-                  {{ item.refered_by_name }}
-                </option>
-              </select>
-            </div>
-          </c-col>
-          <c-col md="2" class="p-2">
-            <label for="employee_id" cLabel> Assign to </label>
-            <select aria-label="select employee_id" cSelect sizing="sm" formControlName="employee_id" type="text">
-              <option hidden value="null" disabled selected>Select Name</option>
-              <ng-container *ngFor="let item of allEmployeeList">
-                <option [value]="item.employee_id" *ngIf="item.designation_name.toLowerCase() === 'doctor'">
-                  {{ item.name }}
-                </option>
-              </ng-container>
-            </select>
-          </c-col>
-          <c-col md="2" class="p-2">
-            <label cLabel for="validationDefault01">Payment Type </label>
-            <select aria-label="select lead payment_type" cSelect sizing="sm" formControlName="payment_type"
-              type="text">
-              <option hidden value="null" disabled selected>
-                Payment Type
-              </option>
-              <option>Cash</option>
-              <option>Online Payment</option>
-            </select>
-          </c-col>
-          <c-col md="2" class="p-2">
-            <label cLabel for="amount">Amount </label>
-            <input cFormControl autocomplete="off" id="amount" formControlName="amount" type="number" />
-          </c-col>
-          <!-- </form> -->
+        <form cForm class="row g-3" >
+          <div class="">
+            <form cForm class="row g-3">
+              <c-col md="2" class="p-2">
+                <label class="fw-bold" cLabel for="mrno_entity_series">MR No Entity Series </label><br>
+                <label cLabel for="mrno_entity_series">{{patientDetails.mrno_entity_series}} </label>
+              </c-col>
+              <c-col md="2" class="p-2">
+                <label class="fw-bold" cLabel for="registration_date">Registration Date </label><br>
+                <label cLabel for="registration_date">{{patientDetails.registration_date|date:'dd-MM-YYYY'}} </label>
+              </c-col>
+              <c-col md="4" class="p-2">
+                <label class="fw-bold" cLabel for="patient_name">Patient Name </label><br>
+                <label cLabel for="patient_name">{{patientDetails.patient_name}} </label>
+              </c-col>
+              <c-col md="2" class="p-2">
+                <label class="fw-bold" cLabel for="mobile_no">Mobile Number </label><br>
+                <label cLabel for="mobile_no">{{patientDetails.mobile_no}} </label>
+              </c-col>
+              <c-col md="2" class="p-2">
+                <label class="fw-bold" cLabel for="validationDefault01">Gender</label><br>
+                <label cLabel for="gender">{{patientDetails.gender}} </label>
+
+              </c-col>
+              <c-col md="2" class="p-2">
+                <label class="fw-bold" cLabel for="age">Age </label> <br>
+                <label cLabel for="age">{{patientDetails.age}} </label>
+              </c-col>
+              <c-col md="2" class="p-2">
+                <label class="fw-bold" cLabel for="address">Address </label><br>
+                <label cLabel for="address">{{patientDetails.address}} </label>
+              </c-col>
+              <c-col md="2" class="p-2">
+                <label class="fw-bold" cLabel for="validationDefault01">City </label><br>
+                <label cLabel for="city">{{patientDetails.city}} </label>
+              </c-col>
+              <c-col md="2" class="p-2">
+                <label class="fw-bold" for="state_id" cLabel> State </label><br>
+                <label cLabel for="gender">{{patientDetails.state_name}} </label>
+              </c-col>
+              <c-col md="2" class="p-2">
+                <label class="fw-bold" cLabel for="validationDefault01">Height (cm) </label> <br>
+                <label cLabel for="height">{{patientDetails.height}} </label>
+              </c-col>
+              <c-col md="2" class="p-2">
+                <label class="fw-bold" cLabel for="validationDefault01">Weight (kg) </label> <br>
+                <label cLabel for="weight">{{patientDetails.weight}} </label>
+              </c-col>
+              <c-col md="2" class="p-2">
+                <label class="fw-bold" cLabel for="bmi">BMI (kg/m²) </label> <br>
+                <label cLabel for="bmi">{{patientDetails.bmi}} </label>
+              </c-col>
+              <c-col md="2" class="p-2">
+                <label class="fw-bold" for="source_of_patient_id" cLabel> Source Of Patient </label> <br>
+                <label cLabel for="source_of_patient_name">{{patientDetails.source_of_patient_name}} </label>
+              </c-col>
+              <c-col md="2" class="p-2 m-9">
+                <label class="fw-bold" for="refered_by_id" cLabel> Refered By </label> <br>
+                <label cLabel for="gender">{{patientDetails.refered_by_name}} </label>
+              </c-col>
+              <c-col md="2" class="p-2">
+                <label class="fw-bold" for="employee_id" cLabel> Assign to </label> <br>
+                <label cLabel for="employee_name">{{patientDetails.employee_name}} </label>
+              </c-col>
+              <c-col md="2" class="p-2">
+                <label class="fw-bold" cLabel for="amount">Amount </label> <br>
+                <label cLabel for="amount">{{patientDetails.amount}} </label>
+              </c-col>
+            </form>
+          </div>
           <hr />
-          <c-col md="3" class="p-2">
-            <label cLabel for="validationDefault01">Past History<span style="color: red"
-                *ngIf="!form.get('past_history')?.value">*</span></label>
-            <input cFormControl autocomplete="off" id="past_history" type="text" formControlName="past_history" />
+          <c-col md="3" class="p-2" *ngIf="patientDetails.past_history">
+            <label cLabel for="validationDefault01" class="fw-bold">Past History</label> <br>
+            <label cLabel for="past_history">{{patientDetails.past_history||"--"}} </label>
           </c-col>
-          <!-- <c-col md="3" class="p-2">
-            <label for="chief_complaints_id" cLabel>
-              Chief Complaints<span
-                style="color: red"
-                *ngIf="!form.get('chief_complaints_id')?.value"
-                >*</span
-              ></label
-            >
-
-            <mat-select
-              #singleSelect
-              formControlName="chief_complaints_id"
-              class="form-control theme-input"
-            >
-              <mat-option>
-                <ngx-mat-select-search
-                  [(ngModel)]="searchChiefComplaintsValue"
-                  [ngModelOptions]="{ standalone: true }"
-                  (input)="filterChiefComplaints()"
-                  placeholderLabel="Search chief complaint"
-                  noEntriesFoundLabel="No result available"
-                ></ngx-mat-select-search>
-              </mat-option>
-              <mat-option
-                *ngFor="let item of filteredChiefComplaintsArray"
-                [value]="item.chief_complaint_id"
-              >
-                <span>
-                  {{ item.chief_complaint }}
-                </span>
-              </mat-option>
-            </mat-select>
-
-            <div
-              class="text-danger"
-              *ngIf="
-                control['chief_complaints_id'].invalid &&
-                (control['chief_complaints_id'].dirty ||
-                  control['chief_complaints_id'].touched)
-              "
-            >
-              <small>Please provide a valid Chief Complaints.</small>
-            </div>
-          </c-col> -->
           <hr class="mb-0" />
           <mat-tab-group class="mt-0">
             <mat-tab label="Chief Complaints">
@@ -188,32 +89,17 @@
                     <tr>
                       <th scope="col">Sr No</th>
                       <th scope="col">Chief Complaints</th>
-
                     </tr>
                   </thead>
-                  <tbody formArrayName="consultationChiefComplaintsDetails">
+                  <tbody>
                     <tr *ngFor="
-                        let item of consultationChiefComplaintsDetailsArray.controls;
+                        let item of patientDetails.consultationChiefComplaintsDetails;
                         let i = index
-                      " [formGroupName]="i">
-                      <th>{{ i + 1 }}</th>
-
+                      ">
+                      <th>{{ i + 1 ||"--"}}</th>
                       <td>
-                        <mat-select #singleSelect formControlName="chief_complaints_id" class="form-control theme-input"
-                          style="width: 500px;">
-                          <mat-option>
-                            <ngx-mat-select-search [(ngModel)]="searchChiefComplaintsValue"
-                              [ngModelOptions]="{ standalone: true }" (input)="filterChiefComplaints()"
-                              placeholderLabel="Search chief complaints"
-                              noEntriesFoundLabel="No result available"></ngx-mat-select-search>
-                          </mat-option>
-                          <mat-option *ngFor="let item of filteredChiefComplaintsArray"
-                            [value]="item.chief_complaint_id">
-                            {{ item?.chief_complaint }}
-                          </mat-option>
-                        </mat-select>
+                        {{ item?.chief_complaint||"--" }}
                       </td>
-
                     </tr>
                   </tbody>
                 </table>
@@ -229,31 +115,17 @@
                       <th scope="col">Notes</th>
                     </tr>
                   </thead>
-                  <tbody formArrayName="consultationDiagnosisDetails">
+                  <tbody>
                     <tr *ngFor="
-                        let item of consultationDiagnosisDetailsArray.controls;
-                        let i = index
-                      " [formGroupName]="i">
+                        let item of patientDetails.consultationDiagnosisDetails;
+                        let i = index">
                       <th>{{ i + 1 }}</th>
-
                       <td>
-                        <mat-select #singleSelect formControlName="diagnosis_id" class="form-control theme-input">
-                          <mat-option>
-                            <ngx-mat-select-search [(ngModel)]="searchDiagnosisValue"
-                              [ngModelOptions]="{ standalone: true }" (input)="filterDiagnosis()"
-                              placeholderLabel="Search Diagnosis"
-                              noEntriesFoundLabel="No result available"></ngx-mat-select-search>
-                          </mat-option>
-                          <mat-option *ngFor="let item of filteredDiagnosisArray" [value]="item.diagnosis_id">
-                            {{ item?.diagnosis_name }}
-                          </mat-option>
-                        </mat-select>
+                        {{ item?.diagnosis_name ||"--"}}
                       </td>
                       <td>
-                        <input type="text" autocomplete="off" class="form-control" formControlName="notes" />
+                        {{ item?.notes||"--" }}
                       </td>
-
-
                     </tr>
                   </tbody>
                 </table>
@@ -269,29 +141,17 @@
                       <th scope="col">Notes</th>
                     </tr>
                   </thead>
-                  <tbody formArrayName="consultationTreatmentDetails">
+                  <tbody >
                     <tr *ngFor="
-                        let item of consultationTreatmentDetailsArray.controls;
+                        let item of patientDetails.consultationTreatmentDetails;
                         let i = index
-                      " [formGroupName]="i">
+                      ">
                       <th>{{ i + 1 }}</th>
-
                       <td>
-                        <mat-select #singleSelect formControlName="treatment_id" class="form-control theme-input"
-                          [disabled]="true">
-                          <mat-option>
-                            <ngx-mat-select-search [(ngModel)]="searchTreatmentValue"
-                              [ngModelOptions]="{ standalone: true }" (input)="filterTreatment()"
-                              placeholderLabel="Search Treatment"
-                              noEntriesFoundLabel="No result available"></ngx-mat-select-search>
-                          </mat-option>
-                          <mat-option *ngFor="let item of filteredTreatmentArray" [value]="item.treatment_id">
-                            {{ item?.treatment_name }}
-                          </mat-option>
-                        </mat-select>
+                        {{ item?.treatment_name||"--" }}
                       </td>
                       <td>
-                        <input type="text" autocomplete="off" class="form-control" formControlName="notes" />
+                        {{item.notes||"--"}}
                       </td>
                     </tr>
                   </tbody>
@@ -310,54 +170,24 @@
                       <th scope="col">Instructions</th>
                     </tr>
                   </thead>
-                  <tbody formArrayName="consultationMedicineDetails">
+                  <tbody>
                     <tr *ngFor="
-                        let item of consultationMedicineDetailsArray.controls;
+                        let item of patientDetails.consultationMedicineDetails;
                         let i = index
-                      " [formGroupName]="i">
+                      ">
                       <th>{{ i + 1 }}</th>
 
                       <td>
-                        <mat-select #singleSelect formControlName="medicines_id" class="form-control theme-input">
-                          <mat-option>
-                            <ngx-mat-select-search [(ngModel)]="searchMedicinesValue"
-                              [ngModelOptions]="{ standalone: true }" (input)="filterMedicines()"
-                              placeholderLabel="Search Medicines"
-                              noEntriesFoundLabel="No result available"></ngx-mat-select-search>
-                          </mat-option>
-                          <mat-option *ngFor="let item of filteredMedicinesArray" [value]="item.medicines_id">
-                            {{ item?.medicines_name }}
-                          </mat-option>
-                        </mat-select>
+                        {{ item?.medicines_name||"--" }}
                       </td>
                       <td>
-                        <mat-select #singleSelect formControlName="dosages_id" class="form-control theme-input">
-                          <mat-option>
-                            <ngx-mat-select-search [(ngModel)]="searchDosagesValue"
-                              [ngModelOptions]="{ standalone: true }" (input)="filterDosages()"
-                              placeholderLabel="Search Dosages"
-                              noEntriesFoundLabel="No result available"></ngx-mat-select-search>
-                          </mat-option>
-                          <mat-option *ngFor="let item of filteredDosagesArray" [value]="item.dosage_id">
-                            {{ item?.dosage_name }}
-                          </mat-option>
-                        </mat-select>
+                        {{ item?.dosage_name ||"--"}}
                       </td>
                       <td>
-                        <input type="text" class="form-control" formControlName="days" />
+                        {{item.days||"--"}}
                       </td>
                       <td>
-                        <mat-select #singleSelect formControlName="instructions_id" class="form-control theme-input">
-                          <mat-option>
-                            <ngx-mat-select-search [(ngModel)]="searchInstructionsValue"
-                              [ngModelOptions]="{ standalone: true }" (input)="filterInstructions()"
-                              placeholderLabel="Search Instructions"
-                              noEntriesFoundLabel="No result available"></ngx-mat-select-search>
-                          </mat-option>
-                          <mat-option *ngFor="let item of filteredInstructionsArray" [value]="item.instructions_id">
-                            {{ item?.instruction }}
-                          </mat-option>
-                        </mat-select>
+                        {{ item?.instruction||"--" }}
                       </td>
                     </tr>
                   </tbody>
@@ -374,20 +204,19 @@
                       <th scope="col">Notes</th>
                     </tr>
                   </thead>
-                  <tbody formArrayName="consultationFileUploadDetails">
+                  <tbody>
                     <tr *ngFor="
-                        let item of consultationFileUploadDetailsArray.controls;
+                        let item of patientDetails.consultationFileUploadDetails;
                         let i = index
-                      " [formGroupName]="i">
+                      ">
                       <th>{{ i + 1 }}</th>
                       <td>
                         <div class="d-flex">
-                          <input type="file" class="form-control" id="imageBase64" (change)="onImageChange($event)"
-                            accept=".jpeg, .jfif, .pjpeg, .pjp, .png, .jpg" formControlName="imageBase64" />
+                          <a href="{{(baseUrl +'images/consultationfile/' + item.image_name)||'--' }}" target="_blank" rel="noopener noreferrer">{{ item.image_name }}</a>
                         </div>
                       </td>
                       <td>
-                        <input type="text" autocomplete="off" class="form-control" formControlName="notes" />
+                        {{item.notes||"--"}}
                       </td>
                     </tr>
                   </tbody>
@@ -418,7 +247,7 @@
                       <div class="accordion-body">
                         <div class="mb-4 d-flex justify-content-around">
                           <div>
-                            <strong>Past History: </strong>{{ item.past_history }}
+                            <strong>Past History: </strong>{{ item.past_history ||"--" }}
                           </div>
                         </div>
                         <hr class="mb-0" />
@@ -431,10 +260,9 @@
                                   <tr>
                                     <th scope="col">Sr No</th>
                                     <th scope="col">Chief Complaints</th>
-
                                   </tr>
                                 </thead>
-                                <tbody formArrayName="consultationChiefComplaintsDetails">
+                                <tbody >
                                   <ng-container>
                                     <!-- Consultation Diagnosis Details -->
                                     <ng-container *ngFor="
@@ -443,7 +271,7 @@
                                       ">
                                       <tr>
                                         <td>{{ i + 1 }}</td>
-                                        <td>{{ complaintsDetails.chief_complaint }}</td>
+                                        <td>{{ complaintsDetails.chief_complaint||"--" }}</td>
                                       </tr>
                                     </ng-container>
                                   </ng-container>
@@ -461,7 +289,7 @@
                                     <th scope="col">Notes</th>
                                   </tr>
                                 </thead>
-                                <tbody formArrayName="consultationDiagnosisDetails">
+                                <tbody >
                                   <ng-container>
                                     <!-- Consultation Diagnosis Details -->
                                     <ng-container *ngFor="
@@ -470,8 +298,8 @@
                                       ">
                                       <tr>
                                         <td>{{ i + 1 }}</td>
-                                        <td>{{ diagnosis.diagnosis_name }}</td>
-                                        <td>{{ diagnosis.notes }}</td>
+                                        <td>{{ diagnosis.diagnosis_name ||"--"}}</td>
+                                        <td>{{ diagnosis.notes ||"--"}}</td>
                                       </tr>
                                     </ng-container>
                                   </ng-container>
@@ -489,7 +317,7 @@
                                     <th scope="col">Notes</th>
                                   </tr>
                                 </thead>
-                                <tbody formArrayName="consultationTreatmentDetails">
+                                <tbody >
                                   <ng-container>
                                     <!-- Consultation Treatment Details -->
                                     <ng-container *ngFor="
@@ -498,8 +326,8 @@
                                       ">
                                       <tr>
                                         <td>{{ i + 1 }}</td>
-                                        <td>{{ treatment.treatment_name }}</td>
-                                        <td>{{ treatment.notes }}</td>
+                                        <td>{{ treatment.treatment_name ||"--"}}</td>
+                                        <td>{{ treatment.notes||"--" }}</td>
                                       </tr>
                                     </ng-container>
                                   </ng-container>
@@ -519,7 +347,7 @@
                                     <th scope="col">Instructions</th>
                                   </tr>
                                 </thead>
-                                <tbody formArrayName="consultationMedicineDetails">
+                                <tbody >
                                   <ng-container>
                                     <!-- Consultation Medicine Details -->
                                     <ng-container *ngFor="
@@ -528,11 +356,11 @@
                                       ">
                                       <tr>
                                         <td>{{ i + 1 }}</td>
-                                        <td>{{ medicine.medicines_name }}</td>
-                                        <td>{{ medicine.dosage_name}}</td>
-                                        <td>{{ medicine.days }}</td>
+                                        <td>{{ medicine.medicines_name ||"--"}}</td>
+                                        <td>{{ medicine.dosage_name||"--"}}</td>
+                                        <td>{{ medicine.days||"--" }}</td>
                                         <td>
-                                          {{ medicine.instruction }}
+                                          {{ medicine.instruction||"--" }}
                                         </td>
                                       </tr>
                                     </ng-container>
@@ -564,12 +392,12 @@
                                         </td>
                                         <td>
                                           <a href="{{
-                                              baseUrl +
+                                              (baseUrl +
                                                 'images/consultationfile/' +
-                                                file.image_name
-                                            }}" target="_blank" rel="noopener noreferrer">{{ file.image_name }}</a>
+                                                file.image_name)||'--'
+                                            }}" target="_blank" rel="noopener noreferrer">{{ file.image_name ||"--" }}</a>
                                         </td>
-                                        <td>{{ file.notes }}</td>
+                                        <td>{{ file.notes ||"--" }}</td>
                                         <!-- Add more fields as needed -->
                                       </tr>
                                     </ng-container>
@@ -602,140 +430,3 @@
     </c-card>
   </c-col>
 </c-row>
-<!-- <section class="" id="agrrement-section" hidden>
-  <div class="container-fuild">
-    <div class="row justify-content-center">
-      <div class="col-12 col-lg-12 col-xl-12 col-xxl-12 ">
-        <header>
-          <div class="row mb-3">
-            <div class="col-12 col-lg-12 col-xl-12 col-xxl-12 ">
-              <a class="d-flex justify-content-center ">
-                <img src="../../../../../../assets/images/Nirmiti_English.png" class="img-fluid"
-                  alt="BootstrapBrain Logo" width="200" height="100">
-              </a>
-              <h3 class="p-0 m-0 d-flex justify-content-center">Nirmiti Cosmetic Surgery Centre</h3>
-              <p class="p-0 m-0 d-flex justify-content-center"><span class="fw-bold">Address</span>: Shanti Sagar
-                Colony, 100 Feet Rd, near Shani Mandir, Sangli, Maharashtra
-                416415 </p>
-              <span class="d-flex justify-content-center">Contact: +91 8690069006, +91 9637222022</span>
-            </div>
-            <div class="col-12 col-lg-12 col-xl-12 col-xxl-12 ">
-
-              <address class="m-0">
-                <div class="row pl-4">
-                  <div class="col-8">
-                    <strong>Dr.Neeraj Bhaban</strong> <br>
-                    M.S ( KEM Mumbai ) <br>MCh ( Plastic and Cosmetic surgery)
-                  </div>
-                  <div class="col-4">
-                    <strong>Dr. Mayuri Bhaban</strong> <br>
-                    Dip in Cosmetology and Trichology
-                  </div>
-                </div>
-              </address>
-            </div>
-          </div>
-          <hr style="border-top:3px solid #000000!important;">
-        </header>
-        <section>
-          <div class="row mb-3 pl-4">
-            <div class="col-8">
-              <div class="form-group">
-                <strong> MR NO. : </strong><label for=""> {{patientData.mrno||'--'}} </label>
-              </div>
-            </div>
-            <div class="col-4">
-              <div class="form-group">
-                <strong> Date : </strong> <label for=""> {{patientData.cts| date : "dd"}}/{{patientData.cts| date :
-                  "MM"}}/{{patientData.cts| date : "yyyy"}}</label>
-              </div>
-            </div>
-            <div class="col-8">
-              <div class="form-group">
-                <strong>Name : </strong> <label for=""> {{patientData.patient_name||'--'}}</label>
-              </div>
-            </div>
-            <div class="col-4">
-              <div class="form-group">
-                <strong>Age/Gender: </strong><label for="">
-                  {{patientData.age||'--'}}/{{patientData.gender||'--'}}</label>
-              </div>
-            </div>
-          </div>
-          <div class="row mb-3 pl-4">
-            <div class="col-3">
-              <div class="form-group">
-                <strong>Diagnosis Details:</strong>
-              </div>
-            </div>
-            <div class="col-9">
-              <div class="form-gr">
-                <label for="" *ngFor="let item of patientData.consultationDiagnosisDetails; let i = index">
-                  {{item.diagnosis_name ||'--'}} <span *ngIf="i < (patientData.consultationDiagnosisDetails.length-1)">
-                    , </span> <span *ngIf="i ==(patientData.consultationDiagnosisDetails.length-1)"> . </span> </label>
-              </div>
-            </div>
-          </div>
-          <div class="row mb-3 pl-4">
-            <div class="col-3">
-              <div class="form-group">
-                <strong>Treatment Details: </strong>
-              </div>
-            </div>
-            <div class="col-9">
-              <div class="form-gr">
-                <label for="" *ngFor="let item of patientData.consultationTreatmentDetails; let i = index">
-                  {{item.treatment_name ||'--'}} <span *ngIf="i < (patientData.consultationTreatmentDetails.length-1)">
-                    , </span> <span *ngIf="i ==(patientData.consultationTreatmentDetails.length-1)"> . </span> </label>
-              </div>
-            </div>
-          </div>
-          <div class="row mb-3 pl-4">
-            <div class="col-12">
-              <div class="table-responsive">
-                <table class="table table-striped table-bordered">
-                  <thead>
-                    <tr>
-                      <th scope="col" class="text-uppercase">Medicine</th>
-                      <th scope="col" class="text-uppercase">Dosage</th>
-                      <th scope="col" class="text-uppercase text-center">Days</th>
-                      <th scope="col" class="text-uppercase">Instructions</th>
-                    </tr>
-                  </thead>
-                  <tbody class="table-group-divider">
-                    <tr *ngFor="let item of patientData.consultationMedicineDetails; let i = index">
-                      <td>{{item.medicines_name||'--'| titlecase }}</td>
-                      <td>{{item.dosage_name ||'--'}}</td>
-                      <td class="text-center">{{item.days||'--'}}</td>
-                      <td>{{item.instruction ||'--'}}</td>
-                    </tr>
-                   </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </section>
-        <div class="row mb-3 pl-4">
-          <div class="col-12">
-            Note:
-            <br> <br> <br> <br>
-            <br> <br> <br> <br>
-          </div>
-        </div>
-
-        <footer>
-          <div class="row">
-            <div class="col-6 text-start pl-4 mt-3">
-              <strong>( Dr.Neeraj Bhaban )</strong>
-            </div>
-            <div class="col-6 text-end mt-3">
-              <strong>( Dr. Mayuri Bhaban )</strong>
-            </div>
-          </div>
-        </footer>
-
-      </div>
-    </div>
-  </div>
-</section> -->
-

@@ -6,7 +6,7 @@
         <ng-container>
           <div class="d-flex flex-column pe-2">
             <input cFormControl class="ms-2" type="text" placeholder="Search Name Or Mobile No" id="searchInput"
-              autocomplete="off" #searchInput (input)="isValidInput(searchInput.value)" />
+              autocomplete="off" #searchInput (input)="isValidInput(searchInput.value)" [formControl]="searchControl"/>
             <small class="text-danger" *ngIf="
                 searchInput.value &&
                 !validateMobileNo(searchInput.value) &&
@@ -17,7 +17,7 @@
           </div>
           <!-- Submit button -->
           <button cButton color="primary" class="fw-bold btn-sm ms-2" [disabled]="!isValidInput(searchInput.value)"
-            (click)="getConsultationHistory(searchInput.value)">
+            (click)="getbillHistory(searchInput.value)">
             Submit
           </button>
         </ng-container>

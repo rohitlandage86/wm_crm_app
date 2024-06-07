@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { freeSet } from '@coreui/icons';
 import { PageEvent } from '@angular/material/paginator';
 import { ReceptionistService } from 'src/app/components/receptionist/receptionist.service';
+import { FormControl } from '@angular/forms';
+import { debounceTime } from 'rxjs';
 
 
 @Component({
@@ -18,11 +20,23 @@ export class DoctorSearchLeadComponent implements OnInit{
   perPage = 50;
   total = 0;
   searchQuery: string = '';
+  searchControl: FormControl = new FormControl('');
+  searchTerm: string = '';
+  searchTimer: any;
   constructor (
     private _receptionistService: ReceptionistService,
    ){}
 
   ngOnInit(){
+    this.searchControl.valueChanges
+    .pipe(debounceTime(700))
+    .subscribe((searchTerm: string) => {
+      clearTimeout(this.searchTimer);
+      this.searchTerm = searchTerm;
+      this.searchTimer = setTimeout(() => {
+        this.getSearchLead(this.searchQuery);
+      }, 5000); // Set timeout to 5 seconds (5000 milliseconds)
+    });
   }
 //get is lead search data
 getSearchLead(searchQuery: string): void {
@@ -33,6 +47,9 @@ getSearchLead(searchQuery: string): void {
       if (res.data.length > 0) {
         this.allLeadList = res.data;
         this.total = res.pagination.total;
+      }else{
+        this.allLeadList =[];
+        this.total=0;
       }
     }
   });

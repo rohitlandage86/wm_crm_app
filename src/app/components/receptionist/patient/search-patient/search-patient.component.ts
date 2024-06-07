@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { freeSet } from '@coreui/icons';
 import { PageEvent } from '@angular/material/paginator';
 import { ReceptionistService } from '../../receptionist.service';
+import { FormControl } from '@angular/forms';
+import { debounceTime } from 'rxjs';
 
 
 
@@ -19,6 +21,9 @@ export class SearchPatientComponent implements OnInit {
   total = 0;
   icons = freeSet;
   searchQuery: string = '';
+  searchControl: FormControl = new FormControl('');
+  searchTerm: string = '';
+  searchTimer: any;
   constructor(
     private _receptionistService: ReceptionistService,
   ) {
@@ -26,6 +31,15 @@ export class SearchPatientComponent implements OnInit {
 
 
   ngOnInit() {
+    this.searchControl.valueChanges
+    .pipe(debounceTime(700))
+    .subscribe((searchTerm: string) => {
+      clearTimeout(this.searchTimer);
+      this.searchTerm = searchTerm;
+      this.searchTimer = setTimeout(() => {
+        this.getSearchPatient(this.searchQuery);
+      }, 5000); // Set timeout to 5 seconds (5000 milliseconds)
+    });
   }
 
   //get is Patient search data
@@ -37,7 +51,9 @@ export class SearchPatientComponent implements OnInit {
         if (res.data.length > 0) {
           this.allPatientVisitList = res.data;
           this.total = res.pagination.total;
-        }
+        }else
+        this.allPatientVisitList=[];
+        this.total=0;
       }
     });
   }

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { freeSet } from '@coreui/icons';
 import { PageEvent } from '@angular/material/paginator';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ReceptionistService } from 'src/app/components/receptionist/receptionist.service';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-doctor-search-bill',
@@ -20,18 +21,35 @@ export class DoctorSearchBillComponent implements OnInit {
   perPage = 50;
   total = 0;
   icons = freeSet;
+  searchQuery: string = '';
+  searchControl: FormControl = new FormControl('');
+  searchTerm: string = '';
+  searchTimer: any;
   constructor(
     private _receptionistService: ReceptionistService) { }
 
   ngOnInit() {
+    this.searchControl.valueChanges
+    .pipe(debounceTime(700))
+    .subscribe((searchTerm: string) => {
+      clearTimeout(this.searchTimer);
+      this.searchTerm = searchTerm;
+      this.searchTimer = setTimeout(() => {
+        this.getbillHistory(this.searchQuery);
+      }, 5000); // Set timeout to 5 seconds (5000 milliseconds)
+    });
   }
 
   //get all consutlation view by mrno (history)..
-  getConsultationHistory(searchQuery: any) {
+  getbillHistory(searchQuery: any) {
+    this.searchQuery = searchQuery;
     this._receptionistService.getAllSearchBillList(this.page, this.perPage, searchQuery).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allBillList = res.data;
+        }else{
+          this.allBillList =[];
+          this.total=0;
         }
       }
     });

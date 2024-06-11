@@ -56,6 +56,21 @@
  height: 250px;
  width: 250px;
 }
+/* CSS for animated smiley emoji */
+.animated-smiley {
+  animation: scaleAndFadeIn 0.5s ease forwards;
+}
+
+@keyframes scaleAndFadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 @media  (max-width: 650px) {
   .right-card{
     display: none!important;

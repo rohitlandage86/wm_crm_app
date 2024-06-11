@@ -6,7 +6,7 @@
         <ng-container>
           <div class="d-flex flex-column pe-2">
             <input cFormControl class="ms-2" type="text" autocomplete="off" placeholder="Search Name Or Mobile No"
-              id="searchInput" #searchInput (input)="isValidInput(searchInput.value)" />
+              id="searchInput" #searchInput (input)="isValidInput(searchInput.value)" [formControl]="searchControl"/>
             <small class="text-danger" *ngIf="
                 searchInput.value &&
                 !validateMobileNo(searchInput.value) &&

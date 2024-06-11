@@ -34,6 +34,7 @@ export class DoctorViewSearchPatientComponent implements OnInit {
     this._doctorService.getConsultationById(id).subscribe((result: any) => {
       this.getConsultationHistory(result.data.mrno);
       this.patientDetails = result.data;
+      this.patientData= result.data;
     });
   }
 

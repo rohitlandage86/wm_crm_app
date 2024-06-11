@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { freeSet } from '@coreui/icons';
 import { PageEvent } from '@angular/material/paginator';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AdminService } from 'src/app/components/admin/admin.service';
 import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
 import { ActivatedRoute } from '@angular/router';
 import { ReceptionistService } from '../../receptionist.service';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-search-leads',
@@ -21,11 +22,23 @@ export class SearchLeadsComponent implements OnInit {
   perPage = 50;
   total = 0;
   searchQuery: string = '';
+  searchControl: FormControl = new FormControl('');
+  searchTerm: string = '';
+  searchTimer: any;
   constructor(
     private _receptionistService: ReceptionistService,
   ) { }
 
   ngOnInit() {
+    this.searchControl.valueChanges
+    .pipe(debounceTime(300))
+    .subscribe((searchTerm: string) => {
+      clearTimeout(this.searchTimer);
+      this.searchTerm = searchTerm;
+      this.searchTimer = setTimeout(() => {
+        this.getSearchLead(this.searchQuery);
+      }, 5000); // Set timeout to 5 seconds (5000 milliseconds)
+    });
   }
   //get is lead search data
   getSearchLead(searchQuery: string): void {
@@ -36,6 +49,9 @@ export class SearchLeadsComponent implements OnInit {
         if (res.data.length > 0) {
           this.allLeadList = res.data;
           this.total = res.pagination.total;
+        }else{
+          this.allLeadList = [];
+          this.total = 0 ;
         }
       }
     });

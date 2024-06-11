@@ -143,7 +143,7 @@ showToast(greeting: string, userName: string) {
     toast: true,
     position: 'top-start',
     showConfirmButton: false,
-    timer: 7000,
+    timer: 1800,
     timerProgressBar: true,
     didOpen: (toast) => {
       toast.addEventListener('mouseenter', Swal.stopTimer);

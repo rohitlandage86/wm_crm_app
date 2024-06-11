@@ -21,6 +21,7 @@ import { ViewLeadFooterComponent } from './view-lead-footer/view-lead-footer.com
 import { AddUpdateMedicinesComponent } from 'src/app/components/admin/clinical-masters/medicines/add-update-medicines/add-update-medicines.component';
 import Swal from 'sweetalert2';
 import { Location } from '@angular/common';
+import { SuperAdminService } from 'src/app/components/super-admin/super-admin.service';
 
 @Component({
   selector: 'app-add-update-consultation',
@@ -35,6 +36,7 @@ export class AddUpdateConsultationComponent implements OnInit {
   baseUrl = environment.baseUrl;
   isAccordionOpen: number | null = null;
   form!: FormGroup;
+  myForm: FormGroup;
   isEdit = false;
   mrno: any;
   leadHid: any;
@@ -77,6 +79,15 @@ export class AddUpdateConsultationComponent implements OnInit {
   patientData: any = {};
   //FOR DISPLAY PATIENT DETAILS
   patientDetails: any = {};
+  //FOR DISPLAY CONSULTATION HISTORY DETAILS
+  historyDetails: any = {};
+  //FATCH LEAD DETAILS
+  lead_hid: any;
+  allCategoryList: Array<any> = [];
+  leadStatusDetailAdded: boolean = false;
+  allLeadStatusList: Array<any> = [];
+  isFollowUpChecked: boolean = false;
+  historyTabIndex =0
   constructor(
     private fb: FormBuilder,
     private _receptionistService: ReceptionistService,
@@ -85,8 +96,9 @@ export class AddUpdateConsultationComponent implements OnInit {
     private _toastrService: ToastrService,
     private url: ActivatedRoute,
     private dialog: MatDialog,
+    private _superAdminService: SuperAdminService,
     private location: Location
-  ) { }
+  ) { this.myForm = this.newLeadFooter();}
 
   ngOnInit() {
     this.createForm();
@@ -96,6 +108,8 @@ export class AddUpdateConsultationComponent implements OnInit {
     this.getAllDosagesList();
     this.getAllDiagnosisList();
     this.getAllInstructionsList();
+    this.getAllLeadStatusList();
+    this.getAllCategoryList();
     //url id
     this.mrno = this.url.snapshot.params['id'];
     if (this.mrno) {
@@ -104,9 +118,36 @@ export class AddUpdateConsultationComponent implements OnInit {
       this.isEdit = true;
     }
     this.form.patchValue({
+      lead_date: new Date().toISOString().split('T')[0],
+    });
+    this.form.patchValue({
       mrno: this.url.snapshot.params['id'],
     });
+
+    if (this.lead_hid) {
+      this.leadStatusDetailAdded = true;
+      this.isEdit = true;
+
+    }
   }
+  getCurrentDate(): string {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = ('0' + (today.getMonth() + 1)).slice(-2); // Month is zero-based
+    const day = ('0' + today.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
+  }
+  toggleInputVisibility(event: any) {
+    this.isFollowUpChecked = event.target.checked;
+  }
+  // getTabIndex(): number {
+  //   // Check if the consultation history list is not empty
+  //   if (this.allConsutlationHistoryList.length > 0) {
+  //     return 0 ; 
+  //   } else {
+  //     return 0; 
+  //   }
+  // }
   //consultation form
   createForm() {
     this.form = this.fb.group({
@@ -116,6 +157,11 @@ export class AddUpdateConsultationComponent implements OnInit {
       past_history: [''],
       appointment_date: [''],
       appointment_time: [''],
+      lead_date: ['', Validators.required],
+      category_id: [''],
+      name: [''],
+      note: [''],
+      mobile_number: [''],
       consultationChiefComplaintsDetails: this.fb.array([
         this.newConsultationChiefComplaints(),
       ]),
@@ -131,11 +177,40 @@ export class AddUpdateConsultationComponent implements OnInit {
       consultationFileUploadDetails: this.fb.array([
         this.newconsultationFileUploadDetails(),
       ]),
+      leadFooterDetails: this.fb.array([this.newLeadFooter()])
     });
   }
   //form controls
   get control() {
     return this.form.controls;
+  }
+  get leadstatusDetailsArray() {
+    return this.form.get('leadFooterDetails') as FormArray<any>;
+
+  }
+  newLeadFooter(): FormGroup {
+    let validatorsArray = []; // Array to hold validators
+    if (this.lead_hid && this.isFollowUpChecked) {
+      // Add validators if conditions are met
+      validatorsArray.push(Validators.required);
+    }
+
+    // Return form group with validators
+    return this.fb.group({
+      lead_fid: ['', validatorsArray],
+      comments: [null],
+      calling_time: [null, validatorsArray],
+      no_of_calls: [null, validatorsArray],
+      lead_status_id: [1],
+      follow_up_date: [null, validatorsArray],
+    });
+  }
+  addLeadFooter() {
+    this.leadstatusDetailsArray.push(this.newLeadFooter());
+    this.leadStatusDetailAdded = true;
+  }
+  deleteLeadFooter(i: any) {
+    this.leadstatusDetailsArray.removeAt(i)
   }
   // ------------------------------------------------------------------
   //get Chief Complaints list...
@@ -550,14 +625,27 @@ export class AddUpdateConsultationComponent implements OnInit {
       }
     }
   }
+
+  //get  Lead Status list...
+  getAllLeadStatusList() {
+    this._superAdminService.allLeadStatusList().subscribe({
+      next: (res: any) => {
+        if (res.data.length > 0) {
+          this.allLeadStatusList = res.data;
+        }
+      }
+    });
+  }
   submit() {
     this.addConsultation();
   }
+
   addConsultation() {
     if (this.form.valid) {
+      // console.log("this consultation form", this.form.value);
       this._doctorService.addConsultation(this.form.value).subscribe({
         next: (res: any) => {
-          if (res.status == 201 || res.status == 200) {
+          if (res.status === 201 || res.status === 200) {
             this._toastrService.clear();
             this._toastrService.success(res.message);
             Swal.fire({
@@ -569,47 +657,160 @@ export class AddUpdateConsultationComponent implements OnInit {
               cancelButtonColor: '#d33',
               confirmButtonText: 'Yes',
             }).then((result) => {
-              if (result.isConfirmed) {
-                if (res.consultation_id) {
-                  this.print(res.consultation_id);
-                }
+              if (result.isConfirmed && res.consultation_id) {
+                this.print(res.consultation_id);
               }
               this.goToback();
             });
+            // If no lead exists, add a new lead
+            if (this.lead_hid && this.isFollowUpChecked) {
+              if(this.form.valid){
+                this.editLeadFollowUp();
+              }
+            } if (!this.lead_hid &&this.isFollowUpChecked) {
+              this.addLead();
+            }
           } else {
             this._toastrService.clear();
             this._toastrService.warning(res.message);
           }
         },
         error: (err: any) => {
-          if (err.error.status == 422) {
-            this._toastrService.warning(err.error.message);
-          } else {
-            this._toastrService.error('Internal Server Error');
-          }
+          this.handleError(err);
         },
       });
     } else {
-      this.form.markAllAsTouched();
-      this._toastrService.clear();
-      this._toastrService.warning('Fill required fields');
+      this.handleFormInvalid();
     }
   }
+  addLead() {
+    if (this.form.valid) {
+      this._receptionistService.addLead(this.form.value).subscribe({
+        next: (res: any) => {
+          if (res.status === 201 || res.status === 200) {
+          } else {
+            this._toastrService.warning(res.message);
+          }
+        },
+        error: (err: any) => {
+          this.handleError(err);
+        },
+      });
+    } else {
+      this.handleFormInvalid();
+    }
+  }
+
+  editLeadFollowUp() {
+    if (this.form.valid) {
+      let data = this.form.getRawValue();
+      this._receptionistService.editLeadFollowUp(data, this.lead_hid).subscribe({
+        next: (res: any) => {
+          if (res.status == 200) {
+            this._toastrService.success(res.message);
+          } else {
+            this._toastrService.warning(res.message);
+          }
+        },
+
+      });
+    } else {
+      this.handleFormInvalid();
+    }
+  }
+
+  handleError(err: any) {
+    if (err.error.status === 422) {
+      this._toastrService.warning(err.error.message);
+    } else {
+      this._toastrService.error('Internal Server Error');
+    }
+  }
+
+  handleFormInvalid() {
+    this.form.markAllAsTouched();
+    this._toastrService.clear();
+    this._toastrService.warning('Fill required fields');
+  }
+
   //get all consutlation view by mrno (history)..
   getConsultationHistory(id: any) {
     this._doctorService.getConsultationHistory(id).subscribe({
       next: (res: any) => {
-        if (res.data.length > 0) {
-          this.allConsutlationHistoryList = res.data;
+        if (res.data.length >= 0) {
+          this.historyTabIndex = 0
+        this.allConsutlationHistoryList = res.data;
+        }else{
+          this.historyTabIndex = 1
         }
       },
     });
+  }
+
+  //get category list...
+  getAllCategoryList() {
+    this._adminService.getAllCategoryListWma().subscribe({
+      next: (res: any) => {
+        if (res.data.length > 0) {
+          this.allCategoryList = res.data;
+        }
+      }
+    });
+
   }
   //patient by id patch data
   getPatientById(id: any) {
     this._receptionistService.getPatientById(id).subscribe((result: any) => {
       this.patientDetails = result.data;
       this.getSearchLead(this.patientDetails.mobile_no);
+      console.log("This patient details", this.patientDetails);
+
+      this.form.patchValue({
+        lead_date: new Date().toISOString().split('T')[0],
+        name: this.patientDetails.patient_name,
+        city: this.patientDetails.city,
+        mobile_number: this.patientDetails.mobile_no,
+      });
+      // Fetching lead data based on mobile number
+      this.getLeadData(this.patientDetails.mobile_no);
+    });
+  }
+  //check mob.no then fatch lead_id
+  getLeadData(mobileNumber: string) {
+    this._receptionistService.getAllSearchLeadHeaderList(this.page, this.perPage, mobileNumber).subscribe({
+      next: (res: any) => {
+        this.lead_hid = res.data[0].lead_hid;
+        this.form.patchValue(res.data);
+        const leadDate = new Date(res.data.lead_date);
+        this.form.get('lead_date')?.patchValue(
+          `${leadDate.getFullYear()}-${('0' + (leadDate.getMonth() + 1)).slice(-2)}-${('0' + leadDate.getDate()).slice(-2)}`
+        );
+        let leadFooterDetails = res.data.leadFooterDetails;
+        if (leadFooterDetails.length > 0) {
+          this.leadstatusDetailsArray.clear();
+          for (let index = 0; index < leadFooterDetails.length + 1; index++) {
+            const element = leadFooterDetails[index];
+            this.leadstatusDetailsArray.push(this.newLeadFooter());
+            this.leadstatusDetailsArray.at(index).get('lead_fid')?.patchValue(element?.lead_fid);
+            this.leadstatusDetailsArray.at(index).get('comments')?.patchValue(element?.comments);
+            this.leadstatusDetailsArray.at(index).get('calling_time')?.patchValue(element?.calling_time);
+            this.leadstatusDetailsArray.at(index).get('no_of_calls')?.patchValue(element?.no_of_calls);
+            this.leadstatusDetailsArray.at(index).get('lead_status_id')?.patchValue(element?.lead_status_id);
+            const followUpDate = new Date(element?.follow_up_date);
+            this.leadstatusDetailsArray.at(index).get('follow_up_date')?.patchValue(
+              `${followUpDate.getFullYear()}-${('0' + (followUpDate.getMonth() + 1)).slice(-2)}-${('0' + followUpDate.getDate()).slice(-2)}`
+            );
+          }
+          for (let index = 0; index < leadFooterDetails.length; index++) {
+            // Enable controls for all elements including the last one
+            this.leadstatusDetailsArray.at(index).get('comments')?.disable();
+            this.leadstatusDetailsArray.at(index).get('calling_time')?.disable();
+            this.leadstatusDetailsArray.at(index).get('no_of_calls')?.disable();
+            this.leadstatusDetailsArray.at(index).get('lead_status_id')?.disable();
+            this.leadstatusDetailsArray.at(index).get('follow_up_date')?.disable();
+          }
+        }
+      }
     });
   }
   //open chief complaints by...
@@ -671,14 +872,6 @@ export class AddUpdateConsultationComponent implements OnInit {
         console.log('nothing happen');
       }
     });
-  }
-  //history
-  toggleAccordion(index: number): void {
-    if (this.isAccordionOpen === index) {
-      this.isAccordionOpen = null; // Close the currently open accordion item
-    } else {
-      this.isAccordionOpen = index; // Open the clicked accordion item
-    }
   }
   onMedicineChange(i: any, event: any) {
     let medicines_id = event.value;
@@ -958,4 +1151,5 @@ export class AddUpdateConsultationComponent implements OnInit {
   goToback() {
     this.location.back();
   }
+
 }

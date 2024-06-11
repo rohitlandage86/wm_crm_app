@@ -7,69 +7,103 @@
       <c-card-body>
         <form cForm class="row g-3">
           <c-col md="2" class="p-2">
-            <label class="fw-bold" cLabel for="mrno_entity_series">MR No Entity Series </label><br>
-            <label cLabel for="mrno_entity_series">{{patientDetails.mrno_entity_series}} </label>
+            <label class="fw-bold" cLabel for="mrno_entity_series"
+              >MR No Entity Series </label
+            ><br />
+            <label cLabel for="mrno_entity_series"
+              >{{ patientDetails.mrno_entity_series }}
+            </label>
           </c-col>
           <c-col md="2" class="p-2">
-            <label class="fw-bold" cLabel for="registration_date">Registration Date </label><br>
-            <label cLabel for="registration_date">{{patientDetails.registration_date|date:'dd-MM-YYYY'}} </label>
+            <label class="fw-bold" cLabel for="registration_date"
+              >Registration Date </label
+            ><br />
+            <label cLabel for="registration_date"
+              >{{ patientDetails.registration_date | date : "dd-MM-YYYY" }}
+            </label>
           </c-col>
           <c-col md="4" class="p-2">
-            <label class="fw-bold" cLabel for="patient_name">Patient Name </label><br>
-            <label cLabel for="patient_name">{{patientDetails.patient_name}} </label>
+            <label class="fw-bold" cLabel for="patient_name"
+              >Patient Name </label
+            ><br />
+            <label cLabel for="patient_name"
+              >{{ patientDetails.patient_name }}
+            </label>
           </c-col>
           <c-col md="2" class="p-2">
-            <label class="fw-bold" cLabel for="mobile_no">Mobile Number </label><br>
-            <label cLabel for="mobile_no">{{patientDetails.mobile_no}} </label>
+            <label class="fw-bold" cLabel for="mobile_no">Mobile Number </label
+            ><br />
+            <label cLabel for="mobile_no"
+              >{{ patientDetails.mobile_no }}
+            </label>
           </c-col>
           <c-col md="2" class="p-2">
-            <label class="fw-bold" cLabel for="validationDefault01">Gender</label><br>
-            <label cLabel for="gender">{{patientDetails.gender}} </label>
-
+            <label class="fw-bold" cLabel for="validationDefault01"
+              >Gender</label
+            ><br />
+            <label cLabel for="gender">{{ patientDetails.gender }} </label>
           </c-col>
           <c-col md="2" class="p-2">
-            <label class="fw-bold" cLabel for="age">Age </label> <br>
-            <label cLabel for="age">{{patientDetails.age}} </label>
+            <label class="fw-bold" cLabel for="age">Age </label> <br />
+            <label cLabel for="age">{{ patientDetails.age }} </label>
           </c-col>
           <c-col md="2" class="p-2">
-            <label class="fw-bold" cLabel for="address">Address </label><br>
-            <label cLabel for="address">{{patientDetails.address}} </label>
+            <label class="fw-bold" cLabel for="address">Address </label><br />
+            <label cLabel for="address">{{ patientDetails.address }} </label>
           </c-col>
           <c-col md="2" class="p-2">
-            <label class="fw-bold" cLabel for="validationDefault01">City </label><br>
-            <label cLabel for="city">{{patientDetails.city}} </label>
+            <label class="fw-bold" cLabel for="validationDefault01">City </label
+            ><br />
+            <label cLabel for="city">{{ patientDetails.city }} </label>
           </c-col>
           <c-col md="2" class="p-2">
-            <label class="fw-bold" for="state_id" cLabel> State </label><br>
-            <label cLabel for="gender">{{patientDetails.state_name}} </label>
+            <label class="fw-bold" for="state_id" cLabel> State </label><br />
+            <label cLabel for="gender">{{ patientDetails.state_name }} </label>
           </c-col>
           <c-col md="2" class="p-2">
-            <label class="fw-bold" cLabel for="validationDefault01">Height (cm) </label> <br>
-            <label cLabel for="height">{{patientDetails.height}} </label>
+            <label class="fw-bold" cLabel for="validationDefault01"
+              >Height (cm)
+            </label>
+            <br />
+            <label cLabel for="height">{{ patientDetails.height }} </label>
           </c-col>
           <c-col md="2" class="p-2">
-            <label class="fw-bold" cLabel for="validationDefault01">Weight (kg) </label> <br>
-            <label cLabel for="weight">{{patientDetails.weight}} </label>
+            <label class="fw-bold" cLabel for="validationDefault01"
+              >Weight (kg)
+            </label>
+            <br />
+            <label cLabel for="weight">{{ patientDetails.weight }} </label>
           </c-col>
           <c-col md="2" class="p-2">
-            <label class="fw-bold" cLabel for="bmi">BMI (kg/m²) </label> <br>
-            <label cLabel for="bmi">{{patientDetails.bmi}} </label>
+            <label class="fw-bold" cLabel for="bmi">BMI (kg/m²) </label> <br />
+            <label cLabel for="bmi">{{ patientDetails.bmi }} </label>
           </c-col>
           <c-col md="2" class="p-2">
-            <label class="fw-bold" for="source_of_patient_id" cLabel> Source Of Patient </label> <br>
-            <label cLabel for="source_of_patient_name">{{patientDetails.source_of_patient_name}} </label>
+            <label class="fw-bold" for="source_of_patient_id" cLabel>
+              Source Of Patient
+            </label>
+            <br />
+            <label cLabel for="source_of_patient_name"
+              >{{ patientDetails.source_of_patient_name }}
+            </label>
           </c-col>
           <c-col md="2" class="p-2 m-9">
-            <label class="fw-bold" for="refered_by_id" cLabel> Refered By </label> <br>
-            <label cLabel for="gender">{{patientDetails.refered_by_name}} </label>
+            <label class="fw-bold" for="refered_by_id" cLabel>
+              Refered By
+            </label>
+            <br />
+            <label cLabel for="gender"
+              >{{ patientDetails.refered_by_name }}
+            </label>
           </c-col>
           <c-col md="2" class="p-2">
-            <label class="fw-bold" for="employee_id" cLabel> Assign to </label> <br>
-            <label cLabel for="employee_name">{{patientDetails.name}} </label>
+            <label class="fw-bold" for="employee_id" cLabel> Assign to </label>
+            <br />
+            <label cLabel for="employee_name">{{ patientDetails.name }} </label>
           </c-col>
           <c-col md="2" class="p-2">
-            <label class="fw-bold" cLabel for="amount">Amount </label> <br>
-            <label cLabel for="amount">{{patientDetails.amount}} </label>
+            <label class="fw-bold" cLabel for="amount">Amount </label> <br />
+            <label cLabel for="amount">{{ patientDetails.amount }} </label>
           </c-col>
         </form>
         <hr />
@@ -77,540 +111,919 @@
         <form cForm class="row g-3" [formGroup]="form">
           <c-col md="4" class="p-2">
             <label cLabel for="validationDefault01">Past History</label>
-            <textarea cFormControl id="past_history" formControlName="past_history" autocomplete="off"></textarea>
+            <textarea
+              cFormControl
+              id="past_history"
+              formControlName="past_history"
+              autocomplete="off"
+            ></textarea>
           </c-col>
           <c-col md="3" class="lead-info p-4">
-            <button cButton class="me-1" color="primary" [disabled]="disableButton"
-              (click)="openDialogLeadInfo(leadHid)">
+            <button
+              cButton
+              class="me-1"
+              color="primary"
+              [disabled]="disableButton"
+              (click)="openDialogLeadInfo(leadHid)"
+            >
               Lead Info
             </button>
           </c-col>
 
           <hr class="mb-0" />
-          <mat-tab-group class="mt-0">
-            <mat-tab label="Chief Complaints">
-              <div class="col-md-12 table-container">
-                <table class="table">
-                  <thead class="table-light">
-                    <tr>
-                      <th scope="col">Sr No</th>
-                      <th scope="col">Chief Complaints</th>
-                      <th scope="col" class="text-center">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody formArrayName="consultationChiefComplaintsDetails">
-                    <tr *ngFor="
-                        let item of consultationChiefComplaintsDetailsArray.controls;
-                        let i = index
-                      " [formGroupName]="i">
-                      <th>{{ i + 1 }}</th>
-
-                      <td>
-                        <div class="chief_complaints">
-                          <mat-select #singleSelect formControlName="chief_complaints_id"
-                            class="form-control theme-input" style="width: 500px;">
-                            <mat-option>
-                              <ngx-mat-select-search [(ngModel)]="searchChiefComplaintsValue"
-                                [ngModelOptions]="{ standalone: true }" (input)="filterChiefComplaints(i)"
-                                placeholderLabel="Search chief complaint"
-                                noEntriesFoundLabel="No result available"></ngx-mat-select-search>
-                            </mat-option>
-                            <mat-option *ngFor="let item of filteredChiefComplaintsArray[i]"
-                              [value]="item.chief_complaint_id">
-                              {{ item?.chief_complaint }}
-                            </mat-option>
-                          </mat-select>
-                          <button cButton class="ms-1 mb-1" color="primary" sizing="sm" (click)="openDialog()">
-                            +
-                          </button>
+          <div class="card bg-body-tertiary pb-3">
+            <mat-tab-group class="mt-0"   [selectedIndex]="historyTabIndex ">
+              <div class="" *ngIf="allConsutlationHistoryList.length > 0 ?true:false">
+                <mat-tab label="History" >
+                  <div class="container">
+                    <div>
+                      <div
+                        class="accordion-item"
+                        *ngFor="
+                          let item of allConsutlationHistoryList;
+                          let i = index
+                        "
+                      >
+                        <div class="p-3 mt- bg-body-secondary">
+                          <strong > Date:</strong>
+                          <strong for="" class="mx-2">{{
+                            item.cts | date : "dd-MM-yyyy"
+                          }}</strong>
                         </div>
-                      </td>
-                      <td class="d-flex pb-3 justify-content-center">
-                        <i class="material-icons" (click)="addConsultationChiefComplaints()" type="button">add</i><i
-                          class="material-icons ms-2" (click)="deleteConsultationChiefComplaints(i)" type="button"
-                          [class.disabled]="
-                          consultationChiefComplaintsDetailsArray.length === 1
-                          " [attr.aria-disabled]="
-                          consultationChiefComplaintsDetailsArray.length === 1
-                              ? 'true'
-                              : 'false'
-                          ">remove</i>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </mat-tab>
-            <mat-tab label="Diagnosis Details">
-              <div class="col-md-12 table-container">
-                <table class="table">
-                  <thead class="table-light">
-                    <tr>
-                      <th scope="col">Sr No</th>
-                      <th scope="col">Diagnosis</th>
-                      <th scope="col">Notes</th>
-                      <th scope="col" class="text-center">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody formArrayName="consultationDiagnosisDetails">
-                    <tr *ngFor="
-                        let item of consultationDiagnosisDetailsArray.controls;
-                        let i = index
-                      " [formGroupName]="i">
-                      <th>{{ i + 1 }}</th>
-
-                      <td>
-                        <div class="chief_complaints">
-                          <mat-select #singleSelect formControlName="diagnosis_id" class="form-control theme-input"
-                            style="width:300px">
-                            <mat-option>
-                              <ngx-mat-select-search [(ngModel)]="searchDiagnosisValue"
-                                [ngModelOptions]="{ standalone: true }" (input)="filterDiagnosis(i)"
-                                placeholderLabel="Search Diagnosis"
-                                noEntriesFoundLabel="No result available"></ngx-mat-select-search>
-                            </mat-option>
-                            <mat-option *ngFor="let item of filteredDiagnosisArray[i]" [value]="item.diagnosis_id">
-                              {{ item?.diagnosis_name }}
-                            </mat-option>
-                          </mat-select>
-                          <button cButton class="ms-1 mb-1" color="primary" sizing="sm" (click)="openDialogDiagnosis()">
-                            +
-                          </button>
-                        </div>
-
-                        <div class="text-danger" *ngIf="
-                            consultationDiagnosisDetailsArray
-                              .at(i)
-                              .get('diagnosis_id')?.invalid &&
-                            (consultationDiagnosisDetailsArray
-                              .at(i)
-                              .get('diagnosis_id')?.dirty ||
-                              consultationDiagnosisDetailsArray
-                                .at(i)
-                                .get('diagnosis_id')?.touched)
-                          ">
-                          <small>Please provide a valid Diagnosis.</small>
-                        </div>
-                      </td>
-                      <td>
-                        <input type="text" class="form-control" formControlName="notes" />
-                      </td>
-
-                      <td class="d-flex pb-3 justify-content-center">
-                        <i class="material-icons" (click)="addConsultationDiagnosis()" type="button">add</i><i
-                          class="material-icons ms-2" (click)="deleteConsultationDiagnosis(i)" type="button"
-                          [class.disabled]="
-                            consultationDiagnosisDetailsArray.length === 1
-                          " [attr.aria-disabled]="
-                            consultationDiagnosisDetailsArray.length === 1
-                              ? 'true'
-                              : 'false'
-                          ">remove</i>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </mat-tab>
-            <mat-tab label="Treatment Details">
-              <div class="col-md-12 table-container">
-                <table class="table">
-                  <thead class="table-light">
-                    <tr>
-                      <th scope="col">Sr No</th>
-                      <th scope="col">Treatment</th>
-                      <th scope="col">Notes</th>
-                      <th scope="col" class="text-center">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody formArrayName="consultationTreatmentDetails">
-                    <tr *ngFor="
-                        let item of consultationTreatmentDetailsArray.controls;
-                        let i = index
-                      " [formGroupName]="i">
-                      <th>{{ i + 1 }}</th>
-
-                      <td>
-                        <div class="chief_complaints">
-                          <mat-select #singleSelect formControlName="treatment_id" class="form-control theme-input"
-                            style="width:300px">
-                            <mat-option>
-                              <ngx-mat-select-search [(ngModel)]="searchTreatmentValue"
-                                [ngModelOptions]="{ standalone: true }" (input)="filterTreatment(i)"
-                                placeholderLabel="Search Treatment"
-                                noEntriesFoundLabel="No result available"></ngx-mat-select-search>
-                            </mat-option>
-                            <mat-option *ngFor="let item of filteredTreatmentArray[i]" [value]="item.treatment_id">
-                              {{ item?.treatment_name }}
-                            </mat-option>
-                          </mat-select>
-                          <button cButton class="ms-1 mb-1" color="primary" sizing="sm" (click)="openDialogTreatment()">
-                            +
-                          </button>
-                        </div>
-
-                        <div class="text-danger" *ngIf="
-                            consultationTreatmentDetailsArray
-                              .at(i)
-                              .get('treatment_id')?.invalid &&
-                            (consultationTreatmentDetailsArray
-                              .at(i)
-                              .get('treatment_id')?.dirty ||
-                              consultationTreatmentDetailsArray
-                                .at(i)
-                                .get('treatment_id')?.touched)
-                          ">
-                          <small>Please provide a valid Treatment.</small>
-                        </div>
-                      </td>
-                      <td>
-                        <textarea class="form-control" formControlName="notes"
-                          style="height: 45px; width: 600px;"></textarea>
-                      </td>
-
-
-                      <td class="d-flex pb-3 justify-content-center">
-                        <i class="material-icons" (click)="addConsultationTreatment()" type="button">add</i><i
-                          class="material-icons ms-2" (click)="deleteConsultationTreatment(i)" type="button"
-                          [class.disabled]="
-                            consultationTreatmentDetailsArray.length === 1
-                          " [attr.aria-disabled]="
-                            consultationTreatmentDetailsArray.length === 1
-                              ? 'true'
-                              : 'false'
-                          ">remove</i>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </mat-tab>
-            <mat-tab label="Medicine Details">
-              <div class="col-md-12 table-container">
-                <table class="table">
-                  <thead class="table-light">
-                    <tr>
-                      <th scope="col">Sr No</th>
-                      <th scope="col">Medicines</th>
-                      <th scope="col">Dosages</th>
-                      <th scope="col">Days</th>
-                      <th scope="col">Instructions</th>
-                      <th scope="col" class="text-center">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody formArrayName="consultationMedicineDetails">
-                    <tr *ngFor="
-                        let item of consultationMedicineDetailsArray.controls;
-                        let i = index
-                      " [formGroupName]="i">
-                      <th>{{ i + 1 }}</th>
-
-                      <td>
-                        <div class="chief_complaints">
-                          <mat-select #singleSelect formControlName="medicines_id" class="form-control theme-input"
-                            style="width:250px" (selectionChange)="onMedicineChange(i,$event)">
-                            <mat-option>
-                              <ngx-mat-select-search [(ngModel)]="searchMedicinesValue"
-                                [ngModelOptions]="{ standalone: true }" (input)="filterMedicines(i)"
-                                placeholderLabel="Search Medicines"
-                                noEntriesFoundLabel="No result available"></ngx-mat-select-search>
-                            </mat-option>
-                            <mat-option *ngFor="let item of filteredMedicinesArray[i]" [value]="item.medicines_id">
-                              {{ item?.medicines_name }}
-                            </mat-option>
-                          </mat-select>
-                          <button cButton class="ms-1 mb-1" color="primary" sizing="sm" (click)="openDialogMedicines()">
-                            +
-                          </button>
-                        </div>
-                      </td>
-                      <td>
-                        <mat-select #singleSelect formControlName="dosages_id" style="width:250px"
-                          class="form-control theme-input">
-                          <mat-option>
-                            <ngx-mat-select-search [(ngModel)]="searchDosagesValue"
-                              [ngModelOptions]="{ standalone: true }" (input)="filterDosages(i)"
-                              placeholderLabel="Search Dosages"
-                              noEntriesFoundLabel="No result available"></ngx-mat-select-search>
-                          </mat-option>
-                          <mat-option *ngFor="let item of filteredDosagesArray[i]" [value]="item.dosage_id">
-                            {{ item?.dosage_name }}
-                          </mat-option>
-                        </mat-select>
-                      </td>
-                      <td>
-                        <input type="text" class="form-control" formControlName="days" style="width:100px" />
-                      </td>
-                      <td>
-                        <mat-select #singleSelect formControlName="instructions_id" class="form-control theme-input"
-                          style="width:250px">
-                          <mat-option>
-                            <ngx-mat-select-search [(ngModel)]="searchInstructionsValue"
-                              [ngModelOptions]="{ standalone: true }" (input)="filterInstructions(i)"
-                              placeholderLabel="Search Instructions"
-                              noEntriesFoundLabel="No result available"></ngx-mat-select-search>
-                          </mat-option>
-                          <mat-option *ngFor="let item of filteredInstructionsArray[i]" [value]="item.instructions_id">
-                            {{ item?.instruction }}
-                          </mat-option>
-                        </mat-select>
-                      </td>
-                      <td class="d-flex pb-3 justify-content-center">
-                        <i class="material-icons" (click)="addConsultationMedicine()" type="button">add</i><i
-                          class="material-icons ms-2" (click)="deleteConsultationMedicine(i)" type="button"
-                          [class.disabled]="
-                            consultationMedicineDetailsArray.length === 1
-                          " [attr.aria-disabled]="
-                            consultationMedicineDetailsArray.length === 1
-                              ? 'true'
-                              : 'false'
-                          ">remove</i>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </mat-tab>
-            <mat-tab label="File Upload Details">
-              <div class="col-md-12 table-container">
-                <table class="table">
-                  <thead class="table-light">
-                    <tr>
-                      <th scope="col">Sr No</th>
-                      <th scope="col">Image</th>
-                      <th scope="col">Notes</th>
-                      <th scope="col" class="text-center">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody formArrayName="consultationFileUploadDetails">
-                    <tr *ngFor="
-                        let item of consultationFileUploadDetailsArray.controls;
-                        let i = index
-                      " [formGroupName]="i">
-                      <th>{{ i + 1 }}</th>
-                      <td>
-                        <div class="d-flex">
-                          <input type="file" class="form-control" id="imageBase64" (change)="onImageChange($event, i)"
-                            accept=".jpeg, .jfif, .pjpeg, .pjp, .png, .jpg" />
-                        </div>
-                      </td>
-                      <td>
-                        <input type="text" class="form-control" formControlName="notes" />
-                      </td>
-                      <td class="d-flex pb-3 justify-content-center">
-                        <i class="material-icons" (click)="addConsultationFileUpload()" type="button">add</i><i
-                          class="material-icons ms-2" (click)="deleteConsultationFileUpload(i)" type="button"
-                          [class.disabled]="
-                            consultationFileUploadDetailsArray.length === 1
-                          " [attr.aria-disabled]="
-                            consultationFileUploadDetailsArray.length === 1
-                              ? 'true'
-                              : 'false'
-                          ">remove</i>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </mat-tab>
-            <mat-tab label="History">
-              <div class="col-md-12">
-                <div class="accordion" id="accordionFlushExample">
-                  <div class="accordion-item" *ngFor="
-                      let item of allConsutlationHistoryList;
-                      let i = index
-                    ">
-                    <h2 class="accordion-header">
-                      <button class="accordion-button" type="button" [attr.data-bs-toggle]="'collapse_' + i"
-                        [attr.data-bs-target]="'#collapse_' + i"
-                        [attr.aria-expanded]="isAccordionOpen === i ? 'true' : 'false'"
-                        [attr.aria-controls]="'collapse_' + i" (click)="toggleAccordion(i)">
-                        <strong> Date:</strong>
-                        <label for="" class="mx-2">{{
-                          item.cts | date : "dd-MM-yyyy"
-                          }}</label>
-                      </button>
-                    </h2>
-                    <div [id]="'collapse_' + i" class="accordion-collapse collapse"
-                      [ngClass]="{'show': isAccordionOpen === i}" aria-labelledby="headingOne"
-                      data-bs-parent="#accordionExample">
-                      <div class="accordion-body">
-                        <div class="mb-4 d-flex justify-content-around">
-                          <div>
-                            <strong>Past History: </strong>{{ item.past_history }}
+    
+                        <hr class="mb-0" />
+                        <div class="mb-4">
+                          <div class="mt-2">
+                            <strong>Past History : </strong
+                            >{{ item.past_history || "--" }}
                           </div>
                         </div>
-                        <hr class="mb-0" />
-
-                        <mat-tab-group class="mt-0">
-                          <mat-tab label="Chief Complaints">
-                            <div class="col-md-12 table-container">
-                              <table class="table">
-                                <thead class="table-light">
-                                  <tr>
-                                    <th scope="col">Sr No</th>
-                                    <th scope="col">Chief Complaints</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <ng-container>
-                                    <!-- Consultation Complaints Details -->
-                                    <ng-container *ngFor="
-                                        let complaints of item.consultationChiefComplaintsDetails
-                                        let i = index
-                                      ">
-                                      <tr>
-                                        <td>{{ i + 1 }}</td>
-                                        <td>{{ complaints.chief_complaint }}</td>
-                                      </tr>
-                                    </ng-container>
-                                  </ng-container>
-                                </tbody>
-                              </table>
-                            </div>
-                          </mat-tab>
-                          <mat-tab label="Diagnosis Details">
-                            <div class="col-md-12 table-container">
-                              <table class="table">
-                                <thead class="table-light">
-                                  <tr>
-                                    <th scope="col">Sr No</th>
-                                    <th scope="col">Diagnosis</th>
-                                    <th scope="col">Notes</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <ng-container>
-                                    <!-- Consultation Diagnosis Details -->
-                                    <ng-container *ngFor="
-                                        let diagnosis of item.consultationDiagnosisDetails 
-                                        let i = index
-                                      ">
-                                      <tr>
-                                        <td>{{ i + 1 }}</td>
-                                        <td>{{ diagnosis.diagnosis_name }}</td>
-                                        <td>{{ diagnosis.notes }}</td>
-                                      </tr>
-                                    </ng-container>
-                                  </ng-container>
-                                </tbody>
-                              </table>
-                            </div>
-                          </mat-tab>
-                          <mat-tab label="Treatment Details">
-                            <div class="col-md-12 table-container">
-                              <table class="table">
-                                <thead class="table-light">
-                                  <tr>
-                                    <th scope="col">Sr No</th>
-                                    <th scope="col">Treatment</th>
-                                    <th scope="col">Notes</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <ng-container>
-                                    <!-- Consultation Treatment Details -->
-                                    <ng-container *ngFor="
-                                        let treatment of item.consultationTreatmentDetails
-                                        let i = index
-                                      ">
-                                      <tr>
-                                        <td>{{ i + 1 }}</td>
-                                        <td>{{ treatment.treatment_name }}</td>
-                                        <td>{{ treatment.notes }}</td>
-                                      </tr>
-                                    </ng-container>
-                                  </ng-container>
-                                </tbody>
-                              </table>
-                            </div>
-                          </mat-tab>
-                          <mat-tab label="Medicine Details">
-                            <div class="col-md-12 table-container">
-                              <table class="table">
-                                <thead class="table-light">
-                                  <tr>
-                                    <th scope="col-md-1">Sr No</th>
-                                    <th scope="col-md-3">Medicines</th>
-                                    <th scope="col-md-2">Dosages</th>
-                                    <th scope="col-md-3">Days</th>
-                                    <th scope="col-md-3">Instructions</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <ng-container>
-                                    <!-- Consultation Medicine Details -->
-                                    <ng-container *ngFor="
-                                        let medicine of item.consultationMedicineDetails
-                                        let i = index
-                                      ">
-                                      <tr>
-                                        <td>{{ i + 1 }}</td>
-                                        <td>{{ medicine.medicines_name }}</td>
-                                        <td>{{ medicine.dosage_name}}</td>
-                                        <td>{{ medicine.days }}</td>
-                                        <td scope="col-md-3">
-                                          {{ medicine.instruction }}
-                                        </td>
-                                      </tr>
-                                    </ng-container>
-                                  </ng-container>
-                                </tbody>
-                              </table>
-                            </div>
-                          </mat-tab>
-                          <mat-tab label="File Upload Details">
-                            <div class="col-md-12 table-container">
-                              <table class="table">
-                                <thead class="table-light">
-                                  <tr>
-                                    <th scope="col">Sr No</th>
-                                    <th scope="col">Image</th>
-                                    <th scope="col">Notes</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <ng-container>
-                                    <!-- Consultation File Upload Details -->
-                                    <ng-container *ngFor="
-                                        let file of item.consultationFileUploadDetails
-                                        let i = index
-                                      ">
-                                      <tr>
-                                        <td>
-                                          {{ i + 1 }}
-                                        </td>
-                                        <td><a href="{{baseUrl+'images/consultationfile/'+file.image_name }}"
-                                            target="_blank" rel="noopener noreferrer">{{ file.image_name }}</a> </td>
-                                        <td>{{ file.notes }}</td>
-                                        <!-- Add more fields as needed -->
-                                      </tr>
-                                    </ng-container>
-                                  </ng-container>
-                                </tbody>
-                              </table>
-                            </div>
-                          </mat-tab>
-                        </mat-tab-group>
+                        <form cForm class="row g-3">
+                          <c-col md="4" class="p-2">
+                            <c-col md="6">
+                              <label class="fw-bold" cLabel for="chief_complaint"
+                                >Chief Complaints</label
+                              >
+                            </c-col>
+                            <c-col md="6">
+                              <ng-container
+                                class="d-flex flex-column"
+                                *ngFor="
+                                  let complaints of item.consultationChiefComplaintsDetails;
+                                  let i = index
+                                "
+                              >
+                                {{ i + 1 }}.
+                                <label cLabel for="chief_complaint"
+                                  >{{ complaints.chief_complaint }}
+                                </label>
+                                <br />
+                              </ng-container>
+                            </c-col>
+                          </c-col>
+                          <c-col md="4" class="p-2">
+                            <c-col md="6">
+                              <label class="fw-bold" cLabel for="diagnosis_name"
+                                >Diagnosis
+                              </label>
+                            </c-col>
+                            <c-col md="6">
+                              <ng-container
+                                *ngFor="
+                                  let diagnosis of item.consultationDiagnosisDetails;
+                                  let i = index
+                                "
+                              >
+                                {{ i + 1 }}.
+                                <label cLabel for="diagnosis_name"
+                                  >{{ diagnosis.diagnosis_name || "--" }}
+                                </label>
+                                <br />
+                              </ng-container>
+                            </c-col>
+                          </c-col>
+                          <c-col md="4" class="p-2">
+                            <c-col md="6">
+                              <label class="fw-bold" cLabel for="diagnosis_name"
+                                >Diagnosis Note
+                              </label>
+                            </c-col>
+                            <c-col md="6">
+                              <ng-container
+                                *ngFor="
+                                  let diagnosis of item.consultationDiagnosisDetails;
+                                  let i = index
+                                "
+                              >
+                                <label cLabel for="diagnosis_name"
+                                  >{{ diagnosis.note || "--" }}
+                                </label>
+                                <br />
+                              </ng-container>
+                            </c-col>
+                          </c-col>
+                          <c-col md="4" class="p-2">
+                            <c-col md="6">
+                              <label class="fw-bold" cLabel for="treatment_name"
+                                >Treatment
+                              </label>
+                            </c-col>
+                            <c-col md="6">
+                              <ng-container
+                                *ngFor="
+                                  let treatment of item.consultationTreatmentDetails;
+                                  let i = index
+                                "
+                              >
+                                {{ i + 1 }}.
+                                <label cLabel for="treatment_name"
+                                  >{{ treatment.treatment_name || "--" }}
+                                </label>
+                              </ng-container>
+                            </c-col>
+                          </c-col>
+                          <c-col md="4" class="p-2">
+                            <c-col md="6">
+                              <label class="fw-bold" cLabel for="diagnosis_name"
+                                >Treatment Note
+                              </label>
+                            </c-col>
+                            <c-col md="6">
+                              <ng-container
+                                *ngFor="
+                                  let treatment of item.consultationTreatmentDetails;
+                                  let i = index
+                                "
+                              >
+                                <label cLabel for="diagnosis_name"
+                                  >{{ treatment.note || "--" }}
+                                </label>
+                                <br />
+                              </ng-container>
+                            </c-col>
+                          </c-col>
+                          <div class="d-flex">
+                            <c-col md="4" class="p-2">
+                              <c-col md="6">
+                                <label class="fw-bold" cLabel for="medicines_name"
+                                  >Medicines
+                                </label>
+                              </c-col>
+                              <c-col md="6">
+                                <ng-container
+                                  *ngFor="
+                                    let medicine of item.consultationMedicineDetails;
+                                    let i = index
+                                  "
+                                >
+                                  {{ i + 1 }}.
+                                  <label cLabel for="medicines_name"
+                                    >{{ medicine.medicines_name || "--" }}
+                                  </label>
+                                  <br />
+                                </ng-container>
+                              </c-col>
+                            </c-col>
+                            <c-col md="3" class="p-2">
+                              <c-col md="6">
+                                <label class="fw-bold" cLabel for="dosage_name"
+                                  >Dosages
+                                </label>
+                              </c-col>
+                              <c-col md="6">
+                                <ng-container
+                                  *ngFor="
+                                    let medicine of item.consultationMedicineDetails;
+                                    let i = index
+                                  "
+                                >
+                                  {{ i + 1 }}.
+                                  <label cLabel for="dosage_name"
+                                    >{{ medicine.dosage_name || "--" }} </label
+                                  ><br />
+                                </ng-container>
+                              </c-col>
+                            </c-col>
+                            <c-col md="2" class="p-2">
+                              <c-col md="6">
+                                <label class="fw-bold" cLabel for="days"
+                                  >Days
+                                </label>
+                              </c-col>
+                              <c-col md="6">
+                                <ng-container
+                                  *ngFor="
+                                    let medicine of item.consultationMedicineDetails;
+                                    let i = index
+                                  "
+                                >
+                                  {{ i + 1 }}.
+                                  <label cLabel for="days"
+                                    >{{ medicine.days || "--" }}
+                                  </label>
+                                  <br />
+                                </ng-container>
+                              </c-col>
+                            </c-col>
+                            <c-col md="3" class="p-2">
+                              <c-col md="6">
+                                <label class="fw-bold" cLabel for="instruction"
+                                  >Instructions
+                                </label>
+                              </c-col>
+                              <c-col md="6">
+                                <ng-container
+                                  *ngFor="
+                                    let medicine of item.consultationMedicineDetails;
+                                    let i = index
+                                  "
+                                >
+                                  {{ i + 1 }}.
+                                  <label cLabel for="instruction"
+                                    >{{ medicine.instruction || "--" }} </label
+                                  ><br />
+                                </ng-container>
+                              </c-col>
+                            </c-col>
+                          </div>
+    
+                          <c-col md="4" class="p-2">
+                            <c-col md="2">
+                              <label class="fw-bold" cLabel for="image_name"
+                                >Image
+                              </label>
+                            </c-col>
+    
+                            <c-col md="10">
+                              <ng-container
+                                *ngFor="
+                                  let file of item.consultationFileUploadDetails;
+                                  let i = index
+                                "
+                              >
+                                {{ i + 1 }}.
+                                <a
+                                  href="{{
+                                    baseUrl +
+                                      'images/consultationfile/' +
+                                      file.image_name
+                                  }}"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  >{{ file.image_name || "--" }}</a
+                                ><br />
+                              </ng-container>
+                            </c-col>
+                          </c-col>
+                          <c-col md="4" class="p-2">
+                            <c-col md="6">
+                              <label class="fw-bold" cLabel for="diagnosis_name"
+                                >Image Note
+                              </label>
+                            </c-col>
+                            <c-col md="6">
+                              <ng-container
+                                *ngFor="
+                                  let file of item.consultationFileUploadDetails;
+                                  let i = index
+                                "
+                              >
+                                <label cLabel for="diagnosis_name"
+                                  >{{ file.note || "--" }}
+                                </label>
+                                <br />
+                              </ng-container>
+                            </c-col>
+                          </c-col>
+                          <hr class="mb-0" />
+                        </form>
                       </div>
                     </div>
                   </div>
-                </div>
+                </mat-tab>
               </div>
-            </mat-tab>
-          </mat-tab-group>
-
-          <div>
-            <strong>Book Appointment</strong>
+              <mat-tab label="Chief Complaints">
+                <div class="col-md-12 table-container">
+                  <table class="table">
+                    <thead class="table-light">
+                      <tr>
+                        <th scope="col">Sr No</th>
+                        <th scope="col">Chief Complaints</th>
+                        <th scope="col" class="text-center">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody formArrayName="consultationChiefComplaintsDetails">
+                      <tr
+                        *ngFor="
+                          let item of consultationChiefComplaintsDetailsArray.controls;
+                          let i = index
+                        "
+                        [formGroupName]="i"
+                      >
+                        <th>{{ i + 1 }}</th>
+  
+                        <td>
+                          <div class="chief_complaints">
+                            <mat-select
+                              #singleSelect
+                              formControlName="chief_complaints_id"
+                              class="form-control theme-input"
+                              style="width: 500px"
+                            >
+                              <mat-option>
+                                <ngx-mat-select-search
+                                  [(ngModel)]="searchChiefComplaintsValue"
+                                  [ngModelOptions]="{ standalone: true }"
+                                  (input)="filterChiefComplaints(i)"
+                                  placeholderLabel="Search chief complaint"
+                                  noEntriesFoundLabel="No result available"
+                                ></ngx-mat-select-search>
+                              </mat-option>
+                              <mat-option
+                                *ngFor="
+                                  let item of filteredChiefComplaintsArray[i]
+                                "
+                                [value]="item.chief_complaint_id"
+                              >
+                                {{ item?.chief_complaint }}
+                              </mat-option>
+                            </mat-select>
+                            <button
+                              cButton
+                              class="ms-1 mb-1"
+                              color="primary"
+                              sizing="sm"
+                              (click)="openDialog()"
+                            >
+                              +
+                            </button>
+                          </div>
+                        </td>
+                        <td class="d-flex pb-3 justify-content-center">
+                          <i
+                            class="material-icons"
+                            (click)="addConsultationChiefComplaints()"
+                            type="button"
+                            >add</i
+                          ><i
+                            class="material-icons ms-2"
+                            (click)="deleteConsultationChiefComplaints(i)"
+                            type="button"
+                            [class.disabled]="
+                              consultationChiefComplaintsDetailsArray.length === 1
+                            "
+                            [attr.aria-disabled]="
+                              consultationChiefComplaintsDetailsArray.length === 1
+                                ? 'true'
+                                : 'false'
+                            "
+                            >remove</i
+                          >
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </mat-tab>
+              <mat-tab label="Diagnosis Details">
+                <div class="col-md-12 table-container">
+                  <table class="table">
+                    <thead class="table-light">
+                      <tr>
+                        <th scope="col">Sr No</th>
+                        <th scope="col">Diagnosis</th>
+                        <th scope="col">Notes</th>
+                        <th scope="col" class="text-center">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody formArrayName="consultationDiagnosisDetails">
+                      <tr
+                        *ngFor="
+                          let item of consultationDiagnosisDetailsArray.controls;
+                          let i = index
+                        "
+                        [formGroupName]="i"
+                      >
+                        <th>{{ i + 1 }}</th>
+  
+                        <td>
+                          <div class="chief_complaints">
+                            <mat-select
+                              #singleSelect
+                              formControlName="diagnosis_id"
+                              class="form-control theme-input"
+                              style="width: 300px"
+                            >
+                              <mat-option>
+                                <ngx-mat-select-search
+                                  [(ngModel)]="searchDiagnosisValue"
+                                  [ngModelOptions]="{ standalone: true }"
+                                  (input)="filterDiagnosis(i)"
+                                  placeholderLabel="Search Diagnosis"
+                                  noEntriesFoundLabel="No result available"
+                                ></ngx-mat-select-search>
+                              </mat-option>
+                              <mat-option
+                                *ngFor="let item of filteredDiagnosisArray[i]"
+                                [value]="item.diagnosis_id"
+                              >
+                                {{ item?.diagnosis_name }}
+                              </mat-option>
+                            </mat-select>
+                            <button
+                              cButton
+                              class="ms-1 mb-1"
+                              color="primary"
+                              sizing="sm"
+                              (click)="openDialogDiagnosis()"
+                            >
+                              +
+                            </button>
+                          </div>
+  
+                          <div
+                            class="text-danger"
+                            *ngIf="
+                              consultationDiagnosisDetailsArray
+                                .at(i)
+                                .get('diagnosis_id')?.invalid &&
+                              (consultationDiagnosisDetailsArray
+                                .at(i)
+                                .get('diagnosis_id')?.dirty ||
+                                consultationDiagnosisDetailsArray
+                                  .at(i)
+                                  .get('diagnosis_id')?.touched)
+                            "
+                          >
+                            <small>Please provide a valid Diagnosis.</small>
+                          </div>
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            class="form-control"
+                            formControlName="notes"
+                          />
+                        </td>
+  
+                        <td class="d-flex pb-3 justify-content-center">
+                          <i
+                            class="material-icons"
+                            (click)="addConsultationDiagnosis()"
+                            type="button"
+                            >add</i
+                          ><i
+                            class="material-icons ms-2"
+                            (click)="deleteConsultationDiagnosis(i)"
+                            type="button"
+                            [class.disabled]="
+                              consultationDiagnosisDetailsArray.length === 1
+                            "
+                            [attr.aria-disabled]="
+                              consultationDiagnosisDetailsArray.length === 1
+                                ? 'true'
+                                : 'false'
+                            "
+                            >remove</i
+                          >
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </mat-tab>
+              <mat-tab label="Treatment Details">
+                <div class="col-md-12 table-container">
+                  <table class="table">
+                    <thead class="table-light">
+                      <tr>
+                        <th scope="col">Sr No</th>
+                        <th scope="col">Treatment</th>
+                        <th scope="col">Notes</th>
+                        <th scope="col" class="text-center">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody formArrayName="consultationTreatmentDetails">
+                      <tr
+                        *ngFor="
+                          let item of consultationTreatmentDetailsArray.controls;
+                          let i = index
+                        "
+                        [formGroupName]="i"
+                      >
+                        <th>{{ i + 1 }}</th>
+  
+                        <td>
+                          <div class="chief_complaints">
+                            <mat-select
+                              #singleSelect
+                              formControlName="treatment_id"
+                              class="form-control theme-input"
+                              style="width: 300px"
+                            >
+                              <mat-option>
+                                <ngx-mat-select-search
+                                  [(ngModel)]="searchTreatmentValue"
+                                  [ngModelOptions]="{ standalone: true }"
+                                  (input)="filterTreatment(i)"
+                                  placeholderLabel="Search Treatment"
+                                  noEntriesFoundLabel="No result available"
+                                ></ngx-mat-select-search>
+                              </mat-option>
+                              <mat-option
+                                *ngFor="let item of filteredTreatmentArray[i]"
+                                [value]="item.treatment_id"
+                              >
+                                {{ item?.treatment_name }}
+                              </mat-option>
+                            </mat-select>
+                            <button
+                              cButton
+                              class="ms-1 mb-1"
+                              color="primary"
+                              sizing="sm"
+                              (click)="openDialogTreatment()"
+                            >
+                              +
+                            </button>
+                          </div>
+  
+                          <div
+                            class="text-danger"
+                            *ngIf="
+                              consultationTreatmentDetailsArray
+                                .at(i)
+                                .get('treatment_id')?.invalid &&
+                              (consultationTreatmentDetailsArray
+                                .at(i)
+                                .get('treatment_id')?.dirty ||
+                                consultationTreatmentDetailsArray
+                                  .at(i)
+                                  .get('treatment_id')?.touched)
+                            "
+                          >
+                            <small>Please provide a valid Treatment.</small>
+                          </div>
+                        </td>
+                        <td>
+                          <textarea
+                            class="form-control"
+                            formControlName="notes"
+                            style="height: 45px; width: 600px"
+                          ></textarea>
+                        </td>
+  
+                        <td class="d-flex pb-3 justify-content-center">
+                          <i
+                            class="material-icons"
+                            (click)="addConsultationTreatment()"
+                            type="button"
+                            >add</i
+                          ><i
+                            class="material-icons ms-2"
+                            (click)="deleteConsultationTreatment(i)"
+                            type="button"
+                            [class.disabled]="
+                              consultationTreatmentDetailsArray.length === 1
+                            "
+                            [attr.aria-disabled]="
+                              consultationTreatmentDetailsArray.length === 1
+                                ? 'true'
+                                : 'false'
+                            "
+                            >remove</i
+                          >
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </mat-tab>
+              <mat-tab label="Medicine Details">
+                <div class="col-md-12 table-container">
+                  <table class="table">
+                    <thead class="table-light">
+                      <tr>
+                        <th scope="col">Sr No</th>
+                        <th scope="col">Medicines</th>
+                        <th scope="col">Dosages</th>
+                        <th scope="col">Days</th>
+                        <th scope="col">Instructions</th>
+                        <th scope="col" class="text-center">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody formArrayName="consultationMedicineDetails">
+                      <tr
+                        *ngFor="
+                          let item of consultationMedicineDetailsArray.controls;
+                          let i = index
+                        "
+                        [formGroupName]="i"
+                      >
+                        <th>{{ i + 1 }}</th>
+  
+                        <td>
+                          <div class="chief_complaints">
+                            <mat-select
+                              #singleSelect
+                              formControlName="medicines_id"
+                              class="form-control theme-input"
+                              style="width: 250px"
+                              (selectionChange)="onMedicineChange(i, $event)"
+                            >
+                              <mat-option>
+                                <ngx-mat-select-search
+                                  [(ngModel)]="searchMedicinesValue"
+                                  [ngModelOptions]="{ standalone: true }"
+                                  (input)="filterMedicines(i)"
+                                  placeholderLabel="Search Medicines"
+                                  noEntriesFoundLabel="No result available"
+                                ></ngx-mat-select-search>
+                              </mat-option>
+                              <mat-option
+                                *ngFor="let item of filteredMedicinesArray[i]"
+                                [value]="item.medicines_id"
+                              >
+                                {{ item?.medicines_name }}
+                              </mat-option>
+                            </mat-select>
+                            <button
+                              cButton
+                              class="ms-1 mb-1"
+                              color="primary"
+                              sizing="sm"
+                              (click)="openDialogMedicines()"
+                            >
+                              +
+                            </button>
+                          </div>
+                        </td>
+                        <td>
+                          <mat-select
+                            #singleSelect
+                            formControlName="dosages_id"
+                            style="width: 250px"
+                            class="form-control theme-input"
+                          >
+                            <mat-option>
+                              <ngx-mat-select-search
+                                [(ngModel)]="searchDosagesValue"
+                                [ngModelOptions]="{ standalone: true }"
+                                (input)="filterDosages(i)"
+                                placeholderLabel="Search Dosages"
+                                noEntriesFoundLabel="No result available"
+                              ></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option
+                              *ngFor="let item of filteredDosagesArray[i]"
+                              [value]="item.dosage_id"
+                            >
+                              {{ item?.dosage_name }}
+                            </mat-option>
+                          </mat-select>
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            class="form-control"
+                            formControlName="days"
+                            style="width: 100px"
+                          />
+                        </td>
+                        <td>
+                          <mat-select
+                            #singleSelect
+                            formControlName="instructions_id"
+                            class="form-control theme-input"
+                            style="width: 250px"
+                          >
+                            <mat-option>
+                              <ngx-mat-select-search
+                                [(ngModel)]="searchInstructionsValue"
+                                [ngModelOptions]="{ standalone: true }"
+                                (input)="filterInstructions(i)"
+                                placeholderLabel="Search Instructions"
+                                noEntriesFoundLabel="No result available"
+                              ></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option
+                              *ngFor="let item of filteredInstructionsArray[i]"
+                              [value]="item.instructions_id"
+                            >
+                              {{ item?.instruction }}
+                            </mat-option>
+                          </mat-select>
+                        </td>
+                        <td class="d-flex pb-3 justify-content-center">
+                          <i
+                            class="material-icons"
+                            (click)="addConsultationMedicine()"
+                            type="button"
+                            >add</i
+                          ><i
+                            class="material-icons ms-2"
+                            (click)="deleteConsultationMedicine(i)"
+                            type="button"
+                            [class.disabled]="
+                              consultationMedicineDetailsArray.length === 1
+                            "
+                            [attr.aria-disabled]="
+                              consultationMedicineDetailsArray.length === 1
+                                ? 'true'
+                                : 'false'
+                            "
+                            >remove</i
+                          >
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </mat-tab>
+              <mat-tab label="File Upload Details">
+                <div class="col-md-12 table-container">
+                  <table class="table">
+                    <thead class="table-light">
+                      <tr>
+                        <th scope="col">Sr No</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Notes</th>
+                        <th scope="col" class="text-center">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody formArrayName="consultationFileUploadDetails">
+                      <tr
+                        *ngFor="
+                          let item of consultationFileUploadDetailsArray.controls;
+                          let i = index
+                        "
+                        [formGroupName]="i"
+                      >
+                        <th>{{ i + 1 }}</th>
+                        <td>
+                          <div class="d-flex">
+                            <input
+                              type="file"
+                              class="form-control"
+                              id="imageBase64"
+                              (change)="onImageChange($event, i)"
+                              accept=".jpeg, .jfif, .pjpeg, .pjp, .png, .jpg"
+                            />
+                          </div>
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            class="form-control"
+                            formControlName="notes"
+                          />
+                        </td>
+                        <td class="d-flex pb-3 justify-content-center">
+                          <i
+                            class="material-icons"
+                            (click)="addConsultationFileUpload()"
+                            type="button"
+                            >add</i
+                          ><i
+                            class="material-icons ms-2"
+                            (click)="deleteConsultationFileUpload(i)"
+                            type="button"
+                            [class.disabled]="
+                              consultationFileUploadDetailsArray.length === 1
+                            "
+                            [attr.aria-disabled]="
+                              consultationFileUploadDetailsArray.length === 1
+                                ? 'true'
+                                : 'false'
+                            "
+                            >remove</i
+                          >
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </mat-tab>
+            </mat-tab-group>
           </div>
-          <c-col md="4" class="p-2">
-            <label cLabel for="appointment_date">Appointment Date </label>
-            <input cFormControl id="appointment_date" type="date" formControlName="appointment_date" />
-          </c-col>
-          <c-col md="4" class="p-2">
-            <label cLabel for="appointment_time">Appointment Time </label>
-            <input cFormControl id="appointment_time" type="time" formControlName="appointment_time" />
-          </c-col>
+        
+          <hr>
+          <div>
+            <label class="fw-bold fs-4"cLabel>Follow Up</label>
+            <div class="form-check form-switch mt-2">
+              <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" 
+              (change)="toggleInputVisibility($event)">
+              <label class="form-check-label fw-bold me-5" for="flexSwitchCheckChecked">isfollowup</label>
+          </div>
+          </div>
+          <div class="card bg-body-secondary pb-3" *ngIf="isFollowUpChecked">
+            <div class="m-3 ">
+              <c-col md="3" class=" ">
+                <label for="category" cLabel>
+                  Category
+                  <span style="color: red" *ngIf="!control['category_id'].value">*</span></label>
+                <select aria-label="select category" cSelect sizing="sm" formControlName="category_id" type="text"
+                  [ngClass]="{
+                    'is-invalid':
+                      control['category_id'].invalid &&
+                      (control['category_id'].dirty ||
+                        control['category_id'].touched)
+                  }">
+                  <option hidden value="null" disabled selected>
+                    Select Category
+                  </option>
+                  <option [value]="item.category_id" *ngFor="let item of allCategoryList">
+                    {{ item.category_name }}
+                  </option>
+                </select>
+                <div class="text-danger" *ngIf="
+                    control['category_id'].invalid &&
+                    (control['category_id'].dirty || control['category_id'].touched)
+                  ">
+                  <small>Please provide a valid Category Name.</small>
+                </div>
+              </c-col>
+            </div>
+      
+            <div formArrayName="leadFooterDetails">
+              <c-col *ngFor="
+                    let item of leadstatusDetailsArray.controls;
+                    let i = index
+                  " [formGroupName]="i">
+                <c-col md-12 class="d-flex">
+                  <c-col md="4" class="p-2">
+                    <label cLabel for="validationDefault01">Comments</label>
+                    <input cFormControl id="validationDefault01" formControlName="comments" autocomplete="off" type="text"
+                      [ngClass]="{
+                          'is-invalid':
+                            leadstatusDetailsArray.at(i).get('comments')?.invalid &&
+                            (leadstatusDetailsArray.at(i).get('comments')?.dirty ||
+                              leadstatusDetailsArray.at(i).get('comments')?.touched)
+                        }" />
+                    <div class="text-danger" *ngIf="
+                          leadstatusDetailsArray.at(i).get('comments')?.invalid &&
+                          (leadstatusDetailsArray.at(i).get('comments')?.dirty ||
+                            leadstatusDetailsArray.at(i).get('comments')?.touched)
+                        ">
+                      <small>Please provide a valid Comments.</small>
+                    </div>
+                  </c-col>
+                 
+                
+                  <c-col md="4" class="p-2">
+                    <label cLabel for="validationDefault01">Lead Status</label>
+                    <select aria-label="select lead status id" cSelect sizing="sm" formControlName="lead_status_id"
+                      autocomplete="off" type="text" [ngClass]="{
+                          'is-invalid':
+                            leadstatusDetailsArray.at(i).get('lead_status_id')
+                              ?.invalid &&
+                            (leadstatusDetailsArray.at(i).get('lead_status_id')
+                              ?.dirty ||
+                              leadstatusDetailsArray.at(i).get('lead_status_id')
+                                ?.touched)
+                        }">
+                      <option hidden value="null" disabled selected>Select Lead Status</option>
+                      <option [value]="item.lead_status_id" *ngFor="let item of allLeadStatusList">
+                        {{ item.lead_status }}
+                      </option>
+                    </select>
+                    <span class="text-danger" *ngIf="
+                          leadstatusDetailsArray.at(i).get('lead_status_id')
+                            ?.invalid &&
+                          (leadstatusDetailsArray.at(i).get('lead_status_id')
+                            ?.dirty ||
+                            leadstatusDetailsArray.at(i).get('lead_status_id')
+                              ?.touched)
+                        "><small> Lead Status is invalid</small></span>
+                  </c-col>
+                  <c-col md="4" class="p-2">
+                    <label cLabel for="follow_up_date">Follow Up Date</label>
+                    <input cFormControl autocomplete="off" id="follow_up_date" formControlName="follow_up_date"
+                      type="date" [ngClass]="{
+                          'is-invalid':
+                            leadstatusDetailsArray.at(i).get('follow_up_date')
+                              ?.invalid &&
+                            (leadstatusDetailsArray.at(i).get('follow_up_date')
+                              ?.dirty ||
+                              leadstatusDetailsArray.at(i).get('follow_up_date')
+                                ?.touched)
+                        }" [min]="getCurrentDate()" />
+                    <div class="text-danger" *ngIf="
+                          leadstatusDetailsArray.at(i).get('follow_up_date')
+                            ?.invalid &&
+                          (leadstatusDetailsArray.at(i).get('follow_up_date')
+                            ?.dirty ||
+                            leadstatusDetailsArray.at(i).get('follow_up_date')
+                              ?.touched)
+                        ">
+                      <small>Please provide a valid Lead Date.</small>
+                    </div>
+                  </c-col>
+                </c-col>
+              </c-col>
+            </div>
+          </div>
+
           <c-col xs="12">
             <button cButton class="me-1" color="primary" (click)="submit()">
               Submit

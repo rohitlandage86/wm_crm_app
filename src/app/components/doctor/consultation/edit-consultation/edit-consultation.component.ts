@@ -107,7 +107,7 @@ export class EditConsultationComponent implements OnInit {
   //consultation form
   createForm() {
     this.form = this.fb.group({
-      mrno: ['', Validators.required],
+      mrno: [''],
       pluse: [null],
       bp: [null],
       past_history: [''],
@@ -379,7 +379,7 @@ export class EditConsultationComponent implements OnInit {
   newConsultationDiagnosis(): FormGroup {
     return this.fb.group({
       consultation_diagnosis_id: [null],
-      diagnosis_id: [null, Validators.required],
+      diagnosis_id: [null],
       notes: [null],
     });
   }
@@ -430,7 +430,7 @@ export class EditConsultationComponent implements OnInit {
   newConsultationTreatment(): FormGroup {
     return this.fb.group({
       consultation_treatment_id: [null],
-      treatment_id: [null, Validators.required],
+      treatment_id: [null],
       notes: [null],
     });
   }

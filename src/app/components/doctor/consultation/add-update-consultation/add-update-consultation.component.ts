@@ -158,7 +158,7 @@ export class AddUpdateConsultationComponent implements OnInit {
       appointment_date: [''],
       appointment_time: [''],
       lead_date: [''],
-      category_id: ['',Validators.required],
+      category_id: [''],
       name: [''],
       note: [''],
       mobile_number: [''],
@@ -179,6 +179,7 @@ export class AddUpdateConsultationComponent implements OnInit {
       ]),
       leadFooterDetails: this.fb.array([this.newLeadFooter()])
     });
+    this.updateCategoryIdValidators();
   }
   //form controls
   get control() {
@@ -910,6 +911,19 @@ export class AddUpdateConsultationComponent implements OnInit {
         console.log('nothing happen');
       }
     });
+  }
+
+ 
+  updateCategoryIdValidators() {
+    const categoryIdControl = this.form.get('category_id');
+    if (categoryIdControl) {
+      if (this.isFollowUpChecked) {
+        categoryIdControl.setValidators([Validators.required]);
+      } else {
+        categoryIdControl.clearValidators();
+      }
+      categoryIdControl.updateValueAndValidity();
+    }
   }
   print(id: any) {
     this._doctorService.getConsultationById(id).subscribe((result: any) => {

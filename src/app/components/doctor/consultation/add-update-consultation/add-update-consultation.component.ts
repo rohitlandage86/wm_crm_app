@@ -151,14 +151,14 @@ export class AddUpdateConsultationComponent implements OnInit {
   //consultation form
   createForm() {
     this.form = this.fb.group({
-      mrno: ['', Validators.required],
+      mrno: [''],
       pluse: [null],
       bp: [null],
       past_history: [''],
       appointment_date: [''],
       appointment_time: [''],
-      lead_date: ['', Validators.required],
-      category_id: [''],
+      lead_date: [''],
+      category_id: ['',Validators.required],
       name: [''],
       note: [''],
       mobile_number: [''],
@@ -189,21 +189,14 @@ export class AddUpdateConsultationComponent implements OnInit {
 
   }
   newLeadFooter(): FormGroup {
-    let validatorsArray = []; // Array to hold validators
-    if (this.lead_hid && this.isFollowUpChecked) {
-      // Add validators if conditions are met
-      validatorsArray.push(Validators.required);
-    }
-
-    // Return form group with validators
     return this.fb.group({
-      lead_fid: ['', validatorsArray],
+      lead_fid: [null],
       comments: [null],
-      calling_time: [null, validatorsArray],
-      no_of_calls: [null, validatorsArray],
+      calling_time: [null],
+      no_of_calls: [null],
       lead_status_id: [1],
-      follow_up_date: [null, validatorsArray],
-    });
+      follow_up_date: [null],
+    })
   }
   addLeadFooter() {
     this.leadstatusDetailsArray.push(this.newLeadFooter());
@@ -463,7 +456,7 @@ export class AddUpdateConsultationComponent implements OnInit {
   }
   newConsultationDiagnosis(): FormGroup {
     return this.fb.group({
-      diagnosis_id: [null, Validators.required],
+      diagnosis_id: [null],
       notes: [null],
     });
   }
@@ -495,7 +488,7 @@ export class AddUpdateConsultationComponent implements OnInit {
   }
   newConsultationTreatment(): FormGroup {
     return this.fb.group({
-      treatment_id: [null, Validators.required],
+      treatment_id: [null],
       notes: [null],
     });
   }
@@ -785,11 +778,13 @@ export class AddUpdateConsultationComponent implements OnInit {
         this.form.get('lead_date')?.patchValue(
           `${leadDate.getFullYear()}-${('0' + (leadDate.getMonth() + 1)).slice(-2)}-${('0' + leadDate.getDate()).slice(-2)}`
         );
+        this.form.patchValue(res.data[0].city);
         let leadFooterDetails = res.data.leadFooterDetails;
         if (leadFooterDetails.length > 0) {
           this.leadstatusDetailsArray.clear();
           for (let index = 0; index < leadFooterDetails.length + 1; index++) {
             const element = leadFooterDetails[index];
+       
             this.leadstatusDetailsArray.push(this.newLeadFooter());
             this.leadstatusDetailsArray.at(index).get('lead_fid')?.patchValue(element?.lead_fid);
             this.leadstatusDetailsArray.at(index).get('comments')?.patchValue(element?.comments);

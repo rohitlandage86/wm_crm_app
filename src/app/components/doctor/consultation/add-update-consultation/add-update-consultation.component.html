@@ -540,23 +540,6 @@
                               +
                             </button>
                           </div>
-  
-                          <div
-                            class="text-danger"
-                            *ngIf="
-                              consultationDiagnosisDetailsArray
-                                .at(i)
-                                .get('diagnosis_id')?.invalid &&
-                              (consultationDiagnosisDetailsArray
-                                .at(i)
-                                .get('diagnosis_id')?.dirty ||
-                                consultationDiagnosisDetailsArray
-                                  .at(i)
-                                  .get('diagnosis_id')?.touched)
-                            "
-                          >
-                            <small>Please provide a valid Diagnosis.</small>
-                          </div>
                         </td>
                         <td>
                           <input
@@ -646,23 +629,6 @@
                             >
                               +
                             </button>
-                          </div>
-  
-                          <div
-                            class="text-danger"
-                            *ngIf="
-                              consultationTreatmentDetailsArray
-                                .at(i)
-                                .get('treatment_id')?.invalid &&
-                              (consultationTreatmentDetailsArray
-                                .at(i)
-                                .get('treatment_id')?.dirty ||
-                                consultationTreatmentDetailsArray
-                                  .at(i)
-                                  .get('treatment_id')?.touched)
-                            "
-                          >
-                            <small>Please provide a valid Treatment.</small>
                           </div>
                         </td>
                         <td>

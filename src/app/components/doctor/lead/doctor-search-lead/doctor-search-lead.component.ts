@@ -29,14 +29,6 @@ export class DoctorSearchLeadComponent implements OnInit{
 
   ngOnInit(){
     this.searchControl.valueChanges
-    .pipe(debounceTime(700))
-    .subscribe((searchTerm: string) => {
-      clearTimeout(this.searchTimer);
-      this.searchTerm = searchTerm;
-      this.searchTimer = setTimeout(() => {
-        this.getSearchLead(this.searchQuery);
-      }, 5000); // Set timeout to 5 seconds (5000 milliseconds)
-    });
   }
 //get is lead search data
 getSearchLead(searchQuery: string): void {

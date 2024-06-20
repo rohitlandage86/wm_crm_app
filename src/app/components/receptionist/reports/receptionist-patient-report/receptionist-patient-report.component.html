@@ -94,7 +94,7 @@
                     </button>
                 </div>
             </div>
-            <div class="col-md-12 table-container">
+            <div class="col-md-12 table-container ">
                 <table class="table table-striped" >
                     <thead cTableColor="light">
                         <tr>
@@ -108,7 +108,7 @@
                             <th>Refered By</th>
                             <th>Doctor</th>  
                             <th>View</th>
-                            <!-- <th>Edit</th> -->
+                            <th>Edit</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -125,8 +125,8 @@
                             <td> <a [routerLink]="['/receptionist', { outlets: { receptionist_Menu: ['view-search-patient',item.mrno]}}]" class="pointer"><svg [cIcon]="icons.cilDescription"  size="xl"
                                 title="List Icon" ></svg></a></td>
                             <!-- <td>{{ item.employee_name }}</td> -->
-                            <!-- <td> <a [routerLink]="['/receptionist', { outlets: { receptionist_Menu: ['edit-leads',item.lead_hid]}}]" class="pointer"><svg [cIcon]="icons.cilPencil"  size="xl"
-                                title="List Icon" ></svg></a></td> -->
+                            <td> <a [routerLink]="['/receptionist', { outlets: { receptionist_Menu: ['edit-patient',item.mrno]}}]" class="pointer"><svg [cIcon]="icons.cilPencil"  size="xl"
+                                title="List Icon" ></svg></a></td>
                         </tr>
                         <tr class=" fw-bold text-center" *ngIf="allPatientRegistrationsList.length===0">
                             <td colspan="10" class="text-danger">No Data Available</td>

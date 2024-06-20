@@ -31,23 +31,16 @@ export class SearchBillComponent implements OnInit{
 
   ngOnInit() {
     this.searchControl.valueChanges
-    .pipe(debounceTime(300))
-    .subscribe((searchTerm: string) => {
-      clearTimeout(this.searchTimer);
-      this.searchTerm = searchTerm;
-      this.searchTimer = setTimeout(() => {
-        this.getBillHistory(this.searchQuery);
-      }, 5000); // Set timeout to 5 seconds (5000 milliseconds)
-    });
   }
 
  //get all  bill  (history)..
  getBillHistory(searchQuery: any) {
   this.searchQuery = searchQuery;
-  this._receptionistService.getAllSearchBillList(this.page, this.perPage,searchQuery).subscribe({
+  this._receptionistService.getAllSearchBillList(this.page, this.perPage, this.searchQuery).subscribe({
     next: (res: any) => {
       if (res.data.length > 0) {
         this.allBillList = res.data;
+        this.total = res.pagination.total;
       }else{
         this.allBillList = [] ;
         this.total =0 ;
@@ -73,5 +66,6 @@ export class SearchBillComponent implements OnInit{
   onPageChange(event: PageEvent): void {
     this.page = event.pageIndex + 1;
     this.perPage = event.pageSize;
+    this.getBillHistory(this.searchQuery);
   }
 }

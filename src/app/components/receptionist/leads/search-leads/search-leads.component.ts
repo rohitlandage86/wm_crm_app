@@ -31,14 +31,7 @@ export class SearchLeadsComponent implements OnInit {
 
   ngOnInit() {
     this.searchControl.valueChanges
-    .pipe(debounceTime(300))
-    .subscribe((searchTerm: string) => {
-      clearTimeout(this.searchTimer);
-      this.searchTerm = searchTerm;
-      this.searchTimer = setTimeout(() => {
-        this.getSearchLead(this.searchQuery);
-      }, 5000); // Set timeout to 5 seconds (5000 milliseconds)
-    });
+    this.getSearchLead(this.searchQuery);
   }
   //get is lead search data
   getSearchLead(searchQuery: string): void {

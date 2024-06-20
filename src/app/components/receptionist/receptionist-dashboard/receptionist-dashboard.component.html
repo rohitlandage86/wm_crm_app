@@ -26,6 +26,24 @@
               <div *ngIf="firstCardContent">
                 <strong>
                   <div class="fs-1 mb-3  d-flex justify-content-center">
+                    {{ firstCardContent.re_visit_count }}
+                  </div>
+                </strong>
+              </div>
+            </div>
+            <div class="col-12 ">
+              <div class="fs-5  count-label d-flex justify-content-center">Re-Visit</div>
+            </div>
+          </c-card-body>
+        </c-card>
+      </c-col>
+      <c-col md="2" class="h-100">
+        <c-card class="mb-4 count-card h-100">
+          <c-card-body class="card-value ">
+            <div class="col-12 ">
+              <div *ngIf="firstCardContent">
+                <strong>
+                  <div class="fs-1 mb-3  d-flex justify-content-center">
                     {{ firstCardContent.is_checked_count }}
                   </div>
                 </strong>
@@ -51,24 +69,6 @@
             </div>
             <div class="col-12 ">
               <div class="fs-5 d- count-label d-flex justify-content-center">Not Checked</div>
-            </div>
-          </c-card-body>
-        </c-card>
-      </c-col>
-      <c-col md="2" class="h-100">
-        <c-card class="mb-4 count-card h-100">
-          <c-card-body class="card-value ">
-            <div class="col-12 ">
-              <div *ngIf="firstCardContent">
-                <strong>
-                  <div class="fs-1 mb-3  d-flex justify-content-center">
-                    {{ firstCardContent.re_visit_count }}
-                  </div>
-                </strong>
-              </div>
-            </div>
-            <div class="col-12 ">
-              <div class="fs-5  count-label d-flex justify-content-center">Re-Visit</div>
             </div>
           </c-card-body>
         </c-card>

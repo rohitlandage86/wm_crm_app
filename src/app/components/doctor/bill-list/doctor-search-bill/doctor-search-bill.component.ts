@@ -30,20 +30,13 @@ export class DoctorSearchBillComponent implements OnInit {
 
   ngOnInit() {
     this.searchControl.valueChanges
-    .pipe(debounceTime(700))
-    .subscribe((searchTerm: string) => {
-      clearTimeout(this.searchTimer);
-      this.searchTerm = searchTerm;
-      this.searchTimer = setTimeout(() => {
-        this.getbillHistory(this.searchQuery);
-      }, 5000); // Set timeout to 5 seconds (5000 milliseconds)
-    });
+    this.getbillHistory(this.searchQuery);
   }
 
   //get all consutlation view by mrno (history)..
   getbillHistory(searchQuery: any) {
     this.searchQuery = searchQuery;
-    this._receptionistService.getAllSearchBillList(this.page, this.perPage, searchQuery).subscribe({
+    this._receptionistService.getAllSearchBillList(this.page, this.perPage, this.searchQuery).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allBillList = res.data;

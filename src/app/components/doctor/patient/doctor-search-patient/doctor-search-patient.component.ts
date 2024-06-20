@@ -3,7 +3,6 @@ import { freeSet } from '@coreui/icons';
 import { PageEvent } from '@angular/material/paginator';
 import { DoctorService } from '../../doctor.service';
 import { FormControl } from '@angular/forms';
-import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-doctor-search-patient',
@@ -28,21 +27,13 @@ export class DoctorSearchPatientComponent implements OnInit {
 
   ngOnInit() {
     this.searchControl.valueChanges
-    .pipe(debounceTime(700))
-    .subscribe((searchTerm: string) => {
-      clearTimeout(this.searchTimer);
-      this.searchTerm = searchTerm;
-      this.searchTimer = setTimeout(() => {
-        this.getSearchConsultation(this.searchQuery);
-      }, 5000); // Set timeout to 5 seconds (5000 milliseconds)
-    });
   }
 
   //get is Consultation search data
   getSearchConsultation(searchQuery: string): void {
     this.searchQuery = searchQuery;
     // Make API call with the search query
-    this._doctorService.getAllSearchConsultationList(this.page, this.perPage, searchQuery).subscribe({
+    this._doctorService.getAllSearchConsultationList(this.page, this.perPage, this.searchQuery).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
           this.allConsultationList = res.data;

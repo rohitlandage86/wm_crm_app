@@ -32,14 +32,7 @@ export class SearchPatientComponent implements OnInit {
 
   ngOnInit() {
     this.searchControl.valueChanges
-    .pipe(debounceTime(700))
-    .subscribe((searchTerm: string) => {
-      clearTimeout(this.searchTimer);
-      this.searchTerm = searchTerm;
-      this.searchTimer = setTimeout(() => {
-        this.getSearchPatient(this.searchQuery);
-      }, 5000); // Set timeout to 5 seconds (5000 milliseconds)
-    });
+    this.getSearchPatient(this.searchQuery);
   }
 
   //get is Patient search data
@@ -51,10 +44,14 @@ export class SearchPatientComponent implements OnInit {
         if (res.data.length > 0) {
           this.allPatientVisitList = res.data;
           this.total = res.pagination.total;
-        }else
-        this.allPatientVisitList=[];
-        this.total=0;
+          
+        }else{
+          this.allPatientVisitList=[];
+          this.total=0;
+        }
+        
       }
+      
     });
   }
   // Other properties and methods
@@ -70,6 +67,7 @@ export class SearchPatientComponent implements OnInit {
   isValidInput(inputValue: string): boolean {
     return this.validateMobileNo(inputValue) || this.isValidName(inputValue);
   }
+
 
   onPageChange(event: PageEvent): void {
     this.page = event.pageIndex + 1;

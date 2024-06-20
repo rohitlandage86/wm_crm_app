@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, FormControl, FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -32,7 +33,7 @@ export class AddUpdatePatientComponent implements OnInit {
   isDoctor=false;
   constructor(
     private fb: FormBuilder,
-    private _receptionistService: ReceptionistService, private _adminService: AdminService, private dialog: MatDialog,
+    private _receptionistService: ReceptionistService, private _adminService: AdminService, private dialog: MatDialog,private Location:Location,
     private _toastrService: ToastrService, private _superAdminService: SuperAdminService, private router: Router, private url: ActivatedRoute) {  this.createForm() }
 
 
@@ -356,5 +357,9 @@ export class AddUpdatePatientComponent implements OnInit {
         }
       }
     });
+  }
+   // cancel route location service
+   goToback() {
+    this.Location.back();
   }
 }

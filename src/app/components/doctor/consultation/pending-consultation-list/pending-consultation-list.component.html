@@ -7,7 +7,7 @@
           <div class="d-flex flex-column pe-2">
             <input cFormControl class="ms-2" type="text" placeholder="Search" #searchInput (input)="isValidInput(searchInput.value)">
           </div>
-          <button cButton color="primary" class="fw-bold btn-sm ms-2" [disabled]="!isValidInput(searchInput.value)" (click)="onSearch(searchInput.value)">
+          <button cButton color="primary" class="fw-bold btn-sm ms-2"  (click)="onSearch(searchInput.value)">
             Submit
           </button>
         </ng-container>

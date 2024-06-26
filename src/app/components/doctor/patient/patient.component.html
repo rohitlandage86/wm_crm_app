@@ -54,6 +54,7 @@
                 <tr>
                   <th>Sr. No</th>
                   <th>Patient Name</th>
+                  <th>Visit Date</th>
                   <th>Consultation Date</th>
                   <th>MR No</th>
                   <th>Mobile Number</th>
@@ -67,6 +68,7 @@
                 <tr *ngFor="let item of allPatientVisitCheckedList; let i = index">
                   <td>{{ i + 1 }}</td>
                   <td>{{ item.patient_name | titlecase }}</td>
+                  <td>{{ item.registration_date | date : "dd-MM-yyyy" }}</td>
                   <td>{{ item.cts | date : "dd-MM-yyyy" }}</td>
                   <td>{{ item.mrno_entity_series | uppercase}}</td>
                   <td>{{ item.mobile_no }}</td>

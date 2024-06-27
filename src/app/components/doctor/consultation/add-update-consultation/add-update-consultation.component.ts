@@ -139,6 +139,7 @@ export class AddUpdateConsultationComponent implements OnInit {
   }
   toggleInputVisibility(event: any) {
     this.isFollowUpChecked = event.target.checked;
+    this.updateFollowUpValidators();
   }
   // getTabIndex(): number {
   //   // Check if the consultation history list is not empty
@@ -179,7 +180,7 @@ export class AddUpdateConsultationComponent implements OnInit {
       ]),
       leadFooterDetails: this.fb.array([this.newLeadFooter()])
     });
-    this.updateCategoryIdValidators();
+    
   }
   //form controls
   get control() {
@@ -633,10 +634,10 @@ export class AddUpdateConsultationComponent implements OnInit {
   submit() {
     this.addConsultation();
   }
-
   addConsultation() {
+    this.updateFollowUpValidators();
+    
     if (this.form.valid) {
-      // console.log("this consultation form", this.form.value);
       this._doctorService.addConsultation(this.form.value).subscribe({
         next: (res: any) => {
           if (res.status === 201 || res.status === 200) {
@@ -656,12 +657,9 @@ export class AddUpdateConsultationComponent implements OnInit {
               }
               this.goToback();
             });
-            // If no lead exists, add a new lead
             if (this.lead_hid && this.isFollowUpChecked) {
-              if(this.form.valid){
-                this.editLeadFollowUp();
-              }
-            } if (!this.lead_hid &&this.isFollowUpChecked) {
+              this.editLeadFollowUp();
+            } else if (!this.lead_hid && this.isFollowUpChecked) {
               this.addLead();
             }
           } else {
@@ -677,6 +675,8 @@ export class AddUpdateConsultationComponent implements OnInit {
       this.handleFormInvalid();
     }
   }
+  
+  
   addLead() {
     if (this.form.valid) {
       this._receptionistService.addLead(this.form.value).subscribe({
@@ -694,7 +694,7 @@ export class AddUpdateConsultationComponent implements OnInit {
       this.handleFormInvalid();
     }
   }
-
+  
   editLeadFollowUp() {
     if (this.form.valid) {
       let data = this.form.getRawValue();
@@ -706,12 +706,15 @@ export class AddUpdateConsultationComponent implements OnInit {
             this._toastrService.warning(res.message);
           }
         },
-
+        error: (err: any) => {
+          this.handleError(err);
+        },
       });
     } else {
       this.handleFormInvalid();
     }
   }
+  
 
   handleError(err: any) {
     if (err.error.status === 422) {
@@ -722,10 +725,10 @@ export class AddUpdateConsultationComponent implements OnInit {
   }
 
   handleFormInvalid() {
+    this._toastrService.warning('Please fill out all required fields.');
     this.form.markAllAsTouched();
-    this._toastrService.clear();
-    this._toastrService.warning('Fill required fields');
   }
+  
 
   //get all consutlation view by mrno (history)..
   getConsultationHistory(id: any) {
@@ -912,19 +915,29 @@ export class AddUpdateConsultationComponent implements OnInit {
       }
     });
   }
-
- 
-  updateCategoryIdValidators() {
+  updateFollowUpValidators() {
     const categoryIdControl = this.form.get('category_id');
-    if (categoryIdControl) {
-      if (this.isFollowUpChecked) {
-        categoryIdControl.setValidators([Validators.required]);
-      } else {
-        categoryIdControl.clearValidators();
-      }
-      categoryIdControl.updateValueAndValidity();
+    const leadFooterArray = this.form.get('leadFooterDetails') as FormArray;
+  
+    if (this.isFollowUpChecked) {
+      categoryIdControl?.setValidators([Validators.required]);
+      leadFooterArray.controls.forEach(control => {
+        const followUpDateControl = control.get('follow_up_date');
+        followUpDateControl?.setValidators([Validators.required]);
+        followUpDateControl?.updateValueAndValidity();
+      });
+    } else {
+      categoryIdControl?.clearValidators();
+      leadFooterArray.controls.forEach(control => {
+        const followUpDateControl = control.get('follow_up_date');
+        followUpDateControl?.clearValidators();
+        followUpDateControl?.updateValueAndValidity();
+      });
     }
+  
+    categoryIdControl?.updateValueAndValidity();
   }
+  
   print(id: any) {
     this._doctorService.getConsultationById(id).subscribe((result: any) => {
       this.patientData = result.data;

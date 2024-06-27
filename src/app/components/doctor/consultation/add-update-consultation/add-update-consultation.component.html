@@ -132,9 +132,12 @@
 
           <hr class="mb-0" />
           <div class="card bg-body-tertiary pb-3">
-            <mat-tab-group class="mt-0"   [selectedIndex]="historyTabIndex ">
-              <div class="" *ngIf="allConsutlationHistoryList.length > 0 ?true:false">
-                <mat-tab label="History" >
+            <mat-tab-group class="mt-0" [selectedIndex]="historyTabIndex">
+              <div
+                class=""
+                *ngIf="allConsutlationHistoryList.length > 0 ? true : false"
+              >
+                <mat-tab label="History">
                   <div class="container">
                     <div>
                       <div
@@ -145,12 +148,12 @@
                         "
                       >
                         <div class="p-3 mt- bg-body-secondary">
-                          <strong > Date:</strong>
+                          <strong> Date:</strong>
                           <strong for="" class="mx-2">{{
                             item.cts | date : "dd-MM-yyyy"
                           }}</strong>
                         </div>
-    
+
                         <hr class="mb-0" />
                         <div class="mb-4">
                           <div class="mt-2">
@@ -161,7 +164,10 @@
                         <form cForm class="row g-3">
                           <c-col md="4" class="p-2">
                             <c-col md="6">
-                              <label class="fw-bold" cLabel for="chief_complaint"
+                              <label
+                                class="fw-bold"
+                                cLabel
+                                for="chief_complaint"
                                 >Chief Complaints</label
                               >
                             </c-col>
@@ -265,7 +271,10 @@
                           <div class="d-flex">
                             <c-col md="4" class="p-2">
                               <c-col md="6">
-                                <label class="fw-bold" cLabel for="medicines_name"
+                                <label
+                                  class="fw-bold"
+                                  cLabel
+                                  for="medicines_name"
                                   >Medicines
                                 </label>
                               </c-col>
@@ -346,14 +355,14 @@
                               </c-col>
                             </c-col>
                           </div>
-    
+
                           <c-col md="4" class="p-2">
                             <c-col md="2">
                               <label class="fw-bold" cLabel for="image_name"
                                 >Image
                               </label>
                             </c-col>
-    
+
                             <c-col md="10">
                               <ng-container
                                 *ngFor="
@@ -421,7 +430,7 @@
                         [formGroupName]="i"
                       >
                         <th>{{ i + 1 }}</th>
-  
+
                         <td>
                           <div class="chief_complaints">
                             <mat-select
@@ -470,10 +479,12 @@
                             (click)="deleteConsultationChiefComplaints(i)"
                             type="button"
                             [class.disabled]="
-                              consultationChiefComplaintsDetailsArray.length === 1
+                              consultationChiefComplaintsDetailsArray.length ===
+                              1
                             "
                             [attr.aria-disabled]="
-                              consultationChiefComplaintsDetailsArray.length === 1
+                              consultationChiefComplaintsDetailsArray.length ===
+                              1
                                 ? 'true'
                                 : 'false'
                             "
@@ -505,7 +516,7 @@
                         [formGroupName]="i"
                       >
                         <th>{{ i + 1 }}</th>
-  
+
                         <td>
                           <div class="chief_complaints">
                             <mat-select
@@ -548,7 +559,7 @@
                             formControlName="notes"
                           />
                         </td>
-  
+
                         <td class="d-flex pb-3 justify-content-center">
                           <i
                             class="material-icons"
@@ -595,7 +606,7 @@
                         [formGroupName]="i"
                       >
                         <th>{{ i + 1 }}</th>
-  
+
                         <td>
                           <div class="chief_complaints">
                             <mat-select
@@ -638,7 +649,7 @@
                             style="height: 45px; width: 600px"
                           ></textarea>
                         </td>
-  
+
                         <td class="d-flex pb-3 justify-content-center">
                           <i
                             class="material-icons"
@@ -687,7 +698,7 @@
                         [formGroupName]="i"
                       >
                         <th>{{ i + 1 }}</th>
-  
+
                         <td>
                           <div class="chief_complaints">
                             <mat-select
@@ -872,117 +883,180 @@
               </mat-tab>
             </mat-tab-group>
           </div>
-        
-          <hr>
+
+          <hr />
           <div>
-            <label class="fw-bold fs-4"cLabel>Follow Up</label>
+            <label class="fw-bold fs-4" cLabel>Follow Up</label>
             <div class="form-check form-switch mt-2">
-              <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" 
-              (change)="toggleInputVisibility($event)">
-              <label class="form-check-label fw-bold me-5" for="flexSwitchCheckChecked">isfollowup</label>
-          </div>
+              <input
+                class="form-check-input"
+                type="checkbox"
+                role="switch"
+                id="flexSwitchCheckChecked"
+                (change)="toggleInputVisibility($event)"
+              />
+              <label
+                class="form-check-label fw-bold me-5"
+                for="flexSwitchCheckChecked"
+                >isfollowup</label
+              >
+            </div>
           </div>
           <div class="card bg-body-secondary pb-3" *ngIf="isFollowUpChecked">
-            <div class="m-3 ">
+            <div class="m-3">
               <c-col md="3" class=" ">
                 <label for="category" cLabel>
                   Category
-                  <span style="color: red" *ngIf="!control['category_id'].value">*</span></label>
-                <select aria-label="select category" cSelect sizing="sm" formControlName="category_id" type="text"
+                  <span style="color: red" *ngIf="!control['category_id'].value"
+                    >*</span
+                  ></label
+                >
+                <select
+                  aria-label="select category"
+                  cSelect
+                  sizing="sm"
+                  formControlName="category_id"
+                  type="text"
                   [ngClass]="{
                     'is-invalid':
                       control['category_id'].invalid &&
                       (control['category_id'].dirty ||
                         control['category_id'].touched)
-                  }">
+                  }"
+                >
                   <option hidden value="null" disabled selected>
                     Select Category
                   </option>
-                  <option [value]="item.category_id" *ngFor="let item of allCategoryList">
+                  <option
+                    [value]="item.category_id"
+                    *ngFor="let item of allCategoryList"
+                  >
                     {{ item.category_name }}
                   </option>
                 </select>
-                <div class="text-danger" *ngIf="
+                <div
+                  class="text-danger"
+                  *ngIf="
                     control['category_id'].invalid &&
-                    (control['category_id'].dirty || control['category_id'].touched)
-                  ">
+                    (control['category_id'].dirty ||
+                      control['category_id'].touched)
+                  "
+                >
                   <small>Please provide a valid Category Name.</small>
                 </div>
               </c-col>
             </div>
-      
+
             <div formArrayName="leadFooterDetails">
-              <c-col *ngFor="
-                    let item of leadstatusDetailsArray.controls;
-                    let i = index
-                  " [formGroupName]="i">
+              <c-col
+                *ngFor="
+                  let item of leadstatusDetailsArray.controls;
+                  let i = index
+                "
+                [formGroupName]="i"
+              >
                 <c-col md-12 class="d-flex">
                   <c-col md="4" class="p-2">
                     <label cLabel for="validationDefault01">Comments</label>
-                    <input cFormControl id="validationDefault01" formControlName="comments" autocomplete="off" type="text"
+                    <input
+                      cFormControl
+                      id="validationDefault01"
+                      formControlName="comments"
+                      autocomplete="off"
+                      type="text"
                       [ngClass]="{
-                          'is-invalid':
-                            leadstatusDetailsArray.at(i).get('comments')?.invalid &&
-                            (leadstatusDetailsArray.at(i).get('comments')?.dirty ||
-                              leadstatusDetailsArray.at(i).get('comments')?.touched)
-                        }" />
-                    <div class="text-danger" *ngIf="
-                          leadstatusDetailsArray.at(i).get('comments')?.invalid &&
-                          (leadstatusDetailsArray.at(i).get('comments')?.dirty ||
-                            leadstatusDetailsArray.at(i).get('comments')?.touched)
-                        ">
+                        'is-invalid':
+                          leadstatusDetailsArray.at(i).get('comments')
+                            ?.invalid &&
+                          (leadstatusDetailsArray.at(i).get('comments')
+                            ?.dirty ||
+                            leadstatusDetailsArray.at(i).get('comments')
+                              ?.touched)
+                      }"
+                    />
+                    <div
+                      class="text-danger"
+                      *ngIf="
+                        leadstatusDetailsArray.at(i).get('comments')?.invalid &&
+                        (leadstatusDetailsArray.at(i).get('comments')?.dirty ||
+                          leadstatusDetailsArray.at(i).get('comments')?.touched)
+                      "
+                    >
                       <small>Please provide a valid Comments.</small>
                     </div>
                   </c-col>
-                 
-                
+
                   <c-col md="4" class="p-2">
                     <label cLabel for="validationDefault01">Lead Status</label>
-                    <select aria-label="select lead status id" cSelect sizing="sm" formControlName="lead_status_id"
-                      autocomplete="off" type="text" [ngClass]="{
-                          'is-invalid':
-                            leadstatusDetailsArray.at(i).get('lead_status_id')
-                              ?.invalid &&
-                            (leadstatusDetailsArray.at(i).get('lead_status_id')
-                              ?.dirty ||
-                              leadstatusDetailsArray.at(i).get('lead_status_id')
-                                ?.touched)
-                        }">
-                      <option hidden value="null" disabled selected>Select Lead Status</option>
-                      <option [value]="item.lead_status_id" *ngFor="let item of allLeadStatusList">
-                        {{ item.lead_status }}
-                      </option>
-                    </select>
-                    <span class="text-danger" *ngIf="
+                    <select
+                      aria-label="select lead status id"
+                      cSelect
+                      sizing="sm"
+                      formControlName="lead_status_id"
+                      autocomplete="off"
+                      type="text"
+                      [ngClass]="{
+                        'is-invalid':
                           leadstatusDetailsArray.at(i).get('lead_status_id')
                             ?.invalid &&
                           (leadstatusDetailsArray.at(i).get('lead_status_id')
                             ?.dirty ||
                             leadstatusDetailsArray.at(i).get('lead_status_id')
                               ?.touched)
-                        "><small> Lead Status is invalid</small></span>
+                      }"
+                    >
+                      <option hidden value="null" disabled selected>
+                        Select Lead Status
+                      </option>
+                      <option
+                        [value]="item.lead_status_id"
+                        *ngFor="let item of allLeadStatusList"
+                      >
+                        {{ item.lead_status }}
+                      </option>
+                    </select>
+                    <span
+                      class="text-danger"
+                      *ngIf="
+                        leadstatusDetailsArray.at(i).get('lead_status_id')
+                          ?.invalid &&
+                        (leadstatusDetailsArray.at(i).get('lead_status_id')
+                          ?.dirty ||
+                          leadstatusDetailsArray.at(i).get('lead_status_id')
+                            ?.touched)
+                      "
+                      ><small> Lead Status is invalid</small></span
+                    >
                   </c-col>
                   <c-col md="4" class="p-2">
                     <label cLabel for="follow_up_date">Follow Up Date</label>
-                    <input cFormControl autocomplete="off" id="follow_up_date" formControlName="follow_up_date"
-                      type="date" [ngClass]="{
-                          'is-invalid':
-                            leadstatusDetailsArray.at(i).get('follow_up_date')
-                              ?.invalid &&
-                            (leadstatusDetailsArray.at(i).get('follow_up_date')
-                              ?.dirty ||
-                              leadstatusDetailsArray.at(i).get('follow_up_date')
-                                ?.touched)
-                        }" [min]="getCurrentDate()" />
-                    <div class="text-danger" *ngIf="
+                    <input
+                      cFormControl
+                      autocomplete="off"
+                      id="follow_up_date"
+                      formControlName="follow_up_date"
+                      type="date"
+                      [ngClass]="{
+                        'is-invalid':
                           leadstatusDetailsArray.at(i).get('follow_up_date')
                             ?.invalid &&
                           (leadstatusDetailsArray.at(i).get('follow_up_date')
                             ?.dirty ||
                             leadstatusDetailsArray.at(i).get('follow_up_date')
                               ?.touched)
-                        ">
-                      <small>Please provide a valid Lead Date.</small>
+                      }"
+                      [min]="getCurrentDate()"
+                    />
+                    <div
+                      *ngIf="
+                        leadstatusDetailsArray.get('follow_up_date')?.touched &&
+                        leadstatusDetailsArray.get('follow_up_date')?.invalid
+                      "
+                    >
+                      <small
+                        *ngIf="leadstatusDetailsArray.get('follow_up_date')?.errors?.['required']"
+                        >Follow-up Date is required.</small
+                      >
                     </div>
                   </c-col>
                 </c-col>

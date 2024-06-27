@@ -9,6 +9,7 @@ import { INavData } from '@coreui/angular';
 import { Title } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr'
 import { environment } from 'src/environments/environment';
+import { fromEvent, map, merge, of, Subscription } from 'rxjs';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -28,6 +29,9 @@ export class AppComponent implements OnInit, AfterContentChecked {
   navReceptionistItems!: INavData[];
   navSuperAdminItems!: INavData[];
   isLoading = false;
+
+  networkStatus: any;
+  networkStatus$: Subscription = Subscription.EMPTY;
   constructor(
     private router: Router,
     private titleService: Title,
@@ -40,6 +44,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
     iconSetService.icons = { ...iconSubset };
   }
   ngOnInit() {
+    this.checkNetworkStatus();
     this.navItemList();
     this._sharedService.isLoading$.subscribe({
       next: (res: any) => {
@@ -520,4 +525,20 @@ export class AppComponent implements OnInit, AfterContentChecked {
     // Redirect to the login page
     window.location.href = '/auth'; // Assuming '/auth' is your login page
   }
+  ngOnDestroy(): void {
+    this.networkStatus$.unsubscribe();
+  }
+  checkNetworkStatus() {
+    this.networkStatus = navigator.onLine;
+    this.networkStatus$ = merge(
+      of(null),
+      fromEvent(window, 'online'),
+      fromEvent(window, 'offline')
+    )
+      .pipe(map(() => navigator.onLine))
+      .subscribe(status => {
+        this.networkStatus = status;
+      });
+  }
+
 }

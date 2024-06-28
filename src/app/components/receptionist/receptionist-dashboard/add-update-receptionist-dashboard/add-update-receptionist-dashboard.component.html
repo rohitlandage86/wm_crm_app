@@ -1,3 +1,11 @@
+<!-- <div class="spinner"  >
+  <div class="lds-ring">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div> -->
 <c-row class="m-0">
 
   <c-col xs="12 " class="p-0 ">
@@ -7,7 +15,7 @@
         <strong>{{ isEdit ? " Add" : "Edit" }} Lead Details</strong>
       </c-card-header>
       <c-card-body>
-        <form cForm class="row g-3" [formGroup]="form">
+        <form cForm class="row g-3" [formGroup]="form" >
           <c-col md="4" class="p-2">
             <label cLabel for="name">Name</label>
             <input cFormControl id="name" [readonly]=true class="diabled" formControlName="name" type="text" />
@@ -213,7 +221,9 @@
             <button cButton color="secondary" (click)="goToback()">Cancel</button>
           </c-col>
         </form>
+       
       </c-card-body>
     </c-card>
   </c-col>
 </c-row>
+

@@ -28,6 +28,7 @@ export class AppComponent implements OnInit, AfterContentChecked {
   navReceptionistItems!: INavData[];
   navSuperAdminItems!: INavData[];
   isLoading = false;
+  isLoading1 = false;
   constructor(
     private router: Router,
     private titleService: Title,
@@ -47,6 +48,15 @@ export class AppComponent implements OnInit, AfterContentChecked {
           this.isLoading = res;
         } else {
           this.isLoading = res
+        }
+      }
+    })
+    this._sharedService.isLoading1$.subscribe({
+      next: (res: any) => {
+        if (res) {
+          this.isLoading1 = res;
+        } else {
+          this.isLoading1 = res
         }
       }
     })

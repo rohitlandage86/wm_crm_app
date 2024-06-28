@@ -10,6 +10,10 @@ export class SharedService {
   
   private __isLoading = new Subject<boolean>();
   isLoading$ = this.__isLoading.asObservable();
+
+  private __isLoading1 = new Subject<boolean>();
+  isLoading1$ = this.__isLoading1.asObservable();
+
   //login and sign in 
   private _isLogin = new Subject<boolean>();
   isLogin$ = this._isLogin.asObservable();
@@ -26,5 +30,8 @@ export class SharedService {
     this.__isLoading.next(isLoading);
   } 
  
+  setLoading1(isLoading1: any) {
+    this.__isLoading1.next(isLoading1);
+  } 
  
 }

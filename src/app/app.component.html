@@ -1,4 +1,5 @@
-<!-- Super Admin Sidebar -->
+<div *ngIf="networkStatus">
+  <!-- Super Admin Sidebar -->
 <div class="" *ngIf="isSuperAdminDashboard&&!isDoctorDashboard&&!isAdminDashboard&&!isReceptionistDashboard">
   <c-sidebar #sidebar="cSidebar" class="d-print-none sidebar sidebar-fixed" id="sidebar" visible>
     <c-sidebar-brand>Super Admin</c-sidebar-brand>
@@ -125,3 +126,16 @@
   <div class="spinner" *ngIf="isLoading1">
     <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
   </div>
+</div>
+  <div *ngIf="!networkStatus">
+    <div class="container">
+        <div class="row  d-flex justify-content-center align-content-center mt-5">
+            <div class="col-md-6 ">
+                <h1 class="text-center fw-bold">You appear to be offline...!</h1>
+                <img src="../assets/images/not-found.jpg" alt="" style="height: 70vh;">
+                <h3>You can't use Nirmiti until you're connected to the internet
+                    Retry </h3>
+            </div>
+        </div>
+    </div>
+</div>

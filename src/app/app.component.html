@@ -118,8 +118,12 @@
 <!-- Default Router  -->
 <router-outlet
   *ngIf="!isAdminDashboard&&!isDoctorDashboard&&!isReceptionistDashboard&&!isSuperAdminDashboard"></router-outlet>
-
+<!-- all page after api lode then start-->
   <div class="spinner" *ngIf="isLoading">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  </div>
+  <!-- specific page loder-->
+  <div class="spinner" *ngIf="isLoading1">
     <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
   </div>
 </div>

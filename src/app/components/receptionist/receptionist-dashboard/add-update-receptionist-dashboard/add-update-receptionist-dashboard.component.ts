@@ -1,3 +1,4 @@
+import { SharedService } from './../../../../shared/shared.service';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -20,11 +21,12 @@ export class AddUpdateReceptionistDashboardComponent implements OnInit{
   allCategoryList:Array<any>=[];
   allLeadStatusList:Array<any>=[];
   leadStatusDetailAdded: boolean = false;
-  
+  isLoading = false;
   constructor (
     private fb:FormBuilder,
     private _receptionistService: ReceptionistService,private _adminService: AdminService, private router: Router,private location:Location,
-    private _toastrService:ToastrService,private _superAdminService: SuperAdminService,private url: ActivatedRoute){}
+    private _toastrService:ToastrService,private _superAdminService: SuperAdminService,private url: ActivatedRoute,
+    private _sharedService:SharedService){}
 
 
   ngOnInit(){
@@ -40,6 +42,7 @@ export class AddUpdateReceptionistDashboardComponent implements OnInit{
       this.leadStatusDetailAdded = true;
       this.isEdit = true;
     }
+ 
   }
 
  
@@ -54,7 +57,7 @@ export class AddUpdateReceptionistDashboardComponent implements OnInit{
     this.form = this.fb.group({
       name: ['', Validators.required],
       lead_date: [new Date().toISOString().split('T')[0], Validators.required],
-      city: ['', [Validators.required]],
+      city: [''],
       mobile_number: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       note: [null],
       category_id: [null, Validators.required],
@@ -106,17 +109,24 @@ export class AddUpdateReceptionistDashboardComponent implements OnInit{
   }
 
   addLeadFollowUp(){
+    console.log(this.form.value);
+   
+    let data = this.form.getRawValue();
     if (this.form.valid) {
-      let data = this.form.getRawValue();
       this._receptionistService.editLeadFollowUp(data,this.lead_hid).subscribe({
         next:(res:any)=>{
           if (res.status==200) {
             this._toastrService.success(res.message);
-            this.goToback();
+            this._sharedService.setLoading1(true);
+            setTimeout(() => {
+              this.goToback();
+              this._sharedService.setLoading1(false);
+            }, 2000); 
           }else{
             this._toastrService.warning(res.message);
           }
         },
+        
         error:(err:any)=>{
           if (err.error.status==401 || err.error.status==422) {
             this._toastrService.warning(err.error.message);

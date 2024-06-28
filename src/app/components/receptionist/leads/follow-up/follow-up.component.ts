@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { freeSet } from '@coreui/icons';
 import { PageEvent } from '@angular/material/paginator';
 import { ReceptionistService } from '../../receptionist.service';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-follow-up',
@@ -22,7 +23,7 @@ export class FollowUpComponent implements OnInit {
   pendingTotal = 0;
 
   constructor(
-    private _receptionistService: ReceptionistService,
+    private _receptionistService: ReceptionistService, private _sharedService:SharedService
   ) {
     this.follow_up_date = '';
   }
@@ -44,7 +45,12 @@ export class FollowUpComponent implements OnInit {
       .getAllLeadFollowUpList(this.page, this.perPage, this.follow_up_date)
       .subscribe({
         next: (res: any) => {
+
           if (res.data.length > 0) {
+            this._sharedService.setLoading1(true);
+            setTimeout(() => {
+              this._sharedService.setLoading1(false);
+            }, 1000); 
             this.allLeadFollowUpList = res.data;
             this.total = res.pagination.total;
           }

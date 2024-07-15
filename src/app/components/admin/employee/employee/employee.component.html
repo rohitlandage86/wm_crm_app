@@ -13,6 +13,7 @@
                             <th>Designation Name</th>
                             <th>Name</th>
                             <th>Email Id</th>
+                            <th class="text-center">Mobile No.</th>
                             <th>Status</th>
                             <th>Status</th>
                             <th>Edit</th>
@@ -25,6 +26,7 @@
                             <td>{{ item.designation_name |titlecase}}</td>
                             <td>{{ item.name |titlecase }}</td>
                             <td>{{ item.email_id }}</td>
+                            <td class="text-center">{{ item.mobile_number ||'--'}}</td>
                             <td>{{ item.status == 1 ? "Activated" : "Deactivated" |titlecase}}</td>
                             <td><mat-slide-toggle 
                                 (change)="changeEvent($event,item.employee_id)"

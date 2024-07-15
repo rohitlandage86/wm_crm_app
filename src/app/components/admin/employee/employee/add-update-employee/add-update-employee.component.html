@@ -1,91 +1,135 @@
 <c-row class="m-0">
-    <c-col xs="12 "  class="p-0 " >
-        <c-card class="">
-            <c-card-header >
-                <strong>{{isEdit?'Edit':'Add'}} Employee</strong>
-            </c-card-header>
-            <c-card-body>
-                <form cForm class="row g-3"  [formGroup]="form"> 
-                    <c-col md="10">
-                        <label cLabel for="name">Name</label>
-                        <input cFormControl autocomplete="off" id="name" formControlName="name" type="text"[ngClass]="{ 'is-invalid': control['name'].invalid &&(control['name'].dirty ||control['name'].touched)}"/>
-                        <div class="text-danger" *ngIf="control['name'].invalid &&(control['name'].dirty ||control['name'].touched)">
-                            <small >Please provide a valid Name.</small>
-                        </div>
-                    </c-col>
+  <c-col xs="12 " class="p-0">
+    <c-card class="">
+      <c-card-header>
+        <strong>{{ isEdit ? 'Edit' : 'Add' }} Employee</strong>
+      </c-card-header>
+      <c-card-body>
+        <form cForm class="row g-3 justify-content-center" [formGroup]="form">
+          <c-col md="10">
+            <label cLabel for="name">Name</label>
+            <input cFormControl autocomplete="off" id="name" formControlName="name" type="text" [ngClass]="{
+                'is-invalid':
+                  control['name'].invalid &&
+                  (control['name'].dirty || control['name'].touched)
+              }" />
+            <div class="text-danger" *ngIf="
+                control['name'].invalid &&
+                (control['name'].dirty || control['name'].touched)
+              ">
+              <small>Please provide a valid Name.</small>
+            </div>
+          </c-col>
 
-                    <c-col md="10">
-                        <label for="designation_id" cLabel>Designation Name</label>
-                        <select aria-label="select designation" cSelect sizing="sm" type="select"  formControlName="designation_id" [ngClass]="{ 'is-invalid': control['designation_id'].invalid &&(control['designation_id'].dirty ||control['designation_id'].touched)}"   (change)="onDesignationChange($event)">
-                            <option hidden [value]=null disabled selected>Select Designation Name</option>
-                            <option [value]=item.designation_id *ngFor="let item of allDesignationList">{{item.designation_name}}</option>
-                          </select>
-                        <div class="text-danger" *ngIf="control['designation_id'].invalid && (control['designation_id'].dirty || control['designation_id'].touched)">
-                            <small>Please provide a valid Designation Name.</small>
-                        </div>
-                    </c-col>
-                    <c-col md="10" *ngIf="isDoctor">
-                        <label cLabel for="charges">Charges</label>
-                        <input cFormControl autocomplete="off" id="charges" formControlName="charges" type="number"[ngClass]="{ 'is-invalid': control['charges'].invalid &&(control['charges'].dirty ||control['charges'].touched)}"/>
-                        <div class="text-danger" *ngIf="control['charges'].invalid &&(control['charges'].dirty ||control['charges'].touched)">
-                            <small >Please provide a valid Charges.</small>
-                        </div>
-                    </c-col>
-                    <c-col md="10">
-                        <label cLabel for="email_id">Email Id</label>
-                        <input cFormControl autocomplete="off" id="email_id" formControlName="email_id" type="text"[ngClass]="{ 'is-invalid': control['email_id'].invalid &&(control['email_id'].dirty ||control['email_id'].touched)}"/>
-                        <span
-                        class="text-danger"
-                        *ngIf="
-                          control['email_id'].invalid &&
-                          (control['email_id'].dirty ||
-                            control['email_id'].touched)
-                        "
-                      >
-                        <div *ngIf="control['email_id'].errors?.['required']">
-                          <small>Email Address is required</small>
-                        </div>
-                        <div *ngIf="control['email_id'].errors?.['email']">
-                         <small> Email must be a valid email address</small>
-                        </div>
-                      </span>
-                    </c-col>
-              
-                    <c-col md="10" *ngIf="!isEdit">
-                        <label cLabel for="validationDefault01">Password</label>
-                        <c-input-group>
-                          <span cInputGroupText>
-                              <svg cIcon name="cilLockLocked"></svg>
-                          </span>
-                          <input  autoComplete="current-password" cFormControl placeholder="Password" formControlName="password"  
-                             type="{{ passwordVisible ? 'text' : 'password' }}" [ngClass]="{'is-invalid':control['password'].invalid &&(control['password'].dirty || control['password'].touched)}"  [attr.required]="isEdit ? null : true" />
-                             <button class="passbtn" cButton cAppend type="button" cButtonType="outline-secondary" (click)="togglePasswordVisibility()">
-                                <span>{{ passwordVisible ? 'Hide' : 'Show' }}</span>
-                            </button>
+          <c-col md="10">
+            <label for="designation_id" cLabel>Designation Name</label>
+            <select aria-label="select designation" cSelect sizing="sm" type="select" formControlName="designation_id"
+              [ngClass]="{
+                'is-invalid':
+                  control['designation_id'].invalid &&
+                  (control['designation_id'].dirty ||
+                    control['designation_id'].touched)
+              }" (change)="onDesignationChange($event)">
+              <option hidden [value]="null" disabled selected>
+                Select Designation Name
+              </option>
+              <option [value]="item.designation_id" *ngFor="let item of allDesignationList">
+                {{ item.designation_name }}
+              </option>
+            </select>
+            <div class="text-danger" *ngIf="
+                control['designation_id'].invalid &&
+                (control['designation_id'].dirty ||
+                  control['designation_id'].touched)
+              ">
+              <small>Please provide a valid Designation Name.</small>
+            </div>
+          </c-col>
+          <c-col md="10" *ngIf="isDoctor">
+            <label cLabel for="charges">Charges</label>
+            <input cFormControl autocomplete="off" id="charges" formControlName="charges" type="number" [ngClass]="{
+                'is-invalid':
+                  control['charges'].invalid &&
+                  (control['charges'].dirty || control['charges'].touched)
+              }" />
+            <div class="text-danger" *ngIf="
+                control['charges'].invalid &&
+                (control['charges'].dirty || control['charges'].touched)
+              ">
+              <small>Please provide a valid Charges.</small>
+            </div>
+          </c-col>
+          <c-col md="10">
+            <label cLabel for="email_id">Email Id</label>
+            <input cFormControl autocomplete="off" id="email_id" formControlName="email_id" type="text" [ngClass]="{
+                'is-invalid':
+                  control['email_id'].invalid &&
+                  (control['email_id'].dirty || control['email_id'].touched)
+              }" />
+            <span class="text-danger" *ngIf="
+                control['email_id'].invalid &&
+                (control['email_id'].dirty || control['email_id'].touched)
+              ">
+              <div *ngIf="control['email_id'].errors?.['required']">
+                <small>Email Address is required</small>
+              </div>
+              <div *ngIf="control['email_id'].errors?.['email']">
+                <small> Email must be a valid email address</small>
+              </div>
+            </span>
+          </c-col>
+          <c-col md="10">
+            <label cLabel for="mobile_number">Mobile Number</label>
+            <input cFormControl autocomplete="off" id="mobile_number" formControlName="mobile_number" type="number"
+              [ngClass]="{
+                'is-invalid':
+                  control['mobile_number'].invalid &&
+                  (control['mobile_number'].dirty ||
+                    control['mobile_number'].touched)
+              }" />
+            <span class="text-danger" *ngIf=" control['mobile_number'].invalid &&(control['mobile_number'].dirty || control['mobile_number'].touched)">
+              <div>
+                <small> Please provide a valid mobile number.</small>
+              </div>
+            </span>
+          </c-col>  
+          <c-col md="10" *ngIf="!isEdit">
+            <label cLabel for="validationDefault01">Password</label>
+            <c-input-group>
+              <span cInputGroupText>
+                <svg cIcon name="cilLockLocked"></svg>
+              </span>
+              <input autoComplete="current-password" cFormControl placeholder="Password" formControlName="password"
+                type="{{ passwordVisible ? 'text' : 'password' }}" [ngClass]="{
+                  'is-invalid':
+                    control['password'].invalid &&
+                    (control['password'].dirty || control['password'].touched)
+                }" [attr.required]="isEdit ? null : true" />
+              <button class="passbtn" cButton cAppend type="button" cButtonType="outline-secondary"
+                (click)="togglePasswordVisibility()">
+                <span>{{ passwordVisible ? 'Hide' : 'Show' }}</span>
+              </button>
+            </c-input-group>
 
-                      </c-input-group>
-              
-                          <span class="text-danger">
-                              <div *ngIf="
-                              control['password'].invalid &&
-                              (control['password'].dirty ||
-                                control['password'].touched)
-                            ">
-                                  <small>Password is required</small>
-                              </div>
-                          </span>
-                      </c-col>
-                    <c-col xs="12">
-                        <button cButton class="me-1" color="primary"  (click)="submit()">
-                            Submit
-                        </button>
-                        <button cButton color="secondary" (click)="closeDialog()">
-                            Cancel
-                        </button>
-                    </c-col>
-                </form>
-            </c-card-body>
-        </c-card>
-    </c-col>
-
+            <span class="text-danger">
+              <div *ngIf="
+                  control['password'].invalid &&
+                  (control['password'].dirty || control['password'].touched)
+                ">
+                <small>Password is required</small>
+              </div>
+            </span>
+          </c-col>
+          <c-col md="10">
+            <button cButton class="me-1" color="primary" (click)="submit()">
+              Submit
+            </button>
+            <button cButton color="secondary" (click)="closeDialog()">
+              Cancel
+            </button>
+          </c-col>
+        </form>
+      </c-card-body>
+    </c-card>
+  </c-col>
 </c-row>

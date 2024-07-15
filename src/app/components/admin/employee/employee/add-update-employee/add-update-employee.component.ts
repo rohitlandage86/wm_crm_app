@@ -46,6 +46,7 @@ export class AddUpdateEmployeeComponent implements OnInit {
       name: [null, Validators.required],
       charges: [null],
       designation_id: [null, Validators.required],
+      mobile_number: [null, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       email_id: ['', [Validators.required, Validators.email]],
       customer_id: [this.customer_id, Validators.required],
       password: [this.isEdit ? [''] : null, passwordValidators],
@@ -110,6 +111,7 @@ export class AddUpdateEmployeeComponent implements OnInit {
   prepopulateData(data: any) {
     this.control['name'].patchValue(data.name);
     this.control['designation_id'].patchValue(data.designation_id);
+    this.control['mobile_number'].patchValue(data.mobile_number);
     this.control['email_id'].patchValue(data.email_id);
     this.control['customer_id'].patchValue(data.customer_id);
     // Check if the designation is doctor or receptionist

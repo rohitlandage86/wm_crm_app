@@ -202,7 +202,7 @@ export class AddUpdatePatientComponent implements OnInit {
   updatePatient() {
     if (this.form.valid) {
    
-      this._receptionistService.editPatient(this.form.value, this.mrno).subscribe({
+      this._receptionistService.editPatient(this.form.getRawValue(), this.mrno).subscribe({
         next: (res: any) => {
           if (res.status == 200) {
             this._toastrService.success(res.message);

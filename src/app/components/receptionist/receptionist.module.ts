@@ -15,7 +15,6 @@ import { ReceptionistPatientReportComponent } from './reports/receptionist-patie
 import { ReceptionistLeadReportComponent } from './reports/receptionist-lead-report/receptionist-lead-report.component';
 import { ReceptionistPatientVisitReportComponent } from './reports/receptionist-patient-visit-report/receptionist-patient-visit-report.component'
 import { ReceptionistFollowUpReportComponent } from './reports/receptionist-follow-up-report/receptionist-follow-up-report.component';
-import { ReceptionistAppointmentReportComponent } from './reports/receptionist-appointment-report/receptionist-appointment-report.component'
 import { FollowUpComponent } from './leads/follow-up/follow-up.component';
 import { BillComponent } from './bill/bill.component';
 import { AddUpdateBillComponent } from './bill/add-update-bill/add-update-bill.component';
@@ -40,7 +39,6 @@ import { PendingFollowupComponent } from './leads/follow-up/pending-followup/pen
     ReceptionistLeadReportComponent,
     ReceptionistPatientVisitReportComponent,
     ReceptionistFollowUpReportComponent,
-    ReceptionistAppointmentReportComponent,
     ReceptionistBillReportComponent,
     FollowUpComponent,
     BillComponent,

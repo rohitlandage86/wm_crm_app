@@ -44,6 +44,14 @@
   line-height: 27px;
   margin-top: 20px!important;
 }
+:host ::ng-deep.mat-mdc-tab-label-container {
+  flex-grow: unset!important;
+  margin: 10px 0px;
+}
+.doctor-dashboard{
+  position: relative;
+  top:-2rem!important
+}
 @media (max-width: 750px) {
   .d-flex {
     flex-direction: column;

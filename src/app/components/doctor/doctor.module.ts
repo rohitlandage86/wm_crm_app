@@ -17,7 +17,6 @@ import { DoctorFollowUpReportComponent } from './reports/doctor-follow-up-report
 import { DoctorPatientReportComponent } from './reports/doctor-patient-report/doctor-patient-report.component';
 import { DoctorLeadReportComponent } from './reports/doctor-lead-report/doctor-lead-report.component';
 import { DoctorPatientVisitReportComponent } from './reports/doctor-patient-visit-report/doctor-patient-visit-report.component';
-import { DoctorAppointmentReportComponent } from './reports/doctor-appointment-report/doctor-appointment-report.component';
 import { DoctorDiagnosisReportComponent } from './reports/doctor-diagnosis-report/doctor-diagnosis-report.component';
 import { DoctorTreatmentReportComponent} from './reports/doctor-treatment-report/doctor-treatment-report.component';
 import { DoctorFollowUpListComponent } from './lead/doctor-follow-up-list/doctor-follow-up-list.component';
@@ -48,7 +47,6 @@ import { PendingConsultationListComponent } from './consultation/pending-consult
     DoctorFollowUpReportComponent,
     DoctorPatientReportComponent,
     DoctorPatientVisitReportComponent,
-    DoctorAppointmentReportComponent,
     DoctorDiagnosisReportComponent,
     DoctorTreatmentReportComponent,
     DoctorBillReportComponent,

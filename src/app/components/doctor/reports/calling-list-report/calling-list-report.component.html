@@ -1,21 +1,60 @@
 <c-container breakpoint="lg">
+    <div class="d-flex flex-column mb-3">
+        <c-input-group class="w-100 w-md-auto" style="max-width: 400px;">
+            <span cInputGroupText>
+                <svg cIcon name="cil-search"></svg>
+            </span>
+            <input cFormControl autocomplete="off" type="search" placeholder="Search ....." id="searchInput"
+                #searchInput [formControl]="searchControl">
+        </c-input-group>
+    </div>
     <c-card class="mb-4">
         <c-card-header class="d-flex justify-content-between">
             <strong>Call Logs</strong>
         </c-card-header>
         <c-card-body>
+
             <div class="row h-100" [formGroup]="form">
                 <div class="col-md-2 mb-3">
                     <div class="form-group">
-                        <label cLabel for="">Date</label>
-                        <input cFormControl id="" sizing="sm" type="date" formControlName="today_date" />
+                        <label cLabel for="">From Date</label>
+                        <input cFormControl id="" sizing="sm" type="date" formControlName="fromDate" />
                     </div>
-                    <!-- <div *ngIf="form.get('fromDate')?.hasError('futureDate')&&form.get('fromDate')?.dirty" class="text-danger">Invalid date.</div> -->
                 </div>
-                <div class="col-md-3 h-100 d-flex align-self-center pt-3">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label cLabel for="">To Date</label>
+                        <input cFormControl id="" sizing="sm" type="date" formControlName="toDate" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label for="call type" cLabel>Call Type </label>
+                    <select aria-label="select call type" cSelect sizing="sm" formControlName="calling_type"
+                        type="text">
+                        <option value="">All</option>
+                        <option [value]="item.call_type" *ngFor="let item of allCallTypeList">
+                            {{ item.call_type }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="employee name" cLabel>Employee </label>
+                    <select aria-label="select employee name" cSelect sizing="sm" formControlName="employee_id"
+                        type="text">
+                        <option value="">All</option>
+                        <ng-container *ngFor="let item of allEmployeeList">
+                            <option [value]="item.employee_id" *ngIf="
+                            item.designation_name.trim().toLowerCase() === 'receptionist'
+                          ">
+                                {{ item.name }}
+                            </option>
+                        </ng-container>
+                    </select>
+                </div>
+                <div class="col-md-2 h-100 d-flex align-self-center pt-2">
                     <button cButton class="me-1" color="primary" (click)="submitFilter()">
                         Submit
-                      </button>
+                    </button>
                 </div>
             </div>
             <div class="col-md-12 table-container">
@@ -23,55 +62,33 @@
                     <thead cTableColor="light">
                         <tr>
                             <th>Sr. No</th>
-                            <th>Follow Up </th>
+                            <th>Date</th>
                             <th>Name</th>
-                            <th>Category</th>
-                            <th>Mobile Number</th>
-                            <th>Comments</th>
-                            <th>Status</th>
-                            <th>Calling Date</th>
-                            <th>CTS</th>
-                            <th>View</th>
-
+                            <th>Mobile no</th>
+                            <th>Call type</th>
+                            <th>Duration</th>
+                            <th>Call by</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of allcallList; let i = index">
+                        <tr *ngFor="let item of callLogsList; let i = index">
                             <td>{{ i + 1 }}</td>
-                            <td>{{ item.follow_up_date | date:'dd-MM-yyyy' }}</td>
-                            <td>{{ item.name |titlecase}}</td>
-                            <td>{{ item.category_name|titlecase }}</td>
+                            <td>{{ item.cts|date:'dd-MM-yyyy' }}</td>
+                            <td>{{ item.customer_name|titlecase }}</td>
                             <td>{{ item.mobile_number }}</td>
-                            <td>{{ item.comments|titlecase }}</td>
-                            <td>{{item.lead_status |titlecase}}</td>
-                            <td>{{ item.cts | date:'dd-MM-yyyy' }}</td>
-                            <td>{{ item.cts | date:'hh:mm a':'en-IN' }}</td>
-                            <td>
-                                <a
-                                  [routerLink]="[
-                                    '/doctor',
-                                    {
-                                      outlets: {
-                                        doc_Menu: ['doctor-view-search-lead', item.lead_hid]
-                                      }
-                                    }
-                                  ]"
-                                  class="pointer"
-                                  ><svg
-                                    [cIcon]="icons.cilDescription"
-                                    size="xl"
-                                    title="List Icon"
-                                  ></svg></a>
-                              </td>
+                            <td>{{ item.calling_type|titlecase }}</td>
+                            <td>{{ item.call_duration }}</td>
+                            <td>{{ item.name }}</td>
+
                         </tr>
-                        <tr class=" fw-bold text-center" *ngIf="allcallList.length===0">
+                        <tr class="fw-bold text-center" *ngIf="callLogsList.length === 0">
                             <td colspan="10" class="text-danger">No Data Available</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div class="col-md-12">
-                <mat-paginator [length]="total" [pageSize]="perPage" [pageSizeOptions]="[5, 10, 25, 100]"
+                <mat-paginator [length]="totalCallLog" [pageSize]="perPageCallLog" [pageSizeOptions]="[5, 10, 25, 100]"
                     aria-label="Select page" [showFirstLastButtons]="true" (page)="onPageChange($event)">
                 </mat-paginator>
             </div>

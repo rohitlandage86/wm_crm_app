@@ -5,7 +5,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { DoctorDashboardComponent } from './doctor-dashboard/doctor-dashboard.component';
 import { LeadComponent } from './lead/lead.component';
 import { PatientComponent } from './patient/patient.component';
-import { ConsultationComponent } from './consultation/consultation.component';
 import { AddUpdateConsultationComponent } from './consultation/add-update-consultation/add-update-consultation.component';
 import { DoctorSearchPatientComponent } from './patient/doctor-search-patient/doctor-search-patient.component';
 import { DoctorViewSearchPatientComponent } from './patient/doctor-search-patient/doctor-view-search-patient/doctor-view-search-patient.component';
@@ -15,7 +14,6 @@ import { DoctorLeadReportComponent } from './reports/doctor-lead-report/doctor-l
 import { DoctorFollowUpReportComponent } from './reports/doctor-follow-up-report/doctor-follow-up-report.component';
 import { DoctorPatientReportComponent } from './reports/doctor-patient-report/doctor-patient-report.component';
 import { DoctorPatientVisitReportComponent } from './reports/doctor-patient-visit-report/doctor-patient-visit-report.component';
-import { DoctorAppointmentReportComponent } from './reports/doctor-appointment-report/doctor-appointment-report.component';
 import { DoctorDiagnosisReportComponent } from './reports/doctor-diagnosis-report/doctor-diagnosis-report.component';
 import { DoctorTreatmentReportComponent } from './reports/doctor-treatment-report/doctor-treatment-report.component';
 import { AuthGuard } from 'src/app/shared/auth-guard.service';
@@ -154,13 +152,6 @@ const routes: Routes = [
   {
     path: "patient-visit-reports",  
     component: DoctorPatientVisitReportComponent,
-    pathMatch: "full",
-    outlet: "doc_Menu",
-    canActivate:[AuthGuard]
-  },
-  {
-    path: "appointments",  
-    component: DoctorAppointmentReportComponent,
     pathMatch: "full",
     outlet: "doc_Menu",
     canActivate:[AuthGuard]

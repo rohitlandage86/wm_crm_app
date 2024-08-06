@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { freeSet } from '@coreui/icons';
 import { PageEvent } from '@angular/material/paginator';
 import { DoctorService } from '../../doctor.service';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-calling-list-report',
@@ -10,25 +11,47 @@ import { DoctorService } from '../../doctor.service';
   styleUrl: './calling-list-report.component.scss'
 })
 export class CallingListReportComponent implements OnInit{
-  page = 1;
-  perPage = 50;
-  total = 0;
+  pageCallLog = 1;
+  perPageCallLog = 50;
+  totalCallLog = 0;
   icons = freeSet;
-  allcallList: Array<any> = [];
+  callLogsList: Array<any> = [];
   form!:FormGroup;
-  todayDate='';
+  fromDate='';
+  toDate='';
+  call_type=''
+  employee_id =''
+  allEmployeeList: Array<any> = [];
+ allCallTypeList:Array<any>=[
+  {call_type:'INCOMING',},
+  {call_type:'OUTGOING',},
+  {call_type:'MISSED',},
+  {call_type:'REJECTED',}
+ ]
+ searchControl: FormControl = new FormControl('');
+ searchTerm: string = '';
+ searchTimer: any;
   constructor(private _doctorService: DoctorService, private fb:FormBuilder) { }
 
   ngOnInit() {
     this.createForm();
-    this.form.patchValue({
-      today_date: new Date()
-        .toISOString()
-        .split('T')[0],})
+    this.searchControl.valueChanges
+    .pipe(debounceTime(300))
+    .subscribe((searchTerm: string) => {
+      clearTimeout(this.searchTimer);
+      this.searchTerm = searchTerm;
+      this.searchTimer = setTimeout(() => {
+        this.submitFilter();
+      }, 1000); // Set timeout to 5 seconds (5000 milliseconds)
+    });
+    this.getEmployeeList();
   }
   createForm(){
     this.form = this.fb.group({
-      today_date:['',[this.dateValidator]],
+      calling_type:[''],
+      employee_id:[''],
+      fromDate:['',[this.dateValidator]],
+      toDate:['',[this.dateValidator]],
     });
   }
   dateValidator(control:any) {
@@ -37,21 +60,33 @@ export class CallingListReportComponent implements OnInit{
     today.setHours(0, 0, 0, 0); // Set hours to 0 to compare dates without time
     return selectedDate <= today ? null : { futureDate: true };
 }
-
   onPageChange(event: PageEvent): void {
-    this.page = event.pageIndex + 1;
-    this.perPage = event.pageSize;
-    // this.getCallLogsList();
+    this.pageCallLog = event.pageIndex + 1;
+    this.perPageCallLog = event.pageSize;
+    this.submitFilter();
+  }
+
+  //get all employee list 
+  getEmployeeList() {
+    this._doctorService.getAllEmoloyeesListWma().subscribe({
+      next:(res:any)=>{
+        this.allEmployeeList = res.data;
+      }
+    })
   }
   submitFilter(){
-    this.todayDate = this.form.value.today_date;
-    this._doctorService.getCallLogsList(this.page, this.perPage, this.todayDate ).subscribe({
+    this.fromDate = this.form.value.fromDate;
+    this.toDate = this.form.value.toDate;
+    this.call_type = this.form.value.calling_type;
+    this.employee_id = this.form.value.employee_id;
+    
+    this._doctorService.getCallLogsList(this.pageCallLog, this.perPageCallLog, this.fromDate,this.toDate, this.call_type, this.searchTerm, this.employee_id ).subscribe({
       next: (res: any) => {
         if (res.data.length > 0) {
-          this.allcallList = res.data;
-          this.total = res.pagination.total;
+          this.callLogsList = res.data;
+          this.totalCallLog = res.pagination.total;
         }else{
-          this.allcallList = []
+          this.callLogsList = []
         }
       }
     });

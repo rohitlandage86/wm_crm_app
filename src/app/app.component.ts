@@ -381,12 +381,6 @@ export class AppComponent implements OnInit, AfterContentChecked {
       iconComponent: { name: 'cilList' },
     },
     {
-      name: 'Appointments',
-      url: ['/doctor', { outlets: { doc_Menu: 'appointments' } }],
-      iconComponent: { name: 'cilList' },
-    },
-
-    {
       name: 'Logout',
       url: '/auth',
       iconComponent: { name: 'cil-account-logout' },
@@ -514,12 +508,6 @@ export class AppComponent implements OnInit, AfterContentChecked {
         }
       ]
     },
-    {
-      name: 'Appointments',
-      url: ['/receptionist', { outlets: { receptionist_Menu: 'appointment' } }],
-      iconComponent: { name: 'cilList' },
-    },
-
     {
       name: 'Logout',
       url: '/auth',

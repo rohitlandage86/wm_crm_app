@@ -17,7 +17,6 @@ import { ReceptionistPatientReportComponent } from './reports/receptionist-patie
 import { ReceptionistPatientVisitReportComponent } from './reports/receptionist-patient-visit-report/receptionist-patient-visit-report.component';
 import { ReceptionistLeadReportComponent } from './reports/receptionist-lead-report/receptionist-lead-report.component';
 import { ReceptionistFollowUpReportComponent } from './reports/receptionist-follow-up-report/receptionist-follow-up-report.component';
-import { ReceptionistAppointmentReportComponent } from './reports/receptionist-appointment-report/receptionist-appointment-report.component';
 import { AuthGuard } from 'src/app/shared/auth-guard.service';
 import { BillComponent } from './bill/bill.component';
 import { AddUpdateBillComponent } from './bill/add-update-bill/add-update-bill.component';
@@ -151,13 +150,6 @@ const routes: Routes = [
 {
   path: "patient-visit-report",  
   component: ReceptionistPatientVisitReportComponent,
-  pathMatch: "full",
-  outlet: "receptionist_Menu",
-  canActivate:[AuthGuard]
-},
-{
-  path: "appointment",  
-  component: ReceptionistAppointmentReportComponent,
   pathMatch: "full",
   outlet: "receptionist_Menu",
   canActivate:[AuthGuard]
